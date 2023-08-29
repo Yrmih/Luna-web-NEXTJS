@@ -5,6 +5,9 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <div className={styles.card}>
+          Cadastro
+        </div>
       </div>
     </main>
   )
