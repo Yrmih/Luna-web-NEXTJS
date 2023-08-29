@@ -5,6 +5,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import StarIcon from '@mui/icons-material/Star';
 import SupportIcon from '@mui/icons-material/Support';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { Avatar, Grid } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -20,14 +22,15 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 
 export const metadata = {
-    title: 'Next.js App Router + Material UI v5',
-    description: 'Next.js App Router + Material UI v5',
+    title: 'Painel do Assistido',
+    description: 'Área de acesso do assistido.',
   };
   
   const DRAWER_WIDTH = 240;
   
   const LINKS = [
     { text: 'Principal', href: '/home', icon: HomeIcon },
+    { text: 'Agendar', href: '/solicitacaoAgendamento', icon: CalendarMonthIcon },
     { text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
     { text: 'Processos', href: '/processos', icon: ChecklistIcon },
   ];
@@ -41,13 +44,20 @@ export const metadata = {
 function PainelAssistidoLayout({children}: {children: ReactNode}) {
   return (
     <div>
-    <AppBar position="fixed" sx={{ zIndex: 2000 }}>
-        <Toolbar sx={{ backgroundColor: 'background.paper' }}>
-            <DashboardIcon sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }} />
-            <Typography variant="h6" noWrap component="div" color="black">
-            Área do Assistido
-            </Typography>
-        </Toolbar>
+        <AppBar position="fixed" sx={{ zIndex: 2000 }}>
+            <Toolbar sx={{ backgroundColor: 'background.paper' }}>
+                <Grid container flexWrap={'nowrap'} justifyContent={'space-between'} >
+                    <Grid display={'flex'} item alignItems={'center'} justifyContent={'center'} flexDirection={'row'} flexWrap={'nowrap'}>
+                        <DashboardIcon sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }} />
+                        <Typography variant="h6" noWrap component="div" color="black">
+                            Área do Assistido
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Avatar>A</Avatar>
+                    </Grid>
+                </Grid>
+            </Toolbar>
         </AppBar>
         <Drawer
         sx={{
