@@ -1,10 +1,9 @@
+import CadastroAssistido from "./CadastroAssistido";
 
 export default function Home() {
   return (
     <main >
-      <div >
-          Cadastro
-      </div>
+      <CadastroAssistido/>
     </main>
   )
 }
