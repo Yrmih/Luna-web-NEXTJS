@@ -18,3 +18,7 @@ yarn build
 yarn start
 
 ```
+
+## Referências
+O projeto está sendo desenvolvido usando o [nextjs 13](https://nextjs.org/docs/getting-started/project-structure)
+e ultilizando os componentes do [Material UI](https://mui.com/material-ui/getting-started/usage/). Ademais a linguagem ultilizada para desenvolvimento é a [TypeScript](https://www.typescriptlang.org/)
