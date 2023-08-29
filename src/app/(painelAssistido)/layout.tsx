@@ -43,13 +43,13 @@ export const metadata = {
 
 function PainelAssistidoLayout({children}: {children: ReactNode}) {
   return (
-    <div>
+    <main>
         <AppBar position="fixed" sx={{ zIndex: 2000 }}>
-            <Toolbar sx={{ backgroundColor: 'background.paper' }}>
+            <Toolbar>
                 <Grid container flexWrap={'nowrap'} justifyContent={'space-between'} >
                     <Grid display={'flex'} item alignItems={'center'} justifyContent={'center'} flexDirection={'row'} flexWrap={'nowrap'}>
-                        <DashboardIcon sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }} />
-                        <Typography variant="h6" noWrap component="div" color="black">
+                        <DashboardIcon sx={{ mr: 2, transform: 'translateY(-2px)' }} />
+                        <Typography variant="h6" noWrap component="div">
                             Área do Assistido
                         </Typography>
                     </Grid>
@@ -113,7 +113,7 @@ function PainelAssistidoLayout({children}: {children: ReactNode}) {
         >
         {children}
         </Box>
-    </div>
+    </main>
   )
 }
 
