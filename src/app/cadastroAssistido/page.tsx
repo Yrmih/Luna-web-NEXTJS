@@ -2,7 +2,7 @@ import CadastroAssistido from "./CadastroAssistido";
 
 export default function Home() {
   return (
-    <main >
+    <main>
       <CadastroAssistido/>
     </main>
   )

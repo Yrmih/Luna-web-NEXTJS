@@ -7,10 +7,6 @@ import Checkbox from '@mui/material/Checkbox';
 
 export default function FormularioQualificacaoFinanceira() {
   return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Qualificação financeira
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
@@ -55,11 +51,10 @@ export default function FormularioQualificacaoFinanceira() {
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
+            control={<Checkbox value="allowExtraEmails" color="primary" />}
+            label="Aceito os termos e condições."
           />
         </Grid>
       </Grid>
-    </React.Fragment>
   );
 }

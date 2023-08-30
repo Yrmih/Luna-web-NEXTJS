@@ -7,16 +7,12 @@ import Checkbox from '@mui/material/Checkbox';
 
 export default function FormularioContato() {
   return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Contato
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
             required
-            id="cardName"
-            label="Name on card"
+            id="nome-completo"
+            label="Nome Completo"
             fullWidth
             autoComplete="cc-name"
             variant="standard"
@@ -53,13 +49,6 @@ export default function FormularioContato() {
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
       </Grid>
-    </React.Fragment>
   );
 }

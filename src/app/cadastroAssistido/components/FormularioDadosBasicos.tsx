@@ -7,10 +7,6 @@ import Checkbox from '@mui/material/Checkbox';
 
 export default function FormularioDadosBasicos() {
   return (
-    <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Dados Basicos
-      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
@@ -53,13 +49,6 @@ export default function FormularioDadosBasicos() {
             variant="standard"
           />
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
       </Grid>
-    </React.Fragment>
   );
 }
