@@ -32,7 +32,18 @@ const roboto = Roboto({
       typography: {
         fontFamily: roboto.style.fontFamily,
       },
+      components: {
+        MuiTextField : {
+          styleOverrides: {
+            root: ({ theme }) =>
+              theme.unstable_sx({
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '16px',
+              }}),
+          }
+        }
+      },
     })
-  }
+}
 
 export default getTheme;
