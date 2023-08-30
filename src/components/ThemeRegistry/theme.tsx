@@ -38,10 +38,18 @@ const roboto = Roboto({
             root: ({ theme }) =>
               theme.unstable_sx({
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: '16px',
+                  borderRadius: '10px',
               }}),
-          }
-        }
+          },
+        },
+        MuiSelect: {
+          styleOverrides: {
+            root: ({ theme }) =>
+              theme.unstable_sx({
+                borderRadius: '10px'
+              }),
+          },
+        },
       },
     })
 }

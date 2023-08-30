@@ -7,7 +7,11 @@ import Checkbox from '@mui/material/Checkbox';
 
 export default function FormularioQualificacaoFinanceira() {
   return (
-      <Grid container spacing={3}>
+      <Grid 
+        container 
+        spacing={3}
+        px={4}
+        >
         <Grid item xs={12} md={6}>
           <TextField
             required

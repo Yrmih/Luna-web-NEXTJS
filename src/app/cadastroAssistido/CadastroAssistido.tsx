@@ -11,7 +11,7 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import FormularioContato from './components/FormularioContato';
-import FormularioDadosBasicos from './components/FormularioDadosBasicos';
+import FormularioDadosPessoais from './components/FormularioDadosPessoais';
 import FormularioEndereco from './components/FormularioEndereco';
 import FormularioInformacaoInicial from './components/FormularioInfirmacaoInicial';
 import FormularioQualificacaoFinanceira from './components/FormularioQualificacaoFinanceira';
@@ -49,7 +49,7 @@ function getStepContent(step: number) {
     case 2:
       return <FormularioEndereco />;
     case 3:
-        return <FormularioDadosBasicos />;
+        return <FormularioDadosPessoais />;
     case 4:
         return <FormularioQualificacaoFinanceira />;
     default:
@@ -71,7 +71,7 @@ export default function CadastroAssistido() {
   return (
     <React.Fragment>
         <Container component="main" maxWidth="lg" sx={{ mb: 4}}>
-          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }, boxShadow: 3 }}>
+          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }, boxShadow: 6, borderRadius: 6 }}>
             <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
                 {steps.map((label) => (
                 <Step key={label.nome}>
@@ -87,34 +87,25 @@ export default function CadastroAssistido() {
                 {steps[activeStep].descricao}
               </Typography>
             </Box>
-            {activeStep === steps.length ? (
-                <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                    Obrigado por buscar a assistência da Defensoria Pública.
-                </Typography>
-                <Typography variant="subtitle1">
-                    Seu número de Agendamento é 2001539. Guarde para confirmação e acessao de seu atendimento na Defensoria Pública.
-                </Typography>
-                </React.Fragment>
-            ) : (
-              <React.Fragment>
               {getStepContent(activeStep)}
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                      Back
-                  </Button>
-                  )}
-                  <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
-                  >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
-              </Box>
-              </React.Fragment>
-            )}
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {activeStep !== 0 && (
+                <Button 
+                  onClick={handleBack}
+                  sx={{ mt: 8, mr: 3 }}
+                >
+                    voltar
+                </Button>
+                )}
+                <Button
+                variant="contained"
+                onClick={handleNext}
+                sx={{ mt: 8, mr: 3 }}
+                >
+                {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+                </Button>
+            </Box>
+              
           </Paper>
           <Copyright />
         </Container>
