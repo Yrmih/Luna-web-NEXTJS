@@ -46,10 +46,18 @@ const roboto = Roboto({
           styleOverrides: {
             root: ({ theme }) =>
               theme.unstable_sx({
-                borderRadius: '10px'
+                borderRadius: 2
               }),
           },
         },
+        MuiButton: {
+          styleOverrides: {
+            root: ({ theme }) =>
+              theme.unstable_sx({
+                borderRadius: 2
+              }),
+          }
+        }
       },
     })
 }
