@@ -6,34 +6,93 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import { useState } from "react";
-import { Bens, Investimentos } from '../../types/Types';
-import BensInvestimentosAdicionado from '../BensInvestimentosAdicionados';
+import { ChangeEvent, useState } from "react";
+import { Imovel, Investimentos, Movel } from '../../types/Types';
+import TabelaitensAdicionados, { Item } from '../TabelaItensAdicionados';
 
-const MOVEIS: Bens[] = [
+const MOVEIS: Item[] = [
   { valor: 400, descricao: "Cadeira Gamer" },
   { valor: 5000, descricao: "PlayStation 5" },
   { valor: 2000, descricao: "Computador" },
 ];
 
-const IMOVEIS: Bens[] = [
+const IMOVEIS: Item[] = [
   { valor: 50000, descricao: "Casa" },
   { valor: 30000, descricao: "Oficina" },
 ];
 
-const INVESTIMENTOS: Investimentos[] = [
+const INVESTIMENTOS: Item[] = [
   { valor: 4000, descricao: "Poupança" },
   { valor: 7000, descricao: "Tesouro Selic" },
 ];
 
 
 export default function QualificacaoFinanceira() {
-  const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState(MOVEIS);
-  const [bensImoveisAdicionado, setBensImoveisAdicionado] = useState(IMOVEIS);
-  const [investimentosAdicionado, setInvestimentosAdicionado] = useState(INVESTIMENTOS);
+  const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState<Item[]>(MOVEIS);
+  const [bensImoveisAdicionado, setBensImoveisAdicionado] = useState<Item[]>(IMOVEIS);
+  const [investimentosAdicionado, setInvestimentosAdicionado] = useState<Item[]>(INVESTIMENTOS);
+  const [movelAtual, setMovelAtual] = useState<Movel>(
+    {descricaoMovel:"", valorMovel:0}
+  );
+  const [imovelAtual, setImovelAtual] = useState<Imovel>(
+    {descricaoImovel:"", valorImovel:0}
+  );
+  const [investimentoAtual, setinvestimentoAtual] = useState<Investimentos>(
+    {descricaoInvestimento:"", valorInvestimento:0}
+  );
 
-  const handleAddItems = () => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("Name: ", event.target.name, "Value: ", event.target.value)
+  }
 
+  const handleChangeInputTableItems = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("Name: ", event.target.name, "Value: ", event.target.value)
+
+    switch(event.target.name){
+      case 'descricaoMovel':
+        setMovelAtual((prev)=> ({...prev, descricaoMovel: event.target.value}))
+        break;
+      case 'valorMovel':
+        setMovelAtual((prev)=> ({...prev, valorMovel: Number(event.target.value)}))
+        break;
+      case 'descricaoImovel':
+        setImovelAtual((prev)=> ({...prev, descricaoImovel: event.target.value}))
+        break;
+      case 'valorImovel':
+        setImovelAtual((prev)=> ({...prev, valorImovel: Number(event.target.value)}))
+        break;
+      case 'descricaoInvestimento':
+        setinvestimentoAtual((prev)=> ({...prev, descricaoInvestimento: event.target.value}))
+        break;
+      case 'valorInvestimento':
+        setinvestimentoAtual((prev)=> ({...prev, valorInvestimento: Number(event.target.value)}))
+        break;
+    }
+  }
+
+  const handleAddItems = (type: 'moveis'|'imoveis'|'investimentos') => {
+      switch(type){
+        case 'moveis':
+          setBensMoveisAdicionado([
+            ...bensMoveisAdicionado, 
+            {descricao: movelAtual.descricaoMovel, valor: movelAtual.valorMovel}
+          ])
+          break;
+        case 'imoveis':
+          setBensImoveisAdicionado([
+            ...bensImoveisAdicionado, 
+            {descricao: imovelAtual.descricaoImovel, valor: imovelAtual.valorImovel}
+          ])
+          break;
+        case 'investimentos':
+          setInvestimentosAdicionado([
+            ...investimentosAdicionado, 
+            {descricao: investimentoAtual.descricaoInvestimento, valor: investimentoAtual.valorInvestimento}
+          ])
+          break;
+        default:
+          throw new Error('Tratamento não definido para esse evento.');
+      }
   };
 
   return (
@@ -41,7 +100,9 @@ export default function QualificacaoFinanceira() {
       <Grid item xs={12} md={6}>
         <TextField
           required
-          id="numeroMembros"
+          onChange={handleChange}
+          id="numeroMembrosFamilia"
+          name="numeroMembros"
           label="Membros da Família"
           fullWidth
           autoComplete="membros"
@@ -50,7 +111,9 @@ export default function QualificacaoFinanceira() {
       <Grid item xs={12} md={6}>
         <TextField
           required
-          id="numeroMembrosAtivos"
+          onChange={handleChange}
+          id="numeroMembrosFamiliaAtivos"
+          name="numeroMembrosAtivos"
           label="Membros Ativos da Família"
           fullWidth
           autoComplete="mambros-ativos"
@@ -59,7 +122,9 @@ export default function QualificacaoFinanceira() {
       <Grid item xs={12} md={6}>
         <TextField
           required
+          onChange={handleChange}
           id="rendaIndividual"
+          name="rendaIndividual"
           label="Renda Individual"
           fullWidth
           autoComplete="renda-individual"
@@ -68,7 +133,9 @@ export default function QualificacaoFinanceira() {
       <Grid item xs={12} md={6}>
         <TextField
           required
+          onChange={handleChange}
           id="rendaFamiliar"
+          name="rendaFamiliar"
           label="Renda Familiar"
           fullWidth
           autoComplete="renda-familiar"
@@ -81,7 +148,9 @@ export default function QualificacaoFinanceira() {
         <Grid item xs={12} md={4}>
           <TextField
             required
+            onChange={handleChangeInputTableItems}
             id="valorMovel"
+            name="valorMovel"
             label="Valor do Móvel"
             fullWidth
             autoComplete="valor-movel"
@@ -90,7 +159,9 @@ export default function QualificacaoFinanceira() {
         <Grid item xs={12} md={6}>
           <TextField
             required
+            onChange={handleChangeInputTableItems}
             id="descricaoMovel"
+            name="descricaoMovel"
             label="Descrição Móvel"
             fullWidth
             autoComplete="descricao-movel"
@@ -102,17 +173,19 @@ export default function QualificacaoFinanceira() {
             size="large" 
             variant="outlined" 
             startIcon={<AddCircleIcon />}
-            onClick={handleAddItems}>
+            onClick={()=> handleAddItems('moveis')}>
               Adicionar
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <BensInvestimentosAdicionado setItemsList={setBensMoveisAdicionado} itemsList={bensMoveisAdicionado}/>
+          <TabelaitensAdicionados setItemsList={setBensMoveisAdicionado} itemsList={bensMoveisAdicionado}/>
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
             required
+            onChange={handleChangeInputTableItems}
             id="valorImovel"
+            name="valorImovel"
             label="Valor do Imóvel"
             fullWidth
             autoComplete="valor-imovel"
@@ -121,7 +194,9 @@ export default function QualificacaoFinanceira() {
         <Grid item xs={12} md={6}>
           <TextField
             required
+            onChange={handleChangeInputTableItems}
             id="descricaoImovel"
+            name="descricaoImovel"
             label="Descrição do Imóvel"
             fullWidth
             autoComplete="descricao-imovel"
@@ -133,12 +208,12 @@ export default function QualificacaoFinanceira() {
             size="large" 
             variant="outlined" 
             startIcon={<AddCircleIcon />}
-            onClick={handleAddItems}>
+            onClick={() => handleAddItems('imoveis')}>
               Adicionar
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <BensInvestimentosAdicionado
+          <TabelaitensAdicionados
             setItemsList={setBensImoveisAdicionado} 
             itemsList={bensImoveisAdicionado}/>
         </Grid>
@@ -150,7 +225,9 @@ export default function QualificacaoFinanceira() {
         <Grid item xs={12} md={4}>
           <TextField
             required
+            onChange={handleChangeInputTableItems}
             id="valorInvestimento"
+            name="valorInvestimento"
             label="Valor do Investimento"
             fullWidth
             autoComplete="valor-investimento"
@@ -159,7 +236,9 @@ export default function QualificacaoFinanceira() {
         <Grid item xs={12} md={6}>
           <TextField
             required
+            onChange={handleChangeInputTableItems}
             id="descricaoInvestimento"
+            name="descricaoInvestimento"
             label="Descrição do Investimento"
             fullWidth
             autoComplete="descricao-imovel"
@@ -171,12 +250,12 @@ export default function QualificacaoFinanceira() {
             size="large" 
             variant="outlined" 
             startIcon={<AddCircleIcon />}
-            onClick={handleAddItems}>
+            onClick={() => handleAddItems('investimentos')}>
               Adicionar
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <BensInvestimentosAdicionado setItemsList={setInvestimentosAdicionado} itemsList={investimentosAdicionado}/>
+          <TabelaitensAdicionados setItemsList={setInvestimentosAdicionado} itemsList={investimentosAdicionado}/>
         </Grid>
       </Grid>
       <Grid item xs={12}>

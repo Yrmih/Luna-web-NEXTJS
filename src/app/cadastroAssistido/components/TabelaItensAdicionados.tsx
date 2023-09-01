@@ -6,12 +6,16 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Bens, Investimentos } from '../types/Types';
 
 
-export type GridDynamicItemProps = {
-    itemsList: Bens[] | Investimentos[],
-    setItemsList: (itemsList: Bens[] | Investimentos[]) => void 
+export type Item = {
+  valor: number;
+  descricao: string;
+};
+
+export type TableDynamicItemProps<T> = {
+    itemsList: T[],
+    setItemsList: (itemsList: T[]) => void 
 }
 
 export interface RenderDimanicItemOptions<T> {
@@ -22,7 +26,7 @@ export interface RenderDimanicItemOptions<T> {
 function renderDinamicItemWithValor({
     item,
     handleRemoveItem: handleRemoveBem,
-  }: RenderDimanicItemOptions<Bens | Investimentos>) {
+  }: RenderDimanicItemOptions<Item>) {
     return (
       
       <TableRow
@@ -47,8 +51,8 @@ function renderDinamicItemWithValor({
     );
 }
   
-export default function BensInvestimentosAdicionado({ itemsList, setItemsList }: GridDynamicItemProps) {
-    const handleRemoveItems = (itemDelted: Bens) => {
+export default function TabelaitensAdicionados({ itemsList, setItemsList }: TableDynamicItemProps<Item>) {
+    const handleRemoveItems = (itemDelted: Item) => {
         setItemsList(itemsList.filter((item)=> item!=itemDelted))
     };
 
