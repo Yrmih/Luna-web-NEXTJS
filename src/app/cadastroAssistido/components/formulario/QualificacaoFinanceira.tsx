@@ -7,16 +7,16 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { useState } from "react";
-import { ItemDescricaoValor, Investimentos } from '../../types/Types';
-import TableDynamicItens from '../TableDynamicDescricaoValor';
+import { Bens, Investimentos } from '../../types/Types';
+import BensInvestimentosAdicionado from '../BensInvestimentosAdicionados';
 
-const MOVEIS: ItemDescricaoValor[] = [
+const MOVEIS: Bens[] = [
   { valor: 400, descricao: "Cadeira Gamer" },
   { valor: 5000, descricao: "PlayStation 5" },
   { valor: 2000, descricao: "Computador" },
 ];
 
-const IMOVEIS: ItemDescricaoValor[] = [
+const IMOVEIS: Bens[] = [
   { valor: 50000, descricao: "Casa" },
   { valor: 30000, descricao: "Oficina" },
 ];
@@ -107,7 +107,7 @@ export default function QualificacaoFinanceira() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <TableDynamicItens setItemsList={setBensMoveisAdicionado} itemsList={bensMoveisAdicionado}/>
+          <BensInvestimentosAdicionado setItemsList={setBensMoveisAdicionado} itemsList={bensMoveisAdicionado}/>
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
@@ -138,7 +138,7 @@ export default function QualificacaoFinanceira() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <TableDynamicItens 
+          <BensInvestimentosAdicionado
             setItemsList={setBensImoveisAdicionado} 
             itemsList={bensImoveisAdicionado}/>
         </Grid>
@@ -176,7 +176,7 @@ export default function QualificacaoFinanceira() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <TableDynamicItens setItemsList={setInvestimentosAdicionado} itemsList={investimentosAdicionado}/>
+          <BensInvestimentosAdicionado setItemsList={setInvestimentosAdicionado} itemsList={investimentosAdicionado}/>
         </Grid>
       </Grid>
       <Grid item xs={12}>
