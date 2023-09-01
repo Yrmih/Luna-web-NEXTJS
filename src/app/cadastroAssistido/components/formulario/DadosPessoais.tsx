@@ -36,7 +36,7 @@ const SELECT_TIPO_CERTIDAO = [
   {valor:1, nome: "Certidão de Casamento"},
 ]
 
-export default function FormularioDadosPessoais() {
+export default function DadosPessoais() {
   const [value, setValue] = useState<DadosPessoais>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

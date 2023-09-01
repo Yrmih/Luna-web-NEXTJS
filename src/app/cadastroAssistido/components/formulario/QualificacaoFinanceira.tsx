@@ -1,23 +1,22 @@
 
-import { Box, Button, Grid, IconButton } from "@mui/material";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Box, Button, Grid } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import { MouseEventHandler, useState } from "react";
-import { Bens, Investimentos } from "../types/Types";
-import BensInvestimentosAdicionado from "./BensInvestimentosAdicionados";
+import { useState } from "react";
+import { ItemDescricaoValor, Investimentos } from '../../types/Types';
+import TableDynamicItens from '../TableDynamicDescricaoValor';
 
-
-const MOVEIS: Bens[] = [
+const MOVEIS: ItemDescricaoValor[] = [
   { valor: 400, descricao: "Cadeira Gamer" },
   { valor: 5000, descricao: "PlayStation 5" },
   { valor: 2000, descricao: "Computador" },
 ];
 
-const IMOVEIS: Bens[] = [
+const IMOVEIS: ItemDescricaoValor[] = [
   { valor: 50000, descricao: "Casa" },
   { valor: 30000, descricao: "Oficina" },
 ];
@@ -28,7 +27,7 @@ const INVESTIMENTOS: Investimentos[] = [
 ];
 
 
-export default function FormularioQualificacaoFinanceira() {
+export default function QualificacaoFinanceira() {
   const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState(MOVEIS);
   const [bensImoveisAdicionado, setBensImoveisAdicionado] = useState(IMOVEIS);
   const [investimentosAdicionado, setInvestimentosAdicionado] = useState(INVESTIMENTOS);
@@ -108,7 +107,7 @@ export default function FormularioQualificacaoFinanceira() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <BensInvestimentosAdicionado setItemsList={setBensMoveisAdicionado} itemsList={bensMoveisAdicionado}/>
+          <TableDynamicItens setItemsList={setBensMoveisAdicionado} itemsList={bensMoveisAdicionado}/>
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
@@ -139,7 +138,9 @@ export default function FormularioQualificacaoFinanceira() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <BensInvestimentosAdicionado setItemsList={setBensImoveisAdicionado} itemsList={bensImoveisAdicionado}/>
+          <TableDynamicItens 
+            setItemsList={setBensImoveisAdicionado} 
+            itemsList={bensImoveisAdicionado}/>
         </Grid>
       </Grid>
       <Grid container item spacing={3}>
@@ -175,7 +176,7 @@ export default function FormularioQualificacaoFinanceira() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <BensInvestimentosAdicionado setItemsList={setInvestimentosAdicionado} itemsList={investimentosAdicionado}/>
+          <TableDynamicItens setItemsList={setInvestimentosAdicionado} itemsList={investimentosAdicionado}/>
         </Grid>
       </Grid>
       <Grid item xs={12}>

@@ -1,18 +1,18 @@
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-export default function FormularioInformacaoInicial() {
+export default function Contato() {
   return (
       <Grid 
-        container
-        flexDirection={'column'} 
+        container 
+        spacing={3}
         px={4}
-        spacing={3}>
+        >
         <Grid item xs={12}>
           <TextField
             required
-            id="nomeCompleto"
-            label="Nome Completo"
+            id="celular"
+            label="Número de Celular"
             fullWidth
             autoComplete="cc-name"
           />
@@ -20,19 +20,10 @@ export default function FormularioInformacaoInicial() {
         <Grid item xs={12}>
           <TextField
             required
-            id="cpf"
-            label="CPF"
+            id="telefone"
+            label="Número de Telefone"
             fullWidth
             autoComplete="cc-number"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="email"
-            label="Endereço de Email"
-            fullWidth
-            autoComplete="cc-exp"
           />
         </Grid>
       </Grid>

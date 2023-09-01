@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-export default function FormularioEndereco() {
+export default function Endereco() {
   return (
     <Grid 
       container 

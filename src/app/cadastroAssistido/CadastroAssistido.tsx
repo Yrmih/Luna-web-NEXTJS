@@ -10,11 +10,11 @@ import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import FormularioContato from './components/FormularioContato';
-import FormularioDadosPessoais from './components/FormularioDadosPessoais';
-import FormularioEndereco from './components/FormularioEndereco';
-import FormularioInformacaoInicial from './components/FormularioInfirmacaoInicial';
-import FormularioQualificacaoFinanceira from './components/FormularioQualificacaoFinanceira';
+import InformacaoInicial from './components/formulario/InfirmacaoInicial';
+import Contato from './components/formulario/Contato';
+import Endereco from './components/formulario/Endereco';
+import DadosPessoais from './components/formulario/DadosPessoais';
+import QualificacaoFinanceira from './components/formulario/QualificacaoFinanceira';
 
 
 const steps = [
@@ -43,15 +43,15 @@ const steps = [
 function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return <FormularioInformacaoInicial/>;
+      return <InformacaoInicial/>;
     case 1:
-      return <FormularioContato />;
+      return <Contato />;
     case 2:
-      return <FormularioEndereco />;
+      return <Endereco />;
     case 3:
-        return <FormularioDadosPessoais />;
+        return <DadosPessoais />;
     case 4:
-        return <FormularioQualificacaoFinanceira />;
+        return <QualificacaoFinanceira />;
     default:
       throw new Error('Unknown step');
   }
