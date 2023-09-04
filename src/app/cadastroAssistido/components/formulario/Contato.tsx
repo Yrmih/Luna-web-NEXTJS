@@ -46,7 +46,7 @@ export default function Contato() {
                 </InputAdornment>,
             }}
             onChange={handleChange}
-            placeholder="(00) 99999-9999"
+            placeholder="(99) 99999-9999"
             name={TEXT_FIELDS_CONTATOS[0].name}
             label={TEXT_FIELDS_CONTATOS[0].label}
             required={TEXT_FIELDS_CONTATOS[0].required}
@@ -65,7 +65,7 @@ export default function Contato() {
                 </InputAdornment>,
             }}
             onChange={handleChange}
-            placeholder="(00) 9999-9999"
+            placeholder="(99) 9999-9999"
             name={TEXT_FIELDS_CONTATOS[1].name}
             label={TEXT_FIELDS_CONTATOS[1].label}
             required={TEXT_FIELDS_CONTATOS[1].required}
