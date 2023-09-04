@@ -12,25 +12,25 @@ export default function HistoricoAssistido() {
         <Grid container rowSpacing={3} columnSpacing={3}>
           <Grid xs={6}>
             <MediaCard
-              heading="Qualificação 1"
+              heading="Pré-agendamento 1"
               text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
             />
           </Grid>
           <Grid xs={6}>
             <MediaCard
-              heading="Qualificação 2"
+              heading="Pré-agendamento 2"
               text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
             />
           </Grid>
           <Grid xs={6}>
             <MediaCard
-              heading="Qualificação 3"
+              heading="Pré-agendamento 3"
               text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
             />
           </Grid>
           <Grid xs={6}>
             <MediaCard
-              heading="Qualificação 4"
+              heading="Pré-agendamento 4"
               text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
             />
           </Grid>
