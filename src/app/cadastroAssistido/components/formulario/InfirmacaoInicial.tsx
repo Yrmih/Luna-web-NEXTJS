@@ -31,9 +31,10 @@ const TEXT_FIELD_INFO_INICIAL = [
 ]
 
 export default function InformacaoInicial() {
-  const handleChange = (event: ChangeEvent<HTMLElement>) => {
-    console.log("Inforações pessoais:", event.target)
-  }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.currentTarget)
+    console.log(event.target)
+  };
 
   return (
       <Grid 

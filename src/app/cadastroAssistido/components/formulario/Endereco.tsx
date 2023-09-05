@@ -65,6 +65,11 @@ const TEXT_FIELDS_CONTATOS = [
 ]
 
 export default function Endereco() {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.currentTarget)
+    console.log(event.target)
+  };
+
   return (
     <Grid 
       container 
@@ -76,15 +81,16 @@ export default function Endereco() {
           fullWidth
           id="tipoArea"
           autoComplete="tipo-area"
-          name={TEXT_FIELDS_CONTATOS[0].name}
-          label={TEXT_FIELDS_CONTATOS[0].label}
-          required={TEXT_FIELDS_CONTATOS[0].required}
           InputProps={{
             startAdornment: 
-              <InputAdornment position="start">
+            <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[0].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
+          name={TEXT_FIELDS_CONTATOS[0].name}
+          label={TEXT_FIELDS_CONTATOS[0].label}
+          required={TEXT_FIELDS_CONTATOS[0].required}
           helperText={TEXT_FIELDS_CONTATOS[0].textHelper}
         />
       </Grid>
@@ -99,6 +105,7 @@ export default function Endereco() {
                 {TEXT_FIELDS_CONTATOS[1].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[1].name}
           label={TEXT_FIELDS_CONTATOS[1].label}
           required={TEXT_FIELDS_CONTATOS[1].required}
@@ -117,6 +124,7 @@ export default function Endereco() {
               </InputAdornment>,
           }}
           placeholder="00000-000"
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[2].name}
           label={TEXT_FIELDS_CONTATOS[2].label}
           required={TEXT_FIELDS_CONTATOS[2].required}
@@ -125,8 +133,8 @@ export default function Endereco() {
       </Grid>
       <Grid item xs={12} sm={4}>
         <TextField
-          id="bairro"
           fullWidth
+          id="bairro"
           autoComplete="bairro"
           InputProps={{
             startAdornment: 
@@ -134,6 +142,7 @@ export default function Endereco() {
                 {TEXT_FIELDS_CONTATOS[3].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[3].name}
           label={TEXT_FIELDS_CONTATOS[3].label}
           required={TEXT_FIELDS_CONTATOS[3].required}
@@ -142,8 +151,8 @@ export default function Endereco() {
       </Grid>
       <Grid item xs={12} sm={4}>
         <TextField
-          id="numero"
           fullWidth
+          id="numero"
           autoComplete="numero"
           InputProps={{
             startAdornment: 
@@ -151,6 +160,7 @@ export default function Endereco() {
                 {TEXT_FIELDS_CONTATOS[4].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[4].name}
           label={TEXT_FIELDS_CONTATOS[4].label}
           required={TEXT_FIELDS_CONTATOS[4].required}
@@ -159,8 +169,8 @@ export default function Endereco() {
       </Grid>
       <Grid item xs={12} sm={4}>
         <TextField
-          id="complemento"
           fullWidth
+          id="complemento"
           autoComplete="complemento"
           InputProps={{
             startAdornment: 
@@ -168,6 +178,7 @@ export default function Endereco() {
                 {TEXT_FIELDS_CONTATOS[5].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[5].name}
           label={TEXT_FIELDS_CONTATOS[5].label}
           required={TEXT_FIELDS_CONTATOS[5].required}
@@ -176,8 +187,8 @@ export default function Endereco() {
       </Grid>
       <Grid item xs={12} sm={4}>
         <TextField
-          id="estado"
           fullWidth
+          id="estado"
           autoComplete="estado"
           InputProps={{
             startAdornment: 
@@ -185,6 +196,7 @@ export default function Endereco() {
                 {TEXT_FIELDS_CONTATOS[6].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[6].name}
           label={TEXT_FIELDS_CONTATOS[6].label}
           required={TEXT_FIELDS_CONTATOS[6].required}
@@ -193,8 +205,8 @@ export default function Endereco() {
       </Grid>
       <Grid item xs={12} sm={4}>
         <TextField
-          id="municipio"         
           fullWidth
+          id="municipio"         
           autoComplete="municipio"
           InputProps={{
             startAdornment: 
@@ -202,6 +214,7 @@ export default function Endereco() {
                 {TEXT_FIELDS_CONTATOS[7].icon}
               </InputAdornment>,
           }}
+          onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[7].name}
           label={TEXT_FIELDS_CONTATOS[7].label}
           required={TEXT_FIELDS_CONTATOS[7].required}

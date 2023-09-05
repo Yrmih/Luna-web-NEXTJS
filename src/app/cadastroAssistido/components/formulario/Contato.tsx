@@ -24,9 +24,10 @@ const TEXT_FIELDS_CONTATOS = [
 
 
 export default function Contato() {
-  const handleChange = (event: ChangeEvent<HTMLElement>) => {
-    console.log()
-  }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.currentTarget)
+    console.log(event.target)
+  };
 
   return (
       <Grid 
