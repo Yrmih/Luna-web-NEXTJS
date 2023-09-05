@@ -15,6 +15,8 @@ import Contato from './components/formulario/Contato';
 import Endereco from './components/formulario/Endereco';
 import DadosPessoais from './components/formulario/DadosPessoais';
 import QualificacaoFinanceira from './components/formulario/QualificacaoFinanceira';
+import MobileStepper from '@mui/material/MobileStepper';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const steps = [
@@ -68,47 +70,73 @@ export default function CadastroAssistido() {
     setActiveStep(activeStep - 1);
   };
 
+  // const isXs = useMediaQuery('(max-width:600px)');
+
   return (
-    <React.Fragment>
-        <Container component="main" maxWidth="lg" sx={{ mb: 4}}>
-          <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }, boxShadow: 6, borderRadius: 6 }}>
-            <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-                {steps.map((label) => (
-                <Step key={label.nome}>
-                    <StepLabel>{label.nome}</StepLabel>
-                </Step>
-                ))}
-            </Stepper>
-            <Box my={8}>
-              <Typography component="h1" variant="h4" align="center">
-                {steps[activeStep].nome}
-              </Typography>
-              <Typography component="h3" variant='inherit' align='center' pt={3} pb={5}>
-                {steps[activeStep].descricao}
-              </Typography>
-            </Box>
-              {getStepContent(activeStep)}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                {activeStep !== 0 && (
-                <Button 
-                  onClick={handleBack}
-                  sx={{ mt: 8, mr: 3 }}
-                >
-                    voltar
-                </Button>
-                )}
+      <Container component="main" maxWidth="md" sx={{ mb: 4}}>
+        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }, boxShadow: 6, borderRadius: 6 }}>
+          <Stepper 
+            activeStep={activeStep} 
+            sx={{ pt: 3, pb: 5, display:{ xs:'none', sm:'flex'} }}
+            alternativeLabel >
+              {steps.map((label) => (
+              <Step key={label.nome} >
+                  <StepLabel>{label.nome}</StepLabel>
+              </Step>
+              ))}
+          </Stepper>
+          <Box my={8}>
+            <Typography component="h1" variant="h4" align="center">
+              {steps[activeStep].nome}
+            </Typography>
+            <Typography component="h3" variant='inherit' align='center' pt={3} pb={5}>
+              {steps[activeStep].descricao}
+            </Typography>
+          </Box>
+            {getStepContent(activeStep)}
+          <MobileStepper
+              sx={{ mt:10, borderRadius: 4, display:{xs:'flex', sm:'none'}}}
+              variant="dots"
+              steps={steps.length}
+              position="static"
+              activeStep={activeStep}
+              nextButton={
                 <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{ mt: 8, mr: 3 }}
+                  size="small"
+                  onClick={handleNext}
                 >
-                {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+                  {activeStep === steps.length - 1? "Finalizar": "Próximo" }
                 </Button>
-            </Box>
-              
-          </Paper>
-          <Copyright />
-        </Container>
-    </React.Fragment>
+              }
+              backButton={
+                <Button
+                  size="small"
+                  onClick={handleBack}
+                  disabled={activeStep === 0}
+                >
+                  Voltar
+                </Button>
+              }
+            />
+          <Box sx={{ display: {xs:'none', sm:'flex'}, justifyContent: 'flex-end' }}>
+              {activeStep !== 0 && (
+                <Button 
+                onClick={handleBack}
+                sx={{ mt: 8, mr: 3 }}
+              >
+                  voltar
+              </Button>
+              )}
+              <Button
+              variant="contained"
+              onClick={handleNext}
+              sx={{ mt: 8, mr: 3 }}
+              >
+              {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+              </Button>
+          </Box>
+        </Paper>
+        <Copyright />
+      </Container>
   );
 }
