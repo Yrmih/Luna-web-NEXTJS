@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
+import styles from "@/styles/TabelaItens.module.css"
 
 export type Item = {
   valor: number;
@@ -14,47 +14,49 @@ export type Item = {
 };
 
 export type TableDynamicItemProps<T> = {
-    itemsList: T[],
-    setItemsList: (itemsList: T[]) => void 
+  itemsList: T[],
+  setItemsList: (itemsList: T[]) => void
 }
 
 export interface RenderDimanicItemOptions<T> {
-    item: T;
-    handleRemoveItem: (item: T) => void;
-  }
-  
+  item: T;
+  handleRemoveItem: (item: T) => void;
+}
+
 function renderDinamicItemWithValor({
-    item,
-    handleRemoveItem: handleRemoveBem,
-  }: RenderDimanicItemOptions<Item>) {
-    return (
-      
-      <TableRow
+  item,
+  handleRemoveItem: handleRemoveBem,
+}: RenderDimanicItemOptions<Item>) {
+  return (
+
+    <TableRow
+      className={`${styles.tableEnter} ${styles.tableExit}`}
       key={item.descricao}
 
-      >
-        <TableCell component="th" scope="row">
-          {item.descricao}
-        </TableCell>
-        <TableCell align="right">{item.valor}</TableCell>
-        <TableCell align="right">
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            title="Delete"
-            onClick={() => handleRemoveBem(item)}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </TableCell>
-      </TableRow>
-    );
+    >
+      <TableCell component="th" scope="row">
+        {item.descricao}
+      </TableCell>
+      <TableCell align="right">{item.valor}</TableCell>
+      <TableCell align="right">
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          title="Delete"
+          onClick={() => handleRemoveBem(item)}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  );
 }
-  
+
 export default function TabelaitensAdicionados({ itemsList, setItemsList }: TableDynamicItemProps<Item>) {
-    const handleRemoveItems = (itemDelted: Item) => {
-        setItemsList(itemsList.filter((item)=> item!=itemDelted))
-    };
+  const handleRemoveItems = (itemDelted: Item) => {
+    setItemsList(itemsList.filter((item) => item != itemDelted))
+    
+  };
 
   return (
     <TableContainer>
@@ -66,10 +68,10 @@ export default function TabelaitensAdicionados({ itemsList, setItemsList }: Tabl
             <TableCell align="right">Ação</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {itemsList.map((item)=> (renderDinamicItemWithValor({
-              item,
-              handleRemoveItem: handleRemoveItems,
+        <TableBody >
+          {itemsList.map((item) => (renderDinamicItemWithValor({
+            item,
+            handleRemoveItem: handleRemoveItems,
           })))}
         </TableBody>
       </Table>
