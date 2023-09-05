@@ -26,6 +26,80 @@ const INVESTIMENTOS: Item[] = [
   { valor: 7000, descricao: "Tesouro Selic" },
 ];
 
+const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
+  {
+    name: "numeroMembros",
+    label: "Membros da Família",
+    textHelper: "Quantidade de membros da sua família. Ex.: 4, 6, 7, etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "numeroMembrosFamiliaAtivos",
+    label: "Membros Ativos da Família",
+    textHelper: "Quantidade de membros econômicamente ativos na sua família. Ex.: 4, 6, 7, etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "rendaIndividual",
+    label: "Renda Individual",
+    textHelper: "Valor da sua renda individual. Ex.: 1300,00.",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "rendaFamiliar",
+    label: "Renda familiar",
+    textHelper: "Valor da renda de sua família, incluindo a sua renda. Ex.: 2600,00",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "valorMovel",
+    label: "Valor do móvel",
+    textHelper: "Adicione o valor em reais do seu móvel. Ex.: 220,00; etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "descricaoMovel",
+    label: "Descrição do móvel",
+    textHelper: "Adicione a descrição do seu móvel. Ex.: Sofá, Refrigerador; etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "valorImovel",
+    label: "Valor do imóvel",
+    textHelper: "Adicione o valor em reais do seu imóvel. Ex.: 220,00; etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "descricaoImovel",
+    label: "Descrição do imóvel",
+    textHelper: "Adicione a descrição do seu imóvel. Ex.: Casa, Apartamento; etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "valorMovel",
+    label: "Valor do móvel",
+    textHelper: "Adicione o valor em reais do seu imóvel. Ex.: 220,00; etc...",
+    icon: undefined,
+    required: true,
+  },
+  {
+    name: "descricaoMovel",
+    label: "Descrição do móvel",
+    textHelper: "Adicione a descrição do seu móvel. Ex.: Sofá, Refrigerador; etc...",
+    icon: undefined,
+    required: true,
+  },
+  
+]
+
 
 export default function QualificacaoFinanceira() {
   const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState<Item[]>(MOVEIS);
@@ -70,7 +144,7 @@ export default function QualificacaoFinanceira() {
     }
   }
 
-  const handleAddItems = (type: 'moveis'|'imoveis'|'investimentos') => {
+  const handleAddItemsInTable = (type: 'moveis'|'imoveis'|'investimentos') => {
       switch(type){
         case 'moveis':
           setBensMoveisAdicionado([
@@ -173,7 +247,7 @@ export default function QualificacaoFinanceira() {
             size="large" 
             variant="outlined" 
             startIcon={<AddCircleIcon />}
-            onClick={()=> handleAddItems('moveis')}>
+            onClick={()=> handleAddItemsInTable('moveis')}>
               Adicionar
           </Button>
         </Grid>
@@ -208,7 +282,7 @@ export default function QualificacaoFinanceira() {
             size="large" 
             variant="outlined" 
             startIcon={<AddCircleIcon />}
-            onClick={() => handleAddItems('imoveis')}>
+            onClick={() => handleAddItemsInTable('imoveis')}>
               Adicionar
           </Button>
         </Grid>
@@ -250,7 +324,7 @@ export default function QualificacaoFinanceira() {
             size="large" 
             variant="outlined" 
             startIcon={<AddCircleIcon />}
-            onClick={() => handleAddItems('investimentos')}>
+            onClick={() => handleAddItemsInTable('investimentos')}>
               Adicionar
           </Button>
         </Grid>
