@@ -9,6 +9,12 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { useState } from 'react';
 
 type DadosPessoais = {
@@ -28,22 +34,22 @@ const FORMULARIO_DADOS_PESSOAIS = [
   {
     name: "nomeGenitora",
     label: "Nome da Mãe",
-    textHelper: "Nome e sobrenome da mãe. Ex.: Lucineia Ferreira da Silva.",
-    icon: undefined,
+    textHelper: "Nome e sobrenome da mãe.",
+    icon: <FamilyRestroomIcon/>,
     required: true,
   },
   {
     name: "nomeGenitor",
     label: "Nome do Pai",
-    textHelper: "Nome e sobrenome do Pai. Ex.: Cláudio da Conceição Silva.",
-    icon: undefined,
+    textHelper: "Nome e sobrenome do Pai.",
+    icon: <FamilyRestroomIcon/>,
     required: true,
   },
   {
     name: "nomeSocial",
     label: "Nome Social",
-    textHelper: "Outro nome pelo qual o identificam. Ex.: Claudinho.",
-    icon: undefined,
+    textHelper: "Outro nome pelo qual o identificam.",
+    icon: <EmojiPeopleIcon/>,
     required: true,
   },
   {
@@ -63,15 +69,15 @@ const FORMULARIO_DADOS_PESSOAIS = [
   {
     name: "numeroRg",
     label: "RG",
-    textHelper: "Seu número de RG. Ex.: 8738746",
-    icon: undefined,
+    textHelper: "Seu número de RG.",
+    icon: <PermIdentityIcon/>,
     required: true,
   },
   {
     name: "orgaoRg",
     label: "Orgão Emissor",
-    textHelper: "Orgão emissor di seu RG. Ex.: Polícia Civil.",
-    icon: undefined,
+    textHelper: "Orgão emissor di seu RG.",
+    icon: <CorporateFareIcon/>,
     required: true,
   },
   {
@@ -91,8 +97,8 @@ const FORMULARIO_DADOS_PESSOAIS = [
   {
     name: "numeroCertidao",
     label: "Número Certidão",
-    textHelper: "Número de sua certidão selecionada. Ex.: 999999 99 99 9999 9 99999 999 9999999 99.",
-    icon: undefined,
+    textHelper: "Número de sua certidão selecionada.",
+    icon: <DescriptionIcon/>,
     required: true,
   },
 ]
@@ -134,6 +140,13 @@ export default function DadosPessoais() {
           id="mae"
           fullWidth
           autoComplete="mae"
+          InputProps={{
+            startAdornment: 
+            <InputAdornment position="start">
+                {FORMULARIO_DADOS_PESSOAIS[0].icon}
+            </InputAdornment>,
+          }}
+          placeholder='Ex.: Lucineia Ferreira da Silva.'
           onChange={handleChange}
           name={FORMULARIO_DADOS_PESSOAIS[0].name}
           label={FORMULARIO_DADOS_PESSOAIS[0].label}
@@ -146,6 +159,13 @@ export default function DadosPessoais() {
           id="pai"
           fullWidth
           autoComplete="pai"
+          InputProps={{
+            startAdornment: 
+            <InputAdornment position="start">
+                {FORMULARIO_DADOS_PESSOAIS[1].icon}
+            </InputAdornment>,
+          }}
+          placeholder='Ex.: Cláudio da Conceição Silva.'
           onChange={handleChange}
           name={FORMULARIO_DADOS_PESSOAIS[1].name}
           label={FORMULARIO_DADOS_PESSOAIS[1].label}
@@ -158,6 +178,13 @@ export default function DadosPessoais() {
           fullWidth
           id="nomeSocial"
           autoComplete="nomeSocial"
+          InputProps={{
+            startAdornment: 
+            <InputAdornment position="start">
+                {FORMULARIO_DADOS_PESSOAIS[2].icon}
+            </InputAdornment>,
+          }}
+          placeholder='Ex.: Claudinho'
           onChange={handleChange}
           name={FORMULARIO_DADOS_PESSOAIS[2].name}
           label={FORMULARIO_DADOS_PESSOAIS[2].label}
@@ -218,6 +245,13 @@ export default function DadosPessoais() {
           fullWidth
           id="numero-rg"
           autoComplete="numero-rg"
+          InputProps={{
+            startAdornment: 
+            <InputAdornment position="start">
+                {FORMULARIO_DADOS_PESSOAIS[5].icon}
+            </InputAdornment>,
+          }}
+          placeholder='Ex.: 7325110'
           onChange={handleChange}
           name={FORMULARIO_DADOS_PESSOAIS[5].name}
           label={FORMULARIO_DADOS_PESSOAIS[5].label}
@@ -230,6 +264,13 @@ export default function DadosPessoais() {
           fullWidth
           id="orgao-rg"
           autoComplete="orgao-rg"
+          InputProps={{
+            startAdornment: 
+            <InputAdornment position="start">
+                {FORMULARIO_DADOS_PESSOAIS[6].icon}
+            </InputAdornment>,
+          }}
+          placeholder='Ex.: Polícia Civil'
           onChange={handleChange}
           name={FORMULARIO_DADOS_PESSOAIS[6].name}
           label={FORMULARIO_DADOS_PESSOAIS[6].label}
@@ -239,11 +280,11 @@ export default function DadosPessoais() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
-          <InputLabel id="label-select-certidao">{FORMULARIO_DADOS_PESSOAIS[7].label}</InputLabel>
+          <InputLabel id="label-select-certidao">{FORMULARIO_DADOS_PESSOAIS[8].label}</InputLabel>
           <Select
             onChange={handleSelectChange}
-            name={FORMULARIO_DADOS_PESSOAIS[7].name}
-            required={FORMULARIO_DADOS_PESSOAIS[7].required}
+            name={FORMULARIO_DADOS_PESSOAIS[8].name}
+            required={FORMULARIO_DADOS_PESSOAIS[8].required}
             labelId="numero-certidao"
             id="numeroCertidao"
             label="Número Certidão"
@@ -252,7 +293,7 @@ export default function DadosPessoais() {
               SELECT_TIPO_CERTIDAO.map((option) => (<MenuItem key={option.valor} value={option.valor}>{option.nome}</MenuItem>))
             }
           </Select>
-          <FormHelperText>{FORMULARIO_DADOS_PESSOAIS[7].textHelper}</FormHelperText>
+          <FormHelperText>{FORMULARIO_DADOS_PESSOAIS[8].textHelper}</FormHelperText>
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -260,11 +301,18 @@ export default function DadosPessoais() {
           fullWidth
           id="certidaoNumero"
           autoComplete="dataNascimento"
+          InputProps={{
+            startAdornment: 
+            <InputAdornment position="start">
+                {FORMULARIO_DADOS_PESSOAIS[9].icon}
+            </InputAdornment>,
+          }}
+          placeholder='Ex.: 999999 99 99 9999 9 99999 999 9999999 99.'
           onChange={handleChange}
-          name={FORMULARIO_DADOS_PESSOAIS[6].name}
-          label={FORMULARIO_DADOS_PESSOAIS[6].label}
-          required={FORMULARIO_DADOS_PESSOAIS[6].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[6].textHelper}
+          name={FORMULARIO_DADOS_PESSOAIS[9].name}
+          label={FORMULARIO_DADOS_PESSOAIS[9].label}
+          required={FORMULARIO_DADOS_PESSOAIS[9].required}
+          helperText={FORMULARIO_DADOS_PESSOAIS[9].textHelper}
         />
       </Grid>
     </Grid>

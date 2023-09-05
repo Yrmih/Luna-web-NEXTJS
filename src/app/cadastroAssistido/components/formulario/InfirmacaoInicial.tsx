@@ -2,6 +2,7 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PersonIcon from '@mui/icons-material/Person';
+import BadgeIcon from '@mui/icons-material/Badge';
 import { ChangeEvent } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -18,7 +19,7 @@ const TEXT_FIELD_INFO_INICIAL = [
     name: "cpf",
     label: "CPF",
     textHelper: "Número de CPF ou CNPJ",
-    icon: undefined,
+    icon: <BadgeIcon/>,
     required: true,
   },
   {
