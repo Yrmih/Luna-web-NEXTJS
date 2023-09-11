@@ -2,7 +2,7 @@
 import { ReactNode } from 'react'
 
 // Internal
-import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry'
+import { ThemeRegistry } from '@/components/ThemeRegistry/ThemeRegistry'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

@@ -10,7 +10,7 @@ import { ReactNode, useMemo } from 'react'
 import NextAppDirEmotionCacheProvider from './EmotionCache'
 import getTheme from './theme'
 
-export default function ThemeRegistry({ children }: { children: ReactNode }) {
+export function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
   const theme = useMemo(() => getTheme(prefersDarkMode), [prefersDarkMode])
