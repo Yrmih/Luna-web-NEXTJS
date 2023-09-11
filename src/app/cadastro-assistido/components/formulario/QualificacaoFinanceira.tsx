@@ -99,9 +99,10 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     required: true,
   },
   {
-    name: 'valorMovel',
-    label: 'Valor do móvel',
-    textHelper: 'Adicione o valor em reais do seu imóvel. Ex.: 220,00; etc...',
+    name: 'valorInvestimento',
+    label: 'Valor do Investimento',
+    textHelper:
+      'Adicione o valor em reais do seu investimento. Ex.: 220,00; etc...',
     icon: undefined,
     required: true,
   },
@@ -109,7 +110,7 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     name: 'descricaoMovel',
     label: 'Descrição do móvel',
     textHelper:
-      'Adicione a descrição do seu móvel. Ex.: Sofá, Refrigerador; etc...',
+      'Adicione a descrição do seu investimento. Ex.: Renda Fixa, Tesouro Direto, etc...',
     icon: undefined,
     required: true,
   },
@@ -224,46 +225,50 @@ export function QualificacaoFinanceira() {
     <Grid container spacing={3} px={4}>
       <Grid item xs={12} md={6}>
         <TextField
-          required
           fullWidth
           onChange={handleChange}
           id="numeroMembrosFamilia"
+          autoComplete="membros-familia"
           name={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].name}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].label}
-          autoComplete="membros-familia"
+          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].required}
+          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].textHelper}
         />
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
-          required
+          fullWidth
           onChange={handleChange}
           id="numeroMembrosFamiliaAtivos"
-          name="numeroMembrosAtivos"
-          label="Membros Ativos da Família"
-          fullWidth
           autoComplete="mambros-ativos"
+          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].name}
+          label={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].label}
+          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].required}
+          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].textHelper}
         />
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
-          required
-          onChange={handleChange}
+          fullWidth
           id="rendaIndividual"
-          name="rendaIndividual"
-          label="Renda Individual"
-          fullWidth
+          onChange={handleChange}
           autoComplete="renda-individual"
+          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].name}
+          label={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].label}
+          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].required}
+          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].textHelper}
         />
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
-          required
-          onChange={handleChange}
-          id="rendaFamiliar"
-          name="rendaFamiliar"
-          label="Renda Familiar"
           fullWidth
+          id="rendaFamilia"
+          onChange={handleChange}
           autoComplete="renda-familiar"
+          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].name}
+          label={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].label}
+          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].required}
+          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].textHelper}
         />
       </Grid>
       <Grid container item spacing={3}>
@@ -272,24 +277,26 @@ export function QualificacaoFinanceira() {
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
-            required
-            onChange={handleChangeInputTableItems}
-            id="valorMovel"
-            name="valorMovel"
-            label="Valor do Móvel"
             fullWidth
+            id="valorMovel"
             autoComplete="valor-movel"
+            onChange={handleChangeInputTableItems}
+            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].name}
+            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].label}
+            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].required}
+            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].textHelper}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            required
-            onChange={handleChangeInputTableItems}
-            id="descricaoMovel"
-            name="descricaoMovel"
-            label="Descrição Móvel"
             fullWidth
+            id="descricaoMovel"
             autoComplete="descricao-movel"
+            onChange={handleChangeInputTableItems}
+            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].name}
+            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].label}
+            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].required}
+            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].textHelper}
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} alignItems={'center'}>
@@ -311,24 +318,26 @@ export function QualificacaoFinanceira() {
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
-            required
-            onChange={handleChangeInputTableItems}
-            id="valorImovel"
-            name="valorImovel"
-            label="Valor do Imóvel"
             fullWidth
+            id="valorImovel"
             autoComplete="valor-imovel"
+            onChange={handleChangeInputTableItems}
+            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].name}
+            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].label}
+            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].required}
+            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].textHelper}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            required
-            onChange={handleChangeInputTableItems}
-            id="descricaoImovel"
-            name="descricaoImovel"
-            label="Descrição do Imóvel"
             fullWidth
+            id="descricaoImovel"
             autoComplete="descricao-imovel"
+            onChange={handleChangeInputTableItems}
+            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].name}
+            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].label}
+            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].required}
+            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].textHelper}
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} alignItems={'center'}>
@@ -355,24 +364,26 @@ export function QualificacaoFinanceira() {
         </Grid>
         <Grid item xs={12} md={4}>
           <TextField
-            required
-            onChange={handleChangeInputTableItems}
-            id="valorInvestimento"
-            name="valorInvestimento"
-            label="Valor do Investimento"
             fullWidth
+            id="valorInvestimento"
             autoComplete="valor-investimento"
+            onChange={handleChangeInputTableItems}
+            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].name}
+            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].label}
+            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].required}
+            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].textHelper}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
-            required
-            onChange={handleChangeInputTableItems}
-            id="descricaoInvestimento"
-            name="descricaoInvestimento"
-            label="Descrição do Investimento"
             fullWidth
+            id="descricaoInvestimento"
             autoComplete="descricao-imovel"
+            onChange={handleChangeInputTableItems}
+            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].name}
+            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].label}
+            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].required}
+            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].textHelper}
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} alignItems={'center'}>
