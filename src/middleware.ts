@@ -1,10 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-
   // Como o fomulario é chamado na _app.tsx, ele não chama o getServerSidePros
-  
-  if (request.nextUrl.pathname == '/'){
+
+  if (request.nextUrl.pathname === '/') {
     return NextResponse.redirect(new URL('/home', request.url))
   }
 }

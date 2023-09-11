@@ -1,7 +1,10 @@
-import { Alert, AlertTitle, Box, Grid } from "@mui/material";
-import MediaCard from "../components/MediaCard";
+// Third party
+import { Alert, AlertTitle, Box, Grid } from '@mui/material'
 
-export default function HistoricoAssistido() {
+// Internal
+import { MediaCard } from '../components/MediaCard'
+
+export function HistoricoAssistido() {
   return (
     <Box sx={{ display: 'flex' }}>
       <div>

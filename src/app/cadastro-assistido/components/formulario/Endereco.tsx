@@ -1,91 +1,86 @@
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import GiteIcon from '@mui/icons-material/Gite';
-import EditRoadIcon from '@mui/icons-material/EditRoad';
-import InputAdornment from '@mui/material/InputAdornment';
-
+// Third party
+import GiteIcon from '@mui/icons-material/Gite'
+import EditRoadIcon from '@mui/icons-material/EditRoad'
+import { Grid, InputAdornment, TextField } from '@mui/material'
 
 const TEXT_FIELDS_CONTATOS = [
   {
-    name: "tipoArea",
-    label: "Tipo Área",
-    textHelper: "Ex.: Urbana, Rural, etc...",
+    name: 'tipoArea',
+    label: 'Tipo Área',
+    textHelper: 'Ex.: Urbana, Rural, etc...',
     icon: undefined,
     required: true,
   },
   {
-    name: "logradouro",
-    label: "Logradouro",
-    textHelper: "Ex.: Rua, Avenida, Residêncial,etc...",
+    name: 'logradouro',
+    label: 'Logradouro',
+    textHelper: 'Ex.: Rua, Avenida, Residêncial,etc...',
     icon: <GiteIcon />,
     required: true,
   },
   {
-    name: "cep",
-    label: "CEP",
-    textHelper: "CEP da sua moradia.",
+    name: 'cep',
+    label: 'CEP',
+    textHelper: 'CEP da sua moradia.',
     icon: undefined,
     required: true,
   },
   {
-    name: "bairro",
-    label: "Bairro",
-    textHelper: "Bairro da sua residência.",
+    name: 'bairro',
+    label: 'Bairro',
+    textHelper: 'Bairro da sua residência.',
     icon: <EditRoadIcon />,
     required: true,
   },
   {
-    name: "numero",
-    label: "Número",
-    textHelper: "Número da sua residência.",
-    icon: "Nº",
+    name: 'numero',
+    label: 'Número',
+    textHelper: 'Número da sua residência.',
+    icon: 'Nº',
     required: true,
   },
   {
-    name: "complemento",
-    label: "Complemento",
-    textHelper: "Ex.: Casa, Apartamento, fundos, etc...",
+    name: 'complemento',
+    label: 'Complemento',
+    textHelper: 'Ex.: Casa, Apartamento, fundos, etc...',
     icon: undefined,
     required: true,
   },
   {
-    name: "estado",
-    label: "Estado",
-    textHelper: "Estado onde mora.",
+    name: 'estado',
+    label: 'Estado',
+    textHelper: 'Estado onde mora.',
     icon: undefined,
     required: true,
   },
   {
-    name: "municipio",
-    label: "Município",
-    textHelper: "Município de sua residência.",
+    name: 'municipio',
+    label: 'Município',
+    textHelper: 'Município de sua residência.',
     icon: undefined,
     required: true,
   },
 ]
 
-export default function Endereco() {
+export function Endereco() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.currentTarget)
     console.log(event.target)
-  };
+  }
 
   return (
-    <Grid 
-      container 
-      spacing={3} 
-      px={4}
-      >
+    <Grid container spacing={3} px={4}>
       <Grid item xs={12} sm={4}>
         <TextField
           fullWidth
           id="tipoArea"
           autoComplete="tipo-area"
           InputProps={{
-            startAdornment: 
-            <InputAdornment position="start">
+            startAdornment: (
+              <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[0].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[0].name}
@@ -100,10 +95,11 @@ export default function Endereco() {
           id="logradouro"
           autoComplete="logradouro"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[1].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[1].name}
@@ -118,10 +114,11 @@ export default function Endereco() {
           fullWidth
           autoComplete="cep"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[2].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           placeholder="00000-000"
           onChange={handleChange}
@@ -137,10 +134,11 @@ export default function Endereco() {
           id="bairro"
           autoComplete="bairro"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[3].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[3].name}
@@ -155,10 +153,11 @@ export default function Endereco() {
           id="numero"
           autoComplete="numero"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[4].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[4].name}
@@ -173,10 +172,11 @@ export default function Endereco() {
           id="complemento"
           autoComplete="complemento"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[5].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[5].name}
@@ -191,10 +191,11 @@ export default function Endereco() {
           id="estado"
           autoComplete="estado"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[6].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[6].name}
@@ -206,13 +207,14 @@ export default function Endereco() {
       <Grid item xs={12} sm={4}>
         <TextField
           fullWidth
-          id="municipio"         
+          id="municipio"
           autoComplete="municipio"
           InputProps={{
-            startAdornment: 
+            startAdornment: (
               <InputAdornment position="start">
                 {TEXT_FIELDS_CONTATOS[7].icon}
-              </InputAdornment>,
+              </InputAdornment>
+            ),
           }}
           onChange={handleChange}
           name={TEXT_FIELDS_CONTATOS[7].name}
@@ -222,5 +224,5 @@ export default function Endereco() {
         />
       </Grid>
     </Grid>
-  );
+  )
 }

@@ -1,7 +1,10 @@
-import Typography from "@mui/material/Typography";
-import Link from "next/link";
+// Third party
+import { Typography } from '@mui/material'
 
-export default function Copyright() {
+// Framework
+import Link from 'next/link'
+
+export function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
