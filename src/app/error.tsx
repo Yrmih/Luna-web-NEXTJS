@@ -39,7 +39,9 @@ export default function Error({
             variant={'h4'}
           >{`"${error.message}"`}</Typography>
         </Alert>
-        <Button onClick={() => reset()}>Tentar Novamente</Button>
+        <Button variant="outlined" onClick={() => reset()}>
+          Tentar Novamente
+        </Button>
       </Stack>
     </Container>
   )
