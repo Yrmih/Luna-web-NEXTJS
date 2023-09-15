@@ -62,6 +62,14 @@ function getTheme(prefersDarkMode: boolean) {
             }),
         },
       },
+      MuiAlert: {
+        styleOverrides: {
+          root: ({ theme }) =>
+            theme.unstable_sx({
+              borderRadius: 4,
+            }),
+        },
+      },
     },
   })
 }

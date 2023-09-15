@@ -77,8 +77,6 @@ export function CadastroAssistido() {
     setActiveStep(activeStep - 1)
   }
 
-  // const isXs = useMediaQuery('(max-width:600px)');
-
   return (
     <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
       <Paper
