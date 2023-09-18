@@ -12,7 +12,8 @@ import {
 
 // Internal
 import { Item } from '../types/Item'
-import styles from '@/styles/TabelaItens.module.css'
+
+import styles from '../../../assets/styles/TabelaItens.module.css'
 
 export type TableDynamicItemProps = {
   itemsList: Item[]
