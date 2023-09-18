@@ -1,14 +1,19 @@
 // Third party
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import {
   Box,
   Button,
   Checkbox,
   FormControlLabel,
   Grid,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material'
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
+import PeopleIcon from '@mui/icons-material/People'
+import ChairIcon from '@mui/icons-material/Chair'
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork'
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'
 
 // Framework
 import Link from 'next/link'
@@ -21,28 +26,12 @@ import { Imovel } from '../../types/Imovel'
 import { Investimento } from '../../types/Investimento'
 import { TabelaitensAdicionados } from '../TabelaItensAdicionados'
 
-const MOVEIS: Item[] = [
-  { valor: 400, descricao: 'Cadeira Gamer' },
-  { valor: 5000, descricao: 'PlayStation 5' },
-  { valor: 2000, descricao: 'Computador' },
-]
-
-const IMOVEIS: Item[] = [
-  { valor: 50000, descricao: 'Casa' },
-  { valor: 30000, descricao: 'Oficina' },
-]
-
-const INVESTIMENTOS: Item[] = [
-  { valor: 4000, descricao: 'Poupança' },
-  { valor: 7000, descricao: 'Tesouro Selic' },
-]
-
 const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
   {
     name: 'numeroMembros',
     label: 'Membros da Família',
     textHelper: 'Quantidade de membros da sua família. Ex.: 4, 6, 7, etc...',
-    icon: undefined,
+    icon: <PeopleOutlineIcon />,
     required: true,
   },
   {
@@ -50,14 +39,14 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     label: 'Membros Ativos da Família',
     textHelper:
       'Quantidade de membros econômicamente ativos na sua família. Ex.: 4, 6, 7, etc...',
-    icon: undefined,
+    icon: <PeopleIcon />,
     required: true,
   },
   {
     name: 'rendaIndividual',
     label: 'Renda Individual',
     textHelper: 'Valor da sua renda individual. Ex.: 1300,00.',
-    icon: undefined,
+    icon: 'R$',
     required: true,
   },
   {
@@ -65,14 +54,14 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     label: 'Renda familiar',
     textHelper:
       'Valor da renda de sua família, incluindo a sua renda. Ex.: 2600,00',
-    icon: undefined,
+    icon: 'R$',
     required: true,
   },
   {
     name: 'valorMovel',
     label: 'Valor do móvel',
     textHelper: 'Adicione o valor em reais do seu móvel. Ex.: 220,00; etc...',
-    icon: undefined,
+    icon: 'R$',
     required: true,
   },
   {
@@ -80,14 +69,14 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     label: 'Descrição do móvel',
     textHelper:
       'Adicione a descrição do seu móvel. Ex.: Sofá, Refrigerador; etc...',
-    icon: undefined,
+    icon: <ChairIcon />,
     required: true,
   },
   {
     name: 'valorImovel',
     label: 'Valor do imóvel',
     textHelper: 'Adicione o valor em reais do seu imóvel. Ex.: 220,00; etc...',
-    icon: undefined,
+    icon: 'R$',
     required: true,
   },
   {
@@ -95,7 +84,7 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     label: 'Descrição do imóvel',
     textHelper:
       'Adicione a descrição do seu imóvel. Ex.: Casa, Apartamento; etc...',
-    icon: undefined,
+    icon: <MapsHomeWorkIcon />,
     required: true,
   },
   {
@@ -103,26 +92,25 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     label: 'Valor do Investimento',
     textHelper:
       'Adicione o valor em reais do seu investimento. Ex.: 220,00; etc...',
-    icon: undefined,
+    icon: 'R$',
     required: true,
   },
   {
-    name: 'descricaoMovel',
-    label: 'Descrição do móvel',
+    name: 'descricaoInvestimento',
+    label: 'Descrição do Investimento',
     textHelper:
       'Adicione a descrição do seu investimento. Ex.: Renda Fixa, Tesouro Direto, etc...',
-    icon: undefined,
+    icon: <CurrencyExchangeIcon />,
     required: true,
   },
 ]
 
 export function QualificacaoFinanceira() {
-  const [bensMoveisAdicionado, setBensMoveisAdicionado] =
-    useState<Item[]>(MOVEIS)
-  const [bensImoveisAdicionado, setBensImoveisAdicionado] =
-    useState<Item[]>(IMOVEIS)
-  const [investimentosAdicionado, setInvestimentosAdicionado] =
-    useState<Item[]>(INVESTIMENTOS)
+  const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState<Item[]>([])
+  const [bensImoveisAdicionado, setBensImoveisAdicionado] = useState<Item[]>([])
+  const [investimentosAdicionado, setInvestimentosAdicionado] = useState<
+    Item[]
+  >([])
   const [movelAtual, setMovelAtual] = useState<Movel>({
     descricaoMovel: '',
     valorMovel: 0,
@@ -229,6 +217,13 @@ export function QualificacaoFinanceira() {
           onChange={handleChange}
           id="numeroMembrosFamilia"
           autoComplete="membros-familia"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                {FORMULARIO_QUALIFICACAO_FIANCEIRA[0].icon}
+              </InputAdornment>
+            ),
+          }}
           name={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].name}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].required}
@@ -241,6 +236,13 @@ export function QualificacaoFinanceira() {
           onChange={handleChange}
           id="numeroMembrosFamiliaAtivos"
           autoComplete="mambros-ativos"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                {FORMULARIO_QUALIFICACAO_FIANCEIRA[1].icon}
+              </InputAdornment>
+            ),
+          }}
           name={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].name}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].required}
@@ -253,6 +255,13 @@ export function QualificacaoFinanceira() {
           id="rendaIndividual"
           onChange={handleChange}
           autoComplete="renda-individual"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                {FORMULARIO_QUALIFICACAO_FIANCEIRA[2].icon}
+              </InputAdornment>
+            ),
+          }}
           name={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].name}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].required}
@@ -265,6 +274,13 @@ export function QualificacaoFinanceira() {
           id="rendaFamilia"
           onChange={handleChange}
           autoComplete="renda-familiar"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                {FORMULARIO_QUALIFICACAO_FIANCEIRA[3].icon}
+              </InputAdornment>
+            ),
+          }}
           name={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].name}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].required}
@@ -281,6 +297,13 @@ export function QualificacaoFinanceira() {
             id="valorMovel"
             autoComplete="valor-movel"
             onChange={handleChangeInputTableItems}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[4].icon}
+                </InputAdornment>
+              ),
+            }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].required}
@@ -293,18 +316,24 @@ export function QualificacaoFinanceira() {
             id="descricaoMovel"
             autoComplete="descricao-movel"
             onChange={handleChangeInputTableItems}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[5].icon}
+                </InputAdornment>
+              ),
+            }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].textHelper}
           />
         </Grid>
-        <Grid item display={'flex'} xs={12} md={2} alignItems={'center'}>
+        <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
           <Button
             fullWidth
             size="large"
             variant="outlined"
-            startIcon={<AddCircleIcon />}
             onClick={() => handleAddItemsInTable('moveis')}
           >
             Adicionar
@@ -322,6 +351,13 @@ export function QualificacaoFinanceira() {
             id="valorImovel"
             autoComplete="valor-imovel"
             onChange={handleChangeInputTableItems}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[6].icon}
+                </InputAdornment>
+              ),
+            }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].required}
@@ -334,18 +370,24 @@ export function QualificacaoFinanceira() {
             id="descricaoImovel"
             autoComplete="descricao-imovel"
             onChange={handleChangeInputTableItems}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[7].icon}
+                </InputAdornment>
+              ),
+            }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].textHelper}
           />
         </Grid>
-        <Grid item display={'flex'} xs={12} md={2} alignItems={'center'}>
+        <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
           <Button
             fullWidth
             size="large"
             variant="outlined"
-            startIcon={<AddCircleIcon />}
             onClick={() => handleAddItemsInTable('imoveis')}
           >
             Adicionar
@@ -368,6 +410,13 @@ export function QualificacaoFinanceira() {
             id="valorInvestimento"
             autoComplete="valor-investimento"
             onChange={handleChangeInputTableItems}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[8].icon}
+                </InputAdornment>
+              ),
+            }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].required}
@@ -380,18 +429,24 @@ export function QualificacaoFinanceira() {
             id="descricaoInvestimento"
             autoComplete="descricao-imovel"
             onChange={handleChangeInputTableItems}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[9].icon}
+                </InputAdornment>
+              ),
+            }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].textHelper}
           />
         </Grid>
-        <Grid item display={'flex'} xs={12} md={2} alignItems={'center'}>
+        <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
           <Button
             fullWidth
             size="large"
             variant="outlined"
-            startIcon={<AddCircleIcon />}
             onClick={() => handleAddItemsInTable('investimentos')}
           >
             Adicionar
