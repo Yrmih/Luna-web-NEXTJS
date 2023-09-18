@@ -3,11 +3,12 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { Grid, InputAdornment, TextField } from '@mui/material'
 
-const TEXT_FIELDS_CONTATOS = [
+const FORMULARIO_CAMPOS_CONTATOS = [
   {
     name: 'celular',
     label: 'Número de Celular',
     textHelper: 'Número de Calular com o DDD.',
+    placeHolder: '(99) 99999-9999',
     icon: <WhatsAppIcon />,
     required: true,
   },
@@ -15,6 +16,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'telefone',
     label: 'Número de Telefone',
     textHelper: 'Número de telefone fixo.',
+    placeHolder: '(99) 9999-9999',
     icon: <LocalPhoneIcon />,
     required: false,
   },
@@ -36,16 +38,16 @@ export function Contato() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[0].icon}
+                {FORMULARIO_CAMPOS_CONTATOS[0].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          placeholder="(99) 99999-9999"
-          name={TEXT_FIELDS_CONTATOS[0].name}
-          label={TEXT_FIELDS_CONTATOS[0].label}
-          required={TEXT_FIELDS_CONTATOS[0].required}
-          helperText={TEXT_FIELDS_CONTATOS[0].textHelper}
+          name={FORMULARIO_CAMPOS_CONTATOS[0].name}
+          label={FORMULARIO_CAMPOS_CONTATOS[0].label}
+          required={FORMULARIO_CAMPOS_CONTATOS[0].required}
+          helperText={FORMULARIO_CAMPOS_CONTATOS[0].textHelper}
+          placeholder={FORMULARIO_CAMPOS_CONTATOS[0].placeHolder}
         />
       </Grid>
       <Grid item xs={12}>
@@ -56,16 +58,16 @@ export function Contato() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[1].icon}
+                {FORMULARIO_CAMPOS_CONTATOS[1].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          placeholder="(99) 9999-9999"
-          name={TEXT_FIELDS_CONTATOS[1].name}
-          label={TEXT_FIELDS_CONTATOS[1].label}
-          required={TEXT_FIELDS_CONTATOS[1].required}
-          helperText={TEXT_FIELDS_CONTATOS[1].textHelper}
+          placeholder={FORMULARIO_CAMPOS_CONTATOS[1].placeHolder}
+          name={FORMULARIO_CAMPOS_CONTATOS[1].name}
+          label={FORMULARIO_CAMPOS_CONTATOS[1].label}
+          required={FORMULARIO_CAMPOS_CONTATOS[1].required}
+          helperText={FORMULARIO_CAMPOS_CONTATOS[1].textHelper}
         />
       </Grid>
     </Grid>

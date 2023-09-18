@@ -30,76 +30,80 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
   {
     name: 'numeroMembros',
     label: 'Membros da Família',
-    textHelper: 'Quantidade de membros da sua família. Ex.: 4, 6, 7, etc...',
+    textHelper: 'Quantidade de membros da sua família',
+    placeHolder: 'Ex.: 4, 6, 7, etc...',
     icon: <PeopleOutlineIcon />,
     required: true,
   },
   {
     name: 'numeroMembrosFamiliaAtivos',
     label: 'Membros Ativos da Família',
-    textHelper:
-      'Quantidade de membros econômicamente ativos na sua família. Ex.: 4, 6, 7, etc...',
+    textHelper: 'Quantidade de membros econômicamente ativos na sua família.',
+    placeHolder: 'Ex.: 4, 6, 7, etc...',
     icon: <PeopleIcon />,
     required: true,
   },
   {
     name: 'rendaIndividual',
     label: 'Renda Individual',
-    textHelper: 'Valor da sua renda individual. Ex.: 1300,00.',
+    textHelper: 'Valor da sua renda individual.',
+    placeHolder: 'Ex.: 1300,00.',
     icon: 'R$',
     required: true,
   },
   {
     name: 'rendaFamiliar',
     label: 'Renda familiar',
-    textHelper:
-      'Valor da renda de sua família, incluindo a sua renda. Ex.: 2600,00',
+    textHelper: 'Valor da renda de sua família, incluindo a sua renda.',
+    placeHolder: 'Ex.: 2600,00.',
     icon: 'R$',
     required: true,
   },
   {
     name: 'valorMovel',
     label: 'Valor do móvel',
-    textHelper: 'Adicione o valor em reais do seu móvel. Ex.: 220,00; etc...',
+    textHelper: 'Adicione o valor em reais do seu móvel.',
+    placeHolder: 'Ex.: 220,00; etc...',
     icon: 'R$',
     required: true,
   },
   {
     name: 'descricaoMovel',
     label: 'Descrição do móvel',
-    textHelper:
-      'Adicione a descrição do seu móvel. Ex.: Sofá, Refrigerador; etc...',
+    textHelper: 'Adicione a descrição do seu móvel.',
+    placeHolder: 'Ex.: Sofá, Refrigerador; etc...',
     icon: <ChairIcon />,
     required: true,
   },
   {
     name: 'valorImovel',
     label: 'Valor do imóvel',
-    textHelper: 'Adicione o valor em reais do seu imóvel. Ex.: 220,00; etc...',
+    textHelper: 'Adicione o valor em reais do seu imóvel.',
+    placeHolder: 'Ex.: Ex.: 220,00; etc...',
     icon: 'R$',
     required: true,
   },
   {
     name: 'descricaoImovel',
     label: 'Descrição do imóvel',
-    textHelper:
-      'Adicione a descrição do seu imóvel. Ex.: Casa, Apartamento; etc...',
+    textHelper: 'Adicione a descrição do seu imóvel.',
+    placeHolder: 'Ex.: Casa, Apartamento; etc...',
     icon: <MapsHomeWorkIcon />,
     required: true,
   },
   {
     name: 'valorInvestimento',
     label: 'Valor do Investimento',
-    textHelper:
-      'Adicione o valor em reais do seu investimento. Ex.: 220,00; etc...',
+    textHelper: 'Adicione o valor em reais do seu investimento.',
+    placeHolder: 'Ex.: 220,00; etc...',
     icon: 'R$',
     required: true,
   },
   {
     name: 'descricaoInvestimento',
     label: 'Descrição do Investimento',
-    textHelper:
-      'Adicione a descrição do seu investimento. Ex.: Renda Fixa, Tesouro Direto, etc...',
+    textHelper: 'Adicione a descrição do seu investimento.',
+    placeHolder: 'Ex.: Renda Fixa, Tesouro Direto, etc...',
     icon: <CurrencyExchangeIcon />,
     required: true,
   },
@@ -228,6 +232,7 @@ export function QualificacaoFinanceira() {
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].required}
           helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].textHelper}
+          placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].placeHolder}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -247,6 +252,7 @@ export function QualificacaoFinanceira() {
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].required}
           helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].textHelper}
+          placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].placeHolder}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -266,6 +272,7 @@ export function QualificacaoFinanceira() {
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].required}
           helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].textHelper}
+          placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].placeHolder}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -285,6 +292,7 @@ export function QualificacaoFinanceira() {
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].label}
           required={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].required}
           helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].textHelper}
+          placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].placeHolder}
         />
       </Grid>
       <Grid container item spacing={3}>
@@ -308,6 +316,7 @@ export function QualificacaoFinanceira() {
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].textHelper}
+            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].placeHolder}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -327,6 +336,7 @@ export function QualificacaoFinanceira() {
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].textHelper}
+            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].placeHolder}
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
@@ -362,6 +372,7 @@ export function QualificacaoFinanceira() {
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].textHelper}
+            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].placeHolder}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -381,6 +392,7 @@ export function QualificacaoFinanceira() {
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].textHelper}
+            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].placeHolder}
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
@@ -421,6 +433,7 @@ export function QualificacaoFinanceira() {
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].textHelper}
+            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].placeHolder}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -440,6 +453,7 @@ export function QualificacaoFinanceira() {
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].label}
             required={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].textHelper}
+            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].placeHolder}
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>

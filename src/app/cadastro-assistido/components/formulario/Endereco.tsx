@@ -3,11 +3,12 @@ import GiteIcon from '@mui/icons-material/Gite'
 import EditRoadIcon from '@mui/icons-material/EditRoad'
 import { Grid, InputAdornment, TextField } from '@mui/material'
 
-const TEXT_FIELDS_CONTATOS = [
+const FOMULARIO_CAMPOS_ENDERECO = [
   {
     name: 'tipoArea',
     label: 'Tipo Área',
     textHelper: 'Ex.: Urbana, Rural, etc...',
+    placeHolder: '',
     icon: undefined,
     required: true,
   },
@@ -15,6 +16,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'logradouro',
     label: 'Logradouro',
     textHelper: 'Ex.: Rua, Avenida, Residêncial,etc...',
+    placeHolder: '',
     icon: <GiteIcon />,
     required: true,
   },
@@ -22,6 +24,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'cep',
     label: 'CEP',
     textHelper: 'CEP da sua moradia.',
+    placeHolder: '00000-000',
     icon: undefined,
     required: true,
   },
@@ -29,6 +32,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'bairro',
     label: 'Bairro',
     textHelper: 'Bairro da sua residência.',
+    placeHolder: '',
     icon: <EditRoadIcon />,
     required: true,
   },
@@ -36,6 +40,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'numero',
     label: 'Número',
     textHelper: 'Número da sua residência.',
+    placeHolder: 'Ex.: 34, 67B, 3456, etc..',
     icon: 'Nº',
     required: true,
   },
@@ -43,6 +48,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'complemento',
     label: 'Complemento',
     textHelper: 'Ex.: Casa, Apartamento, fundos, etc...',
+    placeHolder: '',
     icon: undefined,
     required: true,
   },
@@ -50,6 +56,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'estado',
     label: 'Estado',
     textHelper: 'Estado onde mora.',
+    placeHolder: 'Pará, Espirito Santo, Paraná, etc..',
     icon: undefined,
     required: true,
   },
@@ -57,6 +64,7 @@ const TEXT_FIELDS_CONTATOS = [
     name: 'municipio',
     label: 'Município',
     textHelper: 'Município de sua residência.',
+    placeHolder: '',
     icon: undefined,
     required: true,
   },
@@ -78,15 +86,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[0].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[0].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[0].name}
-          label={TEXT_FIELDS_CONTATOS[0].label}
-          required={TEXT_FIELDS_CONTATOS[0].required}
-          helperText={TEXT_FIELDS_CONTATOS[0].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[0].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[0].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[0].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[0].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[0].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={8}>
@@ -97,15 +106,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[1].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[1].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[1].name}
-          label={TEXT_FIELDS_CONTATOS[1].label}
-          required={TEXT_FIELDS_CONTATOS[1].required}
-          helperText={TEXT_FIELDS_CONTATOS[1].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[1].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[1].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[1].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[1].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[1].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -116,16 +126,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[2].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[2].icon}
               </InputAdornment>
             ),
           }}
-          placeholder="00000-000"
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[2].name}
-          label={TEXT_FIELDS_CONTATOS[2].label}
-          required={TEXT_FIELDS_CONTATOS[2].required}
-          helperText={TEXT_FIELDS_CONTATOS[2].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[2].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[2].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[2].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[2].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[2].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -136,15 +146,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[3].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[3].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[3].name}
-          label={TEXT_FIELDS_CONTATOS[3].label}
-          required={TEXT_FIELDS_CONTATOS[3].required}
-          helperText={TEXT_FIELDS_CONTATOS[3].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[3].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[3].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[3].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[3].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[3].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -155,15 +166,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[4].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[4].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[4].name}
-          label={TEXT_FIELDS_CONTATOS[4].label}
-          required={TEXT_FIELDS_CONTATOS[4].required}
-          helperText={TEXT_FIELDS_CONTATOS[4].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[4].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[4].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[4].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[4].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[4].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -174,15 +186,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[5].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[5].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[5].name}
-          label={TEXT_FIELDS_CONTATOS[5].label}
-          required={TEXT_FIELDS_CONTATOS[5].required}
-          helperText={TEXT_FIELDS_CONTATOS[5].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[5].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[5].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[5].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[5].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[5].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -193,15 +206,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[6].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[6].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[6].name}
-          label={TEXT_FIELDS_CONTATOS[6].label}
-          required={TEXT_FIELDS_CONTATOS[6].required}
-          helperText={TEXT_FIELDS_CONTATOS[6].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[6].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[6].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[6].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[6].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[6].placeHolder}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -212,15 +226,16 @@ export function Endereco() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELDS_CONTATOS[7].icon}
+                {FOMULARIO_CAMPOS_ENDERECO[7].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELDS_CONTATOS[7].name}
-          label={TEXT_FIELDS_CONTATOS[7].label}
-          required={TEXT_FIELDS_CONTATOS[7].required}
-          helperText={TEXT_FIELDS_CONTATOS[7].textHelper}
+          name={FOMULARIO_CAMPOS_ENDERECO[7].name}
+          label={FOMULARIO_CAMPOS_ENDERECO[7].label}
+          required={FOMULARIO_CAMPOS_ENDERECO[7].required}
+          helperText={FOMULARIO_CAMPOS_ENDERECO[7].textHelper}
+          placeholder={FOMULARIO_CAMPOS_ENDERECO[7].placeHolder}
         />
       </Grid>
     </Grid>

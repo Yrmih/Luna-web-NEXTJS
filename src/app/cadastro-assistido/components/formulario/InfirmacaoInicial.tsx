@@ -4,11 +4,12 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import { Grid, InputAdornment, TextField } from '@mui/material'
 
-const TEXT_FIELD_INFO_INICIAL = [
+const FORMULARIO_CAMPOS_INFO_INICIAL = [
   {
     name: 'nomeCompleto',
     label: 'Nome Completo',
-    textHelper: 'nome e sobrenomes. Ex.: Luiza de Suza Menezes',
+    textHelper: 'nome e sobrenomes.',
+    placeHolder: 'Ex.: Luiza de Suza Menezes',
     icon: <PersonIcon />,
     required: true,
   },
@@ -16,6 +17,7 @@ const TEXT_FIELD_INFO_INICIAL = [
     name: 'cpf',
     label: 'CPF',
     textHelper: 'Número de CPF ou CNPJ',
+    placeHolder: '000.000.000-00',
     icon: <BadgeIcon />,
     required: true,
   },
@@ -23,6 +25,7 @@ const TEXT_FIELD_INFO_INICIAL = [
     name: 'email',
     label: 'Endereço de Email',
     textHelper: 'O email é inportante para envio de informações.',
+    placeHolder: 'EX.: alfser@gmail.com',
     icon: <MailOutlineIcon />,
     required: true,
   },
@@ -45,14 +48,15 @@ export function InformacaoInicial() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELD_INFO_INICIAL[0].icon}
+                {FORMULARIO_CAMPOS_INFO_INICIAL[0].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          name={TEXT_FIELD_INFO_INICIAL[0].name}
-          label={TEXT_FIELD_INFO_INICIAL[0].label}
-          helperText={TEXT_FIELD_INFO_INICIAL[0].textHelper}
+          name={FORMULARIO_CAMPOS_INFO_INICIAL[0].name}
+          label={FORMULARIO_CAMPOS_INFO_INICIAL[0].label}
+          helperText={FORMULARIO_CAMPOS_INFO_INICIAL[0].textHelper}
+          placeholder={FORMULARIO_CAMPOS_INFO_INICIAL[0].placeHolder}
         />
       </Grid>
       <Grid item xs={12}>
@@ -63,16 +67,16 @@ export function InformacaoInicial() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELD_INFO_INICIAL[1].icon}
+                {FORMULARIO_CAMPOS_INFO_INICIAL[1].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
-          placeholder="000.000.000-00"
-          name={TEXT_FIELD_INFO_INICIAL[1].name}
-          label={TEXT_FIELD_INFO_INICIAL[1].label}
-          required={TEXT_FIELD_INFO_INICIAL[1].required}
-          helperText={TEXT_FIELD_INFO_INICIAL[1].textHelper}
+          name={FORMULARIO_CAMPOS_INFO_INICIAL[1].name}
+          label={FORMULARIO_CAMPOS_INFO_INICIAL[1].label}
+          required={FORMULARIO_CAMPOS_INFO_INICIAL[1].required}
+          helperText={FORMULARIO_CAMPOS_INFO_INICIAL[1].textHelper}
+          placeholder={FORMULARIO_CAMPOS_INFO_INICIAL[1].placeHolder}
         />
       </Grid>
       <Grid item xs={12}>
@@ -81,17 +85,18 @@ export function InformacaoInicial() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                {TEXT_FIELD_INFO_INICIAL[2].icon}
+                {FORMULARIO_CAMPOS_INFO_INICIAL[2].icon}
               </InputAdornment>
             ),
           }}
           onChange={handleChange}
           fullWidth
           autoComplete="cc-exp"
-          name={TEXT_FIELD_INFO_INICIAL[2].name}
-          label={TEXT_FIELD_INFO_INICIAL[2].label}
-          required={TEXT_FIELD_INFO_INICIAL[2].required}
-          helperText={TEXT_FIELD_INFO_INICIAL[2].textHelper}
+          name={FORMULARIO_CAMPOS_INFO_INICIAL[2].name}
+          label={FORMULARIO_CAMPOS_INFO_INICIAL[2].label}
+          required={FORMULARIO_CAMPOS_INFO_INICIAL[2].required}
+          helperText={FORMULARIO_CAMPOS_INFO_INICIAL[2].textHelper}
+          placeholder={FORMULARIO_CAMPOS_INFO_INICIAL[2].placeHolder}
         />
       </Grid>
     </Grid>
