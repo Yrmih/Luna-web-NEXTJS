@@ -33,3 +33,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.api_key.config
+.tmp/swagger-codegen-cli.jar
