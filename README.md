@@ -19,6 +19,9 @@ yarn start
 
 ```
 
+### Variáveis de ambientes
+Se for alterar algum valor das variáveis de ambiente, crie um arquivo `.env.local`. Ele irá sobrescrever todas as variáveis do `.env` padrão que foram adicionadas no arquivo.
+
 ## Temas
 Para alteração das cores do tema recomenda-se usar o [zenoo](https://zenoo.github.io/mui-theme-creator/) para escolher as paletas de cores.
 

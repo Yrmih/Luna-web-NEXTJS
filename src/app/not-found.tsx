@@ -27,7 +27,7 @@ export default function notFoundPage() {
           </Typography>
         </Alert>
         <Button href="/" variant="outlined">
-          Vá para a página inicial
+          Ir para a página inicial
         </Button>
       </Stack>
     </Container>
