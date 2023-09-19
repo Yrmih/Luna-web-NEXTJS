@@ -13,22 +13,24 @@ const roboto = Roboto({
 })
 
 function getTheme(prefersDarkMode: boolean) {
+  const customPallete = {
+    primary: {
+      main: process.env.THEME_COLOR_PRIMARY_MAIN || '#2E7D32',
+    },
+    secondary: {
+      main: process.env.THEME_COLOR_SECONDARY_MAIN || '#00C853',
+    },
+    background: {
+      default: process.env.THEME_COLOR_BACKGROUND_DEFAULT || '#f4f7f9',
+      paper: process.env.THEME_COLOR_BACKGROUND_PAPER || '#ffffff',
+    },
+  }
+
   const palette: PaletteOptions = prefersDarkMode
     ? {
         mode: 'dark',
       }
-    : {
-        primary: {
-          main: process.env.THEME_COLOR_PRIMARY_MAIN || '#1976d2',
-        },
-        secondary: {
-          main: process.env.THEME_COLOR_SECONDARY_MAIN || '#9c27b0',
-        },
-        background: {
-          default: process.env.THEME_COLOR_BACKGROUND_DEFAULT || '#fff',
-          paper: process.env.THEME_COLOR_BACKGROUND_PAPER || '#fff',
-        },
-      }
+    : customPallete
 
   return createTheme({
     palette,
