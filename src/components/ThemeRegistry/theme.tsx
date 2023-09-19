@@ -19,14 +19,14 @@ function getTheme(prefersDarkMode: boolean) {
       }
     : {
         primary: {
-          main: '#2E7D32',
+          main: process.env.THEME_COLOR_PRIMARY_MAIN || '#1976d2',
         },
         secondary: {
-          main: '#00C853',
+          main: process.env.THEME_COLOR_SECONDARY_MAIN || '#9c27b0',
         },
         background: {
-          default: '#f4f7f9',
-          paper: '#ffffff',
+          default: process.env.THEME_COLOR_BACKGROUND_DEFAULT || '#fff',
+          paper: process.env.THEME_COLOR_BACKGROUND_PAPER || '#fff',
         },
       }
 
