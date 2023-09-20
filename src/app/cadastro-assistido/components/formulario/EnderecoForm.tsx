@@ -2,6 +2,8 @@
 import GiteIcon from '@mui/icons-material/Gite'
 import EditRoadIcon from '@mui/icons-material/EditRoad'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {
@@ -70,12 +72,12 @@ const FOMULARIO_CAMPOS_ENDERECO = [
   },
 ]
 
-export function Endereco() {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget)
-    console.log(event.target)
-  }
+export type EnderecoProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
 
+export function EnderecoForm({ register, errors }: EnderecoProps) {
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12} sm={4}>
@@ -90,7 +92,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.tipoArea')}
           name={FOMULARIO_CAMPOS_ENDERECO[0].name}
           label={FOMULARIO_CAMPOS_ENDERECO[0].label}
           required={FOMULARIO_CAMPOS_ENDERECO[0].required}
@@ -110,7 +112,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.logradouro')}
           name={FOMULARIO_CAMPOS_ENDERECO[1].name}
           label={FOMULARIO_CAMPOS_ENDERECO[1].label}
           required={FOMULARIO_CAMPOS_ENDERECO[1].required}
@@ -130,7 +132,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.cep')}
           name={FOMULARIO_CAMPOS_ENDERECO[2].name}
           label={FOMULARIO_CAMPOS_ENDERECO[2].label}
           required={FOMULARIO_CAMPOS_ENDERECO[2].required}
@@ -150,7 +152,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.bairro')}
           name={FOMULARIO_CAMPOS_ENDERECO[3].name}
           label={FOMULARIO_CAMPOS_ENDERECO[3].label}
           required={FOMULARIO_CAMPOS_ENDERECO[3].required}
@@ -170,7 +172,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.numero')}
           name={FOMULARIO_CAMPOS_ENDERECO[4].name}
           label={FOMULARIO_CAMPOS_ENDERECO[4].label}
           required={FOMULARIO_CAMPOS_ENDERECO[4].required}
@@ -190,7 +192,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.complemento')}
           name={FOMULARIO_CAMPOS_ENDERECO[5].name}
           label={FOMULARIO_CAMPOS_ENDERECO[5].label}
           required={FOMULARIO_CAMPOS_ENDERECO[5].required}
@@ -210,7 +212,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.estado')}
           name={FOMULARIO_CAMPOS_ENDERECO[6].name}
           label={FOMULARIO_CAMPOS_ENDERECO[6].label}
           required={FOMULARIO_CAMPOS_ENDERECO[6].required}
@@ -230,7 +232,7 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('endereco.municipio')}
           name={FOMULARIO_CAMPOS_ENDERECO[7].name}
           label={FOMULARIO_CAMPOS_ENDERECO[7].label}
           required={FOMULARIO_CAMPOS_ENDERECO[7].required}

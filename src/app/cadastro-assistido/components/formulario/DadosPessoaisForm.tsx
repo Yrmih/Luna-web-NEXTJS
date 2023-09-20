@@ -16,7 +16,6 @@ import {
   Radio,
   RadioGroup,
   Select,
-  SelectChangeEvent,
   TextField,
 } from '@mui/material'
 
@@ -25,6 +24,8 @@ import { useState } from 'react'
 
 // Internal
 import { DadosPessoais } from '../../types/DadosPessoais'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_DADOS_PESSOAIS = [
   {
@@ -111,7 +112,12 @@ const SELECT_TIPO_CERTIDAO = [
   { valor: 1, nome: 'Certidão de Casamento' },
 ]
 
-export function DadosPessoais() {
+export type DadosPessoaisProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
+
+export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
   const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({})
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,10 +127,6 @@ export function DadosPessoais() {
       ...previousState,
       [event.target.name]: event.target.value,
     }))
-  }
-
-  const handleSelectChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value as string)
   }
 
   return (
@@ -142,7 +144,7 @@ export function DadosPessoais() {
             ),
           }}
           placeholder="Ex.: Lucineia Ferreira da Silva."
-          onChange={handleChange}
+          {...register('dadosPessoais.nomeMae')}
           name={FORMULARIO_DADOS_PESSOAIS[0].name}
           label={FORMULARIO_DADOS_PESSOAIS[0].label}
           required={FORMULARIO_DADOS_PESSOAIS[0].required}
@@ -162,7 +164,7 @@ export function DadosPessoais() {
             ),
           }}
           placeholder="Ex.: Cláudio da Conceição Silva."
-          onChange={handleChange}
+          {...register('dadosPessoais.nomePai')}
           name={FORMULARIO_DADOS_PESSOAIS[1].name}
           label={FORMULARIO_DADOS_PESSOAIS[1].label}
           required={FORMULARIO_DADOS_PESSOAIS[1].required}
@@ -182,7 +184,7 @@ export function DadosPessoais() {
             ),
           }}
           placeholder="Ex.: Claudinho"
-          onChange={handleChange}
+          {...register('dadosPessoais.nomeSocial')}
           name={FORMULARIO_DADOS_PESSOAIS[2].name}
           label={FORMULARIO_DADOS_PESSOAIS[2].label}
           required={FORMULARIO_DADOS_PESSOAIS[2].required}
@@ -196,7 +198,7 @@ export function DadosPessoais() {
           InputLabelProps={{ shrink: true }}
           id="dataNascimento"
           autoComplete="dataNascimento"
-          onChange={handleChange}
+          {...register('dadosPessoais.dataNascimento')}
           name={FORMULARIO_DADOS_PESSOAIS[3].name}
           label={FORMULARIO_DADOS_PESSOAIS[3].label}
           required={FORMULARIO_DADOS_PESSOAIS[3].required}
@@ -209,10 +211,10 @@ export function DadosPessoais() {
             {FORMULARIO_DADOS_PESSOAIS[4].label}
           </InputLabel>
           <Select
-            onChange={handleSelectChange}
             labelId="estado-civil"
             id="estadoCivil"
             label="Estado Civil"
+            {...register('dadosPessoais.estadoCivil')}
             name={FORMULARIO_DADOS_PESSOAIS[4].name}
             required={FORMULARIO_DADOS_PESSOAIS[4].required}
           >
@@ -234,7 +236,7 @@ export function DadosPessoais() {
             aria-labelledby="radio-sexo-control"
             name="radio-sexo-control"
             sx={{ flexDirection: 'row' }}
-            value={dadosPessoais}
+            value={dadosPessoais.sexo}
             onChange={handleChange}
           >
             <FormControlLabel
@@ -263,7 +265,7 @@ export function DadosPessoais() {
             ),
           }}
           placeholder="Ex.: 7325110"
-          onChange={handleChange}
+          {...register('dadosPessoais.rg')}
           name={FORMULARIO_DADOS_PESSOAIS[5].name}
           label={FORMULARIO_DADOS_PESSOAIS[5].label}
           required={FORMULARIO_DADOS_PESSOAIS[5].required}
@@ -283,7 +285,7 @@ export function DadosPessoais() {
             ),
           }}
           placeholder="Ex.: Polícia Civil"
-          onChange={handleChange}
+          {...register('dadosPessoais.rgOrgao')}
           name={FORMULARIO_DADOS_PESSOAIS[6].name}
           label={FORMULARIO_DADOS_PESSOAIS[6].label}
           required={FORMULARIO_DADOS_PESSOAIS[6].required}
@@ -296,7 +298,7 @@ export function DadosPessoais() {
             {FORMULARIO_DADOS_PESSOAIS[8].label}
           </InputLabel>
           <Select
-            onChange={handleSelectChange}
+            {...register('dadosPessoais.tipoCertidao')}
             name={FORMULARIO_DADOS_PESSOAIS[8].name}
             required={FORMULARIO_DADOS_PESSOAIS[8].required}
             labelId="numero-certidao"
@@ -327,7 +329,7 @@ export function DadosPessoais() {
             ),
           }}
           placeholder="Ex.: 999999 99 99 9999 9 99999 999 9999999 99."
-          onChange={handleChange}
+          {...register('dadosPessoais.certidao')}
           name={FORMULARIO_DADOS_PESSOAIS[9].name}
           label={FORMULARIO_DADOS_PESSOAIS[9].label}
           required={FORMULARIO_DADOS_PESSOAIS[9].required}

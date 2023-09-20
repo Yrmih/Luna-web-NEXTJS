@@ -17,12 +17,18 @@ import {
 import { useState } from 'react'
 
 // Internal
-import { DadosPessoais } from './components/formulario/DadosPessoais'
-import { QualificacaoFinanceira } from './components/formulario/QualificacaoFinanceira'
-import { Contato } from './components/formulario/Contato'
-import { Endereco } from './components/formulario/Endereco'
-import { InformacaoInicial } from './components/formulario/InfirmacaoInicial'
+import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
+import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceira'
+import { ContatoForm } from './components/formulario/ContatoForm'
+import { EnderecoForm } from './components/formulario/EnderecoForm'
+import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
 import { Copyright } from '@/components/Copyright'
+import { InformacaoInicial } from './types/InformacaoInicial'
+import { Contato } from './types/Contato'
+import { Endereco } from './types/Endereco'
+import { DadosPessoais } from './types/DadosPessoais'
+import { QualificacaoFianceira } from './types/QualificacaoFinanceira'
+import { SubmitHandler, UseFormRegister, useForm } from 'react-hook-form'
 
 const steps = [
   {
@@ -49,25 +55,45 @@ const steps = [
   },
 ]
 
-function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return <InformacaoInicial />
-    case 1:
-      return <Contato />
-    case 2:
-      return <Endereco />
-    case 3:
-      return <DadosPessoais />
-    case 4:
-      return <QualificacaoFinanceira />
-    default:
-      throw new Error('Unknown step')
-  }
+export type CadastroAssistidoInputsForm = {
+  informacaoInicial: InformacaoInicial
+  contatos: Contato
+  endereco: Endereco
+  dadosPessoais: DadosPessoais
+  qualificacaoFinanceira: QualificacaoFianceira
 }
 
 export function CadastroAssistido() {
   const [activeStep, setActiveStep] = useState(0)
+  const {
+    register,
+    formState: { errors, isLoading, isValid },
+    handleSubmit,
+  } = useForm<CadastroAssistidoInputsForm>()
+
+  function getStepForm(step: number) {
+    switch (step) {
+      case 0:
+        return <InformacaoInicialForm register={register} errors={errors} />
+      case 1:
+        return <ContatoForm register={register} errors={errors} />
+      case 2:
+        return <EnderecoForm register={register} errors={errors} />
+      case 3:
+        return <DadosPessoaisForm register={register} errors={errors} />
+      case 4:
+        return (
+          <QualificacaoFinanceiraForm register={register} errors={errors} />
+        )
+      default:
+        throw new Error('Unknown step')
+    }
+  }
+
+  const onSubmit: SubmitHandler<CadastroAssistidoInputsForm> = (data) => {
+    console.log('DADOS: ', data, 'ERRO: ', errors)
+    console.log('LOADING: ', isLoading, 'VALID: ', isValid)
+  }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)
@@ -78,7 +104,12 @@ export function CadastroAssistido() {
   }
 
   return (
-    <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+    <Container
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      maxWidth="md"
+      sx={{ mb: 4 }}
+    >
       <Paper
         variant="outlined"
         sx={{
@@ -113,15 +144,19 @@ export function CadastroAssistido() {
             {steps[activeStep].descricao}
           </Typography>
         </Box>
-        {getStepContent(activeStep)}
+        {getStepForm(activeStep)}
         <MobileStepper
-          sx={{ mt: 10, borderRadius: 4, display: { xs: 'flex', sm: 'none' } }}
+          sx={{
+            mt: 10,
+            borderRadius: 4,
+            display: { xs: 'flex', sm: 'none' },
+          }}
           variant="dots"
           steps={steps.length}
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button size="small" onClick={handleNext}>
+            <Button size="small" type="submit" onClick={handleNext}>
               {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
             </Button>
           }
@@ -136,6 +171,7 @@ export function CadastroAssistido() {
           }
         />
         <Box
+          component={'form'}
           sx={{
             display: { xs: 'none', sm: 'flex' },
             justifyContent: 'flex-end',
@@ -148,6 +184,7 @@ export function CadastroAssistido() {
           )}
           <Button
             variant="contained"
+            type="submit"
             onClick={handleNext}
             sx={{ mt: 8, mr: 3 }}
           >

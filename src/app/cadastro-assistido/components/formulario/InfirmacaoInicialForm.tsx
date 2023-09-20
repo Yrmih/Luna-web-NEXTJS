@@ -3,6 +3,8 @@ import BadgeIcon from '@mui/icons-material/Badge'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_CAMPOS_INFO_INICIAL = [
   {
@@ -31,12 +33,15 @@ const FORMULARIO_CAMPOS_INFO_INICIAL = [
   },
 ]
 
-export function InformacaoInicial() {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget)
-    console.log(event.target)
-  }
+export type InformacaoInicialProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
 
+export function InformacaoInicialForm({
+  register,
+  errors,
+}: InformacaoInicialProps) {
   return (
     <Grid container flexDirection={'column'} px={4} spacing={3}>
       <Grid item xs={12}>
@@ -52,7 +57,10 @@ export function InformacaoInicial() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('informacaoInicial.nomeCompleto', {
+            required: 'Compo Obrigatório',
+          })}
+          error={errors.informacaoInicial !== undefined}
           name={FORMULARIO_CAMPOS_INFO_INICIAL[0].name}
           label={FORMULARIO_CAMPOS_INFO_INICIAL[0].label}
           helperText={FORMULARIO_CAMPOS_INFO_INICIAL[0].textHelper}
@@ -71,7 +79,10 @@ export function InformacaoInicial() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('informacaoInicial.cpf', {
+            required: 'Compo Obrigatório',
+          })}
+          error={errors.informacaoInicial !== undefined}
           name={FORMULARIO_CAMPOS_INFO_INICIAL[1].name}
           label={FORMULARIO_CAMPOS_INFO_INICIAL[1].label}
           required={FORMULARIO_CAMPOS_INFO_INICIAL[1].required}
@@ -89,9 +100,12 @@ export function InformacaoInicial() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
           fullWidth
-          autoComplete="cc-exp"
+          autoComplete="email"
+          {...register('informacaoInicial.email', {
+            required: 'Compo Obrigatório',
+          })}
+          error={errors.informacaoInicial !== undefined}
           name={FORMULARIO_CAMPOS_INFO_INICIAL[2].name}
           label={FORMULARIO_CAMPOS_INFO_INICIAL[2].label}
           required={FORMULARIO_CAMPOS_INFO_INICIAL[2].required}

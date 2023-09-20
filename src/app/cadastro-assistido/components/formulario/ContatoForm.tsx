@@ -2,6 +2,8 @@
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_CAMPOS_CONTATOS = [
   {
@@ -22,12 +24,12 @@ const FORMULARIO_CAMPOS_CONTATOS = [
   },
 ]
 
-export function Contato() {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget)
-    console.log(event.target)
-  }
+export type ContatoProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
 
+export function ContatoForm({ register, errors }: ContatoProps) {
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>
@@ -42,7 +44,7 @@ export function Contato() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('contatos.celular')}
           name={FORMULARIO_CAMPOS_CONTATOS[0].name}
           label={FORMULARIO_CAMPOS_CONTATOS[0].label}
           required={FORMULARIO_CAMPOS_CONTATOS[0].required}
@@ -62,7 +64,7 @@ export function Contato() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
+          {...register('contatos.celular')}
           placeholder={FORMULARIO_CAMPOS_CONTATOS[1].placeHolder}
           name={FORMULARIO_CAMPOS_CONTATOS[1].name}
           label={FORMULARIO_CAMPOS_CONTATOS[1].label}

@@ -25,6 +25,8 @@ import { Movel } from '../../types/Movel'
 import { Imovel } from '../../types/Imovel'
 import { Investimento } from '../../types/Investimento'
 import { TabelaitensAdicionados } from '../TabelaItensAdicionados'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
   {
@@ -109,7 +111,15 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
   },
 ]
 
-export function QualificacaoFinanceira() {
+export type QualificacaoFinanceraProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
+
+export function QualificacaoFinanceiraForm({
+  register,
+  errors,
+}: QualificacaoFinanceraProps) {
   const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState<Item[]>([])
   const [bensImoveisAdicionado, setBensImoveisAdicionado] = useState<Item[]>([])
   const [investimentosAdicionado, setInvestimentosAdicionado] = useState<
