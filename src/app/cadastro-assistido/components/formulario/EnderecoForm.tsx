@@ -169,7 +169,7 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
           helperText={
             errors.endereco?.bairro !== undefined
               ? errors.endereco.bairro.message
-              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+              : FOMULARIO_CAMPOS_ENDERECO[3].textHelper
           }
           name={FOMULARIO_CAMPOS_ENDERECO[3].name}
           label={FOMULARIO_CAMPOS_ENDERECO[3].label}
@@ -193,7 +193,7 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
           helperText={
             errors.endereco?.numero !== undefined
               ? errors.endereco.numero.message
-              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+              : FOMULARIO_CAMPOS_ENDERECO[4].textHelper
           }
           name={FOMULARIO_CAMPOS_ENDERECO[4].name}
           label={FOMULARIO_CAMPOS_ENDERECO[4].label}
@@ -217,7 +217,7 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
           helperText={
             errors.endereco?.complemento !== undefined
               ? errors.endereco.complemento.message
-              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+              : FOMULARIO_CAMPOS_ENDERECO[5].textHelper
           }
           name={FOMULARIO_CAMPOS_ENDERECO[5].name}
           label={FOMULARIO_CAMPOS_ENDERECO[5].label}
@@ -241,7 +241,7 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
           helperText={
             errors.endereco?.estado !== undefined
               ? errors.endereco.estado.message
-              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+              : FOMULARIO_CAMPOS_ENDERECO[6].textHelper
           }
           name={FOMULARIO_CAMPOS_ENDERECO[6].name}
           label={FOMULARIO_CAMPOS_ENDERECO[6].label}
@@ -265,7 +265,7 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
           helperText={
             errors.endereco?.municipio !== undefined
               ? errors.endereco.municipio.message
-              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+              : FOMULARIO_CAMPOS_ENDERECO[7].textHelper
           }
           name={FOMULARIO_CAMPOS_ENDERECO[7].name}
           label={FOMULARIO_CAMPOS_ENDERECO[7].label}
