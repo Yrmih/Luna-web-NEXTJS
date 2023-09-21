@@ -4,6 +4,7 @@ import { FORMULARIO_ERROS_MENSAGENS, INPUT_MASK_REGEX } from './constants'
 const informacaoInicialSchema = z.object({
   nomeCompleto: z
     .string({ invalid_type_error: FORMULARIO_ERROS_MENSAGENS.string })
+    .regex(INPUT_MASK_REGEX.apenasLetras)
     .nonempty(FORMULARIO_ERROS_MENSAGENS.required),
   cpf: z
     .string()
