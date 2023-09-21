@@ -93,10 +93,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.tipoArea')}
+          error={errors.endereco?.tipoArea !== undefined}
+          helperText={
+            errors.endereco?.tipoArea !== undefined
+              ? errors.endereco.tipoArea.message
+              : FOMULARIO_CAMPOS_ENDERECO[0].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[0].name}
           label={FOMULARIO_CAMPOS_ENDERECO[0].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[0].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[0].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[0].placeHolder}
         />
       </Grid>
@@ -113,10 +117,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.logradouro')}
+          error={errors.endereco?.logradouro !== undefined}
+          helperText={
+            errors.endereco?.logradouro !== undefined
+              ? errors.endereco.logradouro.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[1].name}
           label={FOMULARIO_CAMPOS_ENDERECO[1].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[1].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[1].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[1].placeHolder}
         />
       </Grid>
@@ -133,10 +141,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.cep')}
+          error={errors.endereco?.cep !== undefined}
+          helperText={
+            errors.endereco?.cep !== undefined
+              ? errors.endereco.cep.message
+              : FOMULARIO_CAMPOS_ENDERECO[2].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[2].name}
           label={FOMULARIO_CAMPOS_ENDERECO[2].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[2].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[2].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[2].placeHolder}
         />
       </Grid>
@@ -153,10 +165,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.bairro')}
+          error={errors.endereco?.bairro !== undefined}
+          helperText={
+            errors.endereco?.bairro !== undefined
+              ? errors.endereco.bairro.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[3].name}
           label={FOMULARIO_CAMPOS_ENDERECO[3].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[3].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[3].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[3].placeHolder}
         />
       </Grid>
@@ -173,10 +189,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.numero')}
+          error={errors.endereco?.numero !== undefined}
+          helperText={
+            errors.endereco?.numero !== undefined
+              ? errors.endereco.numero.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[4].name}
           label={FOMULARIO_CAMPOS_ENDERECO[4].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[4].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[4].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[4].placeHolder}
         />
       </Grid>
@@ -193,10 +213,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.complemento')}
+          error={errors.endereco?.complemento !== undefined}
+          helperText={
+            errors.endereco?.complemento !== undefined
+              ? errors.endereco.complemento.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[5].name}
           label={FOMULARIO_CAMPOS_ENDERECO[5].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[5].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[5].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[5].placeHolder}
         />
       </Grid>
@@ -213,10 +237,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.estado')}
+          error={errors.endereco?.estado !== undefined}
+          helperText={
+            errors.endereco?.estado !== undefined
+              ? errors.endereco.estado.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[6].name}
           label={FOMULARIO_CAMPOS_ENDERECO[6].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[6].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[6].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[6].placeHolder}
         />
       </Grid>
@@ -233,10 +261,14 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
             ),
           }}
           {...register('endereco.municipio')}
+          error={errors.endereco?.municipio !== undefined}
+          helperText={
+            errors.endereco?.municipio !== undefined
+              ? errors.endereco.municipio.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           name={FOMULARIO_CAMPOS_ENDERECO[7].name}
           label={FOMULARIO_CAMPOS_ENDERECO[7].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[7].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[7].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[7].placeHolder}
         />
       </Grid>

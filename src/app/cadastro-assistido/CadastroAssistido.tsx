@@ -12,6 +12,9 @@ import {
   Stepper,
   Typography,
 } from '@mui/material'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 // Framework
 import { useState } from 'react'
@@ -23,12 +26,7 @@ import { ContatoForm } from './components/formulario/ContatoForm'
 import { EnderecoForm } from './components/formulario/EnderecoForm'
 import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
 import { Copyright } from '@/components/Copyright'
-import { InformacaoInicial } from './types/InformacaoInicial'
-import { Contato } from './types/Contato'
-import { Endereco } from './types/Endereco'
-import { DadosPessoais } from './types/DadosPessoais'
-import { QualificacaoFianceira } from './types/QualificacaoFinanceira'
-import { SubmitHandler, UseFormRegister, useForm } from 'react-hook-form'
+import { cadastroAssistidoSchema } from './components/formulario/schemas'
 
 const steps = [
   {
@@ -55,13 +53,9 @@ const steps = [
   },
 ]
 
-export type CadastroAssistidoInputsForm = {
-  informacaoInicial: InformacaoInicial
-  contatos: Contato
-  endereco: Endereco
-  dadosPessoais: DadosPessoais
-  qualificacaoFinanceira: QualificacaoFianceira
-}
+export type CadastroAssistidoInputsForm = z.infer<
+  typeof cadastroAssistidoSchema
+>
 
 export function CadastroAssistido() {
   const [activeStep, setActiveStep] = useState(0)
@@ -69,7 +63,10 @@ export function CadastroAssistido() {
     register,
     formState: { errors, isLoading, isValid },
     handleSubmit,
-  } = useForm<CadastroAssistidoInputsForm>()
+  } = useForm<CadastroAssistidoInputsForm>({
+    mode: 'onChange',
+    resolver: zodResolver(cadastroAssistidoSchema),
+  })
 
   function getStepForm(step: number) {
     switch (step) {
@@ -93,6 +90,7 @@ export function CadastroAssistido() {
   const onSubmit: SubmitHandler<CadastroAssistidoInputsForm> = (data) => {
     console.log('DADOS: ', data, 'ERRO: ', errors)
     console.log('LOADING: ', isLoading, 'VALID: ', isValid)
+    handleNext()
   }
 
   const handleNext = () => {
@@ -104,13 +102,10 @@ export function CadastroAssistido() {
   }
 
   return (
-    <Container
-      component="form"
-      onSubmit={handleSubmit(onSubmit)}
-      maxWidth="md"
-      sx={{ mb: 4 }}
-    >
+    <Container maxWidth="md" sx={{ mb: 4 }}>
       <Paper
+        component={'form'}
+        onSubmit={handleSubmit(onSubmit)}
         variant="outlined"
         sx={{
           my: { xs: 3, md: 6 },
@@ -170,27 +165,19 @@ export function CadastroAssistido() {
             </Button>
           }
         />
-        <Box
-          component={'form'}
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            justifyContent: 'flex-end',
-          }}
-        >
-          {activeStep !== 0 && (
-            <Button onClick={handleBack} sx={{ mt: 8, mr: 3 }}>
-              voltar
-            </Button>
-          )}
-          <Button
-            variant="contained"
-            type="submit"
-            onClick={handleNext}
-            sx={{ mt: 8, mr: 3 }}
-          >
-            {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+        {activeStep !== 0 && (
+          <Button onClick={handleBack} sx={{ mt: 8, mr: 3 }}>
+            voltar
           </Button>
-        </Box>
+        )}
+        <Button
+          variant="contained"
+          type={activeStep === steps.length - 1 ? 'submit' : 'button'}
+          onClick={handleNext}
+          sx={{ mt: 8, mr: 3 }}
+        >
+          {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+        </Button>
       </Paper>
       <Copyright />
     </Container>

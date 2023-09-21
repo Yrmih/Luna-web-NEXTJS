@@ -7,20 +7,16 @@ import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_CAMPOS_CONTATOS = [
   {
-    name: 'celular',
     label: 'Número de Celular',
     textHelper: 'Número de Calular com o DDD.',
     placeHolder: '(99) 99999-9999',
     icon: <WhatsAppIcon />,
-    required: true,
   },
   {
-    name: 'telefone',
     label: 'Número de Telefone',
     textHelper: 'Número de telefone fixo.',
     placeHolder: '(99) 9999-9999',
     icon: <LocalPhoneIcon />,
-    required: false,
   },
 ]
 
@@ -45,10 +41,13 @@ export function ContatoForm({ register, errors }: ContatoProps) {
             ),
           }}
           {...register('contatos.celular')}
-          name={FORMULARIO_CAMPOS_CONTATOS[0].name}
+          error={errors.contatos?.celular !== undefined}
+          helperText={
+            errors.contatos?.celular !== undefined
+              ? errors.contatos.celular.message
+              : FORMULARIO_CAMPOS_CONTATOS[0].textHelper
+          }
           label={FORMULARIO_CAMPOS_CONTATOS[0].label}
-          required={FORMULARIO_CAMPOS_CONTATOS[0].required}
-          helperText={FORMULARIO_CAMPOS_CONTATOS[0].textHelper}
           placeholder={FORMULARIO_CAMPOS_CONTATOS[0].placeHolder}
         />
       </Grid>
@@ -64,12 +63,15 @@ export function ContatoForm({ register, errors }: ContatoProps) {
               </InputAdornment>
             ),
           }}
-          {...register('contatos.celular')}
+          {...register('contatos.telefone')}
+          error={errors.contatos?.telefone !== undefined}
+          helperText={
+            errors.contatos?.telefone !== undefined
+              ? errors.contatos.telefone.message
+              : FORMULARIO_CAMPOS_CONTATOS[0].textHelper
+          }
           placeholder={FORMULARIO_CAMPOS_CONTATOS[1].placeHolder}
-          name={FORMULARIO_CAMPOS_CONTATOS[1].name}
           label={FORMULARIO_CAMPOS_CONTATOS[1].label}
-          required={FORMULARIO_CAMPOS_CONTATOS[1].required}
-          helperText={FORMULARIO_CAMPOS_CONTATOS[1].textHelper}
         />
       </Grid>
     </Grid>
