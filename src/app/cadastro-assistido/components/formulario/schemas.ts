@@ -15,9 +15,12 @@ const informacaoInicialSchema = z.object({
 const contatoSchema = z.object({
   celular: z
     .string()
-    .regex(INPUT_MASK_REGEX.celular)
+    .regex(INPUT_MASK_REGEX.celular, FORMULARIO_ERROS_MENSAGENS.celular)
     .nonempty(FORMULARIO_ERROS_MENSAGENS.required),
-  telefone: z.string().regex(INPUT_MASK_REGEX.telefone).optional(),
+  telefone: z
+    .string()
+    .regex(INPUT_MASK_REGEX.telefone, FORMULARIO_ERROS_MENSAGENS.telefone)
+    .optional(),
 })
 
 const enderecoSchema = z.object({

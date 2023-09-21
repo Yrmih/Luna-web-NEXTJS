@@ -22,7 +22,7 @@ const FORMULARIO_CAMPOS_INFO_INICIAL = [
   {
     label: 'Endereço de Email',
     textHelper: 'O email é inportante para envio de informações.',
-    placeHolder: 'EX.: alfser@gmail.com',
+    placeHolder: 'Ex.: alfser@gmail.com',
     icon: <MailOutlineIcon />,
   },
 ]

@@ -7,68 +7,50 @@ import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {
-    name: 'tipoArea',
     label: 'Tipo Área',
     textHelper: 'Ex.: Urbana, Rural, etc...',
     placeHolder: '',
-    icon: undefined,
-    required: true,
   },
   {
-    name: 'logradouro',
     label: 'Logradouro',
     textHelper: 'Ex.: Rua, Avenida, Residêncial,etc...',
     placeHolder: '',
     icon: <GiteIcon />,
-    required: true,
   },
   {
-    name: 'cep',
     label: 'CEP',
     textHelper: 'CEP da sua moradia.',
     placeHolder: '00000-000',
-    icon: undefined,
-    required: true,
   },
   {
-    name: 'bairro',
     label: 'Bairro',
     textHelper: 'Bairro da sua residência.',
     placeHolder: '',
     icon: <EditRoadIcon />,
-    required: true,
   },
   {
-    name: 'numero',
     label: 'Número',
     textHelper: 'Número da sua residência.',
     placeHolder: 'Ex.: 34, 67B, 3456, etc..',
     icon: 'Nº',
-    required: true,
   },
   {
-    name: 'complemento',
     label: 'Complemento',
     textHelper: 'Ex.: Casa, Apartamento, fundos, etc...',
     placeHolder: '',
     icon: undefined,
-    required: true,
   },
   {
-    name: 'estado',
     label: 'Estado',
     textHelper: 'Estado onde mora.',
     placeHolder: 'Pará, Espirito Santo, Paraná, etc..',
     icon: undefined,
-    required: true,
   },
   {
-    name: 'municipio',
     label: 'Município',
     textHelper: 'Município de sua residência.',
     placeHolder: '',
     icon: undefined,
-    required: true,
   },
 ]
 
@@ -99,7 +81,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.tipoArea.message
               : FOMULARIO_CAMPOS_ENDERECO[0].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[0].name}
           label={FOMULARIO_CAMPOS_ENDERECO[0].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[0].placeHolder}
         />
@@ -123,7 +104,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.logradouro.message
               : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[1].name}
           label={FOMULARIO_CAMPOS_ENDERECO[1].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[1].placeHolder}
         />
@@ -147,7 +127,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.cep.message
               : FOMULARIO_CAMPOS_ENDERECO[2].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[2].name}
           label={FOMULARIO_CAMPOS_ENDERECO[2].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[2].placeHolder}
         />
@@ -171,7 +150,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.bairro.message
               : FOMULARIO_CAMPOS_ENDERECO[3].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[3].name}
           label={FOMULARIO_CAMPOS_ENDERECO[3].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[3].placeHolder}
         />
@@ -195,7 +173,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.numero.message
               : FOMULARIO_CAMPOS_ENDERECO[4].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[4].name}
           label={FOMULARIO_CAMPOS_ENDERECO[4].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[4].placeHolder}
         />
@@ -219,7 +196,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.complemento.message
               : FOMULARIO_CAMPOS_ENDERECO[5].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[5].name}
           label={FOMULARIO_CAMPOS_ENDERECO[5].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[5].placeHolder}
         />
@@ -243,7 +219,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.estado.message
               : FOMULARIO_CAMPOS_ENDERECO[6].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[6].name}
           label={FOMULARIO_CAMPOS_ENDERECO[6].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[6].placeHolder}
         />
@@ -267,7 +242,6 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
               ? errors.endereco.municipio.message
               : FOMULARIO_CAMPOS_ENDERECO[7].textHelper
           }
-          name={FOMULARIO_CAMPOS_ENDERECO[7].name}
           label={FOMULARIO_CAMPOS_ENDERECO[7].label}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[7].placeHolder}
         />

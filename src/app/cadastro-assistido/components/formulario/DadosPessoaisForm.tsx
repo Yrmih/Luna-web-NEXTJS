@@ -20,83 +20,72 @@ import {
 } from '@mui/material'
 
 // Framework
-import { useState } from 'react'
 
 // Internal
-import { DadosPessoais } from '../../types/DadosPessoais'
+
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_DADOS_PESSOAIS = [
   {
-    name: 'nomeGenitora',
     label: 'Nome da Mãe',
     textHelper: 'Nome e sobrenome da mãe.',
     icon: <FamilyRestroomIcon />,
-    required: true,
+    placeHolder: '"Ex.: Lucineia Ferreira da Silva."',
   },
   {
-    name: 'nomeGenitor',
     label: 'Nome do Pai',
     textHelper: 'Nome e sobrenome do Pai.',
     icon: <FamilyRestroomIcon />,
-    required: true,
+    placeHolder: 'Ex.: Cláudio da Conceição Silva.',
   },
   {
-    name: 'nomeSocial',
     label: 'Nome Social',
     textHelper: 'Outro nome pelo qual o identificam.',
     icon: <EmojiPeopleIcon />,
-    required: true,
+    placeHolder: 'Ex.: Claudinho',
   },
   {
-    name: 'dataNascimento',
     label: 'Data de Nascimento',
     textHelper: 'Sua data de nascimento. Ex.: 01/12/1980.',
     icon: undefined,
-    required: true,
+    placeHolder: '',
   },
   {
-    name: 'estadoCivil',
     label: 'Estado civil',
     textHelper: 'Selecione seu estado civil. Ex.: Solteira, Casado, etc...',
     icon: undefined,
-    required: true,
+    placeHolder: '',
   },
   {
-    name: 'numeroRg',
     label: 'RG',
     textHelper: 'Seu número de RG.',
     icon: <PermIdentityIcon />,
-    required: true,
+    placeHolder: 'Ex.: 7325110',
   },
   {
-    name: 'orgaoRg',
     label: 'Orgão Emissor',
     textHelper: 'Orgão emissor di seu RG.',
     icon: <CorporateFareIcon />,
-    required: true,
+    placeHolder: 'Ex.: Polícia Civil',
   },
   {
-    name: 'sexo',
     label: 'Sexo',
     textHelper: 'Sexo do assistido. Ex.: masculino, feminino.',
     icon: undefined,
-    required: true,
+    placeHolder: '',
   },
   {
-    name: 'tipoCertidao',
     label: 'Tipo de Certidão',
     textHelper: 'Selecione Seu tipo de Certidão. Ex.: Certidão de casamento.',
     icon: undefined,
-    required: true,
+    placeHolder: '',
   },
   {
-    name: 'numeroCertidao',
     label: 'Número Certidão',
-    textHelper: 'Número de sua certidão selecionada.',
+    textHelper: '',
     icon: <DescriptionIcon />,
-    required: true,
+    placeHolder: 'Ex.: 999999 99 99 9999 9 99999 999 9999999 99.',
   },
 ]
 
@@ -118,17 +107,6 @@ export type DadosPessoaisProps = {
 }
 
 export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
-  const [dadosPessoais, setDadosPessoais] = useState<DadosPessoais>({})
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget)
-    console.log(event.target)
-    setDadosPessoais((previousState) => ({
-      ...previousState,
-      [event.target.name]: event.target.value,
-    }))
-  }
-
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>
@@ -143,12 +121,15 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               </InputAdornment>
             ),
           }}
-          placeholder="Ex.: Lucineia Ferreira da Silva."
+          placeholder={FORMULARIO_DADOS_PESSOAIS[0].placeHolder}
           {...register('dadosPessoais.nomeMae')}
-          name={FORMULARIO_DADOS_PESSOAIS[0].name}
+          error={errors.dadosPessoais?.nomeMae !== undefined}
+          helperText={
+            errors.dadosPessoais?.nomeMae !== undefined
+              ? errors.dadosPessoais?.nomeMae.message
+              : FORMULARIO_DADOS_PESSOAIS[0].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[0].label}
-          required={FORMULARIO_DADOS_PESSOAIS[0].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[0].textHelper}
         />
       </Grid>
       <Grid item xs={12}>
@@ -163,12 +144,15 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               </InputAdornment>
             ),
           }}
-          placeholder="Ex.: Cláudio da Conceição Silva."
+          placeholder={FORMULARIO_DADOS_PESSOAIS[1].placeHolder}
           {...register('dadosPessoais.nomePai')}
-          name={FORMULARIO_DADOS_PESSOAIS[1].name}
+          error={errors.dadosPessoais?.nomePai !== undefined}
+          helperText={
+            errors.dadosPessoais?.nomePai !== undefined
+              ? errors.dadosPessoais?.nomePai.message
+              : FORMULARIO_DADOS_PESSOAIS[1].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[1].label}
-          required={FORMULARIO_DADOS_PESSOAIS[1].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[1].textHelper}
         />
       </Grid>
       <Grid item xs={12}>
@@ -183,12 +167,15 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               </InputAdornment>
             ),
           }}
-          placeholder="Ex.: Claudinho"
+          placeholder={FORMULARIO_DADOS_PESSOAIS[2].placeHolder}
           {...register('dadosPessoais.nomeSocial')}
-          name={FORMULARIO_DADOS_PESSOAIS[2].name}
+          error={errors.dadosPessoais?.nomeSocial !== undefined}
+          helperText={
+            errors.dadosPessoais?.nomeSocial !== undefined
+              ? errors.dadosPessoais?.nomeSocial.message
+              : FORMULARIO_DADOS_PESSOAIS[2].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[2].label}
-          required={FORMULARIO_DADOS_PESSOAIS[2].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[2].textHelper}
         />
       </Grid>
       <Grid item xs={12} sm={3}>
@@ -199,10 +186,14 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
           id="dataNascimento"
           autoComplete="dataNascimento"
           {...register('dadosPessoais.dataNascimento')}
-          name={FORMULARIO_DADOS_PESSOAIS[3].name}
+          placeholder={FORMULARIO_DADOS_PESSOAIS[3].placeHolder}
+          error={errors.dadosPessoais?.dataNascimento !== undefined}
+          helperText={
+            errors.dadosPessoais?.dataNascimento !== undefined
+              ? errors.dadosPessoais?.dataNascimento.message
+              : FORMULARIO_DADOS_PESSOAIS[3].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[3].label}
-          required={FORMULARIO_DADOS_PESSOAIS[3].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[3].textHelper}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -215,8 +206,8 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
             id="estadoCivil"
             label="Estado Civil"
             {...register('dadosPessoais.estadoCivil')}
-            name={FORMULARIO_DADOS_PESSOAIS[4].name}
-            required={FORMULARIO_DADOS_PESSOAIS[4].required}
+            placeholder={FORMULARIO_DADOS_PESSOAIS[4].placeHolder}
+            error={errors.dadosPessoais?.estadoCivil !== undefined}
           >
             {SELECT_ITEMS_ESTADO_CIVIL.map((option) => (
               <MenuItem key={option.valor} value={option.valor}>
@@ -225,7 +216,9 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
             ))}
           </Select>
           <FormHelperText>
-            {FORMULARIO_DADOS_PESSOAIS[4].textHelper}
+            {errors.dadosPessoais?.estadoCivil !== undefined
+              ? errors.dadosPessoais?.estadoCivil.message
+              : FORMULARIO_DADOS_PESSOAIS[4].textHelper}
           </FormHelperText>
         </FormControl>
       </Grid>
@@ -234,10 +227,8 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
           <FormLabel id="radio-sexo-control">Sexo</FormLabel>
           <RadioGroup
             aria-labelledby="radio-sexo-control"
-            name="radio-sexo-control"
             sx={{ flexDirection: 'row' }}
-            value={dadosPessoais.sexo}
-            onChange={handleChange}
+            {...register('dadosPessoais.sexo')}
           >
             <FormControlLabel
               value="feminino"
@@ -250,6 +241,11 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               label="Masculino"
             />
           </RadioGroup>
+          <FormHelperText>
+            {errors.dadosPessoais?.estadoCivil !== undefined
+              ? errors.dadosPessoais?.estadoCivil.message
+              : ''}
+          </FormHelperText>
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -264,12 +260,15 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               </InputAdornment>
             ),
           }}
-          placeholder="Ex.: 7325110"
           {...register('dadosPessoais.rg')}
-          name={FORMULARIO_DADOS_PESSOAIS[5].name}
+          placeholder={FORMULARIO_DADOS_PESSOAIS[5].placeHolder}
+          error={errors.dadosPessoais?.rg !== undefined}
+          helperText={
+            errors.dadosPessoais?.rg !== undefined
+              ? errors.dadosPessoais.rg.message
+              : FORMULARIO_DADOS_PESSOAIS[5].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[5].label}
-          required={FORMULARIO_DADOS_PESSOAIS[5].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[5].textHelper}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -284,12 +283,15 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               </InputAdornment>
             ),
           }}
-          placeholder="Ex.: Polícia Civil"
+          placeholder={FORMULARIO_DADOS_PESSOAIS[6].placeHolder}
           {...register('dadosPessoais.rgOrgao')}
-          name={FORMULARIO_DADOS_PESSOAIS[6].name}
+          error={errors.dadosPessoais?.rgOrgao !== undefined}
+          helperText={
+            errors.dadosPessoais?.rgOrgao !== undefined
+              ? errors.dadosPessoais.rgOrgao.message
+              : FORMULARIO_DADOS_PESSOAIS[6].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[6].label}
-          required={FORMULARIO_DADOS_PESSOAIS[6].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[6].textHelper}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -299,8 +301,7 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
           </InputLabel>
           <Select
             {...register('dadosPessoais.tipoCertidao')}
-            name={FORMULARIO_DADOS_PESSOAIS[8].name}
-            required={FORMULARIO_DADOS_PESSOAIS[8].required}
+            error={errors.dadosPessoais?.tipoCertidao !== undefined}
             labelId="numero-certidao"
             id="numeroCertidao"
             label="Número Certidão"
@@ -312,7 +313,9 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
             ))}
           </Select>
           <FormHelperText>
-            {FORMULARIO_DADOS_PESSOAIS[8].textHelper}
+            {errors.dadosPessoais?.tipoCertidao !== undefined
+              ? errors.dadosPessoais.tipoCertidao.message
+              : FORMULARIO_DADOS_PESSOAIS[8].textHelper}
           </FormHelperText>
         </FormControl>
       </Grid>
@@ -328,12 +331,15 @@ export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
               </InputAdornment>
             ),
           }}
-          placeholder="Ex.: 999999 99 99 9999 9 99999 999 9999999 99."
+          placeholder={FORMULARIO_DADOS_PESSOAIS[9].placeHolder}
           {...register('dadosPessoais.certidao')}
-          name={FORMULARIO_DADOS_PESSOAIS[9].name}
+          error={errors.dadosPessoais?.certidao !== undefined}
+          helperText={
+            errors.dadosPessoais?.certidao !== undefined
+              ? errors.dadosPessoais.certidao.message
+              : FORMULARIO_DADOS_PESSOAIS[9].textHelper
+          }
           label={FORMULARIO_DADOS_PESSOAIS[9].label}
-          required={FORMULARIO_DADOS_PESSOAIS[9].required}
-          helperText={FORMULARIO_DADOS_PESSOAIS[9].textHelper}
         />
       </Grid>
     </Grid>

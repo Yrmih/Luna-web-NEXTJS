@@ -30,36 +30,28 @@ import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
   {
-    name: 'numeroMembros',
     label: 'Membros da Família',
     textHelper: 'Quantidade de membros da sua família',
     placeHolder: 'Ex.: 4, 6, 7, etc...',
     icon: <PeopleOutlineIcon />,
-    required: true,
   },
   {
-    name: 'numeroMembrosFamiliaAtivos',
     label: 'Membros Ativos da Família',
     textHelper: 'Quantidade de membros econômicamente ativos na sua família.',
     placeHolder: 'Ex.: 4, 6, 7, etc...',
     icon: <PeopleIcon />,
-    required: true,
   },
   {
-    name: 'rendaIndividual',
     label: 'Renda Individual',
     textHelper: 'Valor da sua renda individual.',
     placeHolder: 'Ex.: 1300,00.',
     icon: 'R$',
-    required: true,
   },
   {
-    name: 'rendaFamiliar',
     label: 'Renda familiar',
     textHelper: 'Valor da renda de sua família, incluindo a sua renda.',
     placeHolder: 'Ex.: 2600,00.',
     icon: 'R$',
-    required: true,
   },
   {
     name: 'valorMovel',
@@ -67,15 +59,13 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     textHelper: 'Adicione o valor em reais do seu móvel.',
     placeHolder: 'Ex.: 220,00; etc...',
     icon: 'R$',
-    required: true,
   },
   {
-    name: 'descricaoMovel',
+    nome: 'descricaoMovel',
     label: 'Descrição do móvel',
     textHelper: 'Adicione a descrição do seu móvel.',
     placeHolder: 'Ex.: Sofá, Refrigerador; etc...',
     icon: <ChairIcon />,
-    required: true,
   },
   {
     name: 'valorImovel',
@@ -83,7 +73,6 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     textHelper: 'Adicione o valor em reais do seu imóvel.',
     placeHolder: 'Ex.: Ex.: 220,00; etc...',
     icon: 'R$',
-    required: true,
   },
   {
     name: 'descricaoImovel',
@@ -91,7 +80,6 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     textHelper: 'Adicione a descrição do seu imóvel.',
     placeHolder: 'Ex.: Casa, Apartamento; etc...',
     icon: <MapsHomeWorkIcon />,
-    required: true,
   },
   {
     name: 'valorInvestimento',
@@ -99,7 +87,6 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     textHelper: 'Adicione o valor em reais do seu investimento.',
     placeHolder: 'Ex.: 220,00; etc...',
     icon: 'R$',
-    required: true,
   },
   {
     name: 'descricaoInvestimento',
@@ -107,7 +94,6 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     textHelper: 'Adicione a descrição do seu investimento.',
     placeHolder: 'Ex.: Renda Fixa, Tesouro Direto, etc...',
     icon: <CurrencyExchangeIcon />,
-    required: true,
   },
 ]
 
@@ -137,10 +123,6 @@ export function QualificacaoFinanceiraForm({
     descricaoInvestimento: '',
     valorInvestimento: 0,
   })
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log('Name: ', event.target.name, 'Value: ', event.target.value)
-  }
 
   const handleChangeInputTableItems = (
     event: ChangeEvent<HTMLInputElement>,
@@ -228,7 +210,6 @@ export function QualificacaoFinanceiraForm({
       <Grid item xs={12} md={6}>
         <TextField
           fullWidth
-          onChange={handleChange}
           id="numeroMembrosFamilia"
           autoComplete="membros-familia"
           InputProps={{
@@ -238,17 +219,22 @@ export function QualificacaoFinanceiraForm({
               </InputAdornment>
             ),
           }}
-          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].name}
+          {...register('qualificacaoFinanceira.numeroMembrosFamilia')}
+          helperText={
+            errors.qualificacaoFinanceira?.numeroMembrosFamilia !== undefined
+              ? errors.qualificacaoFinanceira.numeroMembrosFamilia.message
+              : FORMULARIO_QUALIFICACAO_FIANCEIRA[0].textHelper
+          }
+          error={
+            errors.qualificacaoFinanceira?.numeroMembrosFamilia !== undefined
+          }
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].label}
-          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].required}
-          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].textHelper}
           placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[0].placeHolder}
         />
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
           fullWidth
-          onChange={handleChange}
           id="numeroMembrosFamiliaAtivos"
           autoComplete="mambros-ativos"
           InputProps={{
@@ -258,10 +244,18 @@ export function QualificacaoFinanceiraForm({
               </InputAdornment>
             ),
           }}
-          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].name}
+          {...register('qualificacaoFinanceira.numeroMembrosFamiliaAtivos')}
+          helperText={
+            errors.qualificacaoFinanceira?.numeroMembrosFamiliaAtivos !==
+            undefined
+              ? errors.qualificacaoFinanceira.numeroMembrosFamiliaAtivos.message
+              : FORMULARIO_QUALIFICACAO_FIANCEIRA[1].textHelper
+          }
+          error={
+            errors.qualificacaoFinanceira?.numeroMembrosFamiliaAtivos !==
+            undefined
+          }
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].label}
-          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].required}
-          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].textHelper}
           placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[1].placeHolder}
         />
       </Grid>
@@ -269,7 +263,6 @@ export function QualificacaoFinanceiraForm({
         <TextField
           fullWidth
           id="rendaIndividual"
-          onChange={handleChange}
           autoComplete="renda-individual"
           InputProps={{
             startAdornment: (
@@ -278,10 +271,14 @@ export function QualificacaoFinanceiraForm({
               </InputAdornment>
             ),
           }}
-          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].name}
+          {...register('qualificacaoFinanceira.rendaIndividual')}
+          helperText={
+            errors.qualificacaoFinanceira?.rendaIndividual !== undefined
+              ? errors.qualificacaoFinanceira.rendaIndividual.message
+              : FORMULARIO_QUALIFICACAO_FIANCEIRA[1].textHelper
+          }
+          error={errors.qualificacaoFinanceira?.rendaIndividual !== undefined}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].label}
-          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].required}
-          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].textHelper}
           placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[2].placeHolder}
         />
       </Grid>
@@ -289,7 +286,6 @@ export function QualificacaoFinanceiraForm({
         <TextField
           fullWidth
           id="rendaFamilia"
-          onChange={handleChange}
           autoComplete="renda-familiar"
           InputProps={{
             startAdornment: (
@@ -298,10 +294,14 @@ export function QualificacaoFinanceiraForm({
               </InputAdornment>
             ),
           }}
-          name={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].name}
+          {...register('qualificacaoFinanceira.rendaFamiliar')}
+          helperText={
+            errors.qualificacaoFinanceira?.rendaFamiliar !== undefined
+              ? errors.qualificacaoFinanceira.rendaFamiliar.message
+              : FORMULARIO_QUALIFICACAO_FIANCEIRA[1].textHelper
+          }
+          error={errors.qualificacaoFinanceira?.rendaFamiliar !== undefined}
           label={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].label}
-          required={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].required}
-          helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].textHelper}
           placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[3].placeHolder}
         />
       </Grid>
@@ -324,7 +324,6 @@ export function QualificacaoFinanceiraForm({
             }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].label}
-            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].textHelper}
             placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].placeHolder}
           />
@@ -344,7 +343,6 @@ export function QualificacaoFinanceiraForm({
             }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].label}
-            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].textHelper}
             placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].placeHolder}
           />
@@ -380,7 +378,6 @@ export function QualificacaoFinanceiraForm({
             }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].label}
-            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].textHelper}
             placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].placeHolder}
           />
@@ -400,7 +397,6 @@ export function QualificacaoFinanceiraForm({
             }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].label}
-            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].textHelper}
             placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].placeHolder}
           />
@@ -441,7 +437,6 @@ export function QualificacaoFinanceiraForm({
             }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].label}
-            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].textHelper}
             placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].placeHolder}
           />
@@ -461,7 +456,6 @@ export function QualificacaoFinanceiraForm({
             }}
             name={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].name}
             label={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].label}
-            required={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].required}
             helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].textHelper}
             placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].placeHolder}
           />

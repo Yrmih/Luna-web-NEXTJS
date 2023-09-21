@@ -2,7 +2,7 @@ export const FORMULARIO_ERROS_MENSAGENS = {
   required: 'Campo Obrigatório',
   number: 'Somente números são permitidos',
   string: 'Somente textos são permitidos',
-  cpf: 'Entre com um número de CPF válido',
+  cpf: 'número de CPF inválido',
   cep: 'CEP inválido',
   telefone: 'Telefone inválido',
   celular: 'Celular inválido',
