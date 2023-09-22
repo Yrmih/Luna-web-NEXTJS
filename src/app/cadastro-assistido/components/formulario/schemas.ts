@@ -4,24 +4,46 @@ import { FORMULARIO_ERROS_MENSAGENS, INPUT_MASK_REGEX } from './constants'
 const informacaoInicialSchema = z.object({
   nomeCompleto: z
     .string({ invalid_type_error: FORMULARIO_ERROS_MENSAGENS.string })
-    .regex(INPUT_MASK_REGEX.apenasLetras)
-    .nonempty(FORMULARIO_ERROS_MENSAGENS.required),
-  cpf: z
-    .string()
-    .regex(INPUT_MASK_REGEX.cpf, FORMULARIO_ERROS_MENSAGENS.cpf)
-    .nonempty(FORMULARIO_ERROS_MENSAGENS.required),
-  email: z.string().email(FORMULARIO_ERROS_MENSAGENS.email).optional(),
+    .refine(
+      (value) => {
+        if (value.trim() === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+          return true
+        }
+      },
+      { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+    ),
+  cpf: z.string().refine(
+    (value) => {
+      if (value.trim() === '' || value.match(INPUT_MASK_REGEX.cpf)) {
+        return true
+      }
+    },
+    { message: FORMULARIO_ERROS_MENSAGENS.cpf },
+  ),
+  email: z.string().refine((value) => {
+    if (value === '' || value.match(INPUT_MASK_REGEX.email)) {
+      return true
+    }
+  }),
 })
 
 const contatoSchema = z.object({
-  celular: z
-    .string()
-    .regex(INPUT_MASK_REGEX.celular, FORMULARIO_ERROS_MENSAGENS.celular)
-    .nonempty(FORMULARIO_ERROS_MENSAGENS.required),
-  telefone: z
-    .string()
-    .regex(INPUT_MASK_REGEX.telefone, FORMULARIO_ERROS_MENSAGENS.telefone)
-    .optional(),
+  celular: z.string().refine(
+    (value) => {
+      if (value.trim() === '' || value.match(INPUT_MASK_REGEX.celular)) {
+        return true
+      }
+    },
+    { message: FORMULARIO_ERROS_MENSAGENS.celular },
+  ),
+  telefone: z.string().refine(
+    (value) => {
+      if (value.trim() === '' || value.match(INPUT_MASK_REGEX.telefone)) {
+        return true
+      }
+    },
+    { message: FORMULARIO_ERROS_MENSAGENS.telefone },
+  ),
 })
 
 const enderecoSchema = z.object({
