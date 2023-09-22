@@ -158,6 +158,7 @@ export function EnderecoForm({ register, errors }: EnderecoProps) {
         <TextField
           fullWidth
           id="numero"
+          type="number"
           autoComplete="numero"
           InputProps={{
             startAdornment: (

@@ -61,7 +61,7 @@ export function CadastroAssistido() {
   const [activeStep, setActiveStep] = useState(0)
   const {
     register,
-    formState: { errors, isLoading, isValid },
+    formState: { errors, isValid },
     handleSubmit,
   } = useForm<CadastroAssistidoInputsForm>({
     mode: 'onChange',
@@ -89,7 +89,7 @@ export function CadastroAssistido() {
 
   const onSubmit: SubmitHandler<CadastroAssistidoInputsForm> = (data) => {
     console.log('DADOS: ', data, 'ERRO: ', errors)
-    console.log('LOADING: ', isLoading, 'VALID: ', isValid)
+    console.log('VALID: ', isValid)
     handleNext()
   }
 
