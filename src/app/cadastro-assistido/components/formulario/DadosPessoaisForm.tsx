@@ -31,7 +31,7 @@ const FORMULARIO_DADOS_PESSOAIS = [
     label: 'Nome da Mãe',
     textHelper: 'Nome e sobrenome da mãe.',
     icon: <FamilyRestroomIcon />,
-    placeHolder: '"Ex.: Lucineia Ferreira da Silva."',
+    placeHolder: 'Ex.: Lucineia Ferreira da Silva.',
   },
   {
     label: 'Nome do Pai',
@@ -97,8 +97,8 @@ const SELECT_ITEMS_ESTADO_CIVIL = [
 ]
 
 const SELECT_TIPO_CERTIDAO = [
-  { valor: 1, nome: 'Certidão de Nascimento' },
-  { valor: 1, nome: 'Certidão de Casamento' },
+  { valor: 'certidao_nascimento', nome: 'Certidão de Nascimento' },
+  { valor: 'certidao_casamento', nome: 'Certidão de Casamento' },
 ]
 
 export type DadosPessoaisProps = {
