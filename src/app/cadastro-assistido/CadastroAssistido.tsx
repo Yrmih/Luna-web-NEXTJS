@@ -82,7 +82,14 @@ export function CadastroAssistido() {
           />
         )
       case 1:
-        return <ContatoForm register={register} errors={errors} />
+        return (
+          <ContatoForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
       case 2:
         return <EnderecoForm register={register} errors={errors} />
       case 3:

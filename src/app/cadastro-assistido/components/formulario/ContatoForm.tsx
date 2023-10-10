@@ -2,8 +2,24 @@
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { Grid, InputAdornment, TextField } from '@mui/material'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
+import { useEffect } from 'react'
+
+export const normalizePhoneNumber = (value: string | undefined) => {
+  if (!value) return ''
+
+  return value
+    .replace(/[\D]/g, '')
+    .replace(/(\d{2})(\d)/, '($1) $2')
+    .replace(/(\d{5})(\d)/, '$1-$2')
+    .replace(/(-\d{4})(\d+?)/, '$1')
+}
 
 const FORMULARIO_CAMPOS_CONTATOS = [
   {
@@ -22,10 +38,28 @@ const FORMULARIO_CAMPOS_CONTATOS = [
 
 export type ContatoProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-export function ContatoForm({ register, errors }: ContatoProps) {
+export function ContatoForm({
+  register,
+  watch,
+  setValue,
+  errors,
+}: ContatoProps) {
+  const celularValue = watch('contatos.celular')
+  const telefoneValue = watch('contatos.telefone')
+
+  useEffect(() => {
+    setValue('contatos.celular', normalizePhoneNumber(celularValue))
+  }, [setValue, celularValue])
+
+  useEffect(() => {
+    setValue('contatos.telefone', normalizePhoneNumber(telefoneValue))
+  }, [setValue, telefoneValue])
+
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>
