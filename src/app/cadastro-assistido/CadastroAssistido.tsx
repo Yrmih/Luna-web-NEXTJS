@@ -61,6 +61,8 @@ export function CadastroAssistido() {
   const [activeStep, setActiveStep] = useState(0)
   const {
     register,
+    watch,
+    setValue,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<CadastroAssistidoInputsForm>({
@@ -71,7 +73,14 @@ export function CadastroAssistido() {
   function getStepForm(step: number) {
     switch (step) {
       case 0:
-        return <InformacaoInicialForm register={register} errors={errors} />
+        return (
+          <InformacaoInicialForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
       case 1:
         return <ContatoForm register={register} errors={errors} />
       case 2:

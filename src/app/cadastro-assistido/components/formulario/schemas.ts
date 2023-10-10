@@ -14,7 +14,11 @@ const informacaoInicialSchema = z.object({
     ),
   cpf: z.string().refine(
     (value) => {
-      if (value.trim() === '' || value.match(INPUT_MASK_REGEX.cpf)) {
+      if (
+        value.trim() === '' ||
+        value.match(INPUT_MASK_REGEX.cpf) ||
+        value.match(INPUT_MASK_REGEX.cnpj)
+      ) {
         return true
       }
     },
