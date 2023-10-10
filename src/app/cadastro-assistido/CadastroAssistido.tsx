@@ -91,7 +91,14 @@ export function CadastroAssistido() {
           />
         )
       case 2:
-        return <EnderecoForm register={register} errors={errors} />
+        return (
+          <EnderecoForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
       case 3:
         return <DadosPessoaisForm register={register} errors={errors} />
       case 4:

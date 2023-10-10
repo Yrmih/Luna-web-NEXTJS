@@ -11,13 +11,23 @@ import {
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 import { useEffect } from 'react'
 
-export const normalizePhoneNumber = (value: string | undefined) => {
+export const normalizeCelular = (value: string | undefined) => {
   if (!value) return ''
 
   return value
     .replace(/[\D]/g, '')
     .replace(/(\d{2})(\d)/, '($1) $2')
     .replace(/(\d{5})(\d)/, '$1-$2')
+    .replace(/(-\d{4})(\d+?)/, '$1')
+}
+
+export const normalizeTelefone = (value: string | undefined) => {
+  if (!value) return ''
+
+  return value
+    .replace(/[\D]/g, '')
+    .replace(/(\d{2})(\d)/, '($1) $2')
+    .replace(/(\d{4})(\d)/, '$1-$2')
     .replace(/(-\d{4})(\d+?)/, '$1')
 }
 
@@ -53,11 +63,11 @@ export function ContatoForm({
   const telefoneValue = watch('contatos.telefone')
 
   useEffect(() => {
-    setValue('contatos.celular', normalizePhoneNumber(celularValue))
+    setValue('contatos.celular', normalizeCelular(celularValue))
   }, [setValue, celularValue])
 
   useEffect(() => {
-    setValue('contatos.telefone', normalizePhoneNumber(telefoneValue))
+    setValue('contatos.telefone', normalizeTelefone(telefoneValue))
   }, [setValue, telefoneValue])
 
   return (

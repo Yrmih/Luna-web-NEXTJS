@@ -2,8 +2,22 @@
 import GiteIcon from '@mui/icons-material/Gite'
 import EditRoadIcon from '@mui/icons-material/EditRoad'
 import { Grid, InputAdornment, TextField } from '@mui/material'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
+import { useEffect } from 'react'
+
+export const normalizeCepNumber = (value: string | undefined) => {
+  if (!value) return ''
+  return value
+    .replace(/\D/g, '')
+    .replace(/^(\d{5})(\d)/, '$1-$2')
+    .replace(/(-\d{3})(\d+?)/, '$1')
+}
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {
@@ -56,10 +70,23 @@ const FOMULARIO_CAMPOS_ENDERECO = [
 
 export type EnderecoProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-export function EnderecoForm({ register, errors }: EnderecoProps) {
+export function EnderecoForm({
+  register,
+  setValue,
+  watch,
+  errors,
+}: EnderecoProps) {
+  const cepValue = watch('endereco.cep')
+
+  useEffect(() => {
+    setValue('endereco.cep', normalizeCepNumber(cepValue))
+  }, [setValue, cepValue])
+
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12} sm={4}>
