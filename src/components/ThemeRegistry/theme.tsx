@@ -3,7 +3,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { PaletteOptions, createTheme } from '@mui/material/styles'
+import { PaletteOptions, alpha, createTheme, getContrastRatio } from '@mui/material/styles'
 import { Roboto } from 'next/font/google'
 
 const roboto = Roboto({
@@ -12,7 +12,9 @@ const roboto = Roboto({
   display: 'swap',
 })
 
+
 function getTheme(prefersDarkMode: boolean) {
+
   const customPallete = {
     primary: {
       main: process.env.THEME_COLOR_PRIMARY_MAIN || '#2E7D32',
