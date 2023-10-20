@@ -1,13 +1,22 @@
-import { Card, CardContent, CardHeader, Grid, List, ListItem, ListItemText } from "@mui/material";
+"use client";
+import { Card, CardContent, CardHeader, Grid, List, ListItem, ListItemText, Paper, useTheme } from "@mui/material";
 
 
 export default function PreAgendamento() {
-
+    const theme = useTheme();
     return (
-        <Grid container>
+        <Grid container
+            component={Paper}
+            elevation={3}
+            sx={{
+                width: "100%",
+                boxShadow: "0px 0px 6px hsl(0deg 0.14% 43.39% / 57%)", // Adicione o sombreamento
+                borderRadius: "8px", // Adicione a borda arredondada
+            }}
+        >
             <Grid item sx={{ width: "100%" }}>
             <Card sx={{p:2}}>
-                    <CardHeader sx={{ backgroundColor: '#FFC400', height: '10px', borderRadius: '10px', textAlign:'center' }} title={"Pré-agendamento"} />
+                    <CardHeader sx={{ backgroundColor: theme.palette.primary.light, height: '10px', borderRadius: '10px', textAlign:'center' }} title={"Pré-agendamento"} />
                     <ListItem>
                         <ListItemText primary="Sua solicitação foi sggsgsgsbvefvbfidbdvbdiv,v.fvkgnf vkngfvkgvngkfdvngk" />
                     </ListItem>

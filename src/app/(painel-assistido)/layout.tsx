@@ -10,10 +10,14 @@ export const metadata = {
 
 function PainelAssistidoLayout({ children }: { children: ReactNode }) {
   return (
+    <>
+    <nav>
+      <DrawerMenuAreaAssistido>{children}</DrawerMenuAreaAssistido>
+    </nav>
     <main>
       <AppBarAreaAssistido />
-      <DrawerMenuAreaAssistido>{children}</DrawerMenuAreaAssistido>
-    </main>
+      </main>
+    </>
   )
 }
 

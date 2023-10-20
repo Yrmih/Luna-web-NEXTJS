@@ -17,22 +17,39 @@ function getTheme(prefersDarkMode: boolean) {
 
   const customPallete = {
     primary: {
-      main: process.env.THEME_COLOR_PRIMARY_MAIN || '#2E7D32',
+      main: process.env.THEME_COLOR_PRIMARY_MAIN ?? '#2E7D32',
+      light: '#42B148',
+      dark: 'rgb(15 75 18)'
     },
     secondary: {
-      main: process.env.THEME_COLOR_SECONDARY_MAIN || '#00C853',
+      main: process.env.THEME_COLOR_SECONDARY_MAIN ?? '#00C853',
     },
     background: {
-      default: process.env.THEME_COLOR_BACKGROUND_DEFAULT || '#f4f7f9',
+      default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#f4f7f9',
       paper: process.env.THEME_COLOR_BACKGROUND_PAPER || '#ffffff',
     },
   }
 
   const palette: PaletteOptions = prefersDarkMode
     ? {
-        mode: 'dark',
-      }
+      mode: 'dark',
+      ...customPallete,
+      primary: {
+        main: '#2E7D32',
+        light: '#48BE4E',
+        dark:'rgb(25 126 30)'
+      },
+      secondary: {
+        main: '#4CCA52',
+      },
+      background: {
+        default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#070707',
+        paper: process.env.THEME_COLOR_BACKGROUND_PAPER ?? '#0F0F0F',
+      },
+
+    }
     : customPallete
+
 
   return createTheme({
     palette,
