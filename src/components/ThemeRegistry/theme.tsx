@@ -4,7 +4,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { PlayLessonTwoTone } from '@mui/icons-material'
-import { PaletteOptions, alpha, createTheme, getContrastRatio } from '@mui/material/styles'
+import { PaletteOptions, createTheme} from '@mui/material/styles'
 import { Roboto } from 'next/font/google'
 
 const roboto = Roboto({
@@ -93,7 +93,7 @@ function getTheme(prefersDarkMode: boolean) {
             }),
         },
       },
-      
+
       MuiButton: {
         styleOverrides: {
           root: ({ theme }) =>

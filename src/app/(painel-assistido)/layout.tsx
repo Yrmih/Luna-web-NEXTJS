@@ -1,7 +1,8 @@
 // Internal
 import { ReactNode } from 'react'
-import { AppBarAreaAssistido } from './components/AppBarAreaAssistido'
-import { DrawerMenuAreaAssistido } from './components/DrawerMenuAreaAssistido'
+import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
+
+
 
 export const metadata = {
   title: 'Painel do Assistido',
@@ -11,11 +12,8 @@ export const metadata = {
 function PainelAssistidoLayout({ children }: { children: ReactNode }) {
   return (
     <>
-    <nav>
-      <DrawerMenuAreaAssistido>{children}</DrawerMenuAreaAssistido>
-    </nav>
-    <main>
-      <AppBarAreaAssistido />
+      <main>
+        <AppBarAreaAssistido>{children}</AppBarAreaAssistido>
       </main>
     </>
   )

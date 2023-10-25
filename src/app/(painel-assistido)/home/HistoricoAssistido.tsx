@@ -9,9 +9,12 @@ import {
 
 // Internal
 import { MediaCard } from "../components/MediaCard";
-import CardDocumentoEnvio from "../components/CardDocumentoEnvio";
+
 import PreAgendamento from "../components/PreAgendamento";
-import CardAvatar from "../components/CardAvatar";
+import { CardDocumentoEnvio } from "../components/CardDocumentoEnvio";
+import { CardAvatar } from "../components/CardAvatar";
+import { CardeProcesso } from "../components/CardProcesso";
+
 
 
 export function HistoricoAssistido() {
@@ -20,41 +23,56 @@ export function HistoricoAssistido() {
       flexDirection={"column"}
       display={"flex"}
       flexWrap={"wrap"}
-      mt={-3}
-      px={2}>
-      {/* <Grid container p={0}>
-        <CardHeader
-          title={"Atendimento"}
-          subheader={'numero do atendimento'}
-          component={Paper}
-          sx={{ width: "100%", height: "10.125rem" }}
-        />
-      </Grid> */}
+      mt={3}
+      px={2}
+    >
       <Grid
         container
         rowSpacing={3}
         columnSpacing={3}
         display={"flex"}
+        justifyContent={'center'}
+        alignItems={'flex-start'}
         flexWrap={"wrap"}
       >
         <Grid
+          item
           flexDirection={"column"}
           flexWrap={"wrap"}
-          component={Stack}
+          xs={12}
+          sm={12}
           lg={8}
           rowGap={3}
-          item
-          spacing={2}
+          sx={{ display: 'flex' }}
+
         >
-          <Box>
+          <Grid item lg={12}>
             <PreAgendamento />
-          </Box>
-          <Box>
+          </Grid>
+          <Grid item lg={12}>
             <CardDocumentoEnvio />
-          </Box>
+          </Grid>
         </Grid>
-        <Grid item lg={4}>
-          <CardAvatar />
+        <Grid
+          item
+          flexDirection={"column"}
+          flexWrap={"wrap"}
+          sx={{ display: 'flex' }}
+        rowGap={3}
+          lg={4}
+          xs={12}
+          sm={12}
+        >
+          <Grid item
+            xs={12}
+            >
+            <CardAvatar />
+          </Grid>
+          <Grid
+            xs={12}
+          >
+            <CardeProcesso />
+          </Grid>
         </Grid>
       </Grid>
     </Box>
