@@ -3,6 +3,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { PlayLessonTwoTone } from '@mui/icons-material'
 import { PaletteOptions, alpha, createTheme, getContrastRatio } from '@mui/material/styles'
 import { Roboto } from 'next/font/google'
 
@@ -67,6 +68,23 @@ function getTheme(prefersDarkMode: boolean) {
             }),
         },
       },
+      MuiCssBaseline: {
+        styleOverrides: {
+          'html, body': {
+            width: '100%',
+            height: '100%'
+          },
+          footer: {
+            border: `2px solid`,
+            borderTopWidth: "3px",
+            borderRightWidth: 0,
+            borderBottomWidth: 0,
+            borderLeftWidth: 0,
+            pedding: '5px',
+
+          },
+        },
+      },
       MuiSelect: {
         styleOverrides: {
           root: ({ theme }) =>
@@ -75,6 +93,7 @@ function getTheme(prefersDarkMode: boolean) {
             }),
         },
       },
+      
       MuiButton: {
         styleOverrides: {
           root: ({ theme }) =>

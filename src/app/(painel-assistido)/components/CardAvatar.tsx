@@ -8,14 +8,12 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  ListSubheader,
   Paper,
   Typography,
 } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
-import CallIcon from '@mui/icons-material/Call';
 
-export default function CardAvatar() {
+export function CardAvatar() {
   return (
     <Box>
       <Grid container rowSpacing={2}>

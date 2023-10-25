@@ -1,5 +1,6 @@
 // Third party
 "use client";
+import React, { useState } from 'react';
 import {
     Box,
     Card,
@@ -12,14 +13,15 @@ import {
     ListItemText,
     Paper,
     Tooltip,
+    Typography,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 // Internal
-import { MediaCard } from "./MediaCard";
 
-export default function CardDocumentoEnvio() {
-    const theme = useTheme();
+export function CardDocumentoEnvio() {
+    const [fileStatus, setFileStatus] = useState({ name: '', isUploaded: false });
+
     return (
         <Grid container
             sx={{
@@ -35,7 +37,7 @@ export default function CardDocumentoEnvio() {
                     sx={{
                         width: "100%", p: 2,
                         boxShadow: "0px 0px 6px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
-                    borderRadius: "8px", // Adicione a borda arredondada
+
                 }}>
                     <CardHeader title="Documentos e perguntas pendentes" />
                     <CardContent sx={{ width: "100%" }}>
@@ -51,10 +53,36 @@ export default function CardDocumentoEnvio() {
                                         margin: "8px", // Espaçamento externo
                                     }}
                                     secondaryAction={
-                                        <Tooltip title="Enviar arquivo">
-                                            <IconButton edge="end" aria-label="enviar arquivo">
+                                        <Tooltip title={fileStatus.isUploaded ? "Enviado" : "enviar arquivo"}>
+                                            <Box justifyContent={'center'} display={'flex'} alignItems={'center'}>
+                                                <Typography> {fileStatus.isUploaded ? "Enviado" : "enviar arquivo"}</Typography>
+                                                <IconButton
+                                                    edge="end" component="label" aria-label="enviar arquivo">
                                                 <CloudUploadIcon />
-                                            </IconButton>
+                                                    <input type="file"
+                                                        style={{
+                                                            clip: 'rect(0 0 0 0)',
+                                                            clipPath: 'inset(50%)',
+                                                            height: 1,
+                                                            overflow: 'hidden',
+                                                            position: 'absolute',
+                                                            bottom: 0,
+                                                            left: 0,
+                                                            whiteSpace: 'nowrap',
+                                                            width: 1,
+                                                        }}
+                                                        onChange={(e) => {
+                                                            const selectedFile = e.target.files?.[0]; // Usar ? para tratar como opcional
+                                                            if (selectedFile) {
+                                                                setFileStatus({ name: selectedFile.name, isUploaded: true });
+                                                                // Implemente o envio do arquivo para o servidor aqui
+                                                            } else {
+                                                                setFileStatus({ name: '', isUploaded: false });
+                                                            }
+                                                        }}
+                                                    />
+                                                </IconButton>
+                                            </Box>
                                         </Tooltip>
                                     }
                                 >
