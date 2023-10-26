@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   Grid,
-  IconButton,
   List,
   ListItem,
   ListItemAvatar,
@@ -15,13 +14,11 @@ import {
 export function CardAvatar() {
   return (
       <Grid container sx={{rowGap:2}}>
-
           <Card
             component={Paper}
             sx={{
               width: "100%",
-
-              boxShadow: "0px 0px 6px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
+              boxShadow: "0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
               borderRadius: "8px", // Adicione a borda arredondada
               display: "flex",
               justifyContent: "center",
@@ -49,12 +46,12 @@ export function CardAvatar() {
                     }}
                   />
                 </ListItemAvatar>
-                <Typography>nome do assistido</Typography>
+            <Typography component={"h1"} variant="h6" title={"nome do assistido"}>nome do assistido</Typography>
                 <ListItemText primary={`Assitido(a)`} />
-                <Box p={2} display={'flex'} justifyContent={'center'} textAlign={'justify'} alignItems={'flex-start'} flexDirection={'column'}>
-                  <ListItemText primary={`Cpf:${' numero do cpf'}`} />
-                  <ListItemText primary={`E-mail:${" E-mail do assistido"}`} />
-                <ListItemText primary={`Número:${" numero do asistido"}`} />
+                <Box pl={2} display={'flex'} justifyContent={'center'} textAlign={'left'} alignItems={'flex-start'} flexDirection={'column'}>
+              <Typography noWrap component={"h1"} variant="subtitle1" title={`Cpf`}>{`Cpf:${' numero do cpf'}`}</Typography>
+              <Typography noWrap component={"h1"} variant="subtitle1" title={`E-mail`}>{`E-mail:${" E-mail do assistido"}`}</Typography>
+              <Typography noWrap component={"h1"} variant="subtitle1" title={`Número`}>{`Número:${" numero do asistido"}`}</Typography>
                 </Box>
               </ListItem>
             </List>

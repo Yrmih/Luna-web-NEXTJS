@@ -1,38 +1,35 @@
 // Third party
 import {
   Box,
-  CardHeader,
-  Grid,
-  Paper,
-  Stack,
+  Grid
 } from "@mui/material";
-
 // Internal
-import { MediaCard } from "../components/MediaCard";
-
-import PreAgendamento from "../components/PreAgendamento";
-import { CardDocumentoEnvio } from "../components/CardDocumentoEnvio";
 import { CardAvatar } from "../components/CardAvatar";
+import { CardDocumentoEnvio } from "../components/CardDocumentoEnvio";
 import { CardeProcesso } from "../components/CardProcesso";
-
-
+import PreAgendamento from "../components/PreAgendamento";
 
 export function HistoricoAssistido() {
   return (
     <Box
-      flexDirection={"column"}
       display={"flex"}
       flexWrap={"wrap"}
+      justifyContent={'center'}
+      justifyItems={'center'}
+      alignContent={'center'}
       mt={3}
-      px={2}
+      px={1}
     >
       <Grid
+        width={'100%'}
         container
         rowSpacing={3}
         columnSpacing={3}
         display={"flex"}
         justifyContent={'center'}
-        alignItems={'flex-start'}
+        justifyItems={'center'}
+        alignContent={'center'}
+        alignItems={{xs:'center', sm:'center', md:'flex-start'}}
         flexWrap={"wrap"}
       >
         <Grid
@@ -58,7 +55,7 @@ export function HistoricoAssistido() {
           flexDirection={"column"}
           flexWrap={"wrap"}
           sx={{ display: 'flex' }}
-        rowGap={3}
+          rowGap={3}
           lg={4}
           xs={12}
           sm={12}

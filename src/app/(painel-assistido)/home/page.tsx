@@ -13,7 +13,6 @@ export default function HomePage() {
           <CardHeader
             title={"Atendimento"}
             subheader={"numero do atendimento"}
-            component={Paper}
             sx={{ width: "100%", height: "10.125rem" }}
           />
         </Paper>

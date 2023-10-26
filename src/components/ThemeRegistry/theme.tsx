@@ -3,8 +3,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { PlayLessonTwoTone } from '@mui/icons-material'
-import { PaletteOptions, createTheme} from '@mui/material/styles'
+import { PaletteOptions, createTheme } from '@mui/material/styles'
 import { Roboto } from 'next/font/google'
 
 const roboto = Roboto({
@@ -12,7 +11,6 @@ const roboto = Roboto({
   subsets: ['latin'],
   display: 'swap',
 })
-
 
 function getTheme(prefersDarkMode: boolean) {
 
@@ -37,11 +35,12 @@ function getTheme(prefersDarkMode: boolean) {
       ...customPallete,
       primary: {
         main: '#2E7D32',
-        light: '#48BE4E',
-        dark:'rgb(25 126 30)'
+        light: '#4CCA52',
+        dark: 'rgb(20 102 24)'
       },
       secondary: {
         main: '#4CCA52',
+        light: '#5FFF67',
       },
       background: {
         default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#070707',
@@ -75,12 +74,12 @@ function getTheme(prefersDarkMode: boolean) {
             height: '100%'
           },
           footer: {
-            border: `2px solid`,
-            borderTopWidth: "3px",
-            borderRightWidth: 0,
-            borderBottomWidth: 0,
-            borderLeftWidth: 0,
-            pedding: '5px',
+            // border: `2px solid`,
+            // borderTopWidth: "3px",
+            // borderRightWidth: 0,
+            // borderBottomWidth: 0,
+            // borderLeftWidth: 0,
+            pedding: 15,
 
           },
         },
@@ -93,7 +92,21 @@ function getTheme(prefersDarkMode: boolean) {
             }),
         },
       },
-
+      MuiLink: {
+        defaultProps: {
+          underline: 'hover', // Remove o sublinhado ao passar o mouse
+        },
+        styleOverrides: {
+          root: {
+            color: "text.secondary", // Define a cor do texto do link
+            fontSize: '16px', // Define o tamanho da fonte
+            fontWeight: 'bold', // Define o estilo da fonte (negrito)
+            '&:hover': {
+              color: customPallete.primary.main, // Define a cor do texto ao passar o mouse
+            },
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: ({ theme }) =>

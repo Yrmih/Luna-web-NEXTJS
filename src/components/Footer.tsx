@@ -1,44 +1,38 @@
 "use client";
-import styles from "@/styles/copyright.module.css";
-import { Box, Grid, Link, Typography, useTheme } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { Copyright } from "./Copyright";
 
+const drawerWidth = 240;
 export default function Footer() {
-    return (
-        <footer>
-            <Grid
-
-                container
-                flexDirection={"row"}
-                display={{ xs: "block", sm: "flex" }}
-                alignItems="center"
-                textAlign={"center"}
-                justifyContent={{ xs: "center", sm: "space-between" }}
-                width={"100%"}
-                rowSpacing={1}
-                sx={{
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[100]
-                            : theme.palette.grey[900],
-                }}
-            >
-                <Grid
-                    flexDirection={"column"}
-                    display={"flex"}
-                    justifyContent={"center"}
-                    alignItems={'center'}
-                    item
-                    xs={12}
-                    sm={4}
-                    md={4}
-                    lg={12}
-                    xl={12}
-                >
-                    <Copyright />
-                </Grid>
-
-            </Grid>
-        </footer>
-    );
+  return (
+    <Grid
+      component={Paper}
+      p={2}
+      container
+      flexDirection={"row"}
+      alignItems="center"
+      textAlign={"center"}
+      justifyContent={"center"}
+      width={"100%"}
+      sx={{
+        boxShadow: "0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
+      }}
+    >
+      <Grid
+        sx={{ ml: { xs: "none", md: `${drawerWidth}px` } }}
+        flexDirection={"column"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        item
+        xs={12}
+        sm={4}
+        md={4}
+        lg={12}
+        xl={12}
+      >
+        <Copyright />
+      </Grid>
+    </Grid>
+  );
 }

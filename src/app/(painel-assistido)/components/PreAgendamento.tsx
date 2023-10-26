@@ -10,17 +10,17 @@ export default function PreAgendamento() {
             elevation={3}
             sx={{
                 width: "100%",
-                boxShadow: "0px 0px 6px hsl(0deg 0.14% 43.39% / 57%)", // Adicione o sombreamento
+                boxShadow: "0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
                 borderRadius: "8px", // Adicione a borda arredondada
             }}
         >
             <Grid item sx={{ width: "100%" }}>
-            <Card sx={{p:2}}>
-                    <CardHeader sx={{ backgroundColor: theme.palette.primary.light, height: '10px', borderRadius: '10px', textAlign:'center' }} title={"Pré-agendamento"} />
+                <Card sx={{ p: 2 }}>
+                    <CardHeader sx={{ backgroundColor: theme.palette.primary.light, height: '10px', borderRadius: '10px', textAlign: 'center' }} title={"Pré-agendamento"} />
                     <ListItem>
                         <ListItemText primary="Sua solicitação foi sggsgsgsbvefvbfidbdvbdiv,v.fvkgnf vkngfvkgvngkfdvngk" />
                     </ListItem>
-                    <CardContent sx={{padding:0}}>
+                    <CardContent sx={{ padding: 0 }}>
                         <List sx={{ padding: 0 }}>
                             <ListItem>
                                 <ListItemText primary="id -ggggg" />
@@ -28,10 +28,10 @@ export default function PreAgendamento() {
                             <ListItem>
                                 <ListItemText primary="id -ggggg" />
                             </ListItem>
-                       </List>
-            </CardContent>
-            </Card>
-        </Grid>
+                        </List>
+                    </CardContent>
+                </Card>
+            </Grid>
         </Grid>
     );
 }

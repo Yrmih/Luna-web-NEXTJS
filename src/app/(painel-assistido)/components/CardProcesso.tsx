@@ -1,7 +1,7 @@
 import { Box, Card, IconButton, List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
 import DescriptionIcon from "@mui/icons-material/Description";
 
-export function CardeProcesso(){
+export function CardeProcesso() {
     return (
         <Box
             sx={{
@@ -16,7 +16,7 @@ export function CardeProcesso(){
                 sx={{
                     width: "100%",
                     p: 2,
-                    boxShadow: "0px 0px 6px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
+                    boxShadow: "0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
                     borderRadius: "8px", // Adicione a borda arredondada
                     display: "flex",
                     justifyContent: "center",
@@ -45,24 +45,22 @@ export function CardeProcesso(){
                     </ListItem>
                 </List>
             </Card>
-
-                <Card
-                    component={Paper}
-                    sx={{
-                        width: "100%",
-                        p: 2,
-                        boxShadow: "0px 0px 6px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
-                        borderRadius: "8px", // Adicione a borda arredondada
-                    }}
-                >
-                    <Typography>Interessados</Typography>
-                    <List sx={{ width: "100%" }}>
-                        <ListItem disableGutters>
-                            <ListItemText primary={`Nome do interessado`} />
-                        </ListItem>
-                    </List>
-                </Card>
-
+            <Card
+                component={Paper}
+                sx={{
+                    width: "100%",
+                    p: 2,
+                    boxShadow: "0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)", // Adicione o sombreamento
+                    borderRadius: "8px", // Adicione a borda arredondada
+                }}
+            >
+                <Typography>Interessados</Typography>
+                <List sx={{ width: "100%" }}>
+                    <ListItem disableGutters>
+                        <ListItemText primary={`Nome do interessado`} />
+                    </ListItem>
+                </List>
+            </Card>
         </Box>
     );
 }

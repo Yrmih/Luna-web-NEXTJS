@@ -10,9 +10,9 @@ import {
   Grid,
   IconButton,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
-import React, { ReactNode} from "react";
+import React, { ReactNode } from "react";
 import { DrawerMenuAreaAssistido } from "./HeaderNabar/DrawerMenuAreaAssistido";
 import { AppBarModile } from "./HeaderNabar/AppBarModile";
 
@@ -20,8 +20,9 @@ const drawerWidth = 240;
 interface DrawerProps {
   children?: ReactNode;
 }
-export function AppBarAreaAssistido(props: DrawerProps): React.JSX.Element {
+export function AppBarAreaAssistido(props: DrawerProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
   // ============================drawer==============================
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -29,6 +30,7 @@ export function AppBarAreaAssistido(props: DrawerProps): React.JSX.Element {
   const container =
     typeof window !== "undefined" ? window.document.body : undefined;
   // ============================drawer==============================
+
   return (
     <>
       <AppBar position="fixed" sx={{ zIndex: 2000 }}>
@@ -62,16 +64,16 @@ export function AppBarAreaAssistido(props: DrawerProps): React.JSX.Element {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "block" } }}>
         <Drawer
           sx={{
             width: drawerWidth,
             flexShrink: 0,
-            '& .MuiDrawer-paper': {
+            "& .MuiDrawer-paper": {
               width: drawerWidth,
-              boxSizing: 'border-box',
-              top: ['38px', '36px', '64px'],
-              height: 'auto',
+              boxSizing: "border-box",
+              top: ["28px", "26px", "65px"],
+              height: "auto",
               bottom: 0,
             },
           }}
@@ -99,16 +101,16 @@ export function AppBarAreaAssistido(props: DrawerProps): React.JSX.Element {
           sx={{
             width: drawerWidth,
             flexShrink: 0,
-            '& .MuiDrawer-paper': {
+            "& .MuiDrawer-paper": {
               width: drawerWidth,
-              boxSizing: 'border-box',
-              top: ['68px', '76px', '84px'],
-              height: 'auto',
+              boxSizing: "border-box",
+              top: ["52px", "63px", "74px"],
+              height: "auto",
               bottom: 0,
             },
           }}
         >
-          <DrawerMenuAreaAssistido/>
+          <DrawerMenuAreaAssistido />
         </Drawer>
       </Box>
       <Box
@@ -116,7 +118,7 @@ export function AppBarAreaAssistido(props: DrawerProps): React.JSX.Element {
         sx={{
           flexGrow: 1,
           bgcolor: "background.default",
-          ml: {xs:"auto",md:`${drawerWidth}px`},
+          ml: { xs: "auto", md: `${drawerWidth}px` },
           mt: ["58px", "65px", "42px"],
           p: 0,
         }}
