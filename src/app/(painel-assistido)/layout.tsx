@@ -17,7 +17,7 @@ function PainelAssistidoLayout({ children }: { children: ReactNode }) {
         <AppBarAreaAssistido>{children}</AppBarAreaAssistido>
       </main>
       <CssBaseline />
-      <footer style={{marginTop:35}}>
+      <footer>
         <Footer />
         </footer>
     </>

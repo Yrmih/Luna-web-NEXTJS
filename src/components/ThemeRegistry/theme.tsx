@@ -74,13 +74,21 @@ function getTheme(prefersDarkMode: boolean) {
             height: '100%'
           },
           footer: {
-            // border: `2px solid`,
-            // borderTopWidth: "3px",
-            // borderRightWidth: 0,
-            // borderBottomWidth: 0,
-            // borderLeftWidth: 0,
-            pedding: 15,
-
+            marginTop: 'auto',
+            textAlign: 'center',
+            display: 'relative',
+            bottom: 0,
+          },
+          body: {
+            fontfamily: 'Roboto, sans-serif, Roboto Mono',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100%',
+            fontWeight: 400,
+            scrollbarWidth: 'thin',
+            scrollbarcolor: 'rgb(4 121 0) rgb(226, 225, 225)',
+            width: '100%',
+            flex: 1
           },
         },
       },

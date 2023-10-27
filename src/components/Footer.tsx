@@ -5,7 +5,9 @@ import { Copyright } from "./Copyright";
 const drawerWidth = 240;
 export default function Footer() {
   return (
-    <Grid
+    <>
+      <Grid
+      mt={5}
       component={Paper}
       p={2}
       container
@@ -34,5 +36,6 @@ export default function Footer() {
         <Copyright />
       </Grid>
     </Grid>
+    </>
   );
 }
