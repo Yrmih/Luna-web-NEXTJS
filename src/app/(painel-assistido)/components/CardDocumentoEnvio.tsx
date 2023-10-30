@@ -1,6 +1,5 @@
 // Third party
 "use client";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import {
   Box,
   Button,
@@ -18,6 +17,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import PublishIcon from '@mui/icons-material/Publish';
 // Internal
 interface CardDocumentoEnvioProps {
   data: SelectedFile[];
@@ -42,7 +42,6 @@ const dados: SelectedFile[] = [
   { id: 5, textonome: "Nome 3", arquivo: "", isUploaded: false },
 ];
 
-
 export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
   const [fileStatus, setFileStatus] = useState<SelectedFile[]>(data);
   const {
@@ -64,36 +63,45 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
     }
   };
 
+
+
   const handleFileChange = (fileId: number, selectedFile: File) => {
-    // Atualize o status individual do arquivo que está sendo enviado
-    const updatedFileStatus = fileStatus.map((f) =>
-      f.id === fileId
-        ? { ...f, textonome: selectedFile.name, isUploaded: true }
-        : f
-    );
-    setFileStatus(updatedFileStatus);
+    // Verificação de nulidade para depuração
+    if (fileStatus) {
+      // Atualize o status individual do arquivo que está sendo enviado
+      const updatedFileStatus = fileStatus.map((f) =>
+        f.id === fileId
+          ? { ...f, textonome: selectedFile.name, isUploaded: true }
+          : f
+      ) as SelectedFile[];
 
-    // Implemente o envio individual do arquivo para o servidor aqui
-    const formData = new FormData();
-    formData.append('file', selectedFile);
+      setFileStatus(updatedFileStatus);
 
-    fetch('URL_DO_SERVIDOR', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          // Arquivo enviado com sucesso
-          console.log(`Arquivo ${selectedFile.name} enviado com sucesso para o servidor.`);
-        } else {
-          // Trate erros de envio aqui
-          console.error('Erro no envio do arquivo para o servidor.');
-        }
+      // Implemente o envio individual do arquivo para o servidor aqui
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      fetch('URL_DO_SERVIDOR', {
+        method: 'POST',
+        body: formData,
       })
-      .catch((error) => {
-        console.error('Erro ao enviar o arquivo:', error);
-      });
+        .then((response) => {
+          if (response.ok) {
+            // Arquivo enviado com sucesso
+            console.log(`Arquivo ${selectedFile.name} enviado com sucesso para o servidor.`);
+          } else {
+            // Trate erros de envio aqui
+            console.error('Erro no envio do arquivo para o servidor.');
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao enviar o arquivo:', error);
+        });
+    } else {
+      console.error('fileStatus é undefined. Verifique por que ele não está definido corretamente.');
+    }
   };
+
 
   return (
     <Grid
@@ -170,6 +178,7 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
 
 interface CardItemProps {
   data: SelectedFile;
+  
   fileStatus: SelectedFile[];
   setFileStatus: (status: SelectedFile[]) => void;
   control: any;
@@ -216,6 +225,7 @@ function CardItem({
               }
             </Typography>
             <IconButton
+              sx={{ ml: 2 }}
               edge="end"
               component="label"
               aria-label="enviar arquivo"
@@ -240,6 +250,7 @@ function CardItem({
                   }
                 }}
               />
+              <PublishIcon />
             </IconButton>
           </Box>
         </Tooltip>
