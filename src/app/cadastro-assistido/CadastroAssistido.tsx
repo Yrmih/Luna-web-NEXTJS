@@ -100,7 +100,14 @@ export function CadastroAssistido() {
           />
         )
       case 3:
-        return <DadosPessoaisForm register={register} errors={errors} />
+        return (
+          <DadosPessoaisForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
       case 4:
         return (
           <QualificacaoFinanceiraForm register={register} errors={errors} />

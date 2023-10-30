@@ -34,6 +34,7 @@ const informacaoInicialSchema = z.object({
 const contatoSchema = z.object({
   celular: z.string().refine(
     (value) => {
+      console.log('CONTATO MASK: ', value)
       if (value.trim() === '' || value.match(INPUT_MASK_REGEX.celular)) {
         return true
       }
@@ -55,6 +56,7 @@ const enderecoSchema = z.object({
   logradouro: z.string(),
   cep: z.string().refine(
     (value) => {
+      console.log('CEP MASK: ', value)
       if (value === '' || value.match(INPUT_MASK_REGEX.cep)) {
         return true
       }

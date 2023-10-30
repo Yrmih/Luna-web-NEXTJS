@@ -1,9 +1,9 @@
 // Third party
+import CorporateFareIcon from '@mui/icons-material/CorporateFare'
+import DescriptionIcon from '@mui/icons-material/Description'
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople'
 import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
-import CorporateFareIcon from '@mui/icons-material/CorporateFare'
-import DescriptionIcon from '@mui/icons-material/Description'
 import {
   FormControl,
   FormControlLabel,
@@ -23,8 +23,14 @@ import {
 
 // Internal
 
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
+import { useEffect } from 'react'
 
 const FORMULARIO_DADOS_PESSOAIS = [
   {
@@ -101,12 +107,41 @@ const SELECT_TIPO_CERTIDAO = [
   { valor: 'certidao_casamento', nome: 'Certidão de Casamento' },
 ]
 
+function normalizeCertidao(value: string) {
+  if (!value) return ''
+
+  return value
+    .replace(/[\D]/g, '')
+    .replace(/(\d{6})(\d)/, '$1 $2')
+    .replace(/(\d{2})(\d)/, '$1 $2')
+    .replace(/(\d{2})(\d)/, '$1 $2')
+    .replace(/(\d{4})(\d)/, '$1 $2')
+    .replace(/(\d{1})(\d)/, '$1 $2')
+    .replace(/(\d{5})(\d)/, '$1 $2')
+    .replace(/(\d{3})(\d)/, '$1 $2')
+    .replace(/(\d{7})(\d)/, '$1 $2')
+    .replace(/(\d{2})(\d+?)/, '$1')
+}
+
 export type DadosPessoaisProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-export function DadosPessoaisForm({ register, errors }: DadosPessoaisProps) {
+export function DadosPessoaisForm({
+  register,
+  watch,
+  setValue,
+  errors,
+}: DadosPessoaisProps) {
+  const certidaoValue = watch('dadosPessoais.certidao')
+
+  useEffect(() => {
+    setValue('dadosPessoais.certidao', normalizeCertidao(certidaoValue))
+  }, [certidaoValue, setValue])
+
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>

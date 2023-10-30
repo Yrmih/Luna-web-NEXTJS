@@ -14,11 +14,13 @@ import { useEffect } from 'react'
 export const normalizeCelular = (value: string | undefined) => {
   if (!value) return ''
 
-  return value
+  const celularNornalizado = value
     .replace(/[\D]/g, '')
     .replace(/(\d{2})(\d)/, '($1) $2')
     .replace(/(\d{5})(\d)/, '$1-$2')
     .replace(/(-\d{4})(\d+?)/, '$1')
+
+  return celularNornalizado
 }
 
 export const normalizeTelefone = (value: string | undefined) => {
@@ -61,6 +63,7 @@ export function ContatoForm({
 }: ContatoProps) {
   const celularValue = watch('contatos.celular')
   const telefoneValue = watch('contatos.telefone')
+  console.log('OBTANÇÃO DO CELULAR: ', celularValue)
 
   useEffect(() => {
     setValue('contatos.celular', normalizeCelular(celularValue))
