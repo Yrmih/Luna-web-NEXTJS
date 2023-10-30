@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { FORMULARIO_ERROS_MENSAGENS, INPUT_MASK_REGEX } from './constants'
+import { MaskUtils } from '@/utils/MaskUtils'
 
 const informacaoInicialSchema = z.object({
   nomeCompleto: z
@@ -14,6 +15,7 @@ const informacaoInicialSchema = z.object({
     ),
   cpf: z.string().refine(
     (value) => {
+      value = MaskUtils.limitarTamanhoString(value, 18)
       if (
         value.trim() === '' ||
         value.match(INPUT_MASK_REGEX.cpf) ||
@@ -56,7 +58,7 @@ const enderecoSchema = z.object({
   logradouro: z.string(),
   cep: z.string().refine(
     (value) => {
-      console.log('CEP MASK: ', value)
+      value = MaskUtils.limitarTamanhoString(value, 9)
       if (value === '' || value.match(INPUT_MASK_REGEX.cep)) {
         return true
       }
