@@ -1,6 +1,6 @@
+import { MaskUtils } from '@/utils/MaskUtils'
 import { z } from 'zod'
 import { FORMULARIO_ERROS_MENSAGENS, INPUT_MASK_REGEX } from './constants'
-import { MaskUtils } from '@/utils/MaskUtils'
 
 const informacaoInicialSchema = z.object({
   nomeCompleto: z
@@ -36,7 +36,6 @@ const informacaoInicialSchema = z.object({
 const contatoSchema = z.object({
   celular: z.string().refine(
     (value) => {
-      console.log('CONTATO MASK: ', value)
       if (value.trim() === '' || value.match(INPUT_MASK_REGEX.celular)) {
         return true
       }
@@ -109,6 +108,7 @@ const dadosPessoaisSchema = z.object({
   ),
   certidao: z.string().refine(
     (value) => {
+      value = MaskUtils.limitarTamanhoString(value, 40)
       if (value === '' || value.match(INPUT_MASK_REGEX.certidao)) {
         return true
       }

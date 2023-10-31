@@ -23,6 +23,8 @@ import {
 
 // Internal
 
+import { MaskUtils } from '@/utils/MaskUtils'
+import { useEffect } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -30,7 +32,6 @@ import {
   UseFormWatch,
 } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { useEffect } from 'react'
 
 const FORMULARIO_DADOS_PESSOAIS = [
   {
@@ -107,22 +108,6 @@ const SELECT_TIPO_CERTIDAO = [
   { valor: 'certidao_casamento', nome: 'Certidão de Casamento' },
 ]
 
-function normalizeCertidao(value: string) {
-  if (!value) return ''
-
-  return value
-    .replace(/[\D]/g, '')
-    .replace(/(\d{6})(\d)/, '$1 $2')
-    .replace(/(\d{2})(\d)/, '$1 $2')
-    .replace(/(\d{2})(\d)/, '$1 $2')
-    .replace(/(\d{4})(\d)/, '$1 $2')
-    .replace(/(\d{1})(\d)/, '$1 $2')
-    .replace(/(\d{5})(\d)/, '$1 $2')
-    .replace(/(\d{3})(\d)/, '$1 $2')
-    .replace(/(\d{7})(\d)/, '$1 $2')
-    .replace(/(\d{2})(\d+?)/, '$1')
-}
-
 export type DadosPessoaisProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   watch: UseFormWatch<CadastroAssistidoInputsForm>
@@ -139,8 +124,8 @@ export function DadosPessoaisForm({
   const certidaoValue = watch('dadosPessoais.certidao')
 
   useEffect(() => {
-    setValue('dadosPessoais.certidao', normalizeCertidao(certidaoValue))
-  }, [certidaoValue, setValue])
+    setValue('dadosPessoais.certidao', MaskUtils.maskCertidao(certidaoValue))
+  }, [setValue, certidaoValue])
 
   return (
     <Grid container spacing={3} px={4}>
