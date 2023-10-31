@@ -1,6 +1,7 @@
 'use client'
 
 // Third party
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
   Button,
@@ -12,20 +13,20 @@ import {
   Stepper,
   Typography,
 } from '@mui/material'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 // Framework
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Internal
-import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
-import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceira'
+import { Copyright } from '@/components/Copyright'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ContatoForm } from './components/formulario/ContatoForm'
+import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
 import { EnderecoForm } from './components/formulario/EnderecoForm'
 import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
-import { Copyright } from '@/components/Copyright'
+import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceira'
 import { cadastroAssistidoSchema } from './components/formulario/schemas'
 
 const steps = [
@@ -58,6 +59,10 @@ export type CadastroAssistidoInputsForm = z.infer<
 >
 
 export function CadastroAssistido() {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+
   const [activeStep, setActiveStep] = useState(0)
   const {
     register,
@@ -70,8 +75,23 @@ export function CadastroAssistido() {
     resolver: zodResolver(cadastroAssistidoSchema),
   })
 
-  function getStepForm(step: number) {
-    switch (step) {
+  useEffect(() => {
+    const currentStep = parseInt(sessionStorage.getItem('step') || '0') - 1
+
+    setActiveStep(currentStep)
+  }, [])
+
+  useEffect(() => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()))
+    current.delete('step')
+    current.set('step', (activeStep + 1).toString())
+    const search = current.toString()
+    router.push(`${pathname}?${search}`)
+    sessionStorage.setItem('step', current.get('step') || '1')
+  }, [activeStep, pathname, router, searchParams])
+
+  function getStepForm() {
+    switch (activeStep) {
       case 0:
         return (
           <InformacaoInicialForm
@@ -169,7 +189,7 @@ export function CadastroAssistido() {
             {steps[activeStep].descricao}
           </Typography>
         </Box>
-        {getStepForm(activeStep)}
+        {getStepForm()}
         <MobileStepper
           sx={{
             mt: 10,
