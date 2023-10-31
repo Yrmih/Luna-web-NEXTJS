@@ -58,8 +58,9 @@ export class MaskUtils {
         /(\d{0,6})?(\d{0,2})?(\d{0,2})?(\d{0,4})?(\d{0,1})?(\d{0,5})?(\d{0,3})?(\d{0,7})?(\d{0,2})/,
         '$1 $2 $3 $4 $5 $6 $7 $8 $9',
       )
+
       .replace(/\s+$/, '')
-      .replace(new RegExp(`^(.{${40}).*$`), '$1')
+      .replace(/^(.{40}).*$/, '$1')
   }
 
   static limitarTamanhoString = (string: string, limite: number) => {
