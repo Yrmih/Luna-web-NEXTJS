@@ -210,6 +210,8 @@ export function QualificacaoFinanceiraForm({
       <Grid item xs={12} md={6}>
         <TextField
           fullWidth
+          type="number"
+          defaultValue={0}
           id="numeroMembrosFamilia"
           autoComplete="membros-familia"
           InputProps={{
@@ -235,6 +237,8 @@ export function QualificacaoFinanceiraForm({
       <Grid item xs={12} md={6}>
         <TextField
           fullWidth
+          type="number"
+          defaultValue={0}
           id="numeroMembrosFamiliaAtivos"
           autoComplete="mambros-ativos"
           InputProps={{

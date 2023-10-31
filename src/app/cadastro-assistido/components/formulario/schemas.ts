@@ -119,8 +119,16 @@ const dadosPessoaisSchema = z.object({
 })
 
 const qualificacaoFinanceiraSchema = z.object({
-  numeroMembrosFamilia: z.number(),
-  numeroMembrosFamiliaAtivos: z.number(),
+  numeroMembrosFamilia: z
+    .string()
+    .refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      message: 'Digite somente números',
+    }),
+  numeroMembrosFamiliaAtivos: z
+    .string()
+    .refine((val) => !Number.isNaN(parseInt(val, 10)), {
+      message: 'Digite somente números',
+    }),
   rendaIndividual: z.string(),
   rendaFamiliar: z.string(),
   moveis: z
