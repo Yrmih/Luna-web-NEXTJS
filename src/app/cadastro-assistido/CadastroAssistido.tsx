@@ -12,17 +12,21 @@ import {
   Stepper,
   Typography,
 } from '@mui/material'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 // Framework
 import { useState } from 'react'
 
 // Internal
-import { DadosPessoais } from './components/formulario/DadosPessoais'
-import { QualificacaoFinanceira } from './components/formulario/QualificacaoFinanceira'
-import { Contato } from './components/formulario/Contato'
-import { Endereco } from './components/formulario/Endereco'
-import { InformacaoInicial } from './components/formulario/InfirmacaoInicial'
+import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
+import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceira'
+import { ContatoForm } from './components/formulario/ContatoForm'
+import { EnderecoForm } from './components/formulario/EnderecoForm'
+import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
 import { Copyright } from '@/components/Copyright'
+import { cadastroAssistidoSchema } from './components/formulario/schemas'
 
 const steps = [
   {
@@ -49,25 +53,75 @@ const steps = [
   },
 ]
 
-function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return <InformacaoInicial />
-    case 1:
-      return <Contato />
-    case 2:
-      return <Endereco />
-    case 3:
-      return <DadosPessoais />
-    case 4:
-      return <QualificacaoFinanceira />
-    default:
-      throw new Error('Unknown step')
-  }
-}
+export type CadastroAssistidoInputsForm = z.infer<
+  typeof cadastroAssistidoSchema
+>
 
 export function CadastroAssistido() {
   const [activeStep, setActiveStep] = useState(0)
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<CadastroAssistidoInputsForm>({
+    mode: 'onChange',
+    resolver: zodResolver(cadastroAssistidoSchema),
+  })
+
+  function getStepForm(step: number) {
+    switch (step) {
+      case 0:
+        return (
+          <InformacaoInicialForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
+      case 1:
+        return (
+          <ContatoForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
+      case 2:
+        return (
+          <EnderecoForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
+      case 3:
+        return (
+          <DadosPessoaisForm
+            setValue={setValue}
+            register={register}
+            watch={watch}
+            errors={errors}
+          />
+        )
+      case 4:
+        return (
+          <QualificacaoFinanceiraForm register={register} errors={errors} />
+        )
+      default:
+        throw new Error('Unknown step')
+    }
+  }
+
+  const onSubmit: SubmitHandler<CadastroAssistidoInputsForm> = (data) => {
+    console.log('DADOS: ', data, 'ERRO: ', errors)
+    console.log('VALID: ', isValid)
+    handleNext()
+  }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)
@@ -78,8 +132,10 @@ export function CadastroAssistido() {
   }
 
   return (
-    <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+    <Container maxWidth="md" sx={{ mb: 4 }}>
       <Paper
+        component={'form'}
+        onSubmit={handleSubmit(onSubmit)}
         variant="outlined"
         sx={{
           my: { xs: 3, md: 6 },
@@ -113,15 +169,19 @@ export function CadastroAssistido() {
             {steps[activeStep].descricao}
           </Typography>
         </Box>
-        {getStepContent(activeStep)}
+        {getStepForm(activeStep)}
         <MobileStepper
-          sx={{ mt: 10, borderRadius: 4, display: { xs: 'flex', sm: 'none' } }}
+          sx={{
+            mt: 10,
+            borderRadius: 4,
+            display: { xs: 'flex', sm: 'none' },
+          }}
           variant="dots"
           steps={steps.length}
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button size="small" onClick={handleNext}>
+            <Button size="small" type="submit" onClick={handleNext}>
               {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
             </Button>
           }
@@ -135,25 +195,19 @@ export function CadastroAssistido() {
             </Button>
           }
         />
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            justifyContent: 'flex-end',
-          }}
-        >
-          {activeStep !== 0 && (
-            <Button onClick={handleBack} sx={{ mt: 8, mr: 3 }}>
-              voltar
-            </Button>
-          )}
-          <Button
-            variant="contained"
-            onClick={handleNext}
-            sx={{ mt: 8, mr: 3 }}
-          >
-            {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+        {activeStep !== 0 && (
+          <Button onClick={handleBack} sx={{ mt: 8, mr: 3 }}>
+            voltar
           </Button>
-        </Box>
+        )}
+        <Button
+          variant="contained"
+          type={activeStep === steps.length - 1 ? 'submit' : 'button'}
+          onClick={handleNext}
+          sx={{ mt: 8, mr: 3 }}
+        >
+          {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+        </Button>
       </Paper>
       <Copyright />
     </Container>
