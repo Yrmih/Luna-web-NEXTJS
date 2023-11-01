@@ -24,7 +24,6 @@ import React from 'react'
 // Internal
 
 export function Login() {
-  const matches = useMediaQuery('(min-width:1100px)')
   const [valorCpf, setValorCpf] = React.useState('')
   const [cpfError, setCpfError] = React.useState(false)
   const [cpfHelperText, setCpfHelperText] = React.useState('')
@@ -106,46 +105,13 @@ export function Login() {
   return (
     // container
 
-    <Stack
-      direction={matches ? 'row' : 'column'}
-      bgcolor="white"
-      height="100vh"
-      width="100vw"
-    >
-      {/* container foto */}
-      <Box
-        display={matches ? 'none' : 'flex'}
-        height="12vh"
-        width="100vw"
-        bgcolor="#023B7E"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <img
-          height={'80%'}
-          src="https://www.defensoria.es.def.br/wp-content/uploads/2021/10/cropped-logo.png"
-        />
-        <Typography color="white" variant="subtitle2" paddingRight="4vw">
-          Agendamento Virtual
-        </Typography>
-      </Box>
-      <img
-        src={
-          matches
-            ? 'https://lunabaseteste.defensoria.es.def.br/assets/login_aside_image1-d92f4c0c86dbd4e98d978d937e300ddda57da9c2b0ecb1662f8636b726f5b0cb.png'
-            : ''
-        }
-      ></img>
-
+    <Stack bgcolor="white" height="100%" width="100%" justifyContent={'center'}>
       {/* container página */}
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
         bgcolor="white"
-        height="100vh"
-        width={matches ? '88vw' : '100vw'}
-        paddingLeft={matches ? 0 : '10vw'}
       >
         <Stack>
           <Typography variant="h5" color="#023B7E">
