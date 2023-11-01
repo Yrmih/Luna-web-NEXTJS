@@ -7,20 +7,23 @@ import {
   CardActions,
   CardContent,
   CardHeader,
-  FormControl,
+  Grid,
   TextField,
-  Typography,
   Paper,
 } from '@mui/material'
-import { Controller, useForm, useFormState } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { handleFormularioSubmit } from '@/app/(painel-assistido)/editar-contato/actions'
-import { ErrorSharp } from '@mui/icons-material'
 
 // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
 export const formularioSchema = z.object({
-  email: z.string().email('Você deve inserir um email válido'),
+  // email está como opcional
+  email: z
+    .string()
+    .email('Você deve inserir um email válido')
+    .optional()
+    .or(z.literal('')),
   ddd: z.string().min(3, 'O DDD deve conter 3 digitos'),
   telefone: z.string().min(7, 'Você deve inserir um telefone válido'),
 })
@@ -55,14 +58,14 @@ export default function EditarContato() {
         flexWrap: 'wrap',
         width: '100%',
         height: '100%',
-        alignItems: 'center',
         justifyContent: 'center',
+        marginTop: '4vh',
       }}
     >
       <Paper
         sx={{
-          width: '90%',
-          height: '90%',
+          width: '50%',
+          height: '50%',
         }}
         elevation={3}
       >
@@ -71,47 +74,61 @@ export default function EditarContato() {
             title="Atualize seus dados de contato!"
             subheader="Manter seus dados atualizados agiliza seu atendimento"
           />
-          <CardContent>
+          <CardContent
+            sx={{ height: '70%', justifyContent: 'center', display: 'flex' }}
+          >
             {/* Formulário para envio da atualização dos dados do assistido */}
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* Controller do Email */}
-              <div>
-                <TextField
-                  type="email"
-                  label="Email"
-                  variant="outlined"
-                  {...register('email')}
-                  error={!!errors.email?.message}
-                  helperText={errors.email?.message}
-                />
-              </div>
-              {/* Controller do DDD */}
-              <div>
-                <TextField
-                  id="ddd"
-                  label="DDD"
-                  variant="outlined"
-                  {...register('ddd')}
-                  error={!!errors.ddd?.message}
-                  helperText={errors.ddd?.message}
-                />
-              </div>
-              {/* Controller do Telefone */}
-              <div>
-                <TextField
-                  id="telefone"
-                  label="Telefone"
-                  variant="outlined"
-                  {...register('telefone')}
-                  error={!!errors.telefone?.message}
-                  helperText={errors.telefone?.message}
-                />
-              </div>
-              <div>
-                <Button variant="contained" type="submit">
-                  Atualizar
-                </Button>
-              </div>
+            <form
+              style={{ height: '100%', width: '70%' }}
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              {/* Container do Grid para disposição dos itens */}
+              <Grid
+                container
+                sx={{ height: '100%' }}
+                rowSpacing={1}
+                spacing={1}
+                columns={2}
+              >
+                <Grid md={2}>
+                  {/* Controller do Email */}
+                  <TextField
+                    type="email"
+                    label="Email"
+                    variant="outlined"
+                    {...register('email')}
+                    error={!!errors.email?.message}
+                    helperText={errors.email?.message}
+                  />
+                </Grid>
+                <Grid md={1}>
+                  {/* Controller do DDD */}
+                  <TextField
+                    id="ddd"
+                    label="DDD"
+                    variant="outlined"
+                    {...register('ddd')}
+                    error={!!errors.ddd?.message}
+                    helperText={errors.ddd?.message}
+                  />
+                </Grid>
+                <Grid md={1}>
+                  {/* Controller do Telefone */}
+                  <TextField
+                    id="telefone"
+                    label="Telefone"
+                    variant="outlined"
+                    {...register('telefone')}
+                    error={!!errors.telefone?.message}
+                    helperText={errors.telefone?.message}
+                  />
+                </Grid>
+                <Grid md={2}>
+                  <Button variant="contained" type="submit">
+                    Atualizar
+                  </Button>
+                </Grid>
+              </Grid>
             </form>
           </CardContent>
         </Card>
