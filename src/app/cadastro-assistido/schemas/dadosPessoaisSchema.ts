@@ -14,12 +14,14 @@ export const dadosPessoaisSchema = z.object({
     },
     { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
   ),
-  nomePai: z
-    .string()
-    .regex(
-      INPUT_MASK_REGEX.apenasLetras,
-      FORMULARIO_ERROS_MENSAGENS.apenasLetras,
-    ),
+  nomePai: z.string().refine(
+    (value) => {
+      if (value === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+        return true
+      }
+    },
+    { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+  ),
   dataNascimento: z.date(),
   sexo: z.enum(['masculino', 'feminino']),
   estadoCivil: z.enum(['casado', 'solteiro', 'diverciado', 'viuvo']),
