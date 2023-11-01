@@ -1,13 +1,21 @@
 'use client'
 import { AccountCircle } from '@mui/icons-material'
+
 import {
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Stack,
   TextField,
   Typography,
   useMediaQuery,
 } from '@mui/material'
+import SendIcon from '@mui/icons-material/Send'
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import InputMask from 'react-input-mask'
 import React from 'react'
 
@@ -18,8 +26,12 @@ import React from 'react'
 export function Login() {
   const matches = useMediaQuery('(min-width:1100px)')
   const [valorCpf, setValorCpf] = React.useState('')
-  const [error, setError] = React.useState(false)
-  const [helperText, setHelperText] = React.useState('')
+  const [cpfError, setCpfError] = React.useState(false)
+  const [cpfHelperText, setCpfHelperText] = React.useState('')
+  const [valorNumAtendimento, setValorNumAtendimento] = React.useState('')
+  const [numAtendimentoError, setNumAtendimentoError] = React.useState(false)
+  const [numAtendimentoHelperText, setNumAtendimentoHelperText] =
+    React.useState('')
 
   // validador CPF
   function isValidCPF(cpf) {
@@ -65,9 +77,31 @@ export function Login() {
   const handleCpfChange = (e) => {
     const cpf = e.currentTarget.value
     const isCpfValid = isValidCPF(cpf) || cpf === ''
-    setError(!isCpfValid)
-    setHelperText(!isCpfValid && cpf ? 'CPF inválido' : '')
+    setCpfError(!isCpfValid)
+    setCpfHelperText(!isCpfValid && cpf ? 'CPF inválido' : '')
     setValorCpf(cpf)
+  }
+  // controlador mudança N° Atendimento
+  const handleNumAtendimentoChange = (e) => {
+    const numAtendimento = e.currentTarget.value
+    const isNumAtendimentoValid = numAtendimento === ''
+    setNumAtendimentoError(!isNumAtendimentoValid)
+    setNumAtendimentoHelperText(
+      !isNumAtendimentoValid && numAtendimento
+        ? 'N° de Atendimento precisa de ter 11 dígitos'
+        : '',
+    )
+    setValorNumAtendimento(numAtendimento)
+  }
+  // controlador do popover
+  const [open, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
   return (
     // container
@@ -136,8 +170,8 @@ export function Login() {
                   id="input-cpf"
                   label="CPF"
                   variant="standard"
-                  error={error}
-                  helperText={helperText}
+                  error={cpfError}
+                  helperText={cpfHelperText}
                 />
               )}
             </InputMask>
@@ -150,10 +184,80 @@ export function Login() {
                 },
               }}
               variant="contained"
-              disabled={valorCpf ? error : true}
+              disabled={valorCpf ? cpfError : true}
+              onClick={handleClickOpen}
             >
               Enviar
             </Button>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>
+                Agora você deve digitar o número do seu atendimento.
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText marginBottom={'2vh'}>
+                  É aquele número que você recebeu quando fez o primeiro acesso
+                  aqui. Você anotou ou fez uma foto dele? Caso não encontre o
+                  seu número, clique abaixo em "Esqueceu Seu Número"
+                </DialogContentText>
+                <InputMask
+                  mask="999999.999.99"
+                  maskChar=""
+                  onChange={handleNumAtendimentoChange}
+                >
+                  {() => (
+                    <TextField
+                      fullWidth
+                      id="input-atendimento"
+                      label="N° DE ATENDIMENTO"
+                      variant="standard"
+                      error={
+                        valorNumAtendimento.length !== 13 &&
+                        valorNumAtendimento !== ''
+                      }
+                      helperText={numAtendimentoHelperText}
+                    />
+                  )}
+                </InputMask>
+              </DialogContent>
+              <DialogActions sx={{ justifyContent: 'space-around' }}>
+                <Button
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  endIcon={<SendIcon />}
+                  disabled={
+                    valorNumAtendimento
+                      ? valorNumAtendimento.length !== 13 &&
+                        valorNumAtendimento !== ''
+                      : true
+                  }
+                  onClick={handleClose}
+                >
+                  Enviar
+                </Button>
+                <Button
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  startIcon={<PhoneAndroidIcon />}
+                  onClick={handleClose}
+                >
+                  Esqueceu seu número ?
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Box>
         </Stack>
       </Box>
