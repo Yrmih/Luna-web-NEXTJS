@@ -1,4 +1,9 @@
 // Third party
+import ChairIcon from '@mui/icons-material/Chair'
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'
+import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork'
+import PeopleIcon from '@mui/icons-material/People'
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import {
   Box,
   Button,
@@ -9,26 +14,19 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
-import PeopleIcon from '@mui/icons-material/People'
-import ChairIcon from '@mui/icons-material/Chair'
-import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork'
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange'
 
 // Framework
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
 
 // Internal
-import { Item } from '../../types/Item'
-import { Movel } from '../../types/Movel'
-import { Imovel } from '../../types/Imovel'
-import { Investimento } from '../../types/Investimento'
-import { TabelaitensAdicionados } from '../TabelaItensAdicionados'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
+import { TabelaitensAdicionados } from '../TabelaItensAdicionados'
+import { TextFieldAttributes } from '../../types/TextFieldAttributes'
+import { DynamicTextFieldsMovel } from '../DynamicTextFieldsMovel'
+import { useState } from 'react'
 
-const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
+export const FORMULARIO_QUALIFICACAO_FIANCEIRA: TextFieldAttributes[] = [
   {
     label: 'Membros da Família',
     textHelper: 'Quantidade de membros da sua família',
@@ -61,7 +59,7 @@ const FORMULARIO_QUALIFICACAO_FIANCEIRA = [
     icon: 'R$',
   },
   {
-    nome: 'descricaoMovel',
+    name: 'descricaoMovel',
     label: 'Descrição do móvel',
     textHelper: 'Adicione a descrição do seu móvel.',
     placeHolder: 'Ex.: Sofá, Refrigerador; etc...',
@@ -106,105 +104,6 @@ export function QualificacaoFinanceiraForm({
   register,
   errors,
 }: QualificacaoFinanceraProps) {
-  const [bensMoveisAdicionado, setBensMoveisAdicionado] = useState<Item[]>([])
-  const [bensImoveisAdicionado, setBensImoveisAdicionado] = useState<Item[]>([])
-  const [investimentosAdicionado, setInvestimentosAdicionado] = useState<
-    Item[]
-  >([])
-  const [movelAtual, setMovelAtual] = useState<Movel>({
-    descricaoMovel: '',
-    valorMovel: 0,
-  })
-  const [imovelAtual, setImovelAtual] = useState<Imovel>({
-    descricaoImovel: '',
-    valorImovel: 0,
-  })
-  const [investimentoAtual, setinvestimentoAtual] = useState<Investimento>({
-    descricaoInvestimento: '',
-    valorInvestimento: 0,
-  })
-
-  const handleChangeInputTableItems = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
-    console.log('Name: ', event.target.name, 'Value: ', event.target.value)
-
-    switch (event.target.name) {
-      case 'descricaoMovel':
-        setMovelAtual((prev) => ({
-          ...prev,
-          descricaoMovel: event.target.value,
-        }))
-        break
-      case 'valorMovel':
-        setMovelAtual((prev) => ({
-          ...prev,
-          valorMovel: Number(event.target.value),
-        }))
-        break
-      case 'descricaoImovel':
-        setImovelAtual((prev) => ({
-          ...prev,
-          descricaoImovel: event.target.value,
-        }))
-        break
-      case 'valorImovel':
-        setImovelAtual((prev) => ({
-          ...prev,
-          valorImovel: Number(event.target.value),
-        }))
-        break
-      case 'descricaoInvestimento':
-        setinvestimentoAtual((prev) => ({
-          ...prev,
-          descricaoInvestimento: event.target.value,
-        }))
-        break
-      case 'valorInvestimento':
-        setinvestimentoAtual((prev) => ({
-          ...prev,
-          valorInvestimento: Number(event.target.value),
-        }))
-        break
-    }
-  }
-
-  const handleAddItemsInTable = (
-    type: 'moveis' | 'imoveis' | 'investimentos',
-  ) => {
-    switch (type) {
-      case 'moveis':
-        setBensMoveisAdicionado([
-          ...bensMoveisAdicionado,
-          {
-            descricao: movelAtual.descricaoMovel,
-            valor: movelAtual.valorMovel,
-          },
-        ])
-        break
-      case 'imoveis':
-        setBensImoveisAdicionado([
-          ...bensImoveisAdicionado,
-          {
-            descricao: imovelAtual.descricaoImovel,
-            valor: imovelAtual.valorImovel,
-          },
-        ])
-        break
-      case 'investimentos':
-        setInvestimentosAdicionado([
-          ...investimentosAdicionado,
-          {
-            descricao: investimentoAtual.descricaoInvestimento,
-            valor: investimentoAtual.valorInvestimento,
-          },
-        ])
-        break
-      default:
-        throw new Error('Tratamento não definido para esse evento.')
-    }
-  }
-
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12} md={6}>
@@ -313,66 +212,18 @@ export function QualificacaoFinanceiraForm({
         <Grid item xs={12}>
           <Typography>Bens</Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <TextField
-            fullWidth
-            id="valorMovel"
-            autoComplete="valor-movel"
-            onChange={handleChangeInputTableItems}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[4].icon}
-                </InputAdornment>
-              ),
-            }}
-            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].name}
-            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].label}
-            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].textHelper}
-            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[4].placeHolder}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            id="descricaoMovel"
-            autoComplete="descricao-movel"
-            onChange={handleChangeInputTableItems}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[5].icon}
-                </InputAdornment>
-              ),
-            }}
-            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].name}
-            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].label}
-            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].textHelper}
-            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[5].placeHolder}
-          />
-        </Grid>
-        <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
-          <Button
-            fullWidth
-            size="large"
-            variant="outlined"
-            onClick={() => handleAddItemsInTable('moveis')}
-          >
-            Adicionar
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <TabelaitensAdicionados
-            setItemsList={setBensMoveisAdicionado}
-            itemsList={bensMoveisAdicionado}
-          />
-        </Grid>
+        <DynamicTextFieldsMovel
+          errors={errors}
+          register={register}
+          items={[]}
+          valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[4]}
+          descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[5]}
+        />
         <Grid item xs={12} md={4}>
           <TextField
             fullWidth
             id="valorImovel"
             autoComplete="valor-imovel"
-            onChange={handleChangeInputTableItems}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -391,7 +242,6 @@ export function QualificacaoFinanceiraForm({
             fullWidth
             id="descricaoImovel"
             autoComplete="descricao-imovel"
-            onChange={handleChangeInputTableItems}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -406,21 +256,11 @@ export function QualificacaoFinanceiraForm({
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
-          <Button
-            fullWidth
-            size="large"
-            variant="outlined"
-            onClick={() => handleAddItemsInTable('imoveis')}
-          >
+          <Button fullWidth size="large" variant="outlined">
             Adicionar
           </Button>
         </Grid>
-        <Grid item xs={12}>
-          <TabelaitensAdicionados
-            setItemsList={setBensImoveisAdicionado}
-            itemsList={bensImoveisAdicionado}
-          />
-        </Grid>
+        <Grid item xs={12}></Grid>
       </Grid>
       <Grid container item spacing={3}>
         <Grid item xs={12}>
@@ -431,7 +271,6 @@ export function QualificacaoFinanceiraForm({
             fullWidth
             id="valorInvestimento"
             autoComplete="valor-investimento"
-            onChange={handleChangeInputTableItems}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -450,7 +289,6 @@ export function QualificacaoFinanceiraForm({
             fullWidth
             id="descricaoInvestimento"
             autoComplete="descricao-imovel"
-            onChange={handleChangeInputTableItems}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -465,20 +303,9 @@ export function QualificacaoFinanceiraForm({
           />
         </Grid>
         <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
-          <Button
-            fullWidth
-            size="large"
-            variant="outlined"
-            onClick={() => handleAddItemsInTable('investimentos')}
-          >
+          <Button fullWidth size="large" variant="outlined">
             Adicionar
           </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <TabelaitensAdicionados
-            setItemsList={setInvestimentosAdicionado}
-            itemsList={investimentosAdicionado}
-          />
         </Grid>
       </Grid>
       <Grid item xs={12}>
