@@ -27,7 +27,7 @@ import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
 import { EnderecoForm } from './components/formulario/EnderecoForm'
 import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
 import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceira'
-import { cadastroAssistidoSchema } from './components/formulario/schemas'
+import { cadastroAssistidoSchema } from './schemas/cadastroAssistidoSchema'
 
 const steps = [
   {
