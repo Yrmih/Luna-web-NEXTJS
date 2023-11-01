@@ -76,8 +76,7 @@ export function CadastroAssistido() {
   })
 
   useEffect(() => {
-    const currentStep = parseInt(sessionStorage.getItem('step') || '0') - 1
-
+    const currentStep = parseInt(sessionStorage.getItem('step') || '1') - 1
     setActiveStep(currentStep)
   }, [])
 
