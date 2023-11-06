@@ -44,7 +44,6 @@ export function MovelDynamicTextFields({
       items.length !== 0 ? items : [{ valor: 0, descricao: '' }],
     ) || []
 
-  console.log('Items: ', itemsMovel)
   const handleRemoveItem = (itemRemoved: Item) => {
     setValue(
       `qualificacaoFinanceira.moveis`,

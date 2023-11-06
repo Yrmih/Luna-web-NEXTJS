@@ -44,7 +44,6 @@ export function InvestimentoDynamicTextFields({
       items.length !== 0 ? items : [{ valor: 0, descricao: '' }],
     ) || []
 
-  console.log('Items investimentos: ', itemsInvestimentos)
   const handleRemoveItem = (itemRemoved: Item) => {
     setValue(
       `qualificacaoFinanceira.investimentos`,

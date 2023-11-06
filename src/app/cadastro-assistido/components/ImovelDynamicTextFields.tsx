@@ -44,7 +44,6 @@ export function ImovelDynamicTextFields({
       items.length !== 0 ? items : [{ valor: 0, descricao: '' }],
     ) || []
 
-  console.log('Items imóveis: ', itemsImovel)
   const handleRemoveItem = (itemRemoved: Item) => {
     setValue(
       `qualificacaoFinanceira.imoveis`,
