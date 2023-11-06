@@ -54,16 +54,20 @@ const steps = [
   },
 ]
 
+export type CadastroAssistidoProps = {
+  step?: string
+}
+
 export type CadastroAssistidoInputsForm = z.infer<
   typeof cadastroAssistidoSchema
 >
 
-export function CadastroAssistido() {
+export function CadastroAssistido({ step }: CadastroAssistidoProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
 
-  const [activeStep, setActiveStep] = useState(0)
+  const [activeStep, setActiveStep] = useState(parseInt(step || '1') - 1)
   const {
     register,
     watch,
@@ -76,17 +80,11 @@ export function CadastroAssistido() {
   })
 
   useEffect(() => {
-    const currentStep = parseInt(sessionStorage.getItem('step') || '1') - 1
-    setActiveStep(currentStep)
-  }, [])
-
-  useEffect(() => {
     const current = new URLSearchParams(Array.from(searchParams.entries()))
     current.delete('step')
     current.set('step', (activeStep + 1).toString())
     const search = current.toString()
     router.push(`${pathname}?${search}`)
-    sessionStorage.setItem('step', current.get('step') || '1')
   }, [activeStep, pathname, router, searchParams])
 
   function getStepForm() {
