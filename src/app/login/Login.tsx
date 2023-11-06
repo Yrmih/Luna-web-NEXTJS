@@ -25,12 +25,18 @@ import React from 'react'
 
 export function Login() {
   const [valorCpf, setValorCpf] = React.useState('')
+  const [valorNome, setValorNome] = React.useState('')
+  const [valorFiliacoes, setValorFiliacoes] = React.useState('')
+  const [valorData, setValorData] = React.useState('')
+  const [valorTel, setValorTel] = React.useState('')
   const [cpfError, setCpfError] = React.useState(false)
   const [cpfHelperText, setCpfHelperText] = React.useState('')
   const [valorNumAtendimento, setValorNumAtendimento] = React.useState('')
   const [numAtendimentoError, setNumAtendimentoError] = React.useState(false)
   const [numAtendimentoHelperText, setNumAtendimentoHelperText] =
     React.useState('')
+
+  const matches = useMediaQuery('(min-width:900px)')
 
   // validador CPF
   function isValidCPF(cpf) {
@@ -92,7 +98,33 @@ export function Login() {
     )
     setValorNumAtendimento(numAtendimento)
   }
-  // controlador do popover
+
+  // controlador mudança nome
+  const handleNomeChange = (e) => {
+    const nome = e.currentTarget.value
+
+    setValorNome(nome)
+  }
+  // controlador mudança filiações
+  const handleFiliacoesChange = (e) => {
+    const filiacoes = e.currentTarget.value
+
+    setValorFiliacoes(filiacoes)
+  }
+  // controlador mudança data de nascimento
+  const handleDataChange = (e) => {
+    const data = e.currentTarget.value
+
+    setValorData(data)
+  }
+  // controlador mudança telefone
+  const handleTelChange = (e) => {
+    const tel = e.currentTarget.value
+
+    setValorTel(tel)
+  }
+
+  // controlador do popover Atendimento
   const [open, setOpen] = React.useState(false)
 
   const handleClickOpen = () => {
@@ -102,12 +134,53 @@ export function Login() {
   const handleClose = () => {
     setOpen(false)
   }
+
+  // controlador do popover Atendimento não encontrado
+  const [open2, setOpen2] = React.useState(false)
+
+  const handleClickOpen2 = () => {
+    setOpen2(true)
+  }
+
+  const handleClose2 = () => {
+    setOpen2(false)
+  }
+
+  // controlador do popover recuperar N° de atendimento
+  const [open3, setOpen3] = React.useState(false)
+
+  const handleClickOpen3 = () => {
+    setOpen3(true)
+  }
+
+  const handleClose3 = () => {
+    setOpen3(false)
+  }
+
+  // controlador do popover recuperar N° de atendimento
+  const [open4, setOpen4] = React.useState(false)
+
+  const handleClickOpen4 = () => {
+    setOpen4(true)
+  }
+
+  const handleClose4 = () => {
+    setOpen4(false)
+  }
+
   return (
     // container
 
-    <Stack bgcolor="white" height="100%" width="100%" justifyContent={'center'}>
+    <Stack
+      bgcolor="white"
+      height="100%"
+      width="100%"
+      display="flex"
+      justifyContent={'center'}
+    >
       {/* container página */}
       <Box
+        marginLeft="5vw"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -155,6 +228,8 @@ export function Login() {
             >
               Enviar
             </Button>
+
+            {/* popover Atendimento */}
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>
                 Agora você deve digitar o número do seu atendimento.
@@ -190,20 +265,27 @@ export function Login() {
                   sx={{
                     marginLeft: '2vw',
                     marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
                     bgcolor: '#023B7E',
                     '&:hover': {
                       backgroundColor: '#005bc9',
                     },
                   }}
                   variant="contained"
-                  endIcon={<SendIcon />}
+                  endIcon={matches ? <SendIcon /> : ''}
                   disabled={
                     valorNumAtendimento
                       ? valorNumAtendimento.length !== 13 &&
                         valorNumAtendimento !== ''
                       : true
                   }
-                  onClick={handleClose}
+                  onClick={() => {
+                    handleClose()
+                    handleClickOpen2()
+                  }}
                 >
                   Enviar
                 </Button>
@@ -211,16 +293,259 @@ export function Login() {
                   sx={{
                     marginLeft: '2vw',
                     marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
                     bgcolor: '#023B7E',
                     '&:hover': {
                       backgroundColor: '#005bc9',
                     },
                   }}
                   variant="contained"
-                  startIcon={<PhoneAndroidIcon />}
-                  onClick={handleClose}
+                  startIcon={matches ? <PhoneAndroidIcon /> : ''}
+                  onClick={() => {
+                    handleClose()
+                    handleClickOpen3()
+                  }}
                 >
                   Esqueceu seu número ?
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            {/* popover Atendimento não encontrado */}
+            <Dialog open={open2} onClose={handleClose2}>
+              <DialogTitle>
+                Humm, eu não encontrei esse atendimento.
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText marginBottom={'2vh'}>
+                  Você pode conferir o número que você digitou para ver se está
+                  certinho? Se você não lembra, tente recuperar seu número de
+                  atendimento.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions sx={{ justifyContent: 'space-around' }}>
+                <Button
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    handleClose2()
+                    handleClickOpen3()
+                  }}
+                >
+                  Recuperar N° de Atendimento
+                </Button>
+                <Button
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={handleClose2}
+                >
+                  Fechar
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            {/* popover recuperar N° Atendimento */}
+            <Dialog open={open3} onClose={handleClose3}>
+              <DialogTitle>Recuperar Atendimento</DialogTitle>
+              <DialogContent>
+                <DialogContentText marginBottom={'2vh'}>
+                  Por Favor preencha os dados solicitados. Informe a maior
+                  quantidade de campos possível, tentando garantir que as
+                  informações são as mesmas informadas em seu cadastro.
+                </DialogContentText>
+                <InputMask
+                  mask="999.999.999-99"
+                  value={valorCpf}
+                  onChange={handleCpfChange}
+                  maskChar=""
+                >
+                  {() => (
+                    <TextField
+                      fullWidth
+                      id="input-cpf"
+                      label="CPF"
+                      variant="standard"
+                      error={cpfError}
+                      helperText={cpfHelperText}
+                    />
+                  )}
+                </InputMask>
+                <InputMask maskChar="" onChange={handleNomeChange}>
+                  {() => (
+                    <TextField
+                      fullWidth
+                      id="input-nome"
+                      label="NOME"
+                      variant="standard"
+                    />
+                  )}
+                </InputMask>
+                <InputMask
+                  mask=""
+                  maskChar=" "
+                  onChange={handleFiliacoesChange}
+                >
+                  {() => (
+                    <TextField
+                      fullWidth
+                      id="input-filiacoes"
+                      label="FILIAÇÕES"
+                      variant="standard"
+                    />
+                  )}
+                </InputMask>
+                <InputMask
+                  mask="99/99/9999"
+                  maskChar=" "
+                  placeholder=""
+                  onChange={handleDataChange}
+                >
+                  {() => (
+                    <TextField
+                      fullWidth
+                      id="input-nascimento"
+                      label="DATA DE NASCIMENTO"
+                      variant="standard"
+                    />
+                  )}
+                </InputMask>
+                <InputMask
+                  mask="(99) 99999-9999"
+                  maskChar=" "
+                  placeholder="(99) 99999-9999"
+                  onChange={handleTelChange}
+                >
+                  {() => (
+                    <TextField
+                      fullWidth
+                      id="input-telefone"
+                      label="N° DE TELEFONE"
+                      variant="standard"
+                    />
+                  )}
+                </InputMask>
+              </DialogContent>
+              <DialogActions sx={{ justifyContent: 'space-around' }}>
+                <Button
+                  disabled={valorCpf ? cpfError : true}
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    handleClickOpen4()
+                    handleClose3()
+                  }}
+                >
+                  Enviar
+                </Button>
+                <Button
+                  sx={{
+                    marginLeft: '2vw',
+                    marginRight: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={handleClose3}
+                >
+                  Cancelar
+                </Button>
+              </DialogActions>
+            </Dialog>
+            {/* popover  falha recuperar N° Atendimento */}
+            <Dialog open={open4} onClose={handleClose4}>
+              <DialogTitle>Gostaria de Tentar novamente?</DialogTitle>
+              <DialogContent>
+                <DialogContentText marginBottom={'2vh'}>
+                  Não consegui recuperar seus números de atendimentos com as
+                  informações que você me passou. Informe a maior quantidade de
+                  campos possível, tentando garantir que as informações são as
+                  mesmas informadas em seu cadastro.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions sx={{ justifyContent: 'space-around' }}>
+                <Button
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    handleClose4()
+                    handleClickOpen3()
+                  }}
+                >
+                  Tentar Novamente
+                </Button>
+                <Button
+                  href="https://www.defensoria.es.def.br/numeros-para-agendamento/"
+                  target="_blank"
+                  sx={{
+                    marginRight: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={handleClose4}
+                >
+                  Preciso de Ajuda
                 </Button>
               </DialogActions>
             </Dialog>
