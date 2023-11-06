@@ -127,7 +127,12 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
         )
       case 4:
         return (
-          <QualificacaoFinanceiraForm register={register} errors={errors} />
+          <QualificacaoFinanceiraForm
+            register={register}
+            watch={watch}
+            setValue={setValue}
+            errors={errors}
+          />
         )
       default:
         throw new Error('Unknown step')

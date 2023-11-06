@@ -6,7 +6,6 @@ import PeopleIcon from '@mui/icons-material/People'
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import {
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   Grid,
@@ -19,12 +18,17 @@ import {
 import Link from 'next/link'
 
 // Internal
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { TabelaitensAdicionados } from '../TabelaItensAdicionados'
 import { TextFieldAttributes } from '../../types/TextFieldAttributes'
-import { DynamicTextFieldsMovel } from '../DynamicTextFieldsMovel'
-import { useState } from 'react'
+import { ImovelDynamicTextFields } from '../ImovelDynamicTextFields'
+import { InvestimentoDynamicTextFields } from '../InvestimentoDynamicTextFields'
+import { MovelDynamicTextFields } from '../MovelDynamicTextFields'
 
 export const FORMULARIO_QUALIFICACAO_FIANCEIRA: TextFieldAttributes[] = [
   {
@@ -97,11 +101,15 @@ export const FORMULARIO_QUALIFICACAO_FIANCEIRA: TextFieldAttributes[] = [
 
 export type QualificacaoFinanceraProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
 export function QualificacaoFinanceiraForm({
   register,
+  watch,
+  setValue,
   errors,
 }: QualificacaoFinanceraProps) {
   return (
@@ -120,7 +128,9 @@ export function QualificacaoFinanceiraForm({
               </InputAdornment>
             ),
           }}
-          {...register('qualificacaoFinanceira.numeroMembrosFamilia')}
+          {...register('qualificacaoFinanceira.numeroMembrosFamilia', {
+            valueAsNumber: true,
+          })}
           helperText={
             errors.qualificacaoFinanceira?.numeroMembrosFamilia !== undefined
               ? errors.qualificacaoFinanceira.numeroMembrosFamilia.message
@@ -147,7 +157,9 @@ export function QualificacaoFinanceiraForm({
               </InputAdornment>
             ),
           }}
-          {...register('qualificacaoFinanceira.numeroMembrosFamiliaAtivos')}
+          {...register('qualificacaoFinanceira.numeroMembrosFamiliaAtivos', {
+            valueAsNumber: true,
+          })}
           helperText={
             errors.qualificacaoFinanceira?.numeroMembrosFamiliaAtivos !==
             undefined
@@ -212,101 +224,38 @@ export function QualificacaoFinanceiraForm({
         <Grid item xs={12}>
           <Typography>Bens</Typography>
         </Grid>
-        <DynamicTextFieldsMovel
-          errors={errors}
+        <MovelDynamicTextFields
           register={register}
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
           items={[]}
           valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[4]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[5]}
         />
-        <Grid item xs={12} md={4}>
-          <TextField
-            fullWidth
-            id="valorImovel"
-            autoComplete="valor-imovel"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[6].icon}
-                </InputAdornment>
-              ),
-            }}
-            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].name}
-            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].label}
-            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].textHelper}
-            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[6].placeHolder}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            id="descricaoImovel"
-            autoComplete="descricao-imovel"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[7].icon}
-                </InputAdornment>
-              ),
-            }}
-            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].name}
-            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].label}
-            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].textHelper}
-            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[7].placeHolder}
-          />
-        </Grid>
-        <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
-          <Button fullWidth size="large" variant="outlined">
-            Adicionar
-          </Button>
-        </Grid>
-        <Grid item xs={12}></Grid>
+        <ImovelDynamicTextFields
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+          valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[6]}
+          descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[7]}
+          items={[]}
+        />
       </Grid>
       <Grid container item spacing={3}>
         <Grid item xs={12}>
           <Typography>Investimentos</Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <TextField
-            fullWidth
-            id="valorInvestimento"
-            autoComplete="valor-investimento"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[8].icon}
-                </InputAdornment>
-              ),
-            }}
-            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].name}
-            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].label}
-            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].textHelper}
-            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[8].placeHolder}
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            id="descricaoInvestimento"
-            autoComplete="descricao-imovel"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {FORMULARIO_QUALIFICACAO_FIANCEIRA[9].icon}
-                </InputAdornment>
-              ),
-            }}
-            name={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].name}
-            label={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].label}
-            helperText={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].textHelper}
-            placeholder={FORMULARIO_QUALIFICACAO_FIANCEIRA[9].placeHolder}
-          />
-        </Grid>
-        <Grid item display={'flex'} xs={12} md={2} mb={5} alignItems={'center'}>
-          <Button fullWidth size="large" variant="outlined">
-            Adicionar
-          </Button>
-        </Grid>
+        <InvestimentoDynamicTextFields
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+          valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[8]}
+          descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[9]}
+          items={[]}
+        />
       </Grid>
       <Grid item xs={12}>
         <FormControlLabel

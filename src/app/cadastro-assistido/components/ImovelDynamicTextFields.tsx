@@ -1,46 +1,60 @@
 'use client'
 
 // Thirdy party
-import DeleteIcon from '@mui/icons-material/Delete'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { Button, Grid, InputAdornment, TextField, Tooltip } from '@mui/material'
 import {
-  Button,
-  Grid,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Tooltip,
-} from '@mui/material'
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
+
+// framework
+
 // Internal
-import { Item } from '../types/Item'
 import styles from '../../../assets/styles/TabelaItens.module.css'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
+import { Item } from '../types/Item'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
-import { useState } from 'react'
 
 export type RenderDimanicTextFieldsMovelOptions = {
   items: Item[]
   valorAttribute: TextFieldAttributes
   descricaoAttribute: TextFieldAttributes
   register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-export function DynamicTextFieldsMovel({
+export function ImovelDynamicTextFields({
   items,
   errors,
   register,
+  watch,
+  setValue,
   valorAttribute,
   descricaoAttribute,
 }: RenderDimanicTextFieldsMovelOptions) {
-  const [itemsMovel, setItemsMovel] = useState<Item[]>([
-    { valor: 0, descricao: '' },
-  ])
+  const itemsImovel =
+    watch(
+      `qualificacaoFinanceira.imoveis`,
+      items.length !== 0 ? items : [{ valor: 0, descricao: '' }],
+    ) || []
+
+  console.log('Items imóveis: ', itemsImovel)
+  const handleRemoveItem = (itemRemoved: Item) => {
+    setValue(
+      `qualificacaoFinanceira.imoveis`,
+      itemsImovel.filter((item) => item !== itemRemoved),
+    )
+  }
 
   return (
     <>
-      {itemsMovel.map((item, index) => (
+      {itemsImovel.map((item, index) => (
         <Grid
           className={`${styles.tableEnter} ${styles.tableExit}`}
           key={index}
@@ -53,9 +67,8 @@ export function DynamicTextFieldsMovel({
             <TextField
               fullWidth
               type="number"
-              value={item.valor}
-              autoComplete="valor-movel"
-              {...register(`qualificacaoFinanceira.moveis.${index}.valor`, {
+              autoComplete="valor-imovel"
+              {...register(`qualificacaoFinanceira.imoveis.${index}.valor`, {
                 valueAsNumber: true,
               })}
               InputProps={{
@@ -67,13 +80,13 @@ export function DynamicTextFieldsMovel({
               }}
               name={valorAttribute.name}
               helperText={
-                errors.qualificacaoFinanceira?.moveis?.[index]?.valor !==
+                errors.qualificacaoFinanceira?.imoveis?.[index]?.valor !==
                 undefined
-                  ? errors.qualificacaoFinanceira.moveis[index]?.valor?.message
+                  ? errors.qualificacaoFinanceira.imoveis[index]?.valor?.message
                   : valorAttribute.textHelper
               }
               error={
-                errors.qualificacaoFinanceira?.moveis?.[index]?.valor !==
+                errors.qualificacaoFinanceira?.imoveis?.[index]?.valor !==
                 undefined
               }
               label={valorAttribute.label}
@@ -83,9 +96,8 @@ export function DynamicTextFieldsMovel({
           <Grid item xs={6} md={5}>
             <TextField
               fullWidth
-              value={item.descricao}
-              autoComplete="descricao-movel"
-              {...register(`qualificacaoFinanceira.moveis.${index}.descricao`)}
+              autoComplete="descricao-imovel"
+              {...register(`qualificacaoFinanceira.imoveis.${index}.descricao`)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -95,14 +107,14 @@ export function DynamicTextFieldsMovel({
               }}
               name={descricaoAttribute.name}
               helperText={
-                errors.qualificacaoFinanceira?.moveis?.[index]?.descricao !==
+                errors.qualificacaoFinanceira?.imoveis?.[index]?.descricao !==
                 undefined
-                  ? errors.qualificacaoFinanceira.moveis[index]?.descricao
+                  ? errors.qualificacaoFinanceira.imoveis[index]?.descricao
                       ?.message
                   : descricaoAttribute.textHelper
               }
               error={
-                errors.qualificacaoFinanceira?.moveis?.[index]?.descricao !==
+                errors.qualificacaoFinanceira?.imoveis?.[index]?.descricao !==
                 undefined
               }
               label={descricaoAttribute.label}
@@ -117,7 +129,13 @@ export function DynamicTextFieldsMovel({
             md={2}
             mb={5}
           >
-            <Button fullWidth variant="outlined">
+            <Button
+              fullWidth
+              onClick={() => {
+                handleRemoveItem(item)
+              }}
+              variant="outlined"
+            >
               <DeleteIcon />
             </Button>
           </Grid>
@@ -129,8 +147,8 @@ export function DynamicTextFieldsMovel({
             size="large"
             variant="outlined"
             onClick={() =>
-              setItemsMovel((prevState) => [
-                ...prevState,
+              setValue(`qualificacaoFinanceira.imoveis`, [
+                ...itemsImovel,
                 { valor: 0, descricao: '' },
               ])
             }
