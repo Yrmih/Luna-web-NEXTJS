@@ -29,29 +29,25 @@ export function Header() {
         {/* Sessão de Avatar */}
         <Toolbar>
           <Grid container flexWrap={'nowrap'} justifyContent={'space-between'}>
-            <Grid
-              display={'flex'}
-              item
+            <Box>
+              <Image
+                src={logo}
+                alt="Logo Defensoria"
+                sizes="12rem"
+                style={{
+                  height: 'auto',
+                  width: '100%',
+                }}
+              />
+            </Box>
+            <Typography
               alignItems={'center'}
-              justifyContent={'center'}
-              flexDirection={'row'}
-              flexWrap={'nowrap'}
+              sx={{ display: { xs: 'none', md: 'flex' } }}
+              variant="h6"
+              noWrap
             >
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                <Image
-                  src={logo}
-                  alt="Logo Defensoria"
-                  sizes="12vw"
-                  style={{
-                    height: 'auto',
-                    width: '100%',
-                  }}
-                />
-              </Box>
-              <Typography variant="h6" noWrap component="div">
-                {process.env.NEXT_PUBLIC_DEFENSORIA_NOME}
-              </Typography>
-            </Grid>
+              {process.env.NEXT_PUBLIC_DEFENSORIA_NOME}
+            </Typography>
           </Grid>
         </Toolbar>
       </AppBar>
