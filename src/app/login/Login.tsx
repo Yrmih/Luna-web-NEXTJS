@@ -18,6 +18,8 @@ import SendIcon from '@mui/icons-material/Send'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import InputMask from 'react-input-mask'
 import React from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 // Framework
 
@@ -36,10 +38,12 @@ export function Login() {
   const [numAtendimentoHelperText, setNumAtendimentoHelperText] =
     React.useState('')
 
+  const router = useRouter()
+
   const matches = useMediaQuery('(min-width:900px)')
 
   // validador CPF
-  function isValidCPF(cpf) {
+  function isValidCPF(cpf: string | string[]) {
     // Validar se é String
     if (typeof cpf !== 'string') return false
 
@@ -54,21 +58,30 @@ export function Login() {
 
     const validator = cpf
       // Pegar os últimos 2 digitos de validação
-      .filter((digit, index, array) => index >= array.length - 2 && digit)
+      .filter(
+        (digit: any, index: number, array: string | any[]) =>
+          index >= array.length - 2 && digit,
+      )
       // Transformar digitos em números
-      .map((el) => +el)
+      .map((el: string | number) => +el)
 
-    const toValidate = (pop) =>
+    const toValidate = (pop: number) =>
       cpf
         // Pegar Array de items para validar
-        .filter((digit, index, array) => index < array.length - pop && digit)
+        .filter(
+          (digit: any, index: number, array: string | any[]) =>
+            index < array.length - pop && digit,
+        )
         // Transformar digitos em números
-        .map((el) => +el)
+        .map((el: string | number) => +el)
 
-    const rest = (count, pop) =>
+    const rest = (count: number, pop: number) =>
       ((toValidate(pop)
         // Calcular Soma dos digitos e multiplicar por 10
-        .reduce((soma, el, i) => soma + el * (count - i), 0) *
+        .reduce(
+          (soma: number, el: number, i: number) => soma + el * (count - i),
+          0,
+        ) *
         10) %
         // Pegar o resto por 11
         11) %
@@ -79,7 +92,7 @@ export function Login() {
   }
 
   // controlador mudança CPF
-  const handleCpfChange = (e) => {
+  const handleCpfChange = (e: { currentTarget: { value: any } }) => {
     const cpf = e.currentTarget.value
     const isCpfValid = isValidCPF(cpf) || cpf === ''
     setCpfError(!isCpfValid)
@@ -87,38 +100,39 @@ export function Login() {
     setValorCpf(cpf)
   }
   // controlador mudança N° Atendimento
-  const handleNumAtendimentoChange = (e) => {
+  const handleNumAtendimentoChange = (e: { currentTarget: { value: any } }) => {
     const numAtendimento = e.currentTarget.value
     const isNumAtendimentoValid = numAtendimento === ''
     setNumAtendimentoError(!isNumAtendimentoValid)
     setNumAtendimentoHelperText(
       !isNumAtendimentoValid && numAtendimento
-        ? 'N° de Atendimento precisa de ter 11 dígitos'
+        ? 'N° de Atendimento precisa de ter 12 dígitos'
         : '',
     )
     setValorNumAtendimento(numAtendimento)
   }
 
+  // TODO: Remover a repetição de handle
   // controlador mudança nome
-  const handleNomeChange = (e) => {
+  const handleNomeChange = (e: { currentTarget: { value: any } }) => {
     const nome = e.currentTarget.value
 
     setValorNome(nome)
   }
   // controlador mudança filiações
-  const handleFiliacoesChange = (e) => {
+  const handleFiliacoesChange = (e: { currentTarget: { value: any } }) => {
     const filiacoes = e.currentTarget.value
 
     setValorFiliacoes(filiacoes)
   }
   // controlador mudança data de nascimento
-  const handleDataChange = (e) => {
+  const handleDataChange = (e: { currentTarget: { value: any } }) => {
     const data = e.currentTarget.value
 
     setValorData(data)
   }
   // controlador mudança telefone
-  const handleTelChange = (e) => {
+  const handleTelChange = (e: { currentTarget: { value: any } }) => {
     const tel = e.currentTarget.value
 
     setValorTel(tel)
@@ -166,6 +180,29 @@ export function Login() {
 
   const handleClose4 = () => {
     setOpen4(false)
+  }
+
+  const handleSubmit = async () => {
+    const cpf = valorCpf.replaceAll('.', '').replaceAll('-', '')
+    const atendimento = valorNumAtendimento.replaceAll('.', '')
+
+    try {
+      const response = await signIn('credentials', {
+        redirect: false,
+        cpf,
+        atendimento,
+      })
+
+      if (response?.error) {
+        handleClose()
+        handleClickOpen2()
+      } else {
+        router.refresh()
+        router.push('/home')
+      }
+    } catch (error) {
+      console.log('[LOGIN_ERROR]: ', error)
+    }
   }
 
   return (
@@ -241,7 +278,7 @@ export function Login() {
                   seu número, clique abaixo em "Esqueceu Seu Número"
                 </DialogContentText>
                 <InputMask
-                  mask="999999.999.99"
+                  mask="999999.999.999"
                   maskChar=""
                   onChange={handleNumAtendimentoChange}
                 >
@@ -252,7 +289,7 @@ export function Login() {
                       label="N° DE ATENDIMENTO"
                       variant="standard"
                       error={
-                        valorNumAtendimento.length !== 13 &&
+                        valorNumAtendimento.length !== 14 &&
                         valorNumAtendimento !== ''
                       }
                       helperText={numAtendimentoHelperText}
@@ -262,6 +299,7 @@ export function Login() {
               </DialogContent>
               <DialogActions sx={{ justifyContent: 'space-around' }}>
                 <Button
+                  onClick={handleSubmit}
                   sx={{
                     marginLeft: '2vw',
                     marginBottom: '2vh',
@@ -278,17 +316,14 @@ export function Login() {
                   endIcon={matches ? <SendIcon /> : ''}
                   disabled={
                     valorNumAtendimento
-                      ? valorNumAtendimento.length !== 13 &&
+                      ? valorNumAtendimento.length !== 14 &&
                         valorNumAtendimento !== ''
                       : true
                   }
-                  onClick={() => {
-                    handleClose()
-                    handleClickOpen2()
-                  }}
                 >
                   Enviar
                 </Button>
+
                 <Button
                   sx={{
                     marginLeft: '2vw',

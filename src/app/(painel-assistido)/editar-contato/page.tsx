@@ -64,12 +64,18 @@ export default function EditarContato() {
     >
       <Paper
         sx={{
-          width: '50%',
-          height: '50%',
+          width: { xs: 'auto', md: '50%' },
+          height: { xs: 'auto', md: '50%' },
         }}
         elevation={3}
       >
-        <Card sx={{ width: '100%', height: '100%', textAlign: 'center' }}>
+        <Card
+          sx={{
+            width: '100%',
+            height: '100%',
+            textAlign: 'center',
+          }}
+        >
           <CardHeader
             title="Atualize seus dados de contato!"
             subheader="Manter seus dados atualizados agiliza seu atendimento"
@@ -90,7 +96,7 @@ export default function EditarContato() {
                 spacing={1}
                 columns={2}
               >
-                <Grid md={2}>
+                <Grid item md={2} xs={2}>
                   {/* Controller do Email */}
                   <TextField
                     type="email"
@@ -101,7 +107,7 @@ export default function EditarContato() {
                     helperText={errors.email?.message}
                   />
                 </Grid>
-                <Grid md={1}>
+                <Grid item md={1} xs={2}>
                   {/* Controller do DDD */}
                   <TextField
                     id="ddd"
@@ -112,7 +118,7 @@ export default function EditarContato() {
                     helperText={errors.ddd?.message}
                   />
                 </Grid>
-                <Grid md={1}>
+                <Grid item md={1} xs={2}>
                   {/* Controller do Telefone */}
                   <TextField
                     id="telefone"
@@ -123,7 +129,7 @@ export default function EditarContato() {
                     helperText={errors.telefone?.message}
                   />
                 </Grid>
-                <Grid md={2}>
+                <Grid item md={2} xs={2}>
                   <Button variant="contained" type="submit">
                     Atualizar
                   </Button>
