@@ -125,47 +125,61 @@ export function Login() {
   }
 
   // controlador do popover Atendimento
-  const [open, setOpen] = React.useState(false)
+  const [openAtendimento, setOpenAtendimento] = React.useState(false)
 
-  const handleClickOpen = () => {
-    setOpen(true)
+  const handleClickOpenAtendimento = () => {
+    setOpenAtendimento(true)
   }
 
-  const handleClose = () => {
-    setOpen(false)
+  const handleCloseAtendimento = () => {
+    setOpenAtendimento(false)
   }
 
   // controlador do popover Atendimento não encontrado
-  const [open2, setOpen2] = React.useState(false)
+  const [openAtendimentoNaoEncontrado, setOpenAtendimentoNaoEncontrado] =
+    React.useState(false)
 
-  const handleClickOpen2 = () => {
-    setOpen2(true)
+  const handleClickOpenAtendimentoNaoEncontrado = () => {
+    setOpenAtendimentoNaoEncontrado(true)
   }
 
-  const handleClose2 = () => {
-    setOpen2(false)
-  }
-
-  // controlador do popover recuperar N° de atendimento
-  const [open3, setOpen3] = React.useState(false)
-
-  const handleClickOpen3 = () => {
-    setOpen3(true)
-  }
-
-  const handleClose3 = () => {
-    setOpen3(false)
+  const handleCloseAtendimentoNaoEncontrado = () => {
+    setOpenAtendimentoNaoEncontrado(false)
   }
 
   // controlador do popover recuperar N° de atendimento
-  const [open4, setOpen4] = React.useState(false)
+  const [openRecuperarAtendimento, setOpenRecuperarAtendimento] =
+    React.useState(false)
 
-  const handleClickOpen4 = () => {
-    setOpen4(true)
+  const handleClickOpenRecuperarAtendimento = () => {
+    setOpenRecuperarAtendimento(true)
   }
 
-  const handleClose4 = () => {
-    setOpen4(false)
+  const handleCloseRecuperarAtendimento = () => {
+    setOpenRecuperarAtendimento(false)
+  }
+
+  // controlador do popover falha recuperar N° de atendimento
+  const [openFalhaRecuperarAtendimento, setOpenFalhaRecuperarAtendimento] =
+    React.useState(false)
+
+  const handleClickOpenFalhaRecuperarAtendimento = () => {
+    setOpenFalhaRecuperarAtendimento(true)
+  }
+
+  const handleCloseFalhaRecuperarAtendimento = () => {
+    setOpenFalhaRecuperarAtendimento(false)
+  }
+
+  // controlador do popover CPF não encontrado
+  const [openCpfNaoEncontrado, setOpenCpfNaoEncontrado] = React.useState(false)
+
+  const handleClickOpenCpfNaoEncontrado = () => {
+    setOpenCpfNaoEncontrado(true)
+  }
+
+  const handleCloseCpfNaoEncontrado = () => {
+    setOpenCpfNaoEncontrado(false)
   }
 
   return (
@@ -224,13 +238,71 @@ export function Login() {
               }}
               variant="contained"
               disabled={valorCpf ? cpfError : true}
-              onClick={handleClickOpen}
+              onClick={handleClickOpenAtendimento}
             >
               Enviar
             </Button>
 
+            {/* popover CPF não encontrado */}
+            <Dialog
+              open={openCpfNaoEncontrado}
+              onClose={handleCloseCpfNaoEncontrado}
+            >
+              <DialogTitle>Desculpe, não encontrei seus dados.</DialogTitle>
+              <DialogContent>
+                <DialogContentText marginBottom={'2vh'}>
+                  O seu CPF é este mesmo ? ( {valorCpf} ) , eu acredito que seja
+                  a primeira vez que está entrando em contato utilizando este
+                  canal de atendimento. Basta clicar no botão abaixo e seguir a
+                  instruções.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions sx={{ justifyContent: 'space-around' }}>
+                <Button
+                  href="/cadastro-assistido"
+                  sx={{
+                    marginLeft: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    handleCloseCpfNaoEncontrado()
+                  }}
+                >
+                  Realizar Novo Cadastro
+                </Button>
+                <Button
+                  sx={{
+                    marginRight: '2vw',
+                    marginBottom: '2vh',
+                    fontSize: '0.65rem',
+                    '@media (min-width:600px)': {
+                      fontSize: '1rem',
+                    },
+                    bgcolor: '#023B7E',
+                    '&:hover': {
+                      backgroundColor: '#005bc9',
+                    },
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    handleCloseCpfNaoEncontrado()
+                  }}
+                >
+                  Fechar
+                </Button>
+              </DialogActions>
+            </Dialog>
             {/* popover Atendimento */}
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={openAtendimento} onClose={handleCloseAtendimento}>
               <DialogTitle>
                 Agora você deve digitar o número do seu atendimento.
               </DialogTitle>
@@ -283,15 +355,15 @@ export function Login() {
                       : true
                   }
                   onClick={() => {
-                    handleClose()
-                    handleClickOpen2()
+                    handleCloseAtendimento()
+                    handleClickOpenAtendimentoNaoEncontrado()
                   }}
                 >
                   Enviar
                 </Button>
                 <Button
                   sx={{
-                    marginLeft: '2vw',
+                    marginRight: '2vw',
                     marginBottom: '2vh',
                     fontSize: '0.65rem',
                     '@media (min-width:600px)': {
@@ -305,8 +377,8 @@ export function Login() {
                   variant="contained"
                   startIcon={matches ? <PhoneAndroidIcon /> : ''}
                   onClick={() => {
-                    handleClose()
-                    handleClickOpen3()
+                    handleCloseAtendimento()
+                    handleClickOpenRecuperarAtendimento()
                   }}
                 >
                   Esqueceu seu número ?
@@ -315,15 +387,18 @@ export function Login() {
             </Dialog>
 
             {/* popover Atendimento não encontrado */}
-            <Dialog open={open2} onClose={handleClose2}>
+            <Dialog
+              open={openAtendimentoNaoEncontrado}
+              onClose={handleCloseAtendimentoNaoEncontrado}
+            >
               <DialogTitle>
                 Humm, eu não encontrei esse atendimento.
               </DialogTitle>
               <DialogContent>
                 <DialogContentText marginBottom={'2vh'}>
                   Você pode conferir o número que você digitou para ver se está
-                  certinho? Se você não lembra, tente recuperar seu número de
-                  atendimento.
+                  correto? {<br />}( {valorNumAtendimento} ) Se você não lembra,
+                  tente recuperar seu número de atendimento.
                 </DialogContentText>
               </DialogContent>
               <DialogActions sx={{ justifyContent: 'space-around' }}>
@@ -342,15 +417,15 @@ export function Login() {
                   }}
                   variant="contained"
                   onClick={() => {
-                    handleClose2()
-                    handleClickOpen3()
+                    handleCloseAtendimentoNaoEncontrado()
+                    handleClickOpenRecuperarAtendimento()
                   }}
                 >
                   Recuperar N° de Atendimento
                 </Button>
                 <Button
                   sx={{
-                    marginLeft: '2vw',
+                    marginRight: '2vw',
                     marginBottom: '2vh',
                     fontSize: '0.65rem',
                     '@media (min-width:600px)': {
@@ -362,7 +437,7 @@ export function Login() {
                     },
                   }}
                   variant="contained"
-                  onClick={handleClose2}
+                  onClick={handleCloseAtendimentoNaoEncontrado}
                 >
                   Fechar
                 </Button>
@@ -370,7 +445,10 @@ export function Login() {
             </Dialog>
 
             {/* popover recuperar N° Atendimento */}
-            <Dialog open={open3} onClose={handleClose3}>
+            <Dialog
+              open={openRecuperarAtendimento}
+              onClose={handleCloseRecuperarAtendimento}
+            >
               <DialogTitle>Recuperar Atendimento</DialogTitle>
               <DialogContent>
                 <DialogContentText marginBottom={'2vh'}>
@@ -467,15 +545,14 @@ export function Login() {
                   }}
                   variant="contained"
                   onClick={() => {
-                    handleClickOpen4()
-                    handleClose3()
+                    handleClickOpenFalhaRecuperarAtendimento()
+                    handleCloseRecuperarAtendimento()
                   }}
                 >
                   Enviar
                 </Button>
                 <Button
                   sx={{
-                    marginLeft: '2vw',
                     marginRight: '2vw',
                     marginBottom: '2vh',
                     fontSize: '0.65rem',
@@ -488,14 +565,17 @@ export function Login() {
                     },
                   }}
                   variant="contained"
-                  onClick={handleClose3}
+                  onClick={handleCloseRecuperarAtendimento}
                 >
                   Cancelar
                 </Button>
               </DialogActions>
             </Dialog>
             {/* popover  falha recuperar N° Atendimento */}
-            <Dialog open={open4} onClose={handleClose4}>
+            <Dialog
+              open={openFalhaRecuperarAtendimento}
+              onClose={handleCloseFalhaRecuperarAtendimento}
+            >
               <DialogTitle>Gostaria de Tentar novamente?</DialogTitle>
               <DialogContent>
                 <DialogContentText marginBottom={'2vh'}>
@@ -521,8 +601,8 @@ export function Login() {
                   }}
                   variant="contained"
                   onClick={() => {
-                    handleClose4()
-                    handleClickOpen3()
+                    handleCloseFalhaRecuperarAtendimento()
+                    handleClickOpenRecuperarAtendimento()
                   }}
                 >
                   Tentar Novamente
@@ -543,7 +623,7 @@ export function Login() {
                     },
                   }}
                   variant="contained"
-                  onClick={handleClose4}
+                  onClick={handleCloseFalhaRecuperarAtendimento}
                 >
                   Preciso de Ajuda
                 </Button>
