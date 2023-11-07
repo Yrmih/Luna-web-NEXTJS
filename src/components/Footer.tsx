@@ -12,17 +12,18 @@ export default function Footer() {
         p={2}
         container
         flexDirection={'row'}
+        marginTop={0}
+        marginLeft={0}
         alignItems="center"
         textAlign={'center'}
         justifyContent={'center'}
         width={'100%'}
         sx={{
           boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
-          marginTop: '0px', // Remove margin do topo para liberar espaço total para conteúdo
         }}
       >
         <Grid
-          sx={{ ml: { xs: 'none', md: `${drawerWidth}px` } }}
+          sx={{ ml: { xs: 'none', md: `none` } }}
           flexDirection={'column'}
           display={'flex'}
           justifyContent={'center'}
