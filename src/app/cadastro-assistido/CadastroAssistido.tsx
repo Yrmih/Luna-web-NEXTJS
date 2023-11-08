@@ -207,7 +207,6 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
   const onSubmit: SubmitHandler<CadastroAssistidoInputsForm> = (data) => {
     console.log('DADOS: ', data, 'ERRO: ', errors)
     console.log('VALID: ', isValid)
-    handleNext()
   }
 
   const handleNext = () => {
@@ -293,12 +292,21 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
         )}
         <Button
           variant="contained"
-          disabled={isDisableStepButton(activeStep)}
-          type={activeStep === steps.length - 1 ? 'submit' : 'button'}
-          onClick={activeStep === steps.length - 1 ? undefined : handleNext}
+          disabled={
+            isDisableStepButton(activeStep) || activeStep === steps.length - 1
+          }
+          onClick={handleNext}
           sx={{ mt: 8, mr: 3 }}
         >
-          {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+          Proximo
+        </Button>
+        <Button
+          variant="contained"
+          disabled={activeStep !== steps.length - 1}
+          type="submit"
+          sx={{ mt: 8, mr: 3 }}
+        >
+          Finalizar
         </Button>
       </Paper>
       <Copyright />
