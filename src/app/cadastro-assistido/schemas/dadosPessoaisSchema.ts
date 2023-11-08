@@ -22,9 +22,9 @@ export const dadosPessoaisSchema = z.object({
     },
     { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
   ),
-  dataNascimento: z.date(),
+  dataNascimento: z.date({ coerce: true }),
   sexo: z.enum(['masculino', 'feminino']),
-  estadoCivil: z.enum(['casado', 'solteiro', 'diverciado', 'viuvo']),
+  estadoCivil: z.enum(['casado', 'solteiro', 'divorciado', 'viuvo']),
   nomeSocial: z.string().refine(
     (value) => {
       if (value === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {

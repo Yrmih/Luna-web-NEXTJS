@@ -29,9 +29,12 @@ export const informacaoInicialSchema = z.object({
     },
     { message: FORMULARIO_ERROS_MENSAGENS.cpf },
   ),
-  email: z.string().refine((value) => {
-    if (value === '' || value.match(INPUT_MASK_REGEX.email)) {
-      return true
-    }
-  }),
+  email: z.string().refine(
+    (value) => {
+      if (value === '' || value.match(INPUT_MASK_REGEX.email)) {
+        return true
+      }
+    },
+    { message: FORMULARIO_ERROS_MENSAGENS.email },
+  ),
 })

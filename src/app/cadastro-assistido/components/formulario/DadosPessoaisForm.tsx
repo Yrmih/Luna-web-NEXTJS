@@ -97,10 +97,10 @@ const FORMULARIO_DADOS_PESSOAIS = [
 ]
 
 const SELECT_ITEMS_ESTADO_CIVIL = [
-  { valor: 1, nome: 'Solteriro(a)' },
-  { valor: 2, nome: 'Casado(a)' },
-  { valor: 3, nome: 'Viúvo(a)' },
-  { valor: 4, nome: 'Divorciado(a)' },
+  { valor: 'solteiro', nome: 'Solteiro(a)' },
+  { valor: 'casado', nome: 'Casado(a)' },
+  { valor: 'viuvo', nome: 'Viúvo(a)' },
+  { valor: 'divorciado', nome: 'Divorciado(a)' },
 ]
 
 const SELECT_TIPO_CERTIDAO = [
@@ -205,7 +205,9 @@ export function DadosPessoaisForm({
           InputLabelProps={{ shrink: true }}
           id="dataNascimento"
           autoComplete="dataNascimento"
-          {...register('dadosPessoais.dataNascimento')}
+          {...register('dadosPessoais.dataNascimento', {
+            valueAsDate: true,
+          })}
           placeholder={FORMULARIO_DADOS_PESSOAIS[3].placeHolder}
           error={errors.dadosPessoais?.dataNascimento !== undefined}
           helperText={
@@ -226,6 +228,7 @@ export function DadosPessoaisForm({
             id="estadoCivil"
             label="Estado Civil"
             {...register('dadosPessoais.estadoCivil')}
+            value={watch('dadosPessoais.estadoCivil') || ''}
             placeholder={FORMULARIO_DADOS_PESSOAIS[4].placeHolder}
             error={errors.dadosPessoais?.estadoCivil !== undefined}
           >
@@ -321,6 +324,7 @@ export function DadosPessoaisForm({
           </InputLabel>
           <Select
             {...register('dadosPessoais.tipoCertidao')}
+            value={watch('dadosPessoais.tipoCertidao') || ''}
             error={errors.dadosPessoais?.tipoCertidao !== undefined}
             labelId="numero-certidao"
             id="numeroCertidao"

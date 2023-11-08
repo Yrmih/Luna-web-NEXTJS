@@ -5,10 +5,10 @@ import AddCircleIcon from '@mui/icons-material/AddCircle'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Grid, InputAdornment, TextField, Tooltip } from '@mui/material'
 import {
+  Control,
   FieldErrors,
   UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
+  useFieldArray,
 } from 'react-hook-form'
 
 // framework
@@ -16,40 +16,31 @@ import {
 // Internal
 import styles from '../../../assets/styles/TabelaItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
-import { Item } from '../types/Item'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
 
 export type RenderDimanicTextFieldsMovelOptions = {
-  items: Item[]
   valorAttribute: TextFieldAttributes
   descricaoAttribute: TextFieldAttributes
   register: UseFormRegister<CadastroAssistidoInputsForm>
-  watch: UseFormWatch<CadastroAssistidoInputsForm>
-  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
 export function ImovelDynamicTextFields({
-  items,
   errors,
   register,
-  watch,
-  setValue,
+  control,
   valorAttribute,
   descricaoAttribute,
 }: RenderDimanicTextFieldsMovelOptions) {
-  const itemsImovel =
-    watch(
-      `qualificacaoFinanceira.imoveis`,
-      items.length !== 0 ? items : [{ valor: 0, descricao: '' }],
-    ) || []
-
-  const handleRemoveItem = (itemRemoved: Item) => {
-    setValue(
-      `qualificacaoFinanceira.imoveis`,
-      itemsImovel.filter((item) => item !== itemRemoved),
-    )
-  }
+  const {
+    append,
+    fields: itemsImovel,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'qualificacaoFinanceira.imoveis',
+  })
 
   return (
     <>
@@ -128,13 +119,7 @@ export function ImovelDynamicTextFields({
             md={2}
             mb={5}
           >
-            <Button
-              fullWidth
-              onClick={() => {
-                handleRemoveItem(item)
-              }}
-              variant="outlined"
-            >
+            <Button fullWidth onClick={() => remove(index)} variant="outlined">
               <DeleteIcon />
             </Button>
           </Grid>
@@ -145,12 +130,7 @@ export function ImovelDynamicTextFields({
           <Button
             size="large"
             variant="outlined"
-            onClick={() =>
-              setValue(`qualificacaoFinanceira.imoveis`, [
-                ...itemsImovel,
-                { valor: 0, descricao: '' },
-              ])
-            }
+            onClick={() => append({ valor: 0, descricao: '' })}
           >
             <AddCircleIcon />
           </Button>

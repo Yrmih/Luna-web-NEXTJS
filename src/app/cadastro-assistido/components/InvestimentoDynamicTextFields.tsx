@@ -5,10 +5,10 @@ import AddCircleIcon from '@mui/icons-material/AddCircle'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Grid, InputAdornment, TextField, Tooltip } from '@mui/material'
 import {
+  Control,
   FieldErrors,
   UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
+  useFieldArray,
 } from 'react-hook-form'
 
 // framework
@@ -16,47 +16,38 @@ import {
 // Internal
 import styles from '../../../assets/styles/TabelaItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
-import { Item } from '../types/Item'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
 
 export type RenderDimanicTextFieldsMovelOptions = {
-  items: Item[]
   valorAttribute: TextFieldAttributes
   descricaoAttribute: TextFieldAttributes
   register: UseFormRegister<CadastroAssistidoInputsForm>
-  watch: UseFormWatch<CadastroAssistidoInputsForm>
-  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
 export function InvestimentoDynamicTextFields({
-  items,
   errors,
   register,
-  watch,
-  setValue,
+  control,
   valorAttribute,
   descricaoAttribute,
 }: RenderDimanicTextFieldsMovelOptions) {
-  const itemsInvestimentos =
-    watch(
-      `qualificacaoFinanceira.investimentos`,
-      items.length !== 0 ? items : [{ valor: 0, descricao: '' }],
-    ) || []
-
-  const handleRemoveItem = (itemRemoved: Item) => {
-    setValue(
-      `qualificacaoFinanceira.investimentos`,
-      itemsInvestimentos.filter((item) => item !== itemRemoved),
-    )
-  }
+  const {
+    append,
+    fields: itemsInvestimentos,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'qualificacaoFinanceira.investimentos',
+  })
 
   return (
     <>
       {itemsInvestimentos.map((item, index) => (
         <Grid
           className={`${styles.tableEnter} ${styles.tableExit}`}
-          key={index}
+          key={item.id}
           container
           item
           spacing={3}
@@ -134,13 +125,7 @@ export function InvestimentoDynamicTextFields({
             md={2}
             mb={5}
           >
-            <Button
-              fullWidth
-              onClick={() => {
-                handleRemoveItem(item)
-              }}
-              variant="outlined"
-            >
+            <Button fullWidth onClick={() => remove(index)} variant="outlined">
               <DeleteIcon />
             </Button>
           </Grid>
@@ -151,12 +136,7 @@ export function InvestimentoDynamicTextFields({
           <Button
             size="large"
             variant="outlined"
-            onClick={() =>
-              setValue(`qualificacaoFinanceira.investimentos`, [
-                ...itemsInvestimentos,
-                { valor: 0, descricao: '' },
-              ])
-            }
+            onClick={() => append({ valor: 0, descricao: '' })}
           >
             <AddCircleIcon />
           </Button>

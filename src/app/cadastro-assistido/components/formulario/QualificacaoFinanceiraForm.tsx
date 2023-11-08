@@ -19,9 +19,10 @@ import Link from 'next/link'
 
 // Internal
 import {
+  Control,
   FieldErrors,
+  SetFieldValue,
   UseFormRegister,
-  UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
@@ -102,14 +103,14 @@ export const FORMULARIO_QUALIFICACAO_FIANCEIRA: TextFieldAttributes[] = [
 export type QualificacaoFinanceraProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   watch: UseFormWatch<CadastroAssistidoInputsForm>
-  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  control: Control<CadastroAssistidoInputsForm>
+  setValue: SetFieldValue<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
 export function QualificacaoFinanceiraForm({
   register,
-  watch,
-  setValue,
+  control,
   errors,
 }: QualificacaoFinanceraProps) {
   return (
@@ -226,21 +227,17 @@ export function QualificacaoFinanceiraForm({
         </Grid>
         <MovelDynamicTextFields
           register={register}
-          watch={watch}
-          setValue={setValue}
+          control={control}
           errors={errors}
-          items={[]}
           valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[4]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[5]}
         />
         <ImovelDynamicTextFields
           register={register}
-          watch={watch}
-          setValue={setValue}
+          control={control}
           errors={errors}
           valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[6]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[7]}
-          items={[]}
         />
       </Grid>
       <Grid container item spacing={3}>
@@ -249,17 +246,20 @@ export function QualificacaoFinanceiraForm({
         </Grid>
         <InvestimentoDynamicTextFields
           register={register}
-          watch={watch}
-          setValue={setValue}
+          control={control}
           errors={errors}
           valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[8]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[9]}
-          items={[]}
         />
       </Grid>
       <Grid item xs={12}>
         <FormControlLabel
-          control={<Checkbox value="aceitaTermosCondicoes" />}
+          control={
+            <Checkbox
+              {...register('qualificacaoFinanceira.aceitoTermosCondicoes')}
+              value="aceitaTermosCondicoes"
+            />
+          }
           label={
             <Box>
               Aceito os{' '}
