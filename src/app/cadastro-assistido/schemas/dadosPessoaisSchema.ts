@@ -23,7 +23,7 @@ export const dadosPessoaisSchema = z.object({
     { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
   ),
   dataNascimento: z.date({ coerce: true }),
-  sexo: z.enum(['masculino', 'feminino']),
+  sexo: z.enum(['feminino', 'masculino']),
   estadoCivil: z.enum(['casado', 'solteiro', 'divorciado', 'viuvo']),
   nomeSocial: z.string().refine(
     (value) => {

@@ -13,11 +13,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-
-// Framework
-import Link from 'next/link'
-
-// Internal
 import {
   Control,
   FieldErrors,
@@ -25,6 +20,11 @@ import {
   UseFormRegister,
   UseFormWatch,
 } from 'react-hook-form'
+
+// Framework
+import Link from 'next/link'
+
+// Internal
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 import { TextFieldAttributes } from '../../types/TextFieldAttributes'
 import { ImovelDynamicTextFields } from '../ImovelDynamicTextFields'

@@ -1,8 +1,10 @@
 // Third party
+import { MaskUtils } from '@/utils/MaskUtils'
 import BadgeIcon from '@mui/icons-material/Badge'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import { useEffect } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -10,27 +12,6 @@ import {
   UseFormWatch,
 } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { useEffect } from 'react'
-
-export const normalizeCpfCnpj = (value: string | undefined) => {
-  if (!value) return ''
-
-  const cleanedValue = value.replace(/\D/g, '')
-
-  if (cleanedValue.length <= 11) {
-    return cleanedValue
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
-  } else {
-    return cleanedValue
-      .replace(/^(\d{2})(\d)/, '$1.$2')
-      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-      .replace(/\.(\d{3})(\d)/, '.$1/$2')
-      .replace(/(\d{4})(\d)/, '$1-$2')
-      .replace(/(-\d{2})(\d+?)/, '$1')
-  }
-}
 
 const FORMULARIO_CAMPOS_INFO_INICIAL = [
   {
@@ -69,7 +50,7 @@ export function InformacaoInicialForm({
   const cpfValue = watch('informacaoInicial.cpf')
 
   useEffect(() => {
-    setValue('informacaoInicial.cpf', normalizeCpfCnpj(cpfValue))
+    setValue('informacaoInicial.cpf', MaskUtils.maskCpfCnpj(cpfValue))
   }, [cpfValue, setValue])
 
   return (

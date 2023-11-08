@@ -251,16 +251,15 @@ export function DadosPessoaisForm({
           <RadioGroup
             aria-labelledby="radio-sexo-control"
             sx={{ flexDirection: 'row' }}
-            {...register('dadosPessoais.sexo')}
           >
             <FormControlLabel
               value="feminino"
-              control={<Radio />}
+              control={<Radio {...register('dadosPessoais.sexo')} />}
               label="Feminino"
             />
             <FormControlLabel
               value="masculino"
-              control={<Radio />}
+              control={<Radio {...register('dadosPessoais.sexo')} />}
               label="Masculino"
             />
           </RadioGroup>
@@ -347,7 +346,7 @@ export function DadosPessoaisForm({
         <TextField
           fullWidth
           id="certidaoNumero"
-          autoComplete="dataNascimento"
+          autoComplete="certidaoNumero"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

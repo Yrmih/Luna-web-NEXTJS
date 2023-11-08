@@ -63,6 +63,16 @@ export class MaskUtils {
       .replace(/^(.{40}).*$/, '$1')
   }
 
+  static maskCep = (value: string | undefined) => {
+    if (!value) return ''
+
+    const normalizado = value
+      .replace(/\D/g, '')
+      .replace(/^(\d{5})(\d)/, '$1-$2')
+      .replace(/(-\d{3})(\d+?)/, '$1')
+    return normalizado
+  }
+
   static limitarTamanhoString = (string: string, limite: number) => {
     // Use a regex para remover qualquer caractere que apareça após os primeiros 'limite' caracteres.
     return string.replace(new RegExp(`^(.{${limite}}).*$`), '$1')
