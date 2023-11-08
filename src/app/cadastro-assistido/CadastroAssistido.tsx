@@ -84,7 +84,7 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
 
   const saveFormStateToLocalStorage = (data: CadastroAssistidoInputsForm) => {
     if (!ObjectUtils.isObjectEmpty(data)) {
-      localStorage.setItem(formStorageKey, JSON.stringify(data))
+      sessionStorage.setItem(formStorageKey, JSON.stringify(data))
     }
   }
 
@@ -96,7 +96,7 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
 
   useEffect(() => {
     const loadFormStateFromLocalStorage = () => {
-      const storedData = localStorage.getItem(formStorageKey)
+      const storedData = sessionStorage.getItem(formStorageKey)
       if (storedData) {
         const parsedData = JSON.parse(storedData) as CadastroAssistidoInputsForm
         console.log(parsedData)
@@ -105,19 +105,22 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
         setValue('endereco', parsedData.endereco)
         setValue('dadosPessoais', parsedData.dadosPessoais)
 
-        setValue('dadosPessoais.dataNascimento', new Date())
+        setValue(
+          'dadosPessoais.dataNascimento',
+          parsedData.dadosPessoais?.dataNascimento,
+        )
         setValue('qualificacaoFinanceira', parsedData.qualificacaoFinanceira)
         setValue(
           'qualificacaoFinanceira.moveis',
-          parsedData.qualificacaoFinanceira.moveis,
+          parsedData.qualificacaoFinanceira?.moveis,
         )
         setValue(
           'qualificacaoFinanceira.imoveis',
-          parsedData.qualificacaoFinanceira.imoveis,
+          parsedData.qualificacaoFinanceira?.imoveis,
         )
         setValue(
           'qualificacaoFinanceira.investimentos',
-          parsedData.qualificacaoFinanceira.investimentos,
+          parsedData.qualificacaoFinanceira?.investimentos,
         )
       }
     }
