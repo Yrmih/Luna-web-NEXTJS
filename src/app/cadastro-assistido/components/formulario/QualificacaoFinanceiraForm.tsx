@@ -223,7 +223,7 @@ export function QualificacaoFinanceiraForm({
       </Grid>
       <Grid container item spacing={3}>
         <Grid item xs={12}>
-          <Typography>Bens</Typography>
+          <Typography>Bens Moveis</Typography>
         </Grid>
         <MovelDynamicTextFields
           register={register}
@@ -232,6 +232,9 @@ export function QualificacaoFinanceiraForm({
           valorAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[4]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FIANCEIRA[5]}
         />
+        <Grid item xs={12}>
+          <Typography>Bens Imoveis</Typography>
+        </Grid>
         <ImovelDynamicTextFields
           register={register}
           control={control}

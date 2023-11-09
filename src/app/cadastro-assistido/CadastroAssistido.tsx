@@ -8,6 +8,7 @@ import {
   Container,
   MobileStepper,
   Paper,
+  Stack,
   Step,
   StepLabel,
   Stepper,
@@ -267,47 +268,60 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button
-              size="small"
-              type="submit"
-              onClick={activeStep === steps.length - 1 ? undefined : handleNext}
-            >
-              {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
-            </Button>
+            activeStep !== steps.length - 1 ? (
+              <Button type="button" size="small" onClick={handleNext}>
+                Próximo
+              </Button>
+            ) : undefined
           }
           backButton={
             <Button
               size="small"
               onClick={handleBack}
-              disabled={activeStep === 0}
+              disabled={isDisableStepButton(activeStep)}
             >
               Voltar
             </Button>
           }
         />
-        {activeStep !== 0 && (
-          <Button onClick={handleBack} sx={{ mt: 8, mr: 3 }}>
-            voltar
+        {activeStep === steps.length - 1 ? (
+          <Button
+            variant="contained"
+            disabled={activeStep !== steps.length - 1}
+            type="submit"
+            sx={{ mt: 8, mr: 3, display: { xs: 'flex', sm: 'none' } }}
+          >
+            Finalizar
           </Button>
-        )}
-        <Button
-          variant="contained"
-          disabled={
-            isDisableStepButton(activeStep) || activeStep === steps.length - 1
-          }
-          onClick={handleNext}
-          sx={{ mt: 8, mr: 3 }}
-        >
-          Proximo
-        </Button>
-        <Button
-          variant="contained"
-          disabled={activeStep !== steps.length - 1}
-          type="submit"
-          sx={{ mt: 8, mr: 3 }}
-        >
-          Finalizar
-        </Button>
+        ) : undefined}
+        <Stack direction={'row'}>
+          {activeStep !== 0 && (
+            <Button
+              onClick={handleBack}
+              sx={{ mt: 8, mr: 3, display: { xs: 'none', sm: 'flex' } }}
+            >
+              voltar
+            </Button>
+          )}
+          <Button
+            variant="contained"
+            disabled={
+              isDisableStepButton(activeStep) || activeStep === steps.length - 1
+            }
+            onClick={handleNext}
+            sx={{ mt: 8, mr: 3, display: { xs: 'none', sm: 'flex' } }}
+          >
+            Proximo
+          </Button>
+          <Button
+            variant="contained"
+            disabled={activeStep !== steps.length - 1}
+            type="submit"
+            sx={{ mt: 8, mr: 3, display: { xs: 'none', sm: 'flex' } }}
+          >
+            Finalizar
+          </Button>
+        </Stack>
       </Paper>
       <Copyright />
     </Container>
