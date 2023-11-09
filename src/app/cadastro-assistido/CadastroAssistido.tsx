@@ -286,7 +286,6 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
         />
         {activeStep === steps.length - 1 ? (
           <Button
-            variant="contained"
             disabled={activeStep !== steps.length - 1}
             type="submit"
             sx={{ mt: 8, mr: 3, display: { xs: 'flex', sm: 'none' } }}
