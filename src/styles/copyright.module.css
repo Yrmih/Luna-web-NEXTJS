@@ -1,0 +1,7 @@
+.customlink {
+    /* Aplicar estilos base do link */
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+}

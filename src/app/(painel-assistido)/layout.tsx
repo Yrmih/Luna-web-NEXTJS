@@ -1,19 +1,25 @@
 // Internal
 import { ReactNode } from 'react'
-import { AppBarAreaAssistido } from './components/AppBarAreaAssistido'
-import { DrawerMenuAreaAssistido } from './components/DrawerMenuAreaAssistido'
+import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
+import Footer from '../../components/Footer'
+import ContentLayout from '@/components/ContentLayout'
+import { Box, CssBaseline } from '@mui/material'
 
 export const metadata = {
   title: 'Painel do Assistido',
   description: 'Área de acesso do assistido.',
 }
-
 function PainelAssistidoLayout({ children }: { children: ReactNode }) {
   return (
-    <main>
+    <>
+      <CssBaseline />
+      {/* Navbar e Sidebar parte do <header> */}
       <AppBarAreaAssistido />
-      <DrawerMenuAreaAssistido>{children}</DrawerMenuAreaAssistido>
-    </main>
+      {/* Conteúdo parte da <main> */}
+      <ContentLayout> {children} </ContentLayout>
+      {/* Footer parte do <footer> */}
+      <Footer />
+    </>
   )
 }
 
