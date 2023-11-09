@@ -1,10 +1,17 @@
 // Internal
 import { CadastroAssistido } from './CadastroAssistido'
 
-export default function CadastroAssistidoPage() {
+export type CadastroAssitidoPageSearchParams = {
+  step: string
+}
+export default function CadastroAssistidoPage({
+  searchParams,
+}: {
+  searchParams?: CadastroAssitidoPageSearchParams
+}) {
   return (
     <main>
-      <CadastroAssistido />
+      <CadastroAssistido step={searchParams?.step} />
     </main>
   )
 }
