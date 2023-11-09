@@ -2,79 +2,83 @@
 import GiteIcon from '@mui/icons-material/Gite'
 import EditRoadIcon from '@mui/icons-material/EditRoad'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
+import { useEffect } from 'react'
+import { MaskUtils } from '@/utils/MaskUtils'
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {
-    name: 'tipoArea',
     label: 'Tipo Área',
     textHelper: 'Ex.: Urbana, Rural, etc...',
     placeHolder: '',
-    icon: undefined,
-    required: true,
   },
   {
-    name: 'logradouro',
     label: 'Logradouro',
     textHelper: 'Ex.: Rua, Avenida, Residêncial,etc...',
     placeHolder: '',
     icon: <GiteIcon />,
-    required: true,
   },
   {
-    name: 'cep',
     label: 'CEP',
     textHelper: 'CEP da sua moradia.',
     placeHolder: '00000-000',
-    icon: undefined,
-    required: true,
   },
   {
-    name: 'bairro',
     label: 'Bairro',
     textHelper: 'Bairro da sua residência.',
     placeHolder: '',
     icon: <EditRoadIcon />,
-    required: true,
   },
   {
-    name: 'numero',
     label: 'Número',
     textHelper: 'Número da sua residência.',
     placeHolder: 'Ex.: 34, 67B, 3456, etc..',
     icon: 'Nº',
-    required: true,
   },
   {
-    name: 'complemento',
     label: 'Complemento',
     textHelper: 'Ex.: Casa, Apartamento, fundos, etc...',
     placeHolder: '',
     icon: undefined,
-    required: true,
   },
   {
-    name: 'estado',
     label: 'Estado',
     textHelper: 'Estado onde mora.',
     placeHolder: 'Pará, Espirito Santo, Paraná, etc..',
     icon: undefined,
-    required: true,
   },
   {
-    name: 'municipio',
     label: 'Município',
     textHelper: 'Município de sua residência.',
     placeHolder: '',
     icon: undefined,
-    required: true,
   },
 ]
 
-export function Endereco() {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget)
-    console.log(event.target)
-  }
+export type EnderecoProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
+
+export function EnderecoForm({
+  register,
+  setValue,
+  watch,
+  errors,
+}: EnderecoProps) {
+  const cepValue = watch('endereco.cep')
+
+  useEffect(() => {
+    setValue('endereco.cep', MaskUtils.maskCep(cepValue))
+  }, [setValue, cepValue])
 
   return (
     <Grid container spacing={3} px={4}>
@@ -90,11 +94,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[0].name}
+          {...register('endereco.tipoArea')}
+          error={errors.endereco?.tipoArea !== undefined}
+          helperText={
+            errors.endereco?.tipoArea !== undefined
+              ? errors.endereco.tipoArea.message
+              : FOMULARIO_CAMPOS_ENDERECO[0].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[0].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[0].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[0].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[0].placeHolder}
         />
       </Grid>
@@ -110,11 +117,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[1].name}
+          {...register('endereco.logradouro')}
+          error={errors.endereco?.logradouro !== undefined}
+          helperText={
+            errors.endereco?.logradouro !== undefined
+              ? errors.endereco.logradouro.message
+              : FOMULARIO_CAMPOS_ENDERECO[1].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[1].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[1].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[1].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[1].placeHolder}
         />
       </Grid>
@@ -130,11 +140,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[2].name}
+          {...register('endereco.cep')}
+          error={errors.endereco?.cep !== undefined}
+          helperText={
+            errors.endereco?.cep !== undefined
+              ? errors.endereco.cep.message
+              : FOMULARIO_CAMPOS_ENDERECO[2].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[2].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[2].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[2].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[2].placeHolder}
         />
       </Grid>
@@ -150,11 +163,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[3].name}
+          {...register('endereco.bairro')}
+          error={errors.endereco?.bairro !== undefined}
+          helperText={
+            errors.endereco?.bairro !== undefined
+              ? errors.endereco.bairro.message
+              : FOMULARIO_CAMPOS_ENDERECO[3].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[3].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[3].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[3].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[3].placeHolder}
         />
       </Grid>
@@ -162,6 +178,7 @@ export function Endereco() {
         <TextField
           fullWidth
           id="numero"
+          type="number"
           autoComplete="numero"
           InputProps={{
             startAdornment: (
@@ -170,11 +187,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[4].name}
+          {...register('endereco.numero')}
+          error={errors.endereco?.numero !== undefined}
+          helperText={
+            errors.endereco?.numero !== undefined
+              ? errors.endereco.numero.message
+              : FOMULARIO_CAMPOS_ENDERECO[4].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[4].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[4].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[4].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[4].placeHolder}
         />
       </Grid>
@@ -190,11 +210,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[5].name}
+          {...register('endereco.complemento')}
+          error={errors.endereco?.complemento !== undefined}
+          helperText={
+            errors.endereco?.complemento !== undefined
+              ? errors.endereco.complemento.message
+              : FOMULARIO_CAMPOS_ENDERECO[5].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[5].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[5].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[5].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[5].placeHolder}
         />
       </Grid>
@@ -210,11 +233,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[6].name}
+          {...register('endereco.estado')}
+          error={errors.endereco?.estado !== undefined}
+          helperText={
+            errors.endereco?.estado !== undefined
+              ? errors.endereco.estado.message
+              : FOMULARIO_CAMPOS_ENDERECO[6].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[6].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[6].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[6].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[6].placeHolder}
         />
       </Grid>
@@ -230,11 +256,14 @@ export function Endereco() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FOMULARIO_CAMPOS_ENDERECO[7].name}
+          {...register('endereco.municipio')}
+          error={errors.endereco?.municipio !== undefined}
+          helperText={
+            errors.endereco?.municipio !== undefined
+              ? errors.endereco.municipio.message
+              : FOMULARIO_CAMPOS_ENDERECO[7].textHelper
+          }
           label={FOMULARIO_CAMPOS_ENDERECO[7].label}
-          required={FOMULARIO_CAMPOS_ENDERECO[7].required}
-          helperText={FOMULARIO_CAMPOS_ENDERECO[7].textHelper}
           placeholder={FOMULARIO_CAMPOS_ENDERECO[7].placeHolder}
         />
       </Grid>

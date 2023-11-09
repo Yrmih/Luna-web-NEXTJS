@@ -25,7 +25,7 @@ export interface RenderDimanicItemOptions {
   handleRemoveItem: (item: Item) => void
 }
 
-function renderDinamicItemWithValor({
+function renderDinamicTextFields({
   item,
   handleRemoveItem: handleRemoveBem,
 }: RenderDimanicItemOptions) {
@@ -72,7 +72,7 @@ export function TabelaitensAdicionados({
         </TableHead>
         <TableBody>
           {itemsList.map((item) =>
-            renderDinamicItemWithValor({
+            renderDinamicTextFields({
               item,
               handleRemoveItem: handleRemoveItems,
             }),
