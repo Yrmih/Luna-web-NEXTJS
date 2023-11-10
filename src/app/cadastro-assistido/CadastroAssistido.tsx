@@ -83,6 +83,8 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
     resolver: zodResolver(cadastroAssistidoSchema),
   })
 
+  const isTermosAceito = watch('qualificacaoFinanceira.aceitoTermosCondicoes')
+
   const saveFormStateToLocalStorage = (data: CadastroAssistidoInputsForm) => {
     if (!ObjectUtils.isObjectEmpty(data)) {
       sessionStorage.setItem(formStorageKey, JSON.stringify(data))
@@ -272,7 +274,16 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
               <Button type="button" size="small" onClick={handleNext}>
                 Próximo
               </Button>
-            ) : undefined
+            ) : (
+              <Button
+                disabled={activeStep !== steps.length - 1 || !isTermosAceito}
+                type="button"
+                size="small"
+                onClick={handleSubmit(onSubmit)}
+              >
+                Finalizar
+              </Button>
+            )
           }
           backButton={
             <Button
@@ -284,15 +295,6 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
             </Button>
           }
         />
-        {activeStep === steps.length - 1 ? (
-          <Button
-            disabled={activeStep !== steps.length - 1}
-            type="submit"
-            sx={{ mt: 8, mr: 3, display: { xs: 'flex', sm: 'none' } }}
-          >
-            Finalizar
-          </Button>
-        ) : undefined}
         <Stack direction={'row'}>
           {activeStep !== 0 && (
             <Button
@@ -314,7 +316,7 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
           </Button>
           <Button
             variant="contained"
-            disabled={activeStep !== steps.length - 1}
+            disabled={activeStep !== steps.length - 1 || !isTermosAceito}
             type="submit"
             sx={{ mt: 8, mr: 3, display: { xs: 'none', sm: 'flex' } }}
           >

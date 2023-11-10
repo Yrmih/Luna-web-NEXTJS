@@ -39,5 +39,5 @@ export const qualificacaoFinanceiraSchema = z.object({
       descricao: z.string(),
     }),
   ),
-  aceitoTermosCondicoes: z.boolean(),
+  aceitoTermosCondicoes: z.boolean({ coerce: true }),
 })
