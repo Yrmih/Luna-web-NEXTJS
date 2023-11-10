@@ -1,5 +1,4 @@
-
-import MenuIcon from "@mui/icons-material/Menu";
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
   Avatar,
@@ -8,25 +7,25 @@ import {
   IconButton,
   Toolbar,
   Typography,
-} from "@mui/material";
-import React from "react";
+} from '@mui/material'
+import React from 'react'
 interface DrawerProps {
-  handleDrawerToggle: () => void;
+  handleDrawerToggle: () => void
 }
 export function AppBarModile(props: DrawerProps) {
   return (
     <AppBar
       sx={{
-        display: { xs: "flex", md: "none" }
+        display: { xs: 'flex', md: 'none' },
       }}
     >
       <Toolbar>
         <Box
           sx={{
             flexGrow: 1,
-            display: { xs: "flex", md: "none" },
-            justifyContent: "flex-start",
-            alignItems: 'center'
+            display: { xs: 'flex', md: 'none' },
+            justifyContent: 'flex-start',
+            alignItems: 'center',
           }}
         >
           <IconButton
@@ -36,10 +35,10 @@ export function AppBarModile(props: DrawerProps) {
             edge="start"
             onClick={props.handleDrawerToggle}
             sx={{
-              justifyContent: "flex-start",
+              justifyContent: 'flex-start',
               mr: 2,
               alignItems: 'center',
-              display: { md: "none" },
+              display: { md: 'none' },
               backgroundColor: (theme) =>
                 theme.palette.mode === 'light'
                   ? theme.palette.primary.main
@@ -54,7 +53,7 @@ export function AppBarModile(props: DrawerProps) {
                     : theme.palette.primary.contrastText[100],
               }}
             />
-          </IconButton >
+          </IconButton>
           <Typography variant="h6" noWrap component="div">
             Área do Assistido
           </Typography>
@@ -66,5 +65,5 @@ export function AppBarModile(props: DrawerProps) {
         </IconButton>
       </Toolbar>
     </AppBar>
-  );
+  )
 }
