@@ -1,19 +1,16 @@
 // Third party
-import {
-  Box,
-  Grid
-} from "@mui/material";
+import { Box, Grid } from '@mui/material'
 // Internal
-import { CardAvatar } from "../components/CardAvatar";
-import { CardDocumentoEnvio } from "../components/CardDocumentoEnvio";
-import { CardeProcesso } from "../components/CardProcesso";
-import PreAgendamento from "../components/PreAgendamento";
+import { CardAvatar } from '../components/CardAvatar'
+import { CardDocumentoEnvio } from '../components/CardDocumentoEnvio'
+import { CardeProcesso } from '../components/CardProcesso'
+import PreAgendamento from '../components/PreAgendamento'
 
 export function HistoricoAssistido() {
   return (
     <Box
-      display={"flex"}
-      flexWrap={"wrap"}
+      display={'flex'}
+      flexWrap={'wrap'}
       justifyContent={'center'}
       justifyItems={'center'}
       alignContent={'center'}
@@ -25,23 +22,22 @@ export function HistoricoAssistido() {
         container
         rowSpacing={3}
         columnSpacing={3}
-        display={"flex"}
+        display={'flex'}
         justifyContent={'center'}
         justifyItems={'center'}
         alignContent={'center'}
-        alignItems={{xs:'center', sm:'center', md:'flex-start'}}
-        flexWrap={"wrap"}
+        alignItems={{ xs: 'center', sm: 'center', md: 'flex-start' }}
+        flexWrap={'wrap'}
       >
         <Grid
           item
-          flexDirection={"column"}
-          flexWrap={"wrap"}
+          flexDirection={'column'}
+          flexWrap={'wrap'}
           xs={12}
           sm={12}
           lg={8}
           rowGap={3}
           sx={{ display: 'flex' }}
-
         >
           <Grid item lg={12}>
             <PreAgendamento />
@@ -52,26 +48,22 @@ export function HistoricoAssistido() {
         </Grid>
         <Grid
           item
-          flexDirection={"column"}
-          flexWrap={"wrap"}
+          flexDirection={'column'}
+          flexWrap={'wrap'}
           sx={{ display: 'flex' }}
           rowGap={3}
           lg={4}
           xs={12}
           sm={12}
         >
-          <Grid item
-            xs={12}
-            >
+          <Grid item xs={12}>
             <CardAvatar />
           </Grid>
-          <Grid
-            xs={12}
-          >
+          <Grid xs={12}>
             <CardeProcesso />
           </Grid>
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }

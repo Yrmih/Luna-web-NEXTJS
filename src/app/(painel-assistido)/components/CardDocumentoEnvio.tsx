@@ -1,5 +1,7 @@
 // Third party
 'use client'
+
+import PublishIcon from '@mui/icons-material/Publish'
 import {
   Box,
   Button,
@@ -15,9 +17,11 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material'
-import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import PublishIcon from '@mui/icons-material/Publish'
+
+// framework
+import { useState } from 'react'
+
 // Internal
 
 interface SelectedFile {
@@ -25,10 +29,6 @@ interface SelectedFile {
   textonome: string
   arquivo: string
   isUploaded: boolean
-}
-
-interface CardDocumentoEnvioProps {
-  data: SelectedFile[]
 }
 
 interface FormValues {
@@ -43,8 +43,8 @@ const dados: SelectedFile[] = [
   { id: 5, textonome: 'Nome 3', arquivo: '', isUploaded: false },
 ]
 
-export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
-  const [fileStatus, setFileStatus] = useState<SelectedFile[]>(data)
+export function CardDocumentoEnvio() {
+  const [fileStatus, setFileStatus] = useState<SelectedFile[]>(dados)
   const {
     handleSubmit,
     control,
@@ -143,7 +143,7 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
                 flexWrap: 'nowrap',
               }}
             >
-              {dados.map((data) => (
+              {fileStatus.map((data) => (
                 <CardItem
                   key={data.id}
                   data={data}
