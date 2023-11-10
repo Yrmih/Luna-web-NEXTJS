@@ -42,6 +42,7 @@ export function AppBarAreaAssistido(props: DrawerProps) {
             <Grid
               display={'flex'}
               item
+              xs={12}
               alignItems={'center'}
               justifyContent={'center'}
               flexDirection={'row'}
@@ -57,7 +58,7 @@ export function AppBarAreaAssistido(props: DrawerProps) {
                 Área do Assistido
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <Avatar>A</Avatar>

@@ -1,5 +1,5 @@
 // Third party
-"use client";
+'use client'
 import {
   Box,
   Button,
@@ -13,57 +13,58 @@ import {
   ListItem,
   Paper,
   Tooltip,
-  Typography
-} from "@mui/material";
-import { useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import PublishIcon from '@mui/icons-material/Publish';
+  Typography,
+} from '@mui/material'
+import { useState } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import PublishIcon from '@mui/icons-material/Publish'
 // Internal
-interface CardDocumentoEnvioProps {
-  data: SelectedFile[];
-}
 
 interface SelectedFile {
-  id: number;
-  textonome: string;
-  arquivo: string;
-  isUploaded: boolean;
+  id: number
+  textonome: string
+  arquivo: string
+  isUploaded: boolean
+}
+
+interface CardDocumentoEnvioProps {
+  data: SelectedFile[]
 }
 
 interface FormValues {
-  [key: string]: File;
+  [key: string]: File
 }
 
 const dados: SelectedFile[] = [
-  { id: 1, textonome: "Nome 1", arquivo: "", isUploaded: false },
-  { id: 2, textonome: "Nome 2", arquivo: "", isUploaded: false },
-  { id: 3, textonome: "Nome 3", arquivo: "", isUploaded: false },
-  { id: 4, textonome: "Nome 3", arquivo: "", isUploaded: false },
-  { id: 5, textonome: "Nome 3", arquivo: "", isUploaded: false },
-];
+  { id: 1, textonome: 'Nome 1', arquivo: '', isUploaded: false },
+  { id: 2, textonome: 'Nome 2', arquivo: '', isUploaded: false },
+  { id: 3, textonome: 'Nome 3', arquivo: '', isUploaded: false },
+  { id: 4, textonome: 'Nome 3', arquivo: '', isUploaded: false },
+  { id: 5, textonome: 'Nome 3', arquivo: '', isUploaded: false },
+]
 
 export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
-  const [fileStatus, setFileStatus] = useState<SelectedFile[]>(data);
+  const [fileStatus, setFileStatus] = useState<SelectedFile[]>(data)
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormValues>(); // Usando FormValues como tipo para os valores do formulário
+  } = useForm<FormValues>() // Usando FormValues como tipo para os valores do formulário
 
   const onSubmit: SubmitHandler<FormValues> = (formData) => {
     // Verifica se pelo menos um arquivo foi enviado
-    const hasUploadedFiles = Object.values(formData).some((value) => value);
+    const hasUploadedFiles = Object.values(formData).some((value) => value)
 
     if (hasUploadedFiles) {
       // Implemente o envio de todos os dados para o servidor aqui
-      console.log('Enviando dados para o servidor...', formData);
+      console.log('Enviando dados para o servidor...', formData)
     } else {
       // Exibe uma mensagem se nenhum arquivo foi enviado
-      alert('Pelo menos um arquivo deve ser enviado para poder enviar os dados.');
+      alert(
+        'Pelo menos um arquivo deve ser enviado para poder enviar os dados.',
+      )
     }
-  };
-
-
+  }
 
   const handleFileChange = (fileId: number, selectedFile: File) => {
     // Verificação de nulidade para depuração
@@ -72,14 +73,14 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
       const updatedFileStatus = fileStatus.map((f) =>
         f.id === fileId
           ? { ...f, textonome: selectedFile.name, isUploaded: true }
-          : f
-      ) as SelectedFile[];
+          : f,
+      ) as SelectedFile[]
 
-      setFileStatus(updatedFileStatus);
+      setFileStatus(updatedFileStatus)
 
       // Implemente o envio individual do arquivo para o servidor aqui
-      const formData = new FormData();
-      formData.append('file', selectedFile);
+      const formData = new FormData()
+      formData.append('file', selectedFile)
 
       fetch('URL_DO_SERVIDOR', {
         method: 'POST',
@@ -88,55 +89,58 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
         .then((response) => {
           if (response.ok) {
             // Arquivo enviado com sucesso
-            console.log(`Arquivo ${selectedFile.name} enviado com sucesso para o servidor.`);
+            console.log(
+              `Arquivo ${selectedFile.name} enviado com sucesso para o servidor.`,
+            )
           } else {
             // Trate erros de envio aqui
-            console.error('Erro no envio do arquivo para o servidor.');
+            console.error('Erro no envio do arquivo para o servidor.')
           }
         })
         .catch((error) => {
-          console.error('Erro ao enviar o arquivo:', error);
-        });
+          console.error('Erro ao enviar o arquivo:', error)
+        })
     } else {
-      console.error('fileStatus é undefined. Verifique por que ele não está definido corretamente.');
+      console.error(
+        'fileStatus é undefined. Verifique por que ele não está definido corretamente.',
+      )
     }
-  };
-
+  }
 
   return (
     <Grid
       container
       sx={{
-        width: "100%",
+        width: '100%',
       }}
       rowSpacing={3}
     >
       <Grid
         item
         sx={{
-          width: "100%",
-          display: "flex",
+          width: '100%',
+          display: 'flex',
         }}
       >
         <Card
           component={Paper}
           elevation={3}
           sx={{
-            width: "100%",
+            width: '100%',
             p: 2,
-            boxShadow: "0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)",
+            boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)',
           }}
         >
           <CardHeader title="Documentos e perguntas pendentes" />
-          <CardContent sx={{ width: "100%" }}>
+          <CardContent sx={{ width: '100%' }}>
             <List
               sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                flexWrap: "nowrap",
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                flexWrap: 'nowrap',
               }}
             >
               {dados.map((data) => (
@@ -154,12 +158,12 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
           </CardContent>
           <CardActions
             sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
             }}
           >
-            <Tooltip title={`${"Enviar"}`}>
+            <Tooltip title={`${'Enviar'}`}>
               <Button
                 color="primary"
                 size="medium"
@@ -173,17 +177,17 @@ export function CardDocumentoEnvio({ data }: CardDocumentoEnvioProps) {
         </Card>
       </Grid>
     </Grid>
-  );
+  )
 }
 
 interface CardItemProps {
-  data: SelectedFile;
-  
-  fileStatus: SelectedFile[];
-  setFileStatus: (status: SelectedFile[]) => void;
-  control: any;
-  errors: any;
-  handleFileChange: (fileId: number, selectedFile: File) => void;
+  data: SelectedFile
+
+  fileStatus: SelectedFile[]
+  setFileStatus: (status: SelectedFile[]) => void
+  control: any
+  errors: any
+  handleFileChange: (fileId: number, selectedFile: File) => void
 }
 
 function CardItem({
@@ -194,7 +198,7 @@ function CardItem({
   errors,
   handleFileChange,
 }: CardItemProps) {
-  const fileId = data.id;
+  const fileId = data.id
 
   return (
     <ListItem
@@ -211,18 +215,17 @@ function CardItem({
           placement="top-start"
           title={
             fileStatus?.find((f) => f.id === fileId)?.isUploaded
-              ? `Arquivo ${fileStatus?.find((f) => f.id === fileId)?.textonome} enviado com sucesso!`
+              ? `Arquivo ${fileStatus?.find((f) => f.id === fileId)
+                  ?.textonome} enviado com sucesso!`
               : 'Enviar arquivo'
           }
-
         >
           <Box justifyContent={'center'} display={'flex'} alignItems={'center'}>
             <Typography>
-              {
-                fileStatus?.find((f) => f.id === fileId)?.isUploaded
-                  ? `Arquivo ${fileStatus?.find((f) => f.id === fileId)?.textonome} enviado com sucesso!`
-                  : 'Enviar arquivo'
-              }
+              {fileStatus?.find((f) => f.id === fileId)?.isUploaded
+                ? `Arquivo ${fileStatus?.find((f) => f.id === fileId)
+                    ?.textonome} enviado com sucesso!`
+                : 'Enviar arquivo'}
             </Typography>
             <IconButton
               sx={{ ml: 2 }}
@@ -245,8 +248,8 @@ function CardItem({
                 }}
                 onChange={(e) => {
                   if (e.target.files && e.target.files.length > 0) {
-                    const selectedFile = e.target.files[0];
-                    handleFileChange(fileId, selectedFile);
+                    const selectedFile = e.target.files[0]
+                    handleFileChange(fileId, selectedFile)
                   }
                 }}
               />
@@ -288,5 +291,5 @@ function CardItem({
         )}
       </Box>
     </ListItem>
-  );
+  )
 }
