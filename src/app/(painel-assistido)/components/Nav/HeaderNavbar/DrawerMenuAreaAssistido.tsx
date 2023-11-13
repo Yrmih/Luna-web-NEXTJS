@@ -18,7 +18,6 @@ import {
 } from '@mui/material'
 // Framework
 import Link from 'next/link'
-import React from 'react'
 
 const LINKS = [
   { text: 'Principal', href: '/home', icon: HomeIcon },
