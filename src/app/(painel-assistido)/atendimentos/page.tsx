@@ -1,12 +1,18 @@
 'use client'
 import {
   Box,
+  Button,
   Divider,
+  Grid,
+  Icon,
   Paper,
   Stack,
   Typography,
   useMediaQuery,
 } from '@mui/material'
+
+import CardAtendimento from '../components/CardAtendimento'
+import ContainerAtendimento from '../components/ContainerAtendimento'
 
 export default function HomePage() {
   const matches = useMediaQuery('(min-width:900px)')
@@ -48,102 +54,16 @@ export default function HomePage() {
               padding: '2vh',
               paddingBottom: '10vh',
               alignItems: 'center',
-              boxShadow: '1',
+              boxShadow: 2,
               borderRadius: '3vh',
               marginTop: '-8vh',
               marginBottom: '4vh',
               width: '95%',
             }}
           >
-            <Box sx={{ width: '75vw', height: '7vh' }} bgcolor={'white'}></Box>
-            {/* <Box
-              sx={{ width: '75vw', height: '2px' }}
-              bgcolor={'lightgrey'}
-            ></Box> */}
-            <Divider></Divider>
-            <Stack
-              sx={{
-                marginBottom: '2vh',
-                padding: '2vh',
-                width: '75vw',
-              }}
-              bgcolor={'white'}
-            >
-              <Typography marginBottom="2vh" variant="h6">
-                PRÉ AGENDAMENTOS
-              </Typography>
-              <Typography color={'grey'}>
-                Uma equipe especializada da Defensoria Pública está analisando o
-                seu caso. Assim que o seu agendamento for confirmado, você
-                receberá uma notificação.
-              </Typography>
-            </Stack>
-            <Stack direction={matches ? 'row' : 'column'} spacing={8}>
-              <Box
-                sx={{
-                  width: '70vw',
-                  height: '90vw',
-                  '@media (min-width:900px)': {
-                    width: '30vw',
-                    height: '45vh',
-                  },
-                }}
-                bgcolor={'red'}
-              ></Box>
-              <Box
-                sx={{
-                  width: '70vw',
-                  height: '90vw',
-                  '@media (min-width:900px)': {
-                    width: '30vw',
-                    height: '45vh',
-                  },
-                }}
-                bgcolor={'red'}
-              ></Box>
-            </Stack>
-            <Divider variant="middle" />
-            <Stack
-              sx={{
-                marginBottom: '2vh',
-                padding: '2vh',
-                width: '75vw',
-              }}
-              bgcolor={'white'}
-            >
-              <Typography marginBottom="2vh" variant="h6">
-                PRÉ AGENDAMENTOS
-              </Typography>
-              <Typography color={'grey'}>
-                Uma equipe especializada da Defensoria Pública está analisando o
-                seu caso. Assim que o seu agendamento for confirmado, você
-                receberá uma notificação.
-              </Typography>
-            </Stack>
-            <Stack direction={matches ? 'row' : 'column'} spacing={8}>
-              <Box
-                sx={{
-                  width: '70vw',
-                  height: '90vw',
-                  '@media (min-width:900px)': {
-                    width: '30vw',
-                    height: '45vh',
-                  },
-                }}
-                bgcolor={'red'}
-              ></Box>
-              <Box
-                sx={{
-                  width: '70vw',
-                  height: '90vw',
-                  '@media (min-width:900px)': {
-                    width: '30vw',
-                    height: '45vh',
-                  },
-                }}
-                bgcolor={'red'}
-              ></Box>
-            </Stack>
+            <ContainerAtendimento props={{ tipoAtendimento: 'pre' }} />
+            <ContainerAtendimento props={{ tipoAtendimento: 'atendimento' }} />
+            <ContainerAtendimento props={{ tipoAtendimento: 'agendamento' }} />
           </Stack>
         </Paper>
       </Box>
