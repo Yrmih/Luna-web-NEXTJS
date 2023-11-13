@@ -25,7 +25,12 @@ export function AppBarResponsive({
   children,
 }: AppBarResponsiveProps) {
   return (
-    <AppBar>
+    <AppBar
+      sx={{
+        position: 'sticky', // Garante que o Header permaneça no topo sem impactar a estrutura <header><main><footer>
+        top: 0,
+      }}
+    >
       <Toolbar>
         <Box
           sx={{
@@ -33,8 +38,6 @@ export function AppBarResponsive({
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            position: 'sticky', // Garante que o Header permaneça no topo sem impactar a estrutura <header><main><footer>
-            top: 0,
           }}
         >
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
