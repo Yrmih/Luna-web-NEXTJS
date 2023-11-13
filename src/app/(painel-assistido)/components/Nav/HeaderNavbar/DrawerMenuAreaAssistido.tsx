@@ -18,6 +18,8 @@ import {
 } from '@mui/material'
 // Framework
 import Link from 'next/link'
+import React from 'react'
+import { signOut } from 'next-auth/react'
 
 const LINKS = [
   { text: 'Principal', href: '/home', icon: HomeIcon },
@@ -66,6 +68,13 @@ export function DrawerMenuAreaAssistido() {
             </ListItemButton>
           </ListItem>
         ))}
+        {/* TODO: Colocar botão de logout corretamente */}
+        <ListItem key={'logout'} disablePadding onClick={() => signOut()}>
+          <ListItemButton>
+            <ListItemIcon></ListItemIcon>
+            <ListItemText primary={'logout'} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   )
