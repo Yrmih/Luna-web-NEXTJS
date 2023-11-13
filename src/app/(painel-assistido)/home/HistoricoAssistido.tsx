@@ -1,44 +1,71 @@
 // Third party
-import { Alert, AlertTitle, Box, Grid } from '@mui/material'
-
+import { Box, Grid } from '@mui/material'
 // Internal
-import { MediaCard } from '../components/MediaCard'
+import { CardAvatar } from '../components/CardAvatar'
+import { CardDocumentoEnvio } from '../components/CardDocumentoEnvio'
+import { CardeProcesso } from '../components/CardProcesso'
+import PreAgendamento from '../components/PreAgendamento'
 
 export function HistoricoAssistido() {
   return (
-    <Box sx={{ display: 'flex' }}>
-      <div>
-        <Alert severity="info" sx={{ mt: 2, mb: 5 }}>
-          <AlertTitle>Olá 👋</AlertTitle>
-          Esse é área de histórico de solicitações de agendamentos.
-        </Alert>
-        <Grid container rowSpacing={3} columnSpacing={3}>
-          <Grid xs={6}>
-            <MediaCard
-              heading="Pré-agendamento 1"
-              text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
-            />
+    <Box
+      display={'flex'}
+      flexWrap={'wrap'}
+      justifyContent={'center'}
+      justifyItems={'center'}
+      alignContent={'center'}
+      mt={3}
+      px={1}
+    >
+      <Grid
+        width={'100%'}
+        container
+        rowSpacing={3}
+        columnSpacing={3}
+        display={'flex'}
+        justifyContent={'center'}
+        justifyItems={'center'}
+        alignContent={'center'}
+        alignItems={{ xs: 'center', sm: 'center', md: 'flex-start' }}
+        flexWrap={'wrap'}
+      >
+        <Grid
+          container
+          item
+          flexDirection={'column'}
+          flexWrap={'wrap'}
+          xs={12}
+          sm={12}
+          lg={8}
+          rowGap={3}
+          sx={{ display: 'flex' }}
+        >
+          <Grid item lg={12}>
+            <PreAgendamento />
           </Grid>
-          <Grid xs={6}>
-            <MediaCard
-              heading="Pré-agendamento 2"
-              text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
-            />
-          </Grid>
-          <Grid xs={6}>
-            <MediaCard
-              heading="Pré-agendamento 3"
-              text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
-            />
-          </Grid>
-          <Grid xs={6}>
-            <MediaCard
-              heading="Pré-agendamento 4"
-              text="Relatos do assistido sobre a cause que deseja solicitar assistência da defensoria."
-            />
+          <Grid item lg={12}>
+            <CardDocumentoEnvio />
           </Grid>
         </Grid>
-      </div>
+        <Grid
+          container
+          item
+          flexDirection={'column'}
+          flexWrap={'wrap'}
+          sx={{ display: 'flex' }}
+          rowGap={3}
+          lg={4}
+          xs={12}
+          sm={12}
+        >
+          <Grid item xs={12}>
+            <CardAvatar />
+          </Grid>
+          <Grid item xs={12}>
+            <CardeProcesso />
+          </Grid>
+        </Grid>
+      </Grid>
     </Box>
   )
 }
