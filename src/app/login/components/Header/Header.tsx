@@ -20,20 +20,19 @@ export function Header() {
     <>
       <AppBar
         sx={{
+          height: '65px',
           position: 'sticky', // Garante que o Header permaneça no topo sem impactar a estrutura <header><main><footer>
           top: 0,
-          paddingBottom: '13px',
-          paddingTop: '13px',
         }}
       >
         {/* Sessão de Avatar */}
         <Toolbar>
           <Grid container flexWrap={'nowrap'} justifyContent={'space-between'}>
-            <Box>
+            <Box display="flex" alignItems="center">
               <Image
                 src={logo}
                 alt="Logo Defensoria"
-                sizes="12rem"
+                sizes="6rem"
                 style={{
                   height: 'auto',
                   width: '100%',
