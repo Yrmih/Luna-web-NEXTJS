@@ -6,7 +6,7 @@ import { CardDocumentoEnvio } from '../components/CardDocumentoEnvio'
 import { CardeProcesso } from '../components/CardProcesso'
 import PreAgendamento from '../components/PreAgendamento'
 
-export function HistoricoAssistido() {
+export function DetalhesAtendimento() {
   return (
     <Box
       display={'flex'}

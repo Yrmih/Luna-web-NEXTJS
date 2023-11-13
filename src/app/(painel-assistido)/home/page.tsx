@@ -1,6 +1,6 @@
 // Internal
 import { Box, CardHeader, Paper } from '@mui/material'
-import { HistoricoAssistido } from './HistoricoAssistido'
+import { DetalhesAtendimento } from './DetalhesAtendimento'
 
 export default function HomePage() {
   return (
@@ -19,7 +19,7 @@ export default function HomePage() {
           />
         </Paper>
       </Box>
-      <HistoricoAssistido />
+      <DetalhesAtendimento />
     </>
   )
 }
