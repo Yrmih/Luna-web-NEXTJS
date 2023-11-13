@@ -30,6 +30,7 @@ export function HistoricoAssistido() {
         flexWrap={'wrap'}
       >
         <Grid
+          container
           item
           flexDirection={'column'}
           flexWrap={'wrap'}
@@ -47,6 +48,7 @@ export function HistoricoAssistido() {
           </Grid>
         </Grid>
         <Grid
+          container
           item
           flexDirection={'column'}
           flexWrap={'wrap'}
@@ -59,7 +61,7 @@ export function HistoricoAssistido() {
           <Grid item xs={12}>
             <CardAvatar />
           </Grid>
-          <Grid xs={12}>
+          <Grid item xs={12}>
             <CardeProcesso />
           </Grid>
         </Grid>
