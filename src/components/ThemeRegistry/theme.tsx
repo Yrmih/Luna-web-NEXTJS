@@ -13,12 +13,11 @@ const roboto = Roboto({
 })
 
 function getTheme(prefersDarkMode: boolean) {
-
   const customPallete = {
     primary: {
       main: process.env.THEME_COLOR_PRIMARY_MAIN ?? '#2E7D32',
       light: '#42B148',
-      dark: 'rgb(15 75 18)'
+      dark: 'rgb(15 75 18)',
     },
     secondary: {
       main: process.env.THEME_COLOR_SECONDARY_MAIN ?? '#00C853',
@@ -31,25 +30,23 @@ function getTheme(prefersDarkMode: boolean) {
 
   const palette: PaletteOptions = prefersDarkMode
     ? {
-      mode: 'dark',
-      ...customPallete,
-      primary: {
-        main: '#2E7D32',
-        light: '#4CCA52',
-        dark: 'rgb(20 102 24)'
-      },
-      secondary: {
-        main: '#4CCA52',
-        light: '#5FFF67',
-      },
-      background: {
-        default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#070707',
-        paper: process.env.THEME_COLOR_BACKGROUND_PAPER ?? '#0F0F0F',
-      },
-
-    }
+        mode: 'dark',
+        ...customPallete,
+        primary: {
+          main: '#2E7D32',
+          light: '#4CCA52',
+          dark: 'rgb(20 102 24)',
+        },
+        secondary: {
+          main: '#4CCA52',
+          light: '#5FFF67',
+        },
+        background: {
+          default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#070707',
+          paper: process.env.THEME_COLOR_BACKGROUND_PAPER ?? '#0F0F0F',
+        },
+      }
     : customPallete
-
 
   return createTheme({
     palette,
@@ -71,7 +68,7 @@ function getTheme(prefersDarkMode: boolean) {
         styleOverrides: {
           'html, body': {
             width: '100%',
-            height: '100%'
+            height: '100%',
           },
           footer: {
             marginTop: 'auto',
@@ -88,7 +85,7 @@ function getTheme(prefersDarkMode: boolean) {
             scrollbarWidth: 'thin',
             scrollbarcolor: 'rgb(4 121 0) rgb(226, 225, 225)',
             width: '100%',
-            flex: 1
+            flex: 1,
           },
         },
       },
@@ -106,7 +103,7 @@ function getTheme(prefersDarkMode: boolean) {
         },
         styleOverrides: {
           root: {
-            color: "text.secondary", // Define a cor do texto do link
+            color: 'text.secondary', // Define a cor do texto do link
             fontSize: '16px', // Define o tamanho da fonte
             fontWeight: 'bold', // Define o estilo da fonte (negrito)
             '&:hover': {

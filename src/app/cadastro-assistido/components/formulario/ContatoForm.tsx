@@ -1,7 +1,9 @@
 // Third party
+import { MaskUtils } from '@/utils/MaskUtils'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import { useEffect } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -9,29 +11,6 @@ import {
   UseFormWatch,
 } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { useEffect } from 'react'
-
-export const normalizeCelular = (value: string | undefined) => {
-  if (!value) return ''
-
-  const celularNornalizado = value
-    .replace(/[\D]/g, '')
-    .replace(/(\d{2})(\d)/, '($1) $2')
-    .replace(/(\d{5})(\d)/, '$1-$2')
-    .replace(/(-\d{4})(\d+?)/, '$1')
-
-  return celularNornalizado
-}
-
-export const normalizeTelefone = (value: string | undefined) => {
-  if (!value) return ''
-
-  return value
-    .replace(/[\D]/g, '')
-    .replace(/(\d{2})(\d)/, '($1) $2')
-    .replace(/(\d{4})(\d)/, '$1-$2')
-    .replace(/(-\d{4})(\d+?)/, '$1')
-}
 
 const FORMULARIO_CAMPOS_CONTATOS = [
   {
@@ -63,14 +42,13 @@ export function ContatoForm({
 }: ContatoProps) {
   const celularValue = watch('contatos.celular')
   const telefoneValue = watch('contatos.telefone')
-  console.log('OBTANÇÃO DO CELULAR: ', celularValue)
 
   useEffect(() => {
-    setValue('contatos.celular', normalizeCelular(celularValue))
+    setValue('contatos.celular', MaskUtils.maskCelular(celularValue))
   }, [setValue, celularValue])
 
   useEffect(() => {
-    setValue('contatos.telefone', normalizeTelefone(telefoneValue))
+    setValue('contatos.telefone', MaskUtils.maskTelefone(telefoneValue))
   }, [setValue, telefoneValue])
 
   return (

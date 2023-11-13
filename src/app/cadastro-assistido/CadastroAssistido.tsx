@@ -1,6 +1,7 @@
 'use client'
 
 // Third party
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
   Button,
@@ -12,21 +13,22 @@ import {
   Stepper,
   Typography,
 } from '@mui/material'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 // Framework
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Internal
-import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
-import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceira'
+import { Copyright } from '@/components/Copyright'
+import { ObjectUtils } from '@/utils/ObjectUtils'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ContatoForm } from './components/formulario/ContatoForm'
+import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
 import { EnderecoForm } from './components/formulario/EnderecoForm'
 import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
-import { Copyright } from '@/components/Copyright'
-import { cadastroAssistidoSchema } from './components/formulario/schemas'
+import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceiraForm'
+import { cadastroAssistidoSchema } from './schemas/cadastroAssistidoSchema'
 
 const steps = [
   {
@@ -53,14 +55,24 @@ const steps = [
   },
 ]
 
+export type CadastroAssistidoProps = {
+  step?: string
+}
+
 export type CadastroAssistidoInputsForm = z.infer<
   typeof cadastroAssistidoSchema
 >
 
-export function CadastroAssistido() {
-  const [activeStep, setActiveStep] = useState(0)
+export function CadastroAssistido({ step }: CadastroAssistidoProps) {
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const router = useRouter()
+  const formStorageKey = 'cadastro-assitido'
+
+  const [activeStep, setActiveStep] = useState(parseInt(step || '1') - 1)
   const {
     register,
+    control,
     watch,
     setValue,
     formState: { errors, isValid },
@@ -70,8 +82,77 @@ export function CadastroAssistido() {
     resolver: zodResolver(cadastroAssistidoSchema),
   })
 
-  function getStepForm(step: number) {
+  const saveFormStateToLocalStorage = (data: CadastroAssistidoInputsForm) => {
+    if (!ObjectUtils.isObjectEmpty(data)) {
+      sessionStorage.setItem(formStorageKey, JSON.stringify(data))
+    }
+  }
+
+  const cadastroAssistidoWatchedFields = watch()
+
+  useEffect(() => {
+    saveFormStateToLocalStorage(cadastroAssistidoWatchedFields)
+  }, [cadastroAssistidoWatchedFields])
+
+  useEffect(() => {
+    const loadFormStateFromLocalStorage = () => {
+      const storedData = sessionStorage.getItem(formStorageKey)
+      if (storedData) {
+        const parsedData = JSON.parse(storedData) as CadastroAssistidoInputsForm
+        console.log(parsedData)
+        setValue('informacaoInicial', parsedData.informacaoInicial)
+        setValue('contatos', parsedData.contatos)
+        setValue('endereco', parsedData.endereco)
+        setValue('dadosPessoais', parsedData.dadosPessoais)
+
+        setValue(
+          'dadosPessoais.dataNascimento',
+          parsedData.dadosPessoais?.dataNascimento,
+        )
+        setValue('qualificacaoFinanceira', parsedData.qualificacaoFinanceira)
+        setValue(
+          'qualificacaoFinanceira.moveis',
+          parsedData.qualificacaoFinanceira?.moveis,
+        )
+        setValue(
+          'qualificacaoFinanceira.imoveis',
+          parsedData.qualificacaoFinanceira?.imoveis,
+        )
+        setValue(
+          'qualificacaoFinanceira.investimentos',
+          parsedData.qualificacaoFinanceira?.investimentos,
+        )
+      }
+    }
+
+    loadFormStateFromLocalStorage()
+  }, [setValue])
+
+  const isDisableStepButton = (step: number) => {
     switch (step) {
+      case 0:
+        return errors.informacaoInicial !== undefined
+      case 1:
+        return errors.contatos !== undefined
+      case 2:
+        return errors.endereco !== undefined
+      case 3:
+        return errors.dadosPessoais !== undefined
+      case 4:
+        return errors.qualificacaoFinanceira !== undefined
+    }
+  }
+
+  useEffect(() => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()))
+    current.delete('step')
+    current.set('step', (activeStep + 1).toString())
+    const search = current.toString()
+    router.push(`${pathname}?${search}`)
+  }, [activeStep, pathname, router, searchParams])
+
+  function getStepForm() {
+    switch (activeStep) {
       case 0:
         return (
           <InformacaoInicialForm
@@ -110,7 +191,13 @@ export function CadastroAssistido() {
         )
       case 4:
         return (
-          <QualificacaoFinanceiraForm register={register} errors={errors} />
+          <QualificacaoFinanceiraForm
+            register={register}
+            control={control}
+            watch={watch}
+            setValue={setValue}
+            errors={errors}
+          />
         )
       default:
         throw new Error('Unknown step')
@@ -120,7 +207,6 @@ export function CadastroAssistido() {
   const onSubmit: SubmitHandler<CadastroAssistidoInputsForm> = (data) => {
     console.log('DADOS: ', data, 'ERRO: ', errors)
     console.log('VALID: ', isValid)
-    handleNext()
   }
 
   const handleNext = () => {
@@ -169,7 +255,7 @@ export function CadastroAssistido() {
             {steps[activeStep].descricao}
           </Typography>
         </Box>
-        {getStepForm(activeStep)}
+        {getStepForm()}
         <MobileStepper
           sx={{
             mt: 10,
@@ -181,7 +267,11 @@ export function CadastroAssistido() {
           position="static"
           activeStep={activeStep}
           nextButton={
-            <Button size="small" type="submit" onClick={handleNext}>
+            <Button
+              size="small"
+              type="submit"
+              onClick={activeStep === steps.length - 1 ? undefined : handleNext}
+            >
               {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
             </Button>
           }
@@ -202,11 +292,21 @@ export function CadastroAssistido() {
         )}
         <Button
           variant="contained"
-          type={activeStep === steps.length - 1 ? 'submit' : 'button'}
+          disabled={
+            isDisableStepButton(activeStep) || activeStep === steps.length - 1
+          }
           onClick={handleNext}
           sx={{ mt: 8, mr: 3 }}
         >
-          {activeStep === steps.length - 1 ? 'Finalizar' : 'Proximo'}
+          Proximo
+        </Button>
+        <Button
+          variant="contained"
+          disabled={activeStep !== steps.length - 1}
+          type="submit"
+          sx={{ mt: 8, mr: 3 }}
+        >
+          Finalizar
         </Button>
       </Paper>
       <Copyright />

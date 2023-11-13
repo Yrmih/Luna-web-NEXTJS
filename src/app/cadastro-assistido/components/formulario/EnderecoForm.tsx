@@ -10,18 +10,7 @@ import {
 } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 import { useEffect } from 'react'
-
-export const normalizeCepNumber = (value: string | undefined) => {
-  if (!value) return ''
-
-  const normalizado = value
-    .replace(/\D/g, '')
-    .replace(/^(\d{5})(\d)/, '$1-$2')
-    .replace(/(-\d{3})(\d+?)/, '$1')
-
-  console.log('CEP NORMALIZADO: ', normalizado)
-  return normalizado
-}
+import { MaskUtils } from '@/utils/MaskUtils'
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {
@@ -87,10 +76,8 @@ export function EnderecoForm({
 }: EnderecoProps) {
   const cepValue = watch('endereco.cep')
 
-  console.log('OBTANÇÃO DO CEP: ', cepValue)
-
   useEffect(() => {
-    setValue('endereco.cep', normalizeCepNumber(cepValue))
+    setValue('endereco.cep', MaskUtils.maskCep(cepValue))
   }, [setValue, cepValue])
 
   return (

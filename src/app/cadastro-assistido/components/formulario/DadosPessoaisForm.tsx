@@ -23,6 +23,8 @@ import {
 
 // Internal
 
+import { MaskUtils } from '@/utils/MaskUtils'
+import { useEffect } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -30,7 +32,6 @@ import {
   UseFormWatch,
 } from 'react-hook-form'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { useEffect } from 'react'
 
 const FORMULARIO_DADOS_PESSOAIS = [
   {
@@ -96,32 +97,16 @@ const FORMULARIO_DADOS_PESSOAIS = [
 ]
 
 const SELECT_ITEMS_ESTADO_CIVIL = [
-  { valor: 1, nome: 'Solteriro(a)' },
-  { valor: 2, nome: 'Casado(a)' },
-  { valor: 3, nome: 'Viúvo(a)' },
-  { valor: 4, nome: 'Divorciado(a)' },
+  { valor: 'solteiro', nome: 'Solteiro(a)' },
+  { valor: 'casado', nome: 'Casado(a)' },
+  { valor: 'viuvo', nome: 'Viúvo(a)' },
+  { valor: 'divorciado', nome: 'Divorciado(a)' },
 ]
 
 const SELECT_TIPO_CERTIDAO = [
   { valor: 'certidao_nascimento', nome: 'Certidão de Nascimento' },
   { valor: 'certidao_casamento', nome: 'Certidão de Casamento' },
 ]
-
-function normalizeCertidao(value: string) {
-  if (!value) return ''
-
-  return value
-    .replace(/[\D]/g, '')
-    .replace(/(\d{6})(\d)/, '$1 $2')
-    .replace(/(\d{2})(\d)/, '$1 $2')
-    .replace(/(\d{2})(\d)/, '$1 $2')
-    .replace(/(\d{4})(\d)/, '$1 $2')
-    .replace(/(\d{1})(\d)/, '$1 $2')
-    .replace(/(\d{5})(\d)/, '$1 $2')
-    .replace(/(\d{3})(\d)/, '$1 $2')
-    .replace(/(\d{7})(\d)/, '$1 $2')
-    .replace(/(\d{2})(\d+?)/, '$1')
-}
 
 export type DadosPessoaisProps = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
@@ -139,8 +124,8 @@ export function DadosPessoaisForm({
   const certidaoValue = watch('dadosPessoais.certidao')
 
   useEffect(() => {
-    setValue('dadosPessoais.certidao', normalizeCertidao(certidaoValue))
-  }, [certidaoValue, setValue])
+    setValue('dadosPessoais.certidao', MaskUtils.maskCertidao(certidaoValue))
+  }, [setValue, certidaoValue])
 
   return (
     <Grid container spacing={3} px={4}>
@@ -220,7 +205,9 @@ export function DadosPessoaisForm({
           InputLabelProps={{ shrink: true }}
           id="dataNascimento"
           autoComplete="dataNascimento"
-          {...register('dadosPessoais.dataNascimento')}
+          {...register('dadosPessoais.dataNascimento', {
+            valueAsDate: true,
+          })}
           placeholder={FORMULARIO_DADOS_PESSOAIS[3].placeHolder}
           error={errors.dadosPessoais?.dataNascimento !== undefined}
           helperText={
@@ -241,6 +228,7 @@ export function DadosPessoaisForm({
             id="estadoCivil"
             label="Estado Civil"
             {...register('dadosPessoais.estadoCivil')}
+            value={watch('dadosPessoais.estadoCivil') || ''}
             placeholder={FORMULARIO_DADOS_PESSOAIS[4].placeHolder}
             error={errors.dadosPessoais?.estadoCivil !== undefined}
           >
@@ -263,16 +251,15 @@ export function DadosPessoaisForm({
           <RadioGroup
             aria-labelledby="radio-sexo-control"
             sx={{ flexDirection: 'row' }}
-            {...register('dadosPessoais.sexo')}
           >
             <FormControlLabel
               value="feminino"
-              control={<Radio />}
+              control={<Radio {...register('dadosPessoais.sexo')} />}
               label="Feminino"
             />
             <FormControlLabel
               value="masculino"
-              control={<Radio />}
+              control={<Radio {...register('dadosPessoais.sexo')} />}
               label="Masculino"
             />
           </RadioGroup>
@@ -336,6 +323,7 @@ export function DadosPessoaisForm({
           </InputLabel>
           <Select
             {...register('dadosPessoais.tipoCertidao')}
+            value={watch('dadosPessoais.tipoCertidao') || ''}
             error={errors.dadosPessoais?.tipoCertidao !== undefined}
             labelId="numero-certidao"
             id="numeroCertidao"
@@ -358,7 +346,7 @@ export function DadosPessoaisForm({
         <TextField
           fullWidth
           id="certidaoNumero"
-          autoComplete="dataNascimento"
+          autoComplete="certidaoNumero"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
