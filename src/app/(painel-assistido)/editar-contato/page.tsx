@@ -1,20 +1,19 @@
 'use client'
 // Internal
+import { handleFormularioSubmit } from '@/app/(painel-assistido)/editar-contato/actions'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Grid,
-  TextField,
   Paper,
+  TextField,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { handleFormularioSubmit } from '@/app/(painel-assistido)/editar-contato/actions'
 
 // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
 export const formularioSchema = z.object({
@@ -90,7 +89,7 @@ export default function EditarContato() {
                 spacing={1}
                 columns={2}
               >
-                <Grid md={2}>
+                <Grid item md={2}>
                   {/* Controller do Email */}
                   <TextField
                     type="email"
@@ -101,7 +100,7 @@ export default function EditarContato() {
                     helperText={errors.email?.message}
                   />
                 </Grid>
-                <Grid md={1}>
+                <Grid item md={1}>
                   {/* Controller do DDD */}
                   <TextField
                     id="ddd"
@@ -112,7 +111,7 @@ export default function EditarContato() {
                     helperText={errors.ddd?.message}
                   />
                 </Grid>
-                <Grid md={1}>
+                <Grid item md={1}>
                   {/* Controller do Telefone */}
                   <TextField
                     id="telefone"
@@ -123,7 +122,7 @@ export default function EditarContato() {
                     helperText={errors.telefone?.message}
                   />
                 </Grid>
-                <Grid md={2}>
+                <Grid item md={2}>
                   <Button variant="contained" type="submit">
                     Atualizar
                   </Button>
