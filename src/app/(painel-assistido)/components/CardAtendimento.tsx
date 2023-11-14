@@ -22,6 +22,7 @@ interface CardAtendimentoProps {
 }
 export default function CardAtendimento({ props }: CardAtendimentoProps) {
   const matches = useMediaQuery('(min-width:900px)')
+
   if (props.tipoAtendimento === 'pre')
     return (
       <Grid
@@ -211,6 +212,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             sx={{ width: '100%' }}
           >
             <Button
+              href={`atendimentos/${234234234234}`}
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
@@ -549,6 +551,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             sx={{ width: '100%' }}
           >
             <Button
+              href={`atendimentos/${234234234234}`}
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
@@ -841,6 +844,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             sx={{ width: '100%' }}
           >
             <Button
+              href={`atendimentos/${234234234234}`}
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',

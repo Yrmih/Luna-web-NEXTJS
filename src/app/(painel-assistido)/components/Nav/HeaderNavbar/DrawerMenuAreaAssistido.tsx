@@ -20,8 +20,12 @@ import {
 import Link from 'next/link'
 
 const LINKS = [
-  { text: 'Principal', href: '/home', icon: HomeIcon },
-  { text: 'Agendar', href: '/solicitacaoAgendamento', icon: CalendarMonthIcon },
+  { text: 'Principal', href: '/atendimentos', icon: HomeIcon },
+  {
+    text: 'Agendar',
+    href: '/solicitacao-agendamento',
+    icon: CalendarMonthIcon,
+  },
   { text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
   { text: 'Processos', href: '/processos', icon: ChecklistIcon },
 ]
