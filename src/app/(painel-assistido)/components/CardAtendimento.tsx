@@ -36,8 +36,11 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
           direction={'column'}
           justifyContent={'space-between'}
           sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light' ? 'white' : '#171717',
             '&:hover': {
               boxShadow: 20,
+
               width: '70vw',
 
               '@media (min-width:900px)': {
@@ -136,8 +139,11 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Check sx={{ marginRight: '1vw' }} />
               <Typography
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 fontWeight="bold"
-                color="#292929de"
                 variant="subtitle1"
               >
                 Situação:
@@ -151,7 +157,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Em Análise
@@ -181,7 +190,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <GavelIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Assunto:
@@ -195,7 +207,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 AÇÃO DE ALIMENTOS
@@ -214,9 +229,11 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
-                bgcolor: '#023B7E',
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                 '&:hover': {
-                  backgroundColor: '#005bc9',
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                 },
               }}
               variant="contained"
@@ -342,7 +359,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <DomainIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Local de Atendimento:
@@ -356,7 +376,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Núcleo de Vila Velha
@@ -386,7 +409,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <GavelIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Assunto:
@@ -400,7 +426,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 AÇÃO DE ALIMENTOS
@@ -430,7 +459,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <AccountCircleIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Defensor:
@@ -444,7 +476,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Fulano de Tal da Silva
@@ -474,7 +509,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <BalanceIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Defensoria:
@@ -488,7 +526,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Núcleo de Execução Penal (NEPE)
@@ -519,7 +560,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <DateRange sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Data do Atendimento:
@@ -533,7 +577,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 10/12/2023 as 00:00
@@ -552,9 +599,11 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
-                bgcolor: '#023B7E',
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                 '&:hover': {
-                  backgroundColor: '#005bc9',
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                 },
               }}
               variant="contained"
@@ -679,7 +728,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <EventIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Data de Agendamento:
@@ -693,7 +745,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 10/12/2023 as 00:00
@@ -723,7 +778,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <GavelIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Assunto:
@@ -737,7 +795,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 AÇÃO DE ALIMENTOS
@@ -767,7 +828,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <AccountCircleIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Defensor:
@@ -781,7 +845,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Fulano de Tal da Silva
@@ -811,7 +878,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               <BalanceIcon sx={{ marginRight: '1vw' }} />
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Defensoria:
@@ -825,7 +895,10 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             >
               <Typography
                 fontWeight="bold"
-                color="#292929de"
+                sx={{
+                  color: (theme) =>
+                    theme.palette.mode === 'light' ? '#292929de' : 'white',
+                }}
                 variant="subtitle1"
               >
                 Núcleo de Execução Penal (NEPE)
@@ -844,9 +917,11 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
-                bgcolor: '#023B7E',
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                 '&:hover': {
-                  backgroundColor: '#005bc9',
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                 },
               }}
               variant="contained"

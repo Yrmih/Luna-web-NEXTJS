@@ -1,21 +1,9 @@
 'use client'
-import {
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Icon,
-  Paper,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from '@mui/material'
+import { Box, Paper, Stack } from '@mui/material'
 
-import CardAtendimento from '../components/CardAtendimento'
 import ContainerAtendimento from '../components/ContainerAtendimento'
 
 export default function HomePage() {
-  const matches = useMediaQuery('(min-width:900px)')
   return (
     <>
       <Box
@@ -34,11 +22,14 @@ export default function HomePage() {
           }}
         >
           <Box
-            bgcolor="#a7d4aa"
             color="white"
             fontWeight={600}
             fontSize={'1.5rem'}
             sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.primary.main
+                  : '#171717',
               paddingTop: '8vh',
               paddingLeft: '5vh',
               width: '100%',
@@ -49,10 +40,12 @@ export default function HomePage() {
           </Box>
           <Stack
             direction={'column'}
-            bgcolor={'white'}
             sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light' ? 'white' : '#1b1b1b',
               padding: '2vh',
               paddingBottom: '10vh',
+
               alignItems: 'center',
               boxShadow: 2,
               borderRadius: '3vh',

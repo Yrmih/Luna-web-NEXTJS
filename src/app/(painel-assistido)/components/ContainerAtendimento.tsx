@@ -20,15 +20,23 @@ export default function ContainerAtendimento({
             marginTop: '8vh',
             padding: '2vh',
             width: '75vw',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? 'white'
+                : theme.palette.primary.main[300],
           }}
-          bgcolor={'white'}
         >
           <Divider />
           <Typography marginTop="5vh" marginBottom="2vh" variant="h6">
             PRÉ AGENDAMENTOS
           </Typography>
 
-          <Typography color={'grey'}>
+          <Typography
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'light' ? 'grey' : 'white',
+            }}
+          >
             Uma equipe especializada da Defensoria Pública está analisando o seu
             caso. Assim que o seu agendamento for confirmado, você receberá uma
             notificação.
@@ -57,15 +65,23 @@ export default function ContainerAtendimento({
             marginTop: '8vh',
             padding: '2vh',
             width: '75vw',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? 'white'
+                : theme.palette.primary.main[300],
           }}
-          bgcolor={'white'}
         >
           <Divider />
           <Typography marginTop="5vh" marginBottom="2vh" variant="h6">
             ATENDIMENTOS
           </Typography>
 
-          <Typography color={'grey'}>
+          <Typography
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'light' ? 'grey' : 'white',
+            }}
+          >
             Uma equipe especializada da Defensoria Pública está analisando o seu
             caso. Assim que o seu agendamento for confirmado, você receberá uma
             notificação.
@@ -94,15 +110,23 @@ export default function ContainerAtendimento({
             marginTop: '8vh',
             padding: '2vh',
             width: '75vw',
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? 'white'
+                : theme.palette.primary.main[300],
           }}
-          bgcolor={'white'}
         >
           <Divider />
           <Typography marginTop="5vh" marginBottom="2vh" variant="h6">
             AGENDAMENTO
           </Typography>
 
-          <Typography color={'grey'}>
+          <Typography
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'light' ? 'grey' : 'white',
+            }}
+          >
             Uma equipe especializada da Defensoria Pública está analisando o seu
             caso. Assim que o seu agendamento for confirmado, você receberá uma
             notificação.
