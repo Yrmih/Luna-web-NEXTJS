@@ -24,6 +24,7 @@ export type RenderMovelDimanicTextFieldsOptions = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
+  permitirSomenteNumeros: (event: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export function MovelDynamicTextFields({
@@ -32,6 +33,7 @@ export function MovelDynamicTextFields({
   control,
   valorAttribute,
   descricaoAttribute,
+  permitirSomenteNumeros,
 }: RenderMovelDimanicTextFieldsOptions) {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -76,6 +78,9 @@ export function MovelDynamicTextFields({
               }
               label={valorAttribute.label}
               placeholder={valorAttribute.placeHolder}
+              onKeyDown={(event) => {
+                permitirSomenteNumeros(event)
+              }}
             />
           </Grid>
           <Grid item xs={12} md={5}>
