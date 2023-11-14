@@ -15,8 +15,8 @@ import { NextResponse } from 'next/server'
 const middleware = (request: NextRequestWithAuth) => {
   const redirectLoggedToHome = request.nextUrl.pathname === '/login'
 
-  if (redirectLoggedToHome) {
-    return NextResponse.rewrite(new URL('/home', request.url))
+  if (request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/atendimentos', request.url))
   }
 }
 

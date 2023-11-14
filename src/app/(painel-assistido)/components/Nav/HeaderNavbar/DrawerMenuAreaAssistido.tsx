@@ -22,8 +22,12 @@ import React from 'react'
 import { signOut } from 'next-auth/react'
 
 const LINKS = [
-  { text: 'Principal', href: '/home', icon: HomeIcon },
-  { text: 'Agendar', href: '/solicitacaoAgendamento', icon: CalendarMonthIcon },
+  { text: 'Principal', href: '/atendimentos', icon: HomeIcon },
+  {
+    text: 'Agendar',
+    href: '/solicitacao-agendamento',
+    icon: CalendarMonthIcon,
+  },
   { text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
   { text: 'Processos', href: '/processos', icon: ChecklistIcon },
 ]
