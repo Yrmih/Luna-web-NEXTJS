@@ -1,17 +1,6 @@
 'use client'
-import {
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Icon,
-  Paper,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from '@mui/material'
+import { Box, Paper, Stack, useMediaQuery } from '@mui/material'
 
-import CardAtendimento from '../components/CardAtendimento'
 import ContainerAtendimento from '../components/ContainerAtendimento'
 
 export default function HomePage() {
