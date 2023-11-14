@@ -1,4 +1,7 @@
 // Third party
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
   Avatar,
@@ -8,15 +11,19 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { ReactNode } from 'react'
 
-interface DrawerProps {
+interface AppBarResponsiveProps {
+  children: ReactNode
   handleDrawerToggle: () => void
   isOpen: boolean
 }
-export function AppBarResponsive({ handleDrawerToggle, isOpen }: DrawerProps) {
+
+export function AppBarResponsive({
+  handleDrawerToggle,
+  isOpen,
+  children,
+}: AppBarResponsiveProps) {
   return (
     <AppBar>
       <Toolbar>
@@ -26,6 +33,8 @@ export function AppBarResponsive({ handleDrawerToggle, isOpen }: DrawerProps) {
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'center',
+            position: 'sticky', // Garante que o Header permaneça no topo sem impactar a estrutura <header><main><footer>
+            top: 0,
           }}
         >
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -71,6 +80,7 @@ export function AppBarResponsive({ handleDrawerToggle, isOpen }: DrawerProps) {
           </Badge>
         </IconButton>
       </Toolbar>
+      {children}
     </AppBar>
   )
 }

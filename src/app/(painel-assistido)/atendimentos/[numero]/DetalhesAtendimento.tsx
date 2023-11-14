@@ -1,12 +1,12 @@
 // Third party
 import { Box, Grid } from '@mui/material'
 // Internal
-import { CardAvatar } from '../components/CardAvatar'
-import { CardDocumentoEnvio } from '../components/CardDocumentoEnvio'
-import { CardeProcesso } from '../components/CardProcesso'
-import PreAgendamento from '../components/PreAgendamento'
+import { CardAvatar } from '../../components/CardAvatar'
+import { CardDocumentoEnvio } from '../../components/CardDocumentoEnvio'
+import { CardeProcesso } from '../../components/CardProcesso'
+import PreAgendamento from '../../components/PreAgendamento'
 
-export function HistoricoAssistido() {
+export function DetalhesAtendimento() {
   return (
     <Box
       display={'flex'}
