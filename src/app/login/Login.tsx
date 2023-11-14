@@ -208,8 +208,8 @@ export function Login() {
       })
 
       if (response?.error) {
-        handleClose()
-        handleClickOpen2()
+        handleCloseAtendimento()
+        setOpenAtendimentoNaoEncontrado(true)
       } else {
         router.refresh()
         router.push('/home')
@@ -228,6 +228,10 @@ export function Login() {
       width="100%"
       display="flex"
       justifyContent={'center'}
+      sx={{
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'light' ? 'white' : '#171717',
+      }}
     >
       {/* container página */}
       <Box
@@ -235,14 +239,29 @@ export function Login() {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bgcolor="white"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light' ? 'white' : '#171717',
+        }}
       >
         <Stack>
-          <Typography variant="h5" color="#023B7E">
+          <Typography
+            variant="h5"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'light' ? '#023B7E' : 'white',
+            }}
+          >
             Olá, este é o Agendamento Virtual da Defensoria Pública do Estado do
             Espírito Santo.
           </Typography>
-          <Typography variant="subtitle1" color="#023B7E">
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: (theme) =>
+                theme.palette.mode === 'light' ? '#023B7E' : 'white',
+            }}
+          >
             Para iniciar o atendimento digite o número do seu CPF:
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
@@ -268,9 +287,11 @@ export function Login() {
             <Button
               sx={{
                 marginLeft: '2vw',
-                bgcolor: '#023B7E',
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                 '&:hover': {
-                  backgroundColor: '#005bc9',
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                 },
               }}
               variant="contained"
@@ -304,9 +325,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -324,9 +347,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -379,9 +404,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -404,9 +431,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -445,9 +474,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -466,9 +497,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -573,9 +606,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -594,9 +629,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -629,9 +666,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
@@ -652,9 +691,11 @@ export function Login() {
                     '@media (min-width:600px)': {
                       fontSize: '1rem',
                     },
-                    bgcolor: '#023B7E',
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
                     '&:hover': {
-                      backgroundColor: '#005bc9',
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? '#005bc9' : '#757575',
                     },
                   }}
                   variant="contained"
