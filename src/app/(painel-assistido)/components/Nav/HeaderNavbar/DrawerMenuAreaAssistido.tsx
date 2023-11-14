@@ -20,20 +20,21 @@ import {
 import Link from 'next/link'
 
 const LINKS = [
-  { text: 'Principal', href: '/atendimentos', icon: HomeIcon },
+  { key: 1, text: 'Principal', href: '/atendimentos', icon: HomeIcon },
   {
+    key: 2,
     text: 'Agendar',
     href: '/solicitacao-agendamento',
     icon: CalendarMonthIcon,
   },
-  { text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
-  { text: 'Processos', href: '/processos', icon: ChecklistIcon },
+  { key: 3, text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
+  { key: 4, text: 'Processos', href: '/processos', icon: ChecklistIcon },
 ]
 
-const PLACEHOLDER_LINKS = [
-  { text: 'Configurações', icon: SettingsIcon },
-  { text: 'Informações', icon: SupportIcon },
-  { text: 'Sair', icon: LogoutIcon },
+const AVANCADO_LINKS = [
+  { key: 1, text: 'Configurações', icon: SettingsIcon },
+  { key: 2, text: 'Informações', icon: SupportIcon },
+  { key: 3, text: 'Sair', icon: LogoutIcon },
 ]
 
 export function DrawerMenuAreaAssistido() {
@@ -47,8 +48,8 @@ export function DrawerMenuAreaAssistido() {
       }}
     >
       <List>
-        {LINKS.map(({ text, href, icon: Icon }) => (
-          <ListItem key={href} disablePadding>
+        {LINKS.map(({ key, text, href, icon: Icon }) => (
+          <ListItem key={key} disablePadding>
             <ListItemButton component={Link} href={href}>
               <ListItemIcon>
                 <Icon />
@@ -60,8 +61,8 @@ export function DrawerMenuAreaAssistido() {
       </List>
       <Divider sx={{ mt: 'auto' }} />
       <List>
-        {PLACEHOLDER_LINKS.map(({ text, icon: Icon }) => (
-          <ListItem key={text} disablePadding>
+        {AVANCADO_LINKS.map(({ key, text, icon: Icon }) => (
+          <ListItem key={key} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <Icon />
