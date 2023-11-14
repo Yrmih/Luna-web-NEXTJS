@@ -81,6 +81,11 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
   } = useForm<CadastroAssistidoInputsForm>({
     mode: 'onChange',
     resolver: zodResolver(cadastroAssistidoSchema),
+    defaultValues: {
+      qualificacaoFinanceira: {
+        aceitoTermosCondicoes: false,
+      },
+    },
   })
 
   const isTermosAceito = watch('qualificacaoFinanceira.aceitoTermosCondicoes')
