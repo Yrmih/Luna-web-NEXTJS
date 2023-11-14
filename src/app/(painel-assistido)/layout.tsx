@@ -1,9 +1,9 @@
 // Internal
-import { ReactNode } from 'react'
-import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
-import Footer from '../../components/Footer'
 import ContentLayout from '@/components/ContentLayout'
-import { Box, CssBaseline } from '@mui/material'
+import { CssBaseline } from '@mui/material'
+import { ReactNode } from 'react'
+import Footer from '../../components/Footer'
+import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
 
 export const metadata = {
   title: 'Painel do Assistido',

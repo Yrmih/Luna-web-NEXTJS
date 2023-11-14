@@ -12,7 +12,6 @@ import getTheme from './theme'
 
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-
   const theme = useMemo(() => getTheme(prefersDarkMode), [prefersDarkMode])
 
   return (
