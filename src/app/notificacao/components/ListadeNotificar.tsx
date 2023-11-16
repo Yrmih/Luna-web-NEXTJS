@@ -7,7 +7,14 @@ import IconButton from '@mui/material/IconButton'
 
 export function ListNotificar() {
   return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+    <List
+      sx={{
+        width: '100%',
+        bgcolor: 'background.paper',
+        marginX: 4,
+        paddingX: 4,
+      }}
+    >
       {[1, 2, 3].map((value) => (
         <ListItem
           key={value}
