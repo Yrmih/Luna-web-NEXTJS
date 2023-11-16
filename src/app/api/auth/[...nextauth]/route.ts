@@ -28,15 +28,17 @@ const authOptions: NextAuthOptions = {
           })
 
         const data = await fetchData
-        if (data.count > 0) {
-          const user = {
-            id: data.results[0].pessoa_id,
-            name: data.results[0].pessoa_nome,
+        // Seguindo o banco de dados, situacao 3 é o retorno da API para quando o usuário é autenticado
+        if (data.results) {
+          for (const resultado of data.results) {
+            if (resultado.situacao === 3) {
+              const user = {
+                id: resultado.pessoa_id,
+                name: resultado.pessoa_nome,
+              }
+              return user
+            }
           }
-
-          console.log(user)
-
-          return user
         } else {
           return null
         }

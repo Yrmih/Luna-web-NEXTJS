@@ -10,133 +10,171 @@ import {
   CardHeader,
   Grid,
   Paper,
+  Stack,
   TextField,
+  Typography,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-// Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
+import InputMask from 'react-input-mask'
+import React from 'react'
+// eslint-disable-next-line react-hooks/rules-of-hooks
+
 export const formularioSchema = z.object({
   // email está como opcional
-  email: z
-    .string()
-    .email('Você deve inserir um email válido')
-    .optional()
-    .or(z.literal('')),
-  ddd: z.string().min(3, 'O DDD deve conter 3 digitos'),
-  telefone: z.string().min(7, 'Você deve inserir um telefone válido'),
+  email: z.string().email('Você deve inserir um email válido'),
+  telefone: z.string().min(11, 'Você deve inserir um telefone válido'),
 })
 
 // Tipagem do formulario
 export type FormularioFields = z.infer<typeof formularioSchema>
 
 export default function EditarContato() {
-  // Ativação do envio do formulário
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isLoading },
-  } = useForm<FormularioFields>({
-    mode: 'all',
-    reValidateMode: 'onChange',
-    resolver: zodResolver(formularioSchema),
-    defaultValues: {
-      email: '',
-      ddd: '',
-    },
-  })
+  const [valorTel, setValorTel] = React.useState('')
+  const [valorEmail, setValorEmail] = React.useState('')
 
-  const onSubmit = (data: FormularioFields) => {
-    handleFormularioSubmit(data)
+  // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
+
+  // controlador mudança telefone
+  const handleTelChange = (e: { currentTarget: { value: any } }) => {
+    const tel = e.currentTarget.value
+
+    setValorTel(tel)
   }
+
+  // controlador mudança email
+  const handleEmailChange = (e: { currentTarget: { value: any } }) => {
+    const email = e.currentTarget.value
+
+    setValorEmail(email)
+  }
+  const emailRegex =
+    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        marginTop: '4vh',
+        p: 0,
+        m: 0,
       }}
     >
       <Paper
         sx={{
-          width: { xs: 'auto', md: '50%' },
-          height: { xs: 'auto', md: '50%' },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          p: 0,
+          m: 0,
+          height: '85vh',
         }}
-        elevation={3}
       >
-        <Card
+        <Box
+          color="white"
+          fontWeight={600}
+          fontSize={'1.5rem'}
           sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.primary.main
+                : '#171717',
+            paddingTop: '8vh',
+            paddingLeft: '5vh',
             width: '100%',
-            height: '100%',
-            textAlign: 'center',
+            height: '25vh',
           }}
         >
-          <CardHeader
-            title="Atualize seus dados de contato!"
-            subheader="Manter seus dados atualizados agiliza seu atendimento"
+          Meus Atendimentos
+        </Box>
+        <Stack
+          direction={'column'}
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light' ? 'white' : '#1b1b1b',
+            padding: '2vh',
+            paddingTop: '8vh',
+            paddingBottom: '8vh',
+            paddingLeft: '8vh',
+            height: '45vh',
+            boxShadow: 2,
+            borderRadius: '3vh',
+            marginTop: '-8vh',
+            alignItems: 'left',
+            width: '70vw',
+            '@media (min-width:900px)': {
+              width: '45vw',
+            },
+          }}
+        >
+          <Typography variant="h6">Atualize seus dados de contato!</Typography>
+
+          <TextField
+            sx={{
+              width: '50vw',
+              '@media (min-width:900px)': {
+                width: '35vw',
+              },
+            }}
+            value={valorEmail}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleEmailChange(e)
+              console.log(valorEmail)
+              console.log(emailRegex.test(valorEmail.toString()))
+            }}
+            id="input-email"
+            label="E-MAIL"
+            variant="standard"
+            error={!emailRegex.test(valorEmail.toString()) && valorEmail !== ''}
           />
-          <CardContent
-            sx={{ height: '70%', justifyContent: 'center', display: 'flex' }}
+
+          <InputMask
+            mask="(99) 99999-9999"
+            value={valorTel}
+            placeholder="(99) 99999-9999"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              handleTelChange(e)
+              console.log(valorTel)
+            }}
           >
-            {/* Formulário para envio da atualização dos dados do assistido */}
-            <form
-              style={{ height: '100%', width: '70%' }}
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              {/* Container do Grid para disposição dos itens */}
-              <Grid
-                container
-                sx={{ height: '100%' }}
-                rowSpacing={1}
-                spacing={1}
-                columns={2}
-              >
-                <Grid item md={2} xs={2}>
-                  {/* Controller do Email */}
-                  <TextField
-                    type="email"
-                    label="Email"
-                    variant="outlined"
-                    {...register('email')}
-                    error={!!errors.email?.message}
-                    helperText={errors.email?.message}
-                  />
-                </Grid>
-                <Grid item md={1} xs={2}>
-                  {/* Controller do DDD */}
-                  <TextField
-                    id="ddd"
-                    label="DDD"
-                    variant="outlined"
-                    {...register('ddd')}
-                    error={!!errors.ddd?.message}
-                    helperText={errors.ddd?.message}
-                  />
-                </Grid>
-                <Grid item md={1} xs={2}>
-                  {/* Controller do Telefone */}
-                  <TextField
-                    id="telefone"
-                    label="Telefone"
-                    variant="outlined"
-                    {...register('telefone')}
-                    error={!!errors.telefone?.message}
-                    helperText={errors.telefone?.message}
-                  />
-                </Grid>
-                <Grid item md={2} xs={2}>
-                  <Button variant="contained" type="submit">
-                    Atualizar
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </CardContent>
-        </Card>
+            {() => (
+              <TextField
+                sx={{
+                  width: '50vw',
+                  '@media (min-width:900px)': {
+                    width: '35vw',
+                  },
+                }}
+                id="input-telefone"
+                label="N° DE TELEFONE"
+                variant="standard"
+                error={valorTel.includes('_') && valorTel !== '(__) _____-____'}
+              />
+            )}
+          </InputMask>
+          <Button
+            sx={{
+              width: '17vw',
+
+              '@media (min-width:900px)': {
+                width: '12vw',
+              },
+              '@media (min-width:1100px)': {
+                width: '9vw',
+              },
+              marginTop: '3vh',
+              mb: '2vh',
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
+              '&:hover': {
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light' ? '#005bc9' : '#757575',
+              },
+            }}
+            variant="contained"
+          >
+            Atualizar
+          </Button>
+        </Stack>
       </Paper>
     </Box>
   )

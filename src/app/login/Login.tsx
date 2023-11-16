@@ -212,7 +212,7 @@ export function Login() {
         setOpenAtendimentoNaoEncontrado(true)
       } else {
         router.refresh()
-        router.push('/home')
+        router.push('/atendimentos')
       }
     } catch (error) {
       console.log('[LOGIN_ERROR]: ', error)
