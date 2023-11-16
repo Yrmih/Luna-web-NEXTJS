@@ -24,6 +24,7 @@ export type RenderMovelDimanicTextFieldsOptions = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
+  permitirSomenteNumeros: (event: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export function MovelDynamicTextFields({
@@ -32,6 +33,7 @@ export function MovelDynamicTextFields({
   control,
   valorAttribute,
   descricaoAttribute,
+  permitirSomenteNumeros,
 }: RenderMovelDimanicTextFieldsOptions) {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -49,7 +51,7 @@ export function MovelDynamicTextFields({
           spacing={3}
           xs={12}
         >
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} md={3}>
             <TextField
               fullWidth
               type="number"
@@ -76,9 +78,12 @@ export function MovelDynamicTextFields({
               }
               label={valorAttribute.label}
               placeholder={valorAttribute.placeHolder}
+              onKeyDown={(event) => {
+                permitirSomenteNumeros(event)
+              }}
             />
           </Grid>
-          <Grid item xs={6} md={5}>
+          <Grid item xs={12} md={5}>
             <TextField
               fullWidth
               autoComplete="descricao-movel"
@@ -108,7 +113,7 @@ export function MovelDynamicTextFields({
           <Grid
             item
             display={'flex'}
-            xs={6}
+            xs={12}
             alignItems={'center'}
             md={2}
             mb={5}
@@ -119,8 +124,8 @@ export function MovelDynamicTextFields({
           </Grid>
         </Grid>
       ))}
-      <Grid item xs={12}>
-        <Tooltip title="Adicionar campo">
+      <Grid item xs={6} md={3}>
+        <Tooltip title="Adicionar Movel">
           <Button
             size="large"
             variant="outlined"
