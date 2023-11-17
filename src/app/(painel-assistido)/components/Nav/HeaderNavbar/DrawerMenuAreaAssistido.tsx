@@ -23,9 +23,13 @@ import { signOut } from 'next-auth/react'
 
 const LINKS = [
   { text: 'Principal', href: '/home', icon: HomeIcon },
-  { text: 'Agendar', href: '/solicitacaoAgendamento', icon: CalendarMonthIcon },
-  { text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
-  { text: 'Processos', href: '/processos', icon: ChecklistIcon },
+  {
+    text: 'Nova Solicitação',
+    href: '/nova-solicitacao',
+    icon: CalendarMonthIcon,
+  },
+  { text: 'Minhas Solicitações', href: '/atendimentos', icon: StarIcon },
+  { text: 'Editar Contato', href: '/editar-contato', icon: ChecklistIcon },
 ]
 
 const PLACEHOLDER_LINKS = [
