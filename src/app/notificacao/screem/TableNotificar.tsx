@@ -77,6 +77,7 @@ export const TableNotificar: React.FC<TableNotificaProps> = ({
               <TableCell align="right">
                 <IconButton
                   aria-label="Notificações"
+                  href={`notificacao/${row.id}`}
                   onClick={() => toggleIcon(row.id.toString())}
                 >
                   {iconState[row.id] ? <DraftsIcon /> : <EmailIcon />}

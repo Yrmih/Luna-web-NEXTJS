@@ -2,7 +2,7 @@ import { Box, CardHeader, Divider, Paper, Typography } from '@mui/material'
 import CardNotificacao from '../screem/CardNotificacao'
 import { CustomSubheader } from '../screem/TableNotificar'
 
-export default function DetalhesAtendimentoPage({
+export default function DetalhesNotificacaoPage({
   params: { id },
 }: {
   params: { id: string }
@@ -23,7 +23,6 @@ export default function DetalhesAtendimentoPage({
           }
           sx={{ width: '100%', height: '4.125rem' }}
         />
-        
       </CardNotificacao>
     </Box>
   )
