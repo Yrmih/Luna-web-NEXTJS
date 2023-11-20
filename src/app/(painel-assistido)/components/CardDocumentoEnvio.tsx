@@ -18,10 +18,8 @@ import {
   Typography,
 } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-
 // framework
 import { useState } from 'react'
-
 // Internal
 
 interface SelectedFile {

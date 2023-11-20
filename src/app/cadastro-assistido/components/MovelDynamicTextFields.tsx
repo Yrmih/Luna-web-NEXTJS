@@ -11,11 +11,9 @@ import {
   UseFormSetValue,
   useFieldArray,
 } from 'react-hook-form'
-
 // framework
-
 // Internal
-import styles from '../../../assets/styles/TabelaItens.module.css'
+import styles from '@/styles/TabelaItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
 import { ChangeEvent } from 'react'

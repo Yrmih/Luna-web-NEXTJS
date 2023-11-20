@@ -33,6 +33,7 @@
     "react-dom": "^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "^2.1.0"
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@types/testing-library__react": "^10.2.0"
   }
 }
