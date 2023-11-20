@@ -1,10 +1,9 @@
-import React, { ReactNode } from 'react'
-import Card from '@mui/material/Card'
+import { Box, Divider } from '@mui/material'
+import Button from '@mui/material/Button'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { Box, Divider, Paper } from '@mui/material'
+import { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode

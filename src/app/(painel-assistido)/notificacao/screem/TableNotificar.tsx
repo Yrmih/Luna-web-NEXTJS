@@ -1,16 +1,16 @@
 'use client'
-import React, { useState } from 'react'
+import DraftsIcon from '@mui/icons-material/Drafts'
+import EmailIcon from '@mui/icons-material/Email'
+import { CardHeader, IconButton, Typography } from '@mui/material'
+import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import { CardHeader, IconButton, Typography } from '@mui/material'
+import React from 'react'
 import { TableNotificaProps } from '../module/TableNotificarModule'
-import EmailIcon from '@mui/icons-material/Email'
-import DraftsIcon from '@mui/icons-material/Drafts'
 
 interface SubheaderProps {
   subheader1: string
