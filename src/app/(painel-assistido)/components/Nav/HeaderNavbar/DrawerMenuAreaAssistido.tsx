@@ -28,7 +28,7 @@ const LINKS = [
     icon: CalendarMonthIcon,
   },
   { key: 3, text: 'Atendimentos', href: '/atendimentos', icon: StarIcon },
-  { key: 4, text: 'Processos', href: '/processos', icon: ChecklistIcon },
+  // { key: 4, text: 'Processos', href: '/processos', icon: ChecklistIcon },
 ]
 
 const AVANCADO_LINKS = [

@@ -15,16 +15,16 @@ const roboto = Roboto({
 function getTheme(prefersDarkMode: boolean) {
   const customPallete = {
     primary: {
-      main: process.env.THEME_COLOR_PRIMARY_MAIN ?? '#2E7D32',
+      main: process.env.NEXT_PUBLIC_THEME_COLOR_PRIMARY_MAIN,
       light: '#42B148',
       dark: 'rgb(15 75 18)',
     },
     secondary: {
-      main: process.env.THEME_COLOR_SECONDARY_MAIN ?? '#00C853',
+      main: process.env.NEXT_PUBLIC_THEME_COLOR_SECONDARY_MAIN,
     },
     background: {
-      default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#f4f7f9',
-      paper: process.env.THEME_COLOR_BACKGROUND_PAPER || '#ffffff',
+      default: process.env.NEXT_PUBLIC_THEME_COLOR_BACKGROUND_DEFAULT,
+      paper: process.env.NEXT_PUBLIC_THEME_COLOR_BACKGROUND_PAPER,
     },
   }
 
@@ -42,8 +42,8 @@ function getTheme(prefersDarkMode: boolean) {
           light: '#5FFF67',
         },
         background: {
-          default: process.env.THEME_COLOR_BACKGROUND_DEFAULT ?? '#070707',
-          paper: process.env.THEME_COLOR_BACKGROUND_PAPER ?? '#0F0F0F',
+          default: process.env.NEXT_PUBLIC_THEME_COLOR_BACKGROUND_DEFAULT,
+          paper: process.env.NEXT_PUBLIC_THEME_COLOR_BACKGROUND_PAPER,
         },
       }
     : customPallete
