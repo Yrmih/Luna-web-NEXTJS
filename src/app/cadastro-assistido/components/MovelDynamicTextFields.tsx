@@ -8,6 +8,7 @@ import {
   Control,
   FieldErrors,
   UseFormRegister,
+  UseFormSetValue,
   useFieldArray,
 } from 'react-hook-form'
 
@@ -17,6 +18,8 @@ import {
 import styles from '../../../assets/styles/TabelaItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
+import { ChangeEvent } from 'react'
+import { MaskUtils } from '@/utils/MaskUtils'
 
 export type RenderMovelDimanicTextFieldsOptions = {
   valorAttribute: TextFieldAttributes
@@ -24,7 +27,8 @@ export type RenderMovelDimanicTextFieldsOptions = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
-  permitirSomenteNumeros: (event: React.KeyboardEvent<HTMLDivElement>) => void
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  allowOnlyNumbers: (event: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export function MovelDynamicTextFields({
@@ -33,16 +37,21 @@ export function MovelDynamicTextFields({
   control,
   valorAttribute,
   descricaoAttribute,
-  permitirSomenteNumeros,
+  allowOnlyNumbers,
+  setValue,
 }: RenderMovelDimanicTextFieldsOptions) {
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: itemsmovel,
+    append,
+    remove,
+  } = useFieldArray({
     control,
     name: 'qualificacaoFinanceira.moveis',
   })
 
   return (
     <>
-      {fields.map((item, index) => (
+      {itemsmovel.map((item, index) => (
         <Grid
           className={`${styles.tableEnter} ${styles.tableExit}`}
           key={item.id}
@@ -54,10 +63,16 @@ export function MovelDynamicTextFields({
           <Grid item xs={12} md={3}>
             <TextField
               fullWidth
-              type="number"
+              type="text"
               autoComplete="valor-movel"
               {...register(`qualificacaoFinanceira.moveis.${index}.valor`, {
-                valueAsNumber: true,
+                onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                  const movelValue = event.target.value
+                  setValue(
+                    `qualificacaoFinanceira.moveis.${index}.valor`,
+                    MaskUtils.maskMoney(movelValue),
+                  )
+                },
               })}
               InputProps={{
                 startAdornment: (
@@ -65,6 +80,7 @@ export function MovelDynamicTextFields({
                     {valorAttribute.icon}
                   </InputAdornment>
                 ),
+                inputProps: { min: 0, maxLength: 11 },
               }}
               helperText={
                 errors.qualificacaoFinanceira?.moveis?.[index]?.valor !==
@@ -79,7 +95,7 @@ export function MovelDynamicTextFields({
               label={valorAttribute.label}
               placeholder={valorAttribute.placeHolder}
               onKeyDown={(event) => {
-                permitirSomenteNumeros(event)
+                allowOnlyNumbers(event)
               }}
             />
           </Grid>
@@ -94,6 +110,7 @@ export function MovelDynamicTextFields({
                     {descricaoAttribute.icon}
                   </InputAdornment>
                 ),
+                inputProps: { min: 0, maxLength: 20 },
               }}
               helperText={
                 errors.qualificacaoFinanceira?.moveis?.[index]?.descricao !==
@@ -129,7 +146,7 @@ export function MovelDynamicTextFields({
           <Button
             size="large"
             variant="outlined"
-            onClick={() => append({ valor: 0, descricao: '' })}
+            onClick={() => append({ valor: '', descricao: '' })}
           >
             <AddCircleIcon />
           </Button>
