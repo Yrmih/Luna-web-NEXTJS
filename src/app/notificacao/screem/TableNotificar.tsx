@@ -11,6 +11,7 @@ import { CardHeader, IconButton, Typography } from '@mui/material'
 import { TableNotificaProps } from '../module/TableNotificarModule'
 import EmailIcon from '@mui/icons-material/Email'
 import DraftsIcon from '@mui/icons-material/Drafts'
+import CardNotificacao from './CardNotificacao'
 
 interface SubheaderProps {
   subheader1: string
@@ -33,6 +34,8 @@ export function CustomSubheader({ subheader1, subheader2 }: SubheaderProps) {
 export const TableNotificar: React.FC<TableNotificaProps> = ({
   createData,
 }) => {
+  const [open, setOpen] = React.useState(false)
+  const [childModalOpen, setChildModalOpen] = React.useState(false)
   const [iconState, setIconState] = React.useState<Record<string, boolean>>({})
 
   const toggleIcon = (id: string) => {
@@ -42,51 +45,69 @@ export const TableNotificar: React.FC<TableNotificaProps> = ({
     }))
   }
 
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const handleChildModalOpen = () => {
+    setChildModalOpen(true)
+  }
+
+  const handleChildModalClose = () => {
+    setChildModalOpen(false)
+  }
+
   return (
-    <TableContainer
-      component={Paper}
-      sx={{
-        width: '100%',
-        bgcolor: 'background.paper',
-        mt: 4,
-        marginX: 4,
-        paddingX: 4,
-      }}
-    >
-      <CardHeader title="Notificações"></CardHeader>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Titulo</TableCell>
-            <TableCell align="center">emviado em</TableCell>
-            <TableCell align="center">Conteúdo</TableCell>
-            <TableCell align="center"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {createData.map((row) => (
-            <TableRow
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.title}
-              </TableCell>
-              <TableCell align="center">{row.emviadoem}</TableCell>
-              <TableCell align="center">{row.conteudo}</TableCell>
-              <TableCell align="right">
-                <IconButton
-                  aria-label="Notificações"
-                  href={`notificacao/${row.id}`}
-                  onClick={() => toggleIcon(row.id.toString())}
-                >
-                  {iconState[row.id] ? <DraftsIcon /> : <EmailIcon />}
-                </IconButton>
-              </TableCell>
+    <>
+      <TableContainer
+        component={Paper}
+        sx={{
+          width: '100%',
+          bgcolor: 'background.paper',
+          mt: 4,
+          marginX: 4,
+          paddingX: 4,
+        }}
+      >
+        <CardHeader title="Notificações"></CardHeader>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Titulo</TableCell>
+              <TableCell align="center">emviado em</TableCell>
+              <TableCell align="center">Conteúdo</TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {createData.map((row) => (
+              <TableRow
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.title}
+                </TableCell>
+                <TableCell align="center">{row.emviadoem}</TableCell>
+                <TableCell align="center">{row.conteudo}</TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="Notificações"
+                    href={`notificacao/${row.id}`}
+                    onClick={() => toggleIcon(row.id.toString())}
+                  >
+                    {iconState[row.id] ? <DraftsIcon /> : <EmailIcon />}
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   )
 }

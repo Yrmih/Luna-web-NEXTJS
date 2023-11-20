@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { TableNotificar } from '../screem/TableNotificar'
 import mockDataNotificar from '../Mock/TableNotificarMock'
+import React from 'react'
 
 // Mock data
 // const rows: TableNotificarModulo[] = []
