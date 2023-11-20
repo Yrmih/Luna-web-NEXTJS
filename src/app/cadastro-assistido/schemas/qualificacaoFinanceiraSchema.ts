@@ -11,7 +11,7 @@ export const qualificacaoFinanceiraSchema = z.object({
   rendaFamiliar: z.string(),
   moveis: z.array(
     z.object({
-      valor: z.number(),
+      valor: z.string(),
       descricao: z.string().refine(
         (value) => {
           if (
@@ -28,14 +28,14 @@ export const qualificacaoFinanceiraSchema = z.object({
   imoveis: z
     .array(
       z.object({
-        valor: z.number(),
+        valor: z.string(),
         descricao: z.string(),
       }),
     )
     .optional(),
   investimentos: z.array(
     z.object({
-      valor: z.number(),
+      valor: z.string(),
       descricao: z.string(),
     }),
   ),

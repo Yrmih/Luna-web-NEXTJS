@@ -7,6 +7,7 @@ import {
   Control,
   FieldErrors,
   UseFormRegister,
+  UseFormSetValue,
   useFieldArray,
 } from 'react-hook-form'
 // framework
@@ -14,6 +15,8 @@ import {
 import styles from '@/styles/TabelaItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
+import { ChangeEvent } from 'react'
+import { MaskUtils } from '@/utils/MaskUtils'
 
 export type RenderDimanicTextFieldsMovelOptions = {
   valorAttribute: TextFieldAttributes
@@ -21,6 +24,8 @@ export type RenderDimanicTextFieldsMovelOptions = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  allowOnlyNumbers: (event: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export function InvestimentoDynamicTextFields({
@@ -29,6 +34,8 @@ export function InvestimentoDynamicTextFields({
   control,
   valorAttribute,
   descricaoAttribute,
+  allowOnlyNumbers,
+  setValue,
 }: RenderDimanicTextFieldsMovelOptions) {
   const {
     append,
@@ -53,12 +60,18 @@ export function InvestimentoDynamicTextFields({
           <Grid item xs={6} md={3}>
             <TextField
               fullWidth
-              type="number"
+              type="text"
               autoComplete="valor-investimentos"
               {...register(
                 `qualificacaoFinanceira.investimentos.${index}.valor`,
                 {
-                  valueAsNumber: true,
+                  onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                    const investmentValue = event.target.value
+                    setValue(
+                      `qualificacaoFinanceira.investimentos.${index}.valor`,
+                      MaskUtils.maskMoney(investmentValue),
+                    )
+                  },
                 },
               )}
               InputProps={{
@@ -67,8 +80,8 @@ export function InvestimentoDynamicTextFields({
                     {valorAttribute.icon}
                   </InputAdornment>
                 ),
+                inputProps: { min: 0, maxLength: 11 },
               }}
-              name={valorAttribute.name}
               helperText={
                 errors.qualificacaoFinanceira?.investimentos?.[index]?.valor !==
                 undefined
@@ -82,6 +95,9 @@ export function InvestimentoDynamicTextFields({
               }
               label={valorAttribute.label}
               placeholder={valorAttribute.placeHolder}
+              onKeyDown={(event) => {
+                allowOnlyNumbers(event)
+              }}
             />
           </Grid>
           <Grid item xs={6} md={5}>
@@ -97,6 +113,7 @@ export function InvestimentoDynamicTextFields({
                     {descricaoAttribute.icon}
                   </InputAdornment>
                 ),
+                inputProps: { min: 0, maxLength: 20 },
               }}
               name={descricaoAttribute.name}
               helperText={
@@ -133,7 +150,7 @@ export function InvestimentoDynamicTextFields({
           <Button
             size="large"
             variant="outlined"
-            onClick={() => append({ valor: 0, descricao: '' })}
+            onClick={() => append({ valor: '', descricao: '' })}
           >
             <AddCircleIcon />
           </Button>

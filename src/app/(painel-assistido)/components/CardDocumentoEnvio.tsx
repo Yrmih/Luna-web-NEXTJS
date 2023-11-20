@@ -34,11 +34,21 @@ interface FormValues {
 }
 
 const dados: SelectedFile[] = [
-  { id: 1, textonome: 'Nome 1', arquivo: '', isUploaded: false },
-  { id: 2, textonome: 'Nome 2', arquivo: '', isUploaded: false },
-  { id: 3, textonome: 'Nome 3', arquivo: '', isUploaded: false },
-  { id: 4, textonome: 'Nome 3', arquivo: '', isUploaded: false },
-  { id: 5, textonome: 'Nome 3', arquivo: '', isUploaded: false },
+  {
+    id: 1,
+    textonome: 'DECLARAÇÃO DE RESIDÊNCIA',
+    arquivo: '',
+    isUploaded: false,
+  },
+  {
+    id: 2,
+    textonome: 'DECLARAÇÃO DE HIPOSSUFICIÊNCIA',
+    arquivo: '',
+    isUploaded: false,
+  },
+  { id: 3, textonome: 'Documento com Foto', arquivo: '', isUploaded: false },
+  { id: 4, textonome: 'Certidão da Criança', arquivo: '', isUploaded: false },
+  { id: 5, textonome: 'Outros Documentos', arquivo: '', isUploaded: false },
 ]
 
 export function CardDocumentoEnvio() {
