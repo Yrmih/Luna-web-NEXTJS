@@ -377,6 +377,7 @@ export default function NovaSolicitacao() {
               },
             }}
             variant="contained"
+            href="/confirmacao-solicitacao"
           >
             Agendar
           </Button>
