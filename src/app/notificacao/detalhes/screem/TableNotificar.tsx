@@ -19,6 +19,7 @@ interface SubheaderProps {
   subheader2: string
 }
 
+
 export function CustomSubheader({ subheader1, subheader2 }: SubheaderProps) {
   return (
     <div>
@@ -35,32 +36,17 @@ export function CustomSubheader({ subheader1, subheader2 }: SubheaderProps) {
 export const TableNotificar: React.FC<TableNotificaProps> = ({
   createData,
 }) => {
-  const [open, setOpen] = React.useState(false)
-  const [childModalOpen, setChildModalOpen] = React.useState(false)
   const [iconState, setIconState] = React.useState<Record<string, boolean>>({})
+  const [clickedIconId, setClickedIconId] = useState<string | null>(null);
 
   const toggleIcon = (id: string) => {
     setIconState((prev) => ({
       ...prev,
       [id]: !prev[id],
     }))
+    setClickedIconId(id);
   }
 
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
-  const handleChildModalOpen = () => {
-    setChildModalOpen(true)
-  }
-
-  const handleChildModalClose = () => {
-    setChildModalOpen(false)
-  }
 
   return (
     <>
@@ -98,11 +84,15 @@ export const TableNotificar: React.FC<TableNotificaProps> = ({
                 <TableCell align="right">
                   <IconButton
                     aria-label="Notificações"
-                    href={`notificacao/individual/${row.id}`}
-                    onClick={() => toggleIcon(row.id.toString())}
+                    href={row.id !== undefined ? `/notificacao/detalhes/${row.id}` : '#'}
+                    onClick={() => {
+                      if (row.id !== undefined) {
+                        toggleIcon(row.id.toString());
+                      }
+                    }}
                     LinkComponent={Link}
                   >
-                    {iconState[row.id] ? <DraftsIcon /> : <EmailIcon />}
+                     {row.id !== undefined && (clickedIconId === row.id.toString() ? !iconState[row.id.toString()] : iconState[row.id.toString()]) ? <DraftsIcon /> : <EmailIcon />}
                   </IconButton>
                 </TableCell>
               </TableRow>

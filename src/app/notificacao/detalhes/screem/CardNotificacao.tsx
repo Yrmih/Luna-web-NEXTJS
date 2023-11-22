@@ -6,14 +6,27 @@ import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { Box, Divider, Paper, useTheme } from '@mui/material'
+import Link from 'next/link'
+import { TableNotificarModulo } from '../module/TableNotificarModule'
+import { ReceiptLong } from '@mui/icons-material'
 
-interface Props {
+
+interface ChildrenProps {
   children?: ReactNode
-  // isOpen: boolean
-  // onClose: () => void
 }
 
-export function CardNotificacao({ children }: Props) {
+type CardNotificacaoProps = ChildrenProps & TableNotificarModulo;
+
+export function CardNotificacao( props: CardNotificacaoProps) {
+  const [open, setOpen] = React.useState(true)
+  const handleOpen = () => {
+    setOpen((prev => !prev))
+    handlereloading()
+  }
+  
+  const handlereloading = () => {
+       window.location.reload()
+  }
   const theme = useTheme()
   return (
     <Box
@@ -24,7 +37,7 @@ export function CardNotificacao({ children }: Props) {
         padding: 0,
       }}
     >
-      {children}
+      {props.children}
       <Box sx={{ width: '100%', boxShadow: 6, margin: 0, padding: 0 }}>
         <Divider
           sx={{
@@ -43,6 +56,9 @@ export function CardNotificacao({ children }: Props) {
           border: `1px solid ${theme.palette.grey.A100}`, // Adicione a cor da borda desejada
           borderRadius: 4, // Adicione um raio de borda se desejar
           padding: 2, // Adicione preenchimento para afastar o conteúdo da borda
+          height:'30vh',
+          overflow:'auto',
+
         }}
       >
         <Typography
@@ -102,9 +118,15 @@ export function CardNotificacao({ children }: Props) {
         }}
         variant="fullWidth"
       />
-      <CardActions>
-        <Button size="medium">Todas as notificações</Button>
+     
+      <CardActions sx={{display:'flex', justifyContent:'space-between'}}>
+        <Button LinkComponent={Link} onClick={() => {window.location.href=`/notificacao`}}
+         size="medium">Todas as notificações</Button>
+        <Button LinkComponent={Link} onClick={handlereloading}
+         size="medium">Abrir Detalhes Da Notificação</Button>
       </CardActions>
+     
     </Box>
   )
 }
+

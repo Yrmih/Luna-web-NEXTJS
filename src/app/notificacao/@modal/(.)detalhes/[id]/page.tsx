@@ -1,15 +1,17 @@
 'use client'
-import { CardNotificacao } from '@/app/notificacao/individual/screem/CardNotificacao'
-import { CustomSubheader } from '@/app/notificacao/individual/screem/TableNotificar'
+
+import { CardNotificacao } from '@/app/notificacao/detalhes/screem/CardNotificacao'
+import { CustomSubheader } from '@/app/notificacao/detalhes/screem/TableNotificar'
 import {
   Box,
   CardHeader,
-  Divider,
+  Container,
+  IconButton,
   Modal,
-  Paper,
-  Typography,
+  Paper
 } from '@mui/material'
 import React from 'react'
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function DetalhesNotificacaoPage({
   params: { id },
@@ -17,18 +19,28 @@ export default function DetalhesNotificacaoPage({
   params: { id: string }
 }) {
   const [open, setOpen] = React.useState(true)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleOpen = () => {
+    setOpen((prev => !prev))
+    handleClose()
+  }
+  
+  const handleClose = () => {
+      window.history.back()  
+  }
+
   return (
     <Modal
+    sx={{ display:'flex', justifyContent:'center',alignItems:'center'}}
       open={open}
-      onClose={handleClose}
+      onClose={handleOpen}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box
+     
+      <Container
         component={Paper}
-        sx={{ mt: 4, marginX: 4, paddingX: 4, paddingTop: 2, borderRadius: 4 }}
+        maxWidth={'lg'}
+        sx={{ mt: 4, marginX: 4, paddingX: 4, paddingTop: 2, borderRadius: 4}}
       >
         <CardNotificacao>
           <CardHeader
@@ -39,10 +51,13 @@ export default function DetalhesNotificacaoPage({
                 subheader2={`Data de envio: ${'2023-11-08'}`}
               />
             }
+            action={<IconButton onClick={handleOpen}>
+              <CloseIcon color='primary'/>
+            </IconButton>}
             sx={{ width: '100%', height: '4.125rem' }}
           />
         </CardNotificacao>
-      </Box>
+      </Container>
     </Modal>
   )
 }
