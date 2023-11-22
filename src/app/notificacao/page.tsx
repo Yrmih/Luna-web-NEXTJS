@@ -1,4 +1,4 @@
-import ContainListdeNotificacao from './contain/ContainTableNotificar'
+import ContainListdeNotificacao from './individual/contain/ContainTableNotificar'
 
 export default function ListaNotificacao() {
   return <ContainListdeNotificacao />

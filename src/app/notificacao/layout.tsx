@@ -9,14 +9,23 @@ export const metadata = {
   title: 'Painel do Assistido',
   description: 'Área de acesso do assistido.',
 }
-function PainelAssistidoLayout({ children }: { children: ReactNode }) {
+function PainelAssistidoLayout({
+  children,
+  modal,
+}: {
+  children: ReactNode
+  modal: ReactNode
+}) {
   return (
     <>
       <CssBaseline />
       {/* Navbar e Sidebar parte do <header> */}
       <AppBarAreaAssistido />
       {/* Conteúdo parte da <main> */}
-      <ContentLayout>{children} </ContentLayout>
+      <ContentLayout>
+        {children}
+        {modal}
+      </ContentLayout>
       {/* Footer parte do <footer> */}
       <Footer />
     </>

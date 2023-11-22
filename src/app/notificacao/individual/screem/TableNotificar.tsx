@@ -11,7 +11,8 @@ import { CardHeader, IconButton, Typography } from '@mui/material'
 import { TableNotificaProps } from '../module/TableNotificarModule'
 import EmailIcon from '@mui/icons-material/Email'
 import DraftsIcon from '@mui/icons-material/Drafts'
-import CardNotificacao from './CardNotificacao'
+
+import Link from 'next/link'
 
 interface SubheaderProps {
   subheader1: string
@@ -97,8 +98,9 @@ export const TableNotificar: React.FC<TableNotificaProps> = ({
                 <TableCell align="right">
                   <IconButton
                     aria-label="Notificações"
-                    href={`notificacao/${row.id}`}
+                    href={`notificacao/individual/${row.id}`}
                     onClick={() => toggleIcon(row.id.toString())}
+                    LinkComponent={Link}
                   >
                     {iconState[row.id] ? <DraftsIcon /> : <EmailIcon />}
                   </IconButton>

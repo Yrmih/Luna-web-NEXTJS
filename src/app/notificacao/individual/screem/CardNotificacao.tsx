@@ -13,7 +13,7 @@ interface Props {
   // onClose: () => void
 }
 
-export default function CardNotificacao({ children }: Props) {
+export function CardNotificacao({ children }: Props) {
   const theme = useTheme()
   return (
     <Box
