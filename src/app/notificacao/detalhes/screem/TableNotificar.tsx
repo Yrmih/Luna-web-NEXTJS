@@ -71,7 +71,7 @@ export const TableNotificar: React.FC<TableNotificaProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {createData.map((row) => (
+            {createData && createData.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -92,7 +92,7 @@ export const TableNotificar: React.FC<TableNotificaProps> = ({
                     }}
                     LinkComponent={Link}
                   >
-                     {row.id !== undefined && (clickedIconId === row.id.toString() ? !iconState[row.id.toString()] : iconState[row.id.toString()]) ? <DraftsIcon /> : <EmailIcon />}
+                    {row.id !== undefined && (clickedIconId === row.id.toString() ? !iconState[row.id.toString()] : iconState[row.id.toString()]) ? <DraftsIcon /> : <EmailIcon />}
                   </IconButton>
                 </TableCell>
               </TableRow>
