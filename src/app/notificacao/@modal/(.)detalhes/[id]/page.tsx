@@ -13,6 +13,7 @@ import {
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 
+
 export default function DetalhesNotificacaoPage({
   params: { id },
 }: {
@@ -27,7 +28,6 @@ export default function DetalhesNotificacaoPage({
   const handleClose = () => {
       window.history.back()  
   }
-
   return (
     <Modal
     sx={{ display:'flex', justifyContent:'center',alignItems:'center'}}
