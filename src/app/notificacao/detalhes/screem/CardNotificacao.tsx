@@ -14,16 +14,9 @@ import { ReceiptLong } from '@mui/icons-material'
 interface ChildrenProps {
   children?: ReactNode
 }
+// type CardNotificacaoProps = ChildrenProps & TableNotificarModulo;
 
-type CardNotificacaoProps = ChildrenProps & TableNotificarModulo;
-
-export function CardNotificacao( props: CardNotificacaoProps) {
-  const [open, setOpen] = React.useState(true)
-  const handleOpen = () => {
-    setOpen((prev => !prev))
-    handlereloading()
-  }
-  
+export function CardNotificacao( props: ChildrenProps) {
   const handlereloading = () => {
        window.location.reload()
   }
@@ -58,7 +51,6 @@ export function CardNotificacao( props: CardNotificacaoProps) {
           padding: 2, // Adicione preenchimento para afastar o conteúdo da borda
           height:'30vh',
           overflow:'auto',
-
         }}
       >
         <Typography
