@@ -122,7 +122,7 @@ export function Notification({
           borderColor: theme.palette.grey[400],
         }}
       >
-        <Typography>Notificações</Typography>
+        <Typography>Notificações pendentes</Typography>
         <Link
           style={{ textDecoration: 'none' }}
           href={'/notificacao'}

@@ -89,7 +89,7 @@ export function AppBarResponsive({
             sx={{ marginRight: 1 }}
             onClick={handleClick}
           >
-            <Badge badgeContent={75} color="secondary">
+            <Badge badgeContent={6} color="secondary">
               <NotificationsIcon />
               <Notification
                 anchorEl={anchorEl}
