@@ -6,6 +6,17 @@
     'Cascadia Mono', 'Segoe UI Mono',
     'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+    --tile-border: conic-gradient(#f8f8f880,
+    #F0ECEC40,
+    #FFFFFF80,
+    #E9E8E857,
+    #FFFFFF46,
+    #F7F4F44D,
+    #ffffff80);
+--callout-rgb: 238, 240, 241;
+--callout-border-rgb: 172, 175, 176;
+--card-rgb: 180, 185, 188;
+--card-border-rgb: 131, 134, 135;
 }
 
 body {

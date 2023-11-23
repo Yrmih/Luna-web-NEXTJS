@@ -4,6 +4,7 @@ import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 import Footer from '../../components/Footer'
 import { AppBarAreaAssistido } from '../(painel-assistido)/components/Nav/AppBarAreaAssistido'
+import TituloPageAtual from '@/components/TituloPageAtual'
 
 export const metadata = {
   title: 'Painel do Assistido',
