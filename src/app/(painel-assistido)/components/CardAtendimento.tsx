@@ -15,6 +15,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import BalanceIcon from '@mui/icons-material/Balance'
 import DomainIcon from '@mui/icons-material/Domain'
 import EventIcon from '@mui/icons-material/Event'
+
 interface CardAtendimentoProps {
   props: {
     tipoAtendimento?: string
@@ -203,7 +204,6 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               </Typography>
             </Box>
           </Box>
-
           <Divider />
           <Box
             display={'flex'}

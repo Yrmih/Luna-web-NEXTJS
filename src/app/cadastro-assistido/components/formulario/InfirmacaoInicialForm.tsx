@@ -4,7 +4,7 @@ import BadgeIcon from '@mui/icons-material/Badge'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import { Grid, InputAdornment, TextField } from '@mui/material'
-import { useEffect } from 'react'
+import { ChangeEvent, useEffect } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -47,12 +47,6 @@ export function InformacaoInicialForm({
   watch,
   errors,
 }: InformacaoInicialProps) {
-  const cpfValue = watch('informacaoInicial.cpf')
-
-  useEffect(() => {
-    setValue('informacaoInicial.cpf', MaskUtils.maskCpfCnpj(cpfValue))
-  }, [cpfValue, setValue])
-
   return (
     <Grid container flexDirection={'column'} px={4} spacing={3}>
       <Grid item xs={12}>
@@ -92,6 +86,10 @@ export function InformacaoInicialForm({
           }}
           {...register('informacaoInicial.cpf', {
             required: 'Campo Obrigatório',
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const cpfValue = event.target.value
+              setValue('informacaoInicial.cpf', MaskUtils.maskCpfCnpj(cpfValue))
+            },
           })}
           helperText={
             errors.informacaoInicial !== undefined
