@@ -27,7 +27,7 @@ export function AppBarResponsive({
   children,
 }: AppBarResponsiveProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
+  const isNotificationsListOpen = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     anchorEl ? setAnchorEl(null) : setAnchorEl(event.currentTarget)
   }
@@ -91,7 +91,10 @@ export function AppBarResponsive({
           >
             <Badge badgeContent={75} color="secondary">
               <NotificationsIcon />
-              <Notification anchorEl={anchorEl} open={open} />
+              <Notification
+                anchorEl={anchorEl}
+                isNotificationsListOpen={isNotificationsListOpen}
+              />
             </Badge>
           </IconButton>
 
