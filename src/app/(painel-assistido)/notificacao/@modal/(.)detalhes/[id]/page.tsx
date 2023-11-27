@@ -1,7 +1,4 @@
 'use client'
-
-import { CardNotificacao } from '@/app/notificacao/detalhes/screem/CardNotificacao'
-import { CustomSubheader } from '@/app/notificacao/detalhes/screem/TableNotificar'
 import {
   Box,
   CardHeader,
@@ -12,6 +9,8 @@ import {
 } from '@mui/material'
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
+import { CardNotificacao } from '../../../detalhes/screem/CardNotificacao';
+import { CustomSubheader } from '../../../detalhes/screem/TableNotificar';
 
 
 export default function DetalhesNotificacaoPage({
