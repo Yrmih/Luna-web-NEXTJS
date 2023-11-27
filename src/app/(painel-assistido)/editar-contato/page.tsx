@@ -14,18 +14,9 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { formularioSchema } from './editarContatoSchema'
 
 // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
-export const formularioSchema = z.object({
-  // email está como opcional
-  email: z
-    .string()
-    .email('Você deve inserir um email válido')
-    .optional()
-    .or(z.literal('')),
-  ddd: z.string().min(3, 'O DDD deve conter 3 digitos'),
-  telefone: z.string().min(7, 'Você deve inserir um telefone válido'),
-})
 
 // Tipagem do formulario
 export type FormularioFields = z.infer<typeof formularioSchema>

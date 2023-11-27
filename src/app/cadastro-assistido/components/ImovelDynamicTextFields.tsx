@@ -8,6 +8,7 @@ import {
   Control,
   FieldErrors,
   UseFormRegister,
+  UseFormSetValue,
   useFieldArray,
 } from 'react-hook-form'
 
@@ -17,6 +18,8 @@ import {
 import styles from '../../../assets/styles/TabelaItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
+import { MaskUtils } from '@/utils/MaskUtils'
+import { ChangeEvent } from 'react'
 
 export type RenderDimanicTextFieldsMovelOptions = {
   valorAttribute: TextFieldAttributes
@@ -24,6 +27,8 @@ export type RenderDimanicTextFieldsMovelOptions = {
   register: UseFormRegister<CadastroAssistidoInputsForm>
   control: Control<CadastroAssistidoInputsForm>
   errors: FieldErrors<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  allowOnlyNumbers: (event: React.KeyboardEvent<HTMLDivElement>) => void
 }
 
 export function ImovelDynamicTextFields({
@@ -32,6 +37,8 @@ export function ImovelDynamicTextFields({
   control,
   valorAttribute,
   descricaoAttribute,
+  allowOnlyNumbers,
+  setValue,
 }: RenderDimanicTextFieldsMovelOptions) {
   const {
     append,
@@ -47,7 +54,7 @@ export function ImovelDynamicTextFields({
       {itemsImovel.map((item, index) => (
         <Grid
           className={`${styles.tableEnter} ${styles.tableExit}`}
-          key={index}
+          key={item.id}
           container
           item
           spacing={3}
@@ -56,10 +63,16 @@ export function ImovelDynamicTextFields({
           <Grid item xs={6} md={3}>
             <TextField
               fullWidth
-              type="number"
+              type="text"
               autoComplete="valor-imovel"
               {...register(`qualificacaoFinanceira.imoveis.${index}.valor`, {
-                valueAsNumber: true,
+                onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                  const imovelValue = event.target.value
+                  setValue(
+                    `qualificacaoFinanceira.imoveis.${index}.valor`,
+                    MaskUtils.maskMoney(imovelValue),
+                  )
+                },
               })}
               InputProps={{
                 startAdornment: (
@@ -67,8 +80,8 @@ export function ImovelDynamicTextFields({
                     {valorAttribute.icon}
                   </InputAdornment>
                 ),
+                inputProps: { min: 0, maxLength: 11 },
               }}
-              name={valorAttribute.name}
               helperText={
                 errors.qualificacaoFinanceira?.imoveis?.[index]?.valor !==
                 undefined
@@ -81,6 +94,9 @@ export function ImovelDynamicTextFields({
               }
               label={valorAttribute.label}
               placeholder={valorAttribute.placeHolder}
+              onKeyDown={(event) => {
+                allowOnlyNumbers(event)
+              }}
             />
           </Grid>
           <Grid item xs={6} md={5}>
@@ -94,6 +110,7 @@ export function ImovelDynamicTextFields({
                     {descricaoAttribute.icon}
                   </InputAdornment>
                 ),
+                inputProps: { min: 0, maxLength: 20 },
               }}
               name={descricaoAttribute.name}
               helperText={
@@ -130,7 +147,7 @@ export function ImovelDynamicTextFields({
           <Button
             size="large"
             variant="outlined"
-            onClick={() => append({ valor: 0, descricao: '' })}
+            onClick={() => append({ valor: '', descricao: '' })}
           >
             <AddCircleIcon />
           </Button>

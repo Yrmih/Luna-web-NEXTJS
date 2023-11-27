@@ -36,15 +36,15 @@ export default function PreAgendamento() {
             title={'Pré-agendamento'}
           />
           <ListItem>
-            <ListItemText primary="Sua solicitação foi sggsgsgsbvefvbfidbdvbdiv,v.fvkgnf vkngfvkgvngkfdvngk" />
+            <ListItemText primary="ATENÇÃO: Fotografe ou anexe os documentos pendentes e listados abaixo, ou declare que não os possui. Certifique-se de que todas as perguntas foram respondidas. Acompanhe por aqui o andamento da sua demanda e por e-mail, caso tenha sido cadastrado." />
           </ListItem>
           <CardContent sx={{ padding: 0 }}>
             <List sx={{ padding: 0 }}>
               <ListItem>
-                <ListItemText primary="id -ggggg" />
+                <ListItemText primary="Assunto: AÇÃO DE ALIMENTOS" />
               </ListItem>
               <ListItem>
-                <ListItemText primary="id -ggggg" />
+                <ListItemText primary="Área: Cível" />
               </ListItem>
             </List>
           </CardContent>
