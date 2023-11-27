@@ -361,7 +361,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                Núcleo de Vila Velha
+                Ananindeua
               </Typography>
             </Box>
           </Box>
@@ -435,7 +435,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                Defensor:
+                Defensor(a):
               </Typography>
             </Box>
             <Box
@@ -449,7 +449,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                Fulano de Tal da Silva
+                Clívia Croelhas
               </Typography>
             </Box>
           </Box>
@@ -493,7 +493,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                Núcleo de Execução Penal (NEPE)
+                3ª Defensoria Pública de Ananindeua
               </Typography>
             </Box>
           </Box>
@@ -538,7 +538,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                10/12/2023 as 00:00
+                11/12/2023 as 09:30
               </Typography>
             </Box>
           </Box>
@@ -699,7 +699,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                10/12/2023 as 00:00
+                11/12/2023 as 09:00
               </Typography>
             </Box>
           </Box>
@@ -787,7 +787,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                Fulano de Tal da Silva
+                Drª Clívia Croelhas
               </Typography>
             </Box>
           </Box>
@@ -831,7 +831,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 color="#292929de"
                 variant="subtitle1"
               >
-                Núcleo de Execução Penal (NEPE)
+                3ª Defensoria Pública de Ananindeua
               </Typography>
             </Box>
           </Box>

@@ -5,19 +5,19 @@
         "name": "Next.js: debug server-side",
         "type": "node-terminal",
         "request": "launch",
-        "command": "npm run dev"
+        "command": "yarn dev --port=3002"
       },
       {
         "name": "Next.js: debug client-side",
         "type": "chrome",
         "request": "launch",
-        "url": "http://localhost:3000"
+        "url": "http://localhost:3002"
       },
       {
         "name": "Next.js: debug full stack",
         "type": "node-terminal",
         "request": "launch",
-        "command": "npm run dev",
+        "command": "yarn dev --port=3002",
         "serverReadyAction": {
           "pattern": "- Local:.+(https?://.+)",
           "uriFormat": "%s",

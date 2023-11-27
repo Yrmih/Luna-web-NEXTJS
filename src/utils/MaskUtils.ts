@@ -21,16 +21,14 @@ export class MaskUtils {
     }
   }
 
-  // static maskMoney = (value: string | undefined) => {
-  //   if (!value) return ''
+  static stringToNumberConverter = (value: string): number => {
+    value = value.replace(/\D/g, '')
+    const moneyValue: number = Number(value) / 100
+    return parseFloat(moneyValue.toFixed(2))
+  }
 
-  //   value = value.replace(/\D/g, '')
-  //   const moneyValue: number = Number(value) / 100
-  //   return moneyValue.toFixed(2).toString()
-  // }
-
-  static maskMoney = (value: string | undefined) => {
-    if (!value) return ''
+  static maskMoney = (value: string | undefined): string => {
+    if (!value) return '0'
 
     value = value.replace('.', '').replace(',', '').replace(/\D/g, '')
     const options = { minimumFractionDigits: 2 }
@@ -41,16 +39,16 @@ export class MaskUtils {
     return result
   }
 
-  static maskCelular = (value: string | undefined) => {
+  static maskCelular = (value: string | undefined): string => {
     if (!value) return ''
 
-    const celularNornalizado = value
+    const celularNormalizado = value
       .replace(/[\D]/g, '')
       .replace(/(\d{2})(\d)/, '($1) $2')
       .replace(/(\d{5})(\d)/, '$1-$2')
       .replace(/(-\d{4})(\d+?)/, '$1')
 
-    return celularNornalizado
+    return celularNormalizado
   }
 
   static maskTelefone = (value: string | undefined) => {

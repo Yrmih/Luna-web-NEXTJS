@@ -31,7 +31,7 @@ import { TextFieldAttributes } from '../../types/TextFieldAttributes'
 import { ImovelDynamicTextFields } from '../ImovelDynamicTextFields'
 import { InvestimentoDynamicTextFields } from '../InvestimentoDynamicTextFields'
 import { MovelDynamicTextFields } from '../MovelDynamicTextFields'
-import { useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import { INPUT_MASK_REGEX } from './constants'
 
 export const FORMULARIO_QUALIFICACAO_FINANCEIRA: TextFieldAttributes[] = [
@@ -77,7 +77,7 @@ export const FORMULARIO_QUALIFICACAO_FINANCEIRA: TextFieldAttributes[] = [
     name: 'valorImovel',
     label: 'Valor do imóvel',
     textHelper: 'Adicione o valor em reais do seu imóvel.',
-    placeHolder: 'Ex.: Ex.: 220,00; etc...',
+    placeHolder: 'Ex.: 220,00; etc...',
     icon: 'R$',
   },
   {
@@ -111,7 +111,7 @@ export type QualificacaoFinanceraProps = {
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-function permitirSomenteNumeros(event: React.KeyboardEvent<HTMLDivElement>) {
+function allowOnlyNumbers(event: React.KeyboardEvent<HTMLDivElement>) {
   if (INPUT_MASK_REGEX.apenasUmaLetra.test(event.key)) {
     event.preventDefault()
   }
@@ -124,23 +124,6 @@ export function QualificacaoFinanceiraForm({
   errors,
   watch,
 }: QualificacaoFinanceraProps) {
-  const rendaIndividualValue = watch('qualificacaoFinanceira.rendaIndividual')
-  const rendaFamiliarValue = watch('qualificacaoFinanceira.rendaFamiliar')
-
-  useEffect(() => {
-    setValue(
-      'qualificacaoFinanceira.rendaIndividual',
-      MaskUtils.maskMoney(rendaIndividualValue),
-    )
-  }, [setValue, rendaIndividualValue])
-
-  useEffect(() => {
-    setValue(
-      'qualificacaoFinanceira.rendaFamiliar',
-      MaskUtils.maskMoney(rendaFamiliarValue),
-    )
-  }, [setValue, rendaFamiliarValue])
-
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12} md={6}>
@@ -173,7 +156,7 @@ export function QualificacaoFinanceiraForm({
           label={FORMULARIO_QUALIFICACAO_FINANCEIRA[0].label}
           placeholder={FORMULARIO_QUALIFICACAO_FINANCEIRA[0].placeHolder}
           onKeyDown={(event) => {
-            permitirSomenteNumeros(event)
+            allowOnlyNumbers(event)
           }}
         />
       </Grid>
@@ -208,7 +191,7 @@ export function QualificacaoFinanceiraForm({
           label={FORMULARIO_QUALIFICACAO_FINANCEIRA[1].label}
           placeholder={FORMULARIO_QUALIFICACAO_FINANCEIRA[1].placeHolder}
           onKeyDown={(event) => {
-            permitirSomenteNumeros(event)
+            allowOnlyNumbers(event)
           }}
         />
       </Grid>
@@ -224,9 +207,17 @@ export function QualificacaoFinanceiraForm({
                 {FORMULARIO_QUALIFICACAO_FINANCEIRA[2].icon}
               </InputAdornment>
             ),
-            inputProps: { min: 0 },
+            inputProps: { min: 0, maxLength: 10 },
           }}
-          {...register('qualificacaoFinanceira.rendaIndividual')}
+          {...register('qualificacaoFinanceira.rendaIndividual', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const rendaIndividualValue = event.target.value
+              setValue(
+                'qualificacaoFinanceira.rendaIndividual',
+                MaskUtils.maskMoney(rendaIndividualValue),
+              )
+            },
+          })}
           helperText={
             errors.qualificacaoFinanceira?.rendaIndividual !== undefined
               ? errors.qualificacaoFinanceira.rendaIndividual.message
@@ -236,7 +227,7 @@ export function QualificacaoFinanceiraForm({
           label={FORMULARIO_QUALIFICACAO_FINANCEIRA[2].label}
           placeholder={FORMULARIO_QUALIFICACAO_FINANCEIRA[2].placeHolder}
           onKeyDown={(event) => {
-            permitirSomenteNumeros(event)
+            allowOnlyNumbers(event)
           }}
         />
       </Grid>
@@ -252,9 +243,17 @@ export function QualificacaoFinanceiraForm({
                 {FORMULARIO_QUALIFICACAO_FINANCEIRA[3].icon}
               </InputAdornment>
             ),
-            inputProps: { min: 0 },
+            inputProps: { min: 0, maxLength: 10 },
           }}
-          {...register('qualificacaoFinanceira.rendaFamiliar')}
+          {...register('qualificacaoFinanceira.rendaFamiliar', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const rendaFamiliarValue = event.target.value
+              setValue(
+                'qualificacaoFinanceira.rendaFamiliar',
+                MaskUtils.maskMoney(rendaFamiliarValue),
+              )
+            },
+          })}
           helperText={
             errors.qualificacaoFinanceira?.rendaFamiliar !== undefined
               ? errors.qualificacaoFinanceira.rendaFamiliar.message
@@ -264,7 +263,7 @@ export function QualificacaoFinanceiraForm({
           label={FORMULARIO_QUALIFICACAO_FINANCEIRA[3].label}
           placeholder={FORMULARIO_QUALIFICACAO_FINANCEIRA[3].placeHolder}
           onKeyDown={(event) => {
-            permitirSomenteNumeros(event)
+            allowOnlyNumbers(event)
           }}
         />
       </Grid>
@@ -278,7 +277,8 @@ export function QualificacaoFinanceiraForm({
           errors={errors}
           valorAttribute={FORMULARIO_QUALIFICACAO_FINANCEIRA[4]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FINANCEIRA[5]}
-          permitirSomenteNumeros={permitirSomenteNumeros}
+          allowOnlyNumbers={allowOnlyNumbers}
+          setValue={setValue}
         />
         <Grid item xs={12}>
           <Typography>Bens Imoveis</Typography>
@@ -289,6 +289,8 @@ export function QualificacaoFinanceiraForm({
           errors={errors}
           valorAttribute={FORMULARIO_QUALIFICACAO_FINANCEIRA[6]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FINANCEIRA[7]}
+          allowOnlyNumbers={allowOnlyNumbers}
+          setValue={setValue}
         />
       </Grid>
       <Grid container item spacing={3}>
@@ -301,6 +303,8 @@ export function QualificacaoFinanceiraForm({
           errors={errors}
           valorAttribute={FORMULARIO_QUALIFICACAO_FINANCEIRA[8]}
           descricaoAttribute={FORMULARIO_QUALIFICACAO_FINANCEIRA[9]}
+          allowOnlyNumbers={allowOnlyNumbers}
+          setValue={setValue}
         />
       </Grid>
       <Grid item xs={12}>
@@ -321,7 +325,4 @@ export function QualificacaoFinanceiraForm({
       </Grid>
     </Grid>
   )
-}
-function setValue(arg0: string, arg1: string) {
-  throw new Error('Function not implemented.')
 }
