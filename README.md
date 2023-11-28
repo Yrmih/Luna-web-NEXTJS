@@ -1,6 +1,6 @@
-# Projeto LUNA em NEXT.JS 13
+# Projeto LUNA em NEXT.JS 14
 
-Sistema de Atendimento de Virtual da Defensoria Pública.
+Sistema de Atendimento Virtual da Defensoria Pública.
 
 ## Iniciar Desenvolvimento
 
