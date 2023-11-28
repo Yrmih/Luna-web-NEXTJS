@@ -16,6 +16,7 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { formularioSchema } from './editarContatoSchema'
 
 import InputMask from 'react-input-mask'
 import React from 'react'
