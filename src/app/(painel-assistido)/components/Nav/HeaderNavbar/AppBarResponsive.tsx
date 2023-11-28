@@ -1,4 +1,5 @@
 // Third party
+import NotificationsIcon from '@mui/icons-material/Notifications'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -11,7 +12,8 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
+import { Notification } from './Notification'
 
 interface AppBarResponsiveProps {
   children: ReactNode
@@ -24,6 +26,12 @@ export function AppBarResponsive({
   isOpen,
   children,
 }: AppBarResponsiveProps) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const isNotificationsListOpen = Boolean(anchorEl)
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    anchorEl ? setAnchorEl(null) : setAnchorEl(event.currentTarget)
+  }
+
   return (
     <AppBar
       sx={{
@@ -77,11 +85,26 @@ export function AppBarResponsive({
             Área do Assistido
           </Typography>
         </Box>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
+
+        <Box>
+          <IconButton
+            color="inherit"
+            sx={{ marginRight: 1 }}
+            onClick={handleClick}
+          >
+            <Badge badgeContent={6} color="secondary">
+              <NotificationsIcon />
+              <Notification
+                anchorEl={anchorEl}
+                isNotificationsListOpen={isNotificationsListOpen}
+              />
+            </Badge>
+          </IconButton>
+
+          <IconButton color="inherit">
             <Avatar>A</Avatar>
-          </Badge>
-        </IconButton>
+          </IconButton>
+        </Box>
       </Toolbar>
       {children}
     </AppBar>

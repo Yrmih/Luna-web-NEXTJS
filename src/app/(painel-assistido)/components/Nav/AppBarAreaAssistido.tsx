@@ -41,7 +41,7 @@ export function AppBarAreaAssistido() {
               '& .MuiDrawer-paper': {
                 width: drawerWidth,
                 boxSizing: 'border-box',
-                top: ['52px', '63px', '74px'],
+                top: ['42px', '53px', '64px'],
                 height: 'auto',
                 bottom: 0,
               },

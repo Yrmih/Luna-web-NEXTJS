@@ -22,4 +22,5 @@ export const INPUT_MASK_REGEX = {
   celular: /\(\d{2}\)\s\d{5}-\d{4}/g,
   telefone: /\(\d{2}\)\s\d{4}-\d{4}/g,
   apenasLetras: /^[a-záàâãéèêíïóôõöúçñ ]+$/i,
+  apenasUmaLetra: /^[a-záàâãéèêíïóôõöúçñ ]{1}/,
 }

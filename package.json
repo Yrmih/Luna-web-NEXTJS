@@ -19,10 +19,10 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "eslint": "^8.49.0",
-    "eslint-config-next": "13.4.19",
-    "next": "13.4.19",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "eslint-config-next": "^14.0.2",
+    "next": "^14.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "next-auth": "^4.24.4",
     "react-input-mask": "^2.0.4",
@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
-    "@types/react-input-mask": "^3.0.4"
+    "@types/react-input-mask": "^3.0.4",
+    "@types/testing-library__react": "^10.2.0"
   }
 }

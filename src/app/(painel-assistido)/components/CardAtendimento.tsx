@@ -15,6 +15,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import BalanceIcon from '@mui/icons-material/Balance'
 import DomainIcon from '@mui/icons-material/Domain'
 import EventIcon from '@mui/icons-material/Event'
+
 interface CardAtendimentoProps {
   props: {
     tipoAtendimento?: string
@@ -22,6 +23,7 @@ interface CardAtendimentoProps {
 }
 export default function CardAtendimento({ props }: CardAtendimentoProps) {
   const matches = useMediaQuery('(min-width:900px)')
+
   if (props.tipoAtendimento === 'pre')
     return (
       <Grid
@@ -104,7 +106,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               }}
             >
               <Typography color="white" fontWeight={500} variant="h4">
-                234234234234
+                234234265656
               </Typography>
               <Typography
                 color="white"
@@ -217,7 +219,6 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               </Typography>
             </Box>
           </Box>
-
           <Divider />
           <Box
             display={'flex'}
@@ -226,6 +227,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             sx={{ width: '100%' }}
           >
             <Button
+              href={`atendimentos/${234234265656}`}
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
@@ -323,7 +325,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
               }}
             >
               <Typography color="white" fontWeight={500} variant="h4">
-                234234234234
+                23424536575
               </Typography>
               <Typography
                 color="white"
@@ -382,7 +384,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                Núcleo de Vila Velha
+                Ananindeua
               </Typography>
             </Box>
           </Box>
@@ -465,7 +467,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                Defensor:
+                Defensor(a):
               </Typography>
             </Box>
             <Box
@@ -482,7 +484,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                Fulano de Tal da Silva
+                Clívia Croelhas
               </Typography>
             </Box>
           </Box>
@@ -532,7 +534,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                Núcleo de Execução Penal (NEPE)
+                3ª Defensoria Pública de Ananindeua
               </Typography>
             </Box>
           </Box>
@@ -583,7 +585,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                10/12/2023 as 00:00
+                11/12/2023 as 09:30
               </Typography>
             </Box>
           </Box>
@@ -596,6 +598,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             sx={{ width: '100%' }}
           >
             <Button
+              href={`atendimentos/${23424536575}`}
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',
@@ -751,7 +754,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                10/12/2023 as 00:00
+                11/12/2023 as 09:00
               </Typography>
             </Box>
           </Box>
@@ -851,7 +854,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                Fulano de Tal da Silva
+                Drª Clívia Croelhas
               </Typography>
             </Box>
           </Box>
@@ -901,7 +904,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
                 }}
                 variant="subtitle1"
               >
-                Núcleo de Execução Penal (NEPE)
+                3ª Defensoria Pública de Ananindeua
               </Typography>
             </Box>
           </Box>
@@ -914,6 +917,7 @@ export default function CardAtendimento({ props }: CardAtendimentoProps) {
             sx={{ width: '100%' }}
           >
             <Button
+              href={`atendimentos/${234234234234}`}
               sx={{
                 marginTop: '2vh',
                 mb: '2vh',

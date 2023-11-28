@@ -7,6 +7,7 @@ interface ContainerAtendimentoProps {
     tipoAtendimento?: string
   }
 }
+
 export default function ContainerAtendimento({
   props,
 }: ContainerAtendimentoProps) {

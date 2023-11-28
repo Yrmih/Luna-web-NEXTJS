@@ -1,4 +1,5 @@
 // Framework
+import './global.css'
 import { ReactNode } from 'react'
 
 // Internal
