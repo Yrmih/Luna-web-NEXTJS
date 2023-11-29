@@ -1,14 +1,7 @@
 'use client'
 
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Grid,
-  Paper,
-} from '@mui/material'
+import { Grid, Paper } from '@mui/material'
 import { Copyright } from './Copyright'
-import { MENU_PRINCIPAL_LINKS } from '@/app/(painel-assistido)/components/Nav/HeaderNavbar/DrawerMenuAreaAssistido'
-import { useState } from 'react'
 
 export default function Footer() {
   return (

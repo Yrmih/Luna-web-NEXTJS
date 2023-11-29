@@ -57,7 +57,7 @@ export default function NovaSolicitacao() {
       label: 'AÇÃO DE ALIMENTOS',
     },
     {
-      value: 'acao-alienacao-parental',
+      value: 'acao-alienacao-compartilhada',
       label: 'AÇÃO DE GUARDA COMPARTILHADA',
     },
   ]
@@ -229,7 +229,6 @@ export default function NovaSolicitacao() {
                 select
                 label="Assunto"
                 value={valorAssunto}
-                defaultValue="default"
                 disabled={valorArea === 'default'}
                 onChange={handleAssuntoChange}
                 SelectProps={{
