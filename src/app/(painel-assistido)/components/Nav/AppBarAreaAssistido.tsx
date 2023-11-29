@@ -1,8 +1,7 @@
 'use client'
 
 // Third party
-import { Box, Drawer, Theme, useMediaQuery } from '@mui/material'
-
+import { Box, Drawer } from '@mui/material'
 // Framework
 import { useState } from 'react'
 
@@ -13,8 +12,6 @@ import { DrawerMenuAreaAssistido } from './HeaderNavbar/DrawerMenuAreaAssistido'
 const drawerWidth = 240
 
 export function AppBarAreaAssistido() {
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
-
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerToggle = () => {
@@ -27,9 +24,9 @@ export function AppBarAreaAssistido() {
         isOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
       >
-        <Box sx={{ flexGrow: 1, display: 'flex' }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
           <Drawer
-            variant={isMobile ? 'temporary' : 'permanent'}
+            variant="permanent"
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{

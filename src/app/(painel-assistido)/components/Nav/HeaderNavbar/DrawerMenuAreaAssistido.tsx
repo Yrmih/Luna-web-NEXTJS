@@ -1,11 +1,8 @@
 // Third party
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import ChecklistIcon from '@mui/icons-material/Checklist'
-import HomeIcon from '@mui/icons-material/Home'
-import LogoutIcon from '@mui/icons-material/Logout'
-import SettingsIcon from '@mui/icons-material/Settings'
-import StarIcon from '@mui/icons-material/Star'
-import SupportIcon from '@mui/icons-material/Support'
+import {
+  MENU_AVANCADO_LINKS,
+  MENU_PRINCIPAL_LINKS,
+} from '@/app/(painel-assistido)/constants'
 import {
   Box,
   Divider,
@@ -16,37 +13,9 @@ import {
   ListItemText,
   Paper,
 } from '@mui/material'
+
 // Framework
-import { signOut } from 'next-auth/react'
 import Link from 'next/link'
-
-const LINKS = [
-  { key: 1, text: 'Principal', href: '/home', icon: HomeIcon },
-  {
-    key: 2,
-    text: 'Nova Solicitação',
-    href: '/nova-solicitacao',
-    icon: CalendarMonthIcon,
-  },
-  {
-    key: 3,
-    text: 'Minhas Solicitações',
-    href: '/atendimentos',
-    icon: StarIcon,
-  },
-  {
-    key: 4,
-    text: 'Editar Contato',
-    href: '/editar-contato',
-    icon: ChecklistIcon,
-  },
-]
-
-const AVANCADO_LINKS = [
-  { key: 1, text: 'Configurações', icon: SettingsIcon },
-  { key: 2, text: 'Informações', icon: SupportIcon },
-  { key: 3, text: 'Sair', icon: LogoutIcon },
-]
 
 export function DrawerMenuAreaAssistido() {
   return (
@@ -59,7 +28,7 @@ export function DrawerMenuAreaAssistido() {
       }}
     >
       <List>
-        {LINKS.map(({ key, text, href, icon: Icon }) => (
+        {MENU_PRINCIPAL_LINKS.map(({ key, text, href, icon: Icon }) => (
           <ListItem key={key} disablePadding>
             <ListItemButton component={Link} href={href}>
               <ListItemIcon>
@@ -72,9 +41,9 @@ export function DrawerMenuAreaAssistido() {
       </List>
       <Divider sx={{ mt: 'auto' }} />
       <List>
-        {AVANCADO_LINKS.map(({ key, text, icon: Icon }) => (
+        {MENU_AVANCADO_LINKS.map(({ key, text, action, icon: Icon }) => (
           <ListItem key={key} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={action}>
               <ListItemIcon>
                 <Icon />
               </ListItemIcon>
@@ -82,14 +51,8 @@ export function DrawerMenuAreaAssistido() {
             </ListItemButton>
           </ListItem>
         ))}
-        {/* TODO: Colocar botão de logout corretamente */}
-        <ListItem key={'logout'} disablePadding onClick={() => signOut()}>
-          <ListItemButton>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary={'logout'} />
-          </ListItemButton>
-        </ListItem>
       </List>
     </Box>
   )
 }
+export { MENU_PRINCIPAL_LINKS }
