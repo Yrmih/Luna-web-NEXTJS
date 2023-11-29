@@ -1,5 +1,3 @@
-import { ReactNode } from "react"
-
 export interface TableNotificarModulo {
   id: number
   title: string

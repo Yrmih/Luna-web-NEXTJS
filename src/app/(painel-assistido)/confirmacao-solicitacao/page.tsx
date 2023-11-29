@@ -1,13 +1,11 @@
 'use client'
 // Internal
-import { handleFormularioSubmit } from '@/app/(painel-assistido)/editar-contato/actions'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Box, Button, Paper, Stack, Typography } from '@mui/material'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
+import { Box, Button, Paper, Stack, Typography } from '@mui/material'
 
 import { keyframes } from '@emotion/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 const shake = keyframes`
@@ -114,9 +112,9 @@ export default function ConfirmarSolicitacao() {
           <Box display="flex" flexDirection={'row'}>
             <Typography textAlign="center" variant="h6" sx={{ mb: '2vh' }}>
               <strong style={estiloFonteVermelha}>ATENÇÃO:&nbsp;</strong>Se não
-              tiver algum documento, você deverá clicar em "não tenho". Anote ou
-              tire uma foto do número do seu atendimento. Você vai precisar
-              dele!
+              tiver algum documento, você deverá clicar em &quot;não tenho
+              &quot;. Anote ou tire uma foto do número do seu atendimento. Você
+              vai precisar dele!
             </Typography>
           </Box>
           <Typography variant="h5">Nº Atendimento</Typography>

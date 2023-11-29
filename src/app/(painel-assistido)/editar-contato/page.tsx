@@ -1,32 +1,12 @@
 'use client'
 // Internal
-import { handleFormularioSubmit } from '@/app/(painel-assistido)/editar-contato/actions'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Grid,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { Box, Button, Paper, Stack, TextField, Typography } from '@mui/material'
 import { z } from 'zod'
 import { formularioSchema } from './editarContatoSchema'
 
-import InputMask from 'react-input-mask'
 import React from 'react'
+import InputMask from 'react-input-mask'
 // eslint-disable-next-line react-hooks/rules-of-hooks
-
-export const formularioSchema = z.object({
-  // email está como opcional
-  email: z.string().email('Você deve inserir um email válido'),
-  telefone: z.string().min(11, 'Você deve inserir um telefone válido'),
-})
 
 // Tipagem do formulario
 export type FormularioFields = z.infer<typeof formularioSchema>
@@ -38,14 +18,14 @@ export default function EditarContato() {
   // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
 
   // controlador mudança telefone
-  const handleTelChange = (e: { currentTarget: { value: any } }) => {
+  const handleTelChange = (e: { currentTarget: { value: string } }) => {
     const tel = e.currentTarget.value
 
     setValorTel(tel)
   }
 
   // controlador mudança email
-  const handleEmailChange = (e: { currentTarget: { value: any } }) => {
+  const handleEmailChange = (e: { currentTarget: { value: string } }) => {
     const email = e.currentTarget.value
 
     setValorEmail(email)

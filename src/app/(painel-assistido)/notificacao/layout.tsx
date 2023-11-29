@@ -1,8 +1,5 @@
 // Internal
-import ContentLayout from '@/components/ContentLayout'
-import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
-import TituloPageAtual from '@/components/TituloPageAtual'
 
 export const metadata = {
   title: 'Painel do Assistido',
@@ -17,8 +14,8 @@ function PainelAssistidoLayout({
 }) {
   return (
     <>
-        {children}
-        {modal}
+      {children}
+      {modal}
     </>
   )
 }

@@ -1,7 +1,7 @@
-import { Box, CardHeader, Divider, Paper, Typography } from '@mui/material'
+import { Box, CardHeader, Paper } from '@mui/material'
 
-import { CustomSubheader } from '../screem/TableNotificar'
 import { CardNotificacao } from '../screem/CardNotificacao'
+import { CustomSubheader } from '../screem/TableNotificar'
 
 export default function DetalhesNotificacaoPage({
   params: { id },
