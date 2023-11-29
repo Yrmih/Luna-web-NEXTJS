@@ -4,7 +4,6 @@ import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 import Footer from '../../components/Footer'
 import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
-import TituloPageAtual from '@/components/TituloPageAtual'
 
 export const metadata = {
   title: 'Painel do Assistido',
@@ -17,10 +16,8 @@ function PainelAssistidoLayout({ children }: { children: ReactNode }) {
       {/* Navbar e Sidebar parte do <header> */}
       <AppBarAreaAssistido />
       {/* Conteúdo parte da <main> */}
-      
-      <ContentLayout>
-         {children} 
-         </ContentLayout>
+
+      <ContentLayout>{children}</ContentLayout>
       {/* Footer parte do <footer> */}
       <Footer />
     </>

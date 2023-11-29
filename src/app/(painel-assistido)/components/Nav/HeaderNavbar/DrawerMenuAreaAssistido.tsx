@@ -17,19 +17,29 @@ import {
   Paper,
 } from '@mui/material'
 // Framework
-import Link from 'next/link'
-import React from 'react'
 import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 const LINKS = [
-  { text: 'Principal', href: '/home', icon: HomeIcon },
+  { key: 1, text: 'Principal', href: '/home', icon: HomeIcon },
   {
+    key: 2,
     text: 'Nova Solicitação',
     href: '/nova-solicitacao',
     icon: CalendarMonthIcon,
   },
-  { text: 'Minhas Solicitações', href: '/atendimentos', icon: StarIcon },
-  { text: 'Editar Contato', href: '/editar-contato', icon: ChecklistIcon },
+  {
+    key: 3,
+    text: 'Minhas Solicitações',
+    href: '/atendimentos',
+    icon: StarIcon,
+  },
+  {
+    key: 4,
+    text: 'Editar Contato',
+    href: '/editar-contato',
+    icon: ChecklistIcon,
+  },
 ]
 
 const AVANCADO_LINKS = [
