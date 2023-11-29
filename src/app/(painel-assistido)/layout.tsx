@@ -4,6 +4,7 @@ import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 import Footer from '../../components/Footer'
 import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
+import { BottoMenu } from './components/BottoMenu'
 
 export const metadata = {
   title: 'Painel do Assistido',
@@ -19,6 +20,7 @@ function PainelAssistidoLayout({ children }: { children: ReactNode }) {
 
       <ContentLayout>{children}</ContentLayout>
       {/* Footer parte do <footer> */}
+      <BottoMenu />
       <Footer />
     </>
   )
