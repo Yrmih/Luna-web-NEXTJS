@@ -3,17 +3,25 @@
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 import { MENU_PRINCIPAL_LINKS } from '../constants'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 
 export function BottoMenu() {
-  const [value, setValue] = useState<number>()
+  const pathname = usePathname()
+  const [value, setValue] = useState<string>(getValueFromPathname(pathname))
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 
   const NovaSolicitacaoIcon = MENU_PRINCIPAL_LINKS[0].icon
   const MinhasSolicitacoesIcon = MENU_PRINCIPAL_LINKS[1].icon
   const EditarContato = MENU_PRINCIPAL_LINKS[2].icon
+
+  function getValueFromPathname(path: string) {
+    const selectedLink = MENU_PRINCIPAL_LINKS.find((link) => link.href === path)
+    return selectedLink ? selectedLink.key : MENU_PRINCIPAL_LINKS[1].key // Default to the first link if not found
+  }
+
   return (
     <BottomNavigation
       sx={{ display: { xs: 'flex', sm: 'none' } }}

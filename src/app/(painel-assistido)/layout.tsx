@@ -10,7 +10,12 @@ export const metadata = {
   title: 'Painel do Assistido',
   description: 'Área de acesso do assistido.',
 }
-function PainelAssistidoLayout({ children }: { children: ReactNode }) {
+
+export async function PainelAssistidoLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <>
       <CssBaseline />
