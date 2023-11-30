@@ -1,8 +1,5 @@
 // Third party
-import {
-  MENU_AVANCADO_LINKS,
-  MENU_PRINCIPAL_LINKS,
-} from '@/app/(painel-assistido)/constants'
+import { MENU_PRINCIPAL_LINKS } from '@/app/(painel-assistido)/constants'
 import {
   Box,
   Divider,
@@ -40,18 +37,6 @@ export function DrawerMenuAreaAssistido() {
         ))}
       </List>
       <Divider sx={{ mt: 'auto' }} />
-      <List>
-        {MENU_AVANCADO_LINKS.map(({ key, text, action, icon: Icon }) => (
-          <ListItem key={key} disablePadding>
-            <ListItemButton onClick={action}>
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </Box>
   )
 }

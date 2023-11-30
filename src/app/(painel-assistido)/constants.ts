@@ -37,19 +37,19 @@ export const MENU_PRINCIPAL_LINKS: {
 export const MENU_AVANCADO_LINKS: {
   key: number
   text: string
-  action: () => void | string
+  action: (() => void) | string
   icon: OverridableComponent<SvgIconTypeMap> & { muiName: string }
 }[] = [
   {
     key: 1,
     text: 'Configurações',
-    action: () => console.log('configurações'),
+    action: '/configuracoes',
     icon: SettingsIcon,
   },
   {
     key: 2,
     text: 'Informações',
-    action: () => console.log('Informações'),
+    action: '/informacoes',
     icon: SupportIcon,
   },
   { key: 3, text: 'Sair', action: () => signOut(), icon: LogoutIcon },

@@ -3,7 +3,6 @@
 // Third party
 import { Box, Drawer } from '@mui/material'
 // Framework
-import { useState } from 'react'
 
 // internal
 import { AppBarResponsive } from './HeaderNavbar/AppBarResponsive'
@@ -12,23 +11,12 @@ import { DrawerMenuAreaAssistido } from './HeaderNavbar/DrawerMenuAreaAssistido'
 const drawerWidth = 240
 
 export function AppBarAreaAssistido() {
-  const [mobileOpen, setMobileOpen] = useState(false)
-
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState)
-  }
-
   return (
     <>
-      <AppBarResponsive
-        isOpen={mobileOpen}
-        handleDrawerToggle={handleDrawerToggle}
-      >
+      <AppBarResponsive>
         <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
           <Drawer
             variant="permanent"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
             ModalProps={{
               keepMounted: true,
             }}
