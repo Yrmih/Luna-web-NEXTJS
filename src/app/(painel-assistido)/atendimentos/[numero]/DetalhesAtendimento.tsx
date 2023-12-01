@@ -1,3 +1,4 @@
+'use client'
 // Third party
 import { Box, Grid } from '@mui/material'
 // Internal
@@ -18,6 +19,7 @@ export function DetalhesAtendimento() {
     >
       {/* Apresenta: Detalhes do atendimento / documentos pendentes */}
       <Grid
+        item
         lg={8}
         md={8}
         sm={12}
@@ -43,6 +45,7 @@ export function DetalhesAtendimento() {
 
       {/* Detalhes do assistido */}
       <Grid
+        item
         lg={4}
         md={4}
         sm={12}
