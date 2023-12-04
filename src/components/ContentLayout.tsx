@@ -11,7 +11,6 @@ const ContentLayout = ({ children }: ContentProps) => {
       {/* Captura área para conteúdo */}
       <Box
         sx={{
-          marginTop: '4rem',
           overflowY: 'scroll', // Fixa o footer e o header na tela, fazendo com que o main tenha o controle do scroll
           flex: 'auto', // Garante que a área do main ocupará sempre 100% do espaço entre header e footer além de adaptar com base na quantidade de elementos que há, criando o scroll se necessário.
           marginLeft: { xs: '0px', md: '240px' }, // Espaço para sidebar quando em PC, não necessário em Mobile
