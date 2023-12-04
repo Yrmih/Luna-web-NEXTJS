@@ -15,7 +15,7 @@ import {
 // framework
 
 // Internal
-import styles from '../../../assets/styles/TabelaItens.module.css'
+import styles from '@/styles/FadeTransitionItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
 import { TextFieldAttributes } from '../types/TextFieldAttributes'
 import { MaskUtils } from '@/utils/MaskUtils'
