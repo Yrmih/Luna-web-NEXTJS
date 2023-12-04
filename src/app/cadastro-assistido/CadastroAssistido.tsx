@@ -329,7 +329,6 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
           </Button>
         </Stack>
       </Paper>
-      <Copyright />
     </Container>
   )
 }
