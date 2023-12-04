@@ -37,7 +37,7 @@ export function DetalhesAtendimento() {
           }}
         >
           {/* Componente que trás dados do pré agendamento */}
-          <PreAgendamento />
+          <PreAgendamento props={{ tipoAtendimento: 'Pré-agendamento' }} />
         </Box>
         {/* Componente que trás dados dos documentos do atendimento */}
         <CardDocumentoEnvio />

@@ -11,7 +11,15 @@ import {
   useTheme,
 } from '@mui/material'
 
-export default function PreAgendamento() {
+import BarradeProgresso from './BarradeProgresso'
+
+interface PreAgendamentoProps {
+  props: {
+    tipoAtendimento: string
+  }
+}
+
+export default function PreAgendamento({ props }: PreAgendamentoProps) {
   const theme = useTheme()
   return (
     <Grid
@@ -26,15 +34,20 @@ export default function PreAgendamento() {
     >
       <Grid item sx={{ width: '100%' }}>
         <Card sx={{ p: 2 }}>
-          <CardHeader
-            sx={{
-              backgroundColor: theme.palette.primary.light,
-              height: '10px',
-              borderRadius: '10px',
-              textAlign: 'center',
-            }}
-            title={'Pré-agendamento'}
-          />
+          {props.tipoAtendimento === 'Pré-agendamento' ? (
+            <BarradeProgresso props={{ valor: 10 }} />
+          ) : (
+            <CardHeader
+              sx={{
+                backgroundColor: theme.palette.primary.light,
+                height: '10px',
+                borderRadius: '10px',
+                textAlign: 'center',
+              }}
+              title={'Pré-agendamento'}
+            ></CardHeader>
+          )}
+
           <ListItem>
             <ListItemText primary="ATENÇÃO: Fotografe ou anexe os documentos pendentes e listados abaixo, ou declare que não os possui. Certifique-se de que todas as perguntas foram respondidas. Acompanhe por aqui o andamento da sua demanda e por e-mail, caso tenha sido cadastrado." />
           </ListItem>
