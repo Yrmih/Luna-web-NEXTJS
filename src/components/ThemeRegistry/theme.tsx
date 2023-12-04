@@ -61,6 +61,25 @@ function getTheme(prefersDarkMode: boolean) {
             }),
         },
       },
+      MuiBottomNavigation: {
+        styleOverrides: {
+          root: ({ theme }) =>
+            theme.unstable_sx({
+              '& .MuiBottomNavigationAction-root': {
+                minWidth: 'unset', // Remove the minimum width
+                padding: '8px', // Adjust padding as needed
+              },
+              '& .MuiBottomNavigationAction-label': {
+                fontSize: '12px', // Adjust label font size as needed
+                textAlign: 'center',
+              },
+              '& .MuiSvgIcon-root': {
+                width: '18px', // Adjust icon width as needed
+                height: '18px', // Adjust icon height as needed
+              },
+            }),
+        },
+      },
       MuiCssBaseline: {
         styleOverrides: {
           'html, body': {

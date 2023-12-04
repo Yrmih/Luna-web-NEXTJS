@@ -1,8 +1,8 @@
 'use client'
+
 import { Grid, Paper } from '@mui/material'
 import { Copyright } from './Copyright'
 
-const drawerWidth = 240
 export default function Footer() {
   return (
     <footer>
@@ -23,7 +23,7 @@ export default function Footer() {
         }}
       >
         <Grid
-          sx={{ ml: { xs: 'none', md: `none` } }}
+          sx={{ ml: { md: 'none' } }}
           flexDirection={'column'}
           display={'flex'}
           justifyContent={'center'}
