@@ -18,10 +18,9 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 // Framework
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 // Internal
-import { ObjectUtils } from '@/utils/ObjectUtils'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ContatoForm } from './components/formulario/ContatoForm'
 import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
@@ -69,7 +68,16 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
   const router = useRouter()
   const formStorageKey = 'cadastro-assitido'
 
+  const defaultValues = useMemo(() => {
+    return {
+      qualificacaoFinanceira: {
+        aceitoTermosCondicoes: false,
+      },
+    }
+  }, [])
+
   const [activeStep, setActiveStep] = useState(parseInt(step || '1') - 1)
+
   const {
     register,
     control,
@@ -80,33 +88,28 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
   } = useForm<CadastroAssistidoInputsForm>({
     mode: 'onChange',
     resolver: zodResolver(cadastroAssistidoSchema),
-    defaultValues: {
-      qualificacaoFinanceira: {
-        aceitoTermosCondicoes: false,
-      },
-    },
+    defaultValues,
   })
 
   const isTermosAceito = watch('qualificacaoFinanceira.aceitoTermosCondicoes')
 
-  const saveFormStateToLocalStorage = (data: CadastroAssistidoInputsForm) => {
-    if (!ObjectUtils.isObjectEmpty(data)) {
-      sessionStorage.setItem(formStorageKey, JSON.stringify(data))
-    }
-  }
-
   const cadastroAssistidoWatchedFields = watch()
-
   useEffect(() => {
-    saveFormStateToLocalStorage(cadastroAssistidoWatchedFields)
-  }, [cadastroAssistidoWatchedFields])
+    function saveFormStateToSession(data: CadastroAssistidoInputsForm) {
+      if (JSON.stringify(data) !== JSON.stringify(defaultValues)) {
+        sessionStorage.setItem(formStorageKey, JSON.stringify(data))
+      }
+    }
+
+    saveFormStateToSession(cadastroAssistidoWatchedFields)
+  }, [cadastroAssistidoWatchedFields, defaultValues])
 
   useEffect(() => {
     const loadFormStateFromLocalStorage = () => {
       const storedData = sessionStorage.getItem(formStorageKey)
       if (storedData) {
         const parsedData = JSON.parse(storedData) as CadastroAssistidoInputsForm
-        console.log(parsedData)
+
         setValue('informacaoInicial', parsedData.informacaoInicial)
         setValue('contatos', parsedData.contatos)
         setValue('endereco', parsedData.endereco)
