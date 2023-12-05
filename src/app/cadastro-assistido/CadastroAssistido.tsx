@@ -21,7 +21,6 @@ import { z } from 'zod'
 import { useEffect, useState } from 'react'
 
 // Internal
-import { Copyright } from '@/components/Copyright'
 import { ObjectUtils } from '@/utils/ObjectUtils'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ContatoForm } from './components/formulario/ContatoForm'
