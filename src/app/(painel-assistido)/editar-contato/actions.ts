@@ -1,6 +1,6 @@
 'use server'
 
-import { FormularioFields } from '@/app/(painel-assistido)/editar-contato/page'
+import { FormularioFields } from '@/app/(painel-assistido)/editar-contato/EditarContato'
 
 export async function handleFormularioSubmit(data: FormularioFields) {
   // Realizar requisição para api externa (Ex.: backend solar)

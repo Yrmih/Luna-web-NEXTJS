@@ -11,7 +11,6 @@ import {
   Stack,
   TextField,
 } from '@mui/material'
-import InputMask from 'react-input-mask'
 
 import React from 'react'
 import BoxPergunta from '../components/BoxPergunta'

@@ -1,5 +1,5 @@
-import NovaSolicitacao from './nova-solicitacao'
+import NovaSolicitacao from './NovaSolicitacao'
 
-export default function novaSolicitacao () {
+export default function NovaSolicitacaoPage () {
   return <NovaSolicitacao/>
 }
