@@ -96,6 +96,8 @@ function TituloPageAtual() {
                   </Link>
                 </div>
               )
+            } else {
+              return <></>
             }
           })}
         </div>
