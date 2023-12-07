@@ -1,3 +1,4 @@
+'use client'
 import { Box, CardHeader, Paper } from '@mui/material'
 import { DetalhesAtendimento } from './DetalhesAtendimento'
 
