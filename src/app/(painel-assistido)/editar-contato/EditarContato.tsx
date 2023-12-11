@@ -107,18 +107,18 @@ export default function EditarContato() {
             error={!emailRegex.test(valorEmail.toString()) && valorEmail !== ''}
           />
 
-              <TextField
-                sx={{
-                  width: '50vw',
-                  '@media (min-width:900px)': {
-                    width: '35vw',
-                  },
-                }}
-                id="input-telefone"
-                label="N° DE TELEFONE"
-                variant="standard"
-                error={valorTel.includes('_') && valorTel !== '(__) _____-____'}
-              />
+          <TextField
+            sx={{
+              width: '50vw',
+              '@media (min-width:900px)': {
+                width: '35vw',
+              },
+            }}
+            id="input-telefone"
+            label="N° DE TELEFONE"
+            variant="standard"
+            error={valorTel.includes('_') && valorTel !== '(__) _____-____'}
+          />
           <Button
             sx={{
               width: '17vw',
