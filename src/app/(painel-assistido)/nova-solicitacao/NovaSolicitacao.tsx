@@ -334,12 +334,12 @@ export default function NovaSolicitacao() {
             >
               Dados da intimação
               <TextField
-                    id="input-processo"
-                    fullWidth
-                    label="Número de Processo"
-                    variant="standard"
-                    helperText={'Digite o número do seu processo'}
-                  />
+                id="input-processo"
+                fullWidth
+                label="Número de Processo"
+                variant="standard"
+                helperText={'Digite o número do seu processo'}
+              />
             </Box>
           </Stack>
         </Paper>
