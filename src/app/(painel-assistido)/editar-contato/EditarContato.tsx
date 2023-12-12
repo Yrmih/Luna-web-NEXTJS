@@ -11,17 +11,9 @@ import React from 'react'
 export type FormularioFields = z.infer<typeof formularioSchema>
 
 export default function EditarContato() {
-  const [valorTel, setValorTel] = React.useState('')
   const [valorEmail, setValorEmail] = React.useState('')
 
   // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
-
-  // controlador mudança telefone
-  const handleTelChange = (e: { currentTarget: { value: string } }) => {
-    const tel = e.currentTarget.value
-
-    setValorTel(tel)
-  }
 
   // controlador mudança email
   const handleEmailChange = (e: { currentTarget: { value: string } }) => {
@@ -117,7 +109,6 @@ export default function EditarContato() {
             id="input-telefone"
             label="N° DE TELEFONE"
             variant="standard"
-            error={valorTel.includes('_') && valorTel !== '(__) _____-____'}
           />
           <Button
             sx={{

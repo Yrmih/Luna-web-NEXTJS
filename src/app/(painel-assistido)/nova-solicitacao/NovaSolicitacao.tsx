@@ -71,14 +71,8 @@ export default function NovaSolicitacao() {
     },
   ]
 
-  const [valorIntimacao, setValorIntimacao] = React.useState('')
   const [value, setValue] = React.useState('nao')
 
-  const handleIntimacaoChange = (e: { currentTarget: { value: any } }) => {
-    const intimacao = e.currentTarget.value
-
-    setValorIntimacao(intimacao)
-  }
   const handleChangeOpcaoIntimacao = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -87,7 +81,7 @@ export default function NovaSolicitacao() {
 
   const [valorAssunto, setValorAssunto] = React.useState('default')
 
-  const handleAssuntoChange = (e: { currentTarget: { value: any } }) => {
+  const handleAssuntoChange = (e: { currentTarget: { value: string } }) => {
     const assunto = e.currentTarget.value
 
     setValorAssunto(assunto)
@@ -95,7 +89,7 @@ export default function NovaSolicitacao() {
 
   const [valorArea, setValorArea] = React.useState('default')
 
-  const handleAreaChange = (e: { currentTarget: { value: any } }) => {
+  const handleAreaChange = (e: { currentTarget: { value: string } }) => {
     const area = e.currentTarget.value
 
     setValorArea(area)
@@ -105,7 +99,7 @@ export default function NovaSolicitacao() {
     React.useState('default')
 
   const handleLocalAtendimentoChange = (e: {
-    currentTarget: { value: any }
+    currentTarget: { value: string }
   }) => {
     const area = e.currentTarget.value
 

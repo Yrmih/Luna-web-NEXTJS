@@ -6,7 +6,6 @@ import { Box, Button, Paper, Stack, Typography } from '@mui/material'
 
 import { keyframes } from '@emotion/react'
 import { useState } from 'react'
-// eslint-disable-next-line react-hooks/rules-of-hooks
 
 const shake = keyframes`
 0% { transform: translate(0px, 0px) rotate(0deg); }
