@@ -1,6 +1,6 @@
 'use client'
-import { AccountCircle } from '@mui/icons-material'
 
+import { AccountCircle } from '@mui/icons-material'
 import {
   Box,
   Button,
@@ -16,27 +16,25 @@ import {
 } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
-import InputMask from 'react-input-mask'
-import React from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 // Framework
 
 // Internal
 
 export function Login() {
-  const [valorCpf, setValorCpf] = React.useState('')
-  const [valorNome, setValorNome] = React.useState('')
-  const [valorFiliacoes, setValorFiliacoes] = React.useState('')
-  const [valorData, setValorData] = React.useState('')
-  const [valorTel, setValorTel] = React.useState('')
-  const [cpfError, setCpfError] = React.useState(false)
-  const [cpfHelperText, setCpfHelperText] = React.useState('')
-  const [valorNumAtendimento, setValorNumAtendimento] = React.useState('')
-  const [numAtendimentoError, setNumAtendimentoError] = React.useState(false)
-  const [numAtendimentoHelperText, setNumAtendimentoHelperText] =
-    React.useState('')
+  const [valorCpf, setValorCpf] = useState('')
+  const [valorNome, setValorNome] = useState('')
+  const [valorFiliacoes, setValorFiliacoes] = useState('')
+  const [valorData, setValorData] = useState('')
+  const [valorTel, setValorTel] = useState('')
+  const [cpfError, setCpfError] = useState(false)
+  const [cpfHelperText, setCpfHelperText] = useState('')
+  const [valorNumAtendimento, setValorNumAtendimento] = useState('')
+  const [numAtendimentoError, setNumAtendimentoError] = useState(false)
+  const [numAtendimentoHelperText, setNumAtendimentoHelperText] = useState('')
 
   const router = useRouter()
 
@@ -139,7 +137,7 @@ export function Login() {
   }
 
   // controlador do popover Atendimento
-  const [openAtendimento, setOpenAtendimento] = React.useState(false)
+  const [openAtendimento, setOpenAtendimento] = useState(false)
 
   const handleClickOpenAtendimento = () => {
     setOpenAtendimento(true)
@@ -151,7 +149,7 @@ export function Login() {
 
   // controlador do popover Atendimento não encontrado
   const [openAtendimentoNaoEncontrado, setOpenAtendimentoNaoEncontrado] =
-    React.useState(false)
+    useState(false)
 
   const handleClickOpenAtendimentoNaoEncontrado = () => {
     setOpenAtendimentoNaoEncontrado(true)
@@ -163,7 +161,7 @@ export function Login() {
 
   // controlador do popover recuperar N° de atendimento
   const [openRecuperarAtendimento, setOpenRecuperarAtendimento] =
-    React.useState(false)
+    useState(false)
 
   const handleClickOpenRecuperarAtendimento = () => {
     setOpenRecuperarAtendimento(true)
@@ -175,7 +173,7 @@ export function Login() {
 
   // controlador do popover falha recuperar N° de atendimento
   const [openFalhaRecuperarAtendimento, setOpenFalhaRecuperarAtendimento] =
-    React.useState(false)
+    useState(false)
 
   const handleClickOpenFalhaRecuperarAtendimento = () => {
     setOpenFalhaRecuperarAtendimento(true)
@@ -186,7 +184,7 @@ export function Login() {
   }
 
   // controlador do popover CPF não encontrado
-  const [openCpfNaoEncontrado, setOpenCpfNaoEncontrado] = React.useState(false)
+  const [openCpfNaoEncontrado, setOpenCpfNaoEncontrado] = useState(false)
 
   const handleClickOpenCpfNaoEncontrado = () => {
     setOpenCpfNaoEncontrado(true)
@@ -266,24 +264,14 @@ export function Login() {
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <AccountCircle sx={{ mr: 1, my: 0.5 }} />
-
-            <InputMask
-              mask="999.999.999-99"
-              value={valorCpf}
-              onChange={handleCpfChange}
-              maskChar=""
-            >
-              {() => (
-                <TextField
-                  sx={{ width: 200 }}
-                  id="input-cpf"
-                  label="CPF"
-                  variant="standard"
-                  error={cpfError}
-                  helperText={cpfHelperText}
-                />
-              )}
-            </InputMask>
+            <TextField
+              sx={{ width: 200 }}
+              id="input-cpf"
+              label="CPF"
+              variant="standard"
+              error={cpfError}
+              helperText={cpfHelperText}
+            />
             <Button
               sx={{
                 marginLeft: '2vw',
@@ -372,27 +360,20 @@ export function Login() {
                 <DialogContentText marginBottom={'2vh'}>
                   É aquele número que você recebeu quando fez o primeiro acesso
                   aqui. Você anotou ou fez uma foto dele? Caso não encontre o
-                  seu número, clique abaixo em "Esqueceu Seu Número"
+                  seu número, clique abaixo em &quot;Esqueceu Seu Número&quot;
                 </DialogContentText>
-                <InputMask
-                  mask="999999.999.999"
-                  maskChar=""
-                  onChange={handleNumAtendimentoChange}
-                >
-                  {() => (
-                    <TextField
-                      fullWidth
-                      id="input-atendimento"
-                      label="N° DE ATENDIMENTO"
-                      variant="standard"
-                      error={
-                        valorNumAtendimento.length !== 14 &&
-                        valorNumAtendimento !== ''
-                      }
-                      helperText={numAtendimentoHelperText}
-                    />
-                  )}
-                </InputMask>
+
+                <TextField
+                  fullWidth
+                  id="input-atendimento"
+                  label="N° DE ATENDIMENTO"
+                  variant="standard"
+                  error={
+                    valorNumAtendimento.length !== 14 &&
+                    valorNumAtendimento !== ''
+                  }
+                  helperText={numAtendimentoHelperText}
+                />
               </DialogContent>
               <DialogActions sx={{ justifyContent: 'space-around' }}>
                 <Button
@@ -524,77 +505,41 @@ export function Login() {
                   quantidade de campos possível, tentando garantir que as
                   informações são as mesmas informadas em seu cadastro.
                 </DialogContentText>
-                <InputMask
-                  mask="999.999.999-99"
-                  value={valorCpf}
-                  onChange={handleCpfChange}
-                  maskChar=""
-                >
-                  {() => (
-                    <TextField
-                      fullWidth
-                      id="input-cpf"
-                      label="CPF"
-                      variant="standard"
-                      error={cpfError}
-                      helperText={cpfHelperText}
-                    />
-                  )}
-                </InputMask>
-                <InputMask maskChar="" onChange={handleNomeChange}>
-                  {() => (
-                    <TextField
-                      fullWidth
-                      id="input-nome"
-                      label="NOME"
-                      variant="standard"
-                    />
-                  )}
-                </InputMask>
-                <InputMask
-                  mask=""
-                  maskChar=" "
-                  onChange={handleFiliacoesChange}
-                >
-                  {() => (
-                    <TextField
-                      fullWidth
-                      id="input-filiacoes"
-                      label="FILIAÇÕES"
-                      variant="standard"
-                    />
-                  )}
-                </InputMask>
-                <InputMask
-                  mask="99/99/9999"
-                  maskChar=" "
-                  placeholder=""
-                  onChange={handleDataChange}
-                >
-                  {() => (
-                    <TextField
-                      fullWidth
-                      id="input-nascimento"
-                      label="DATA DE NASCIMENTO"
-                      variant="standard"
-                    />
-                  )}
-                </InputMask>
-                <InputMask
-                  mask="(99) 99999-9999"
-                  maskChar=" "
-                  placeholder="(99) 99999-9999"
-                  onChange={handleTelChange}
-                >
-                  {() => (
-                    <TextField
-                      fullWidth
-                      id="input-telefone"
-                      label="N° DE TELEFONE"
-                      variant="standard"
-                    />
-                  )}
-                </InputMask>
+
+                <TextField
+                  fullWidth
+                  id="input-cpf"
+                  label="CPF"
+                  variant="standard"
+                  error={cpfError}
+                  helperText={cpfHelperText}
+                />
+
+                <TextField
+                  fullWidth
+                  id="input-nome"
+                  label="NOME"
+                  variant="standard"
+                />
+
+                <TextField
+                  fullWidth
+                  id="input-filiacoes"
+                  label="FILIAÇÕES"
+                  variant="standard"
+                />
+                <TextField
+                  fullWidth
+                  id="input-nascimento"
+                  label="DATA DE NASCIMENTO"
+                  variant="standard"
+                />
+                <TextField
+                  fullWidth
+                  id="input-telefone"
+                  label="N° DE TELEFONE"
+                  variant="standard"
+                />
               </DialogContent>
               <DialogActions sx={{ justifyContent: 'space-around' }}>
                 <Button
