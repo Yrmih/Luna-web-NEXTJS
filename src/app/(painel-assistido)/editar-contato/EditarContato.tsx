@@ -2,27 +2,74 @@
 // Internal
 import { Box, Button, Paper, Stack, TextField, Typography } from '@mui/material'
 import { z } from 'zod'
-import { formularioSchema } from './editarContatoSchema'
+import { editarContatoSchema } from './editarContatoSchema'
 
-import React from 'react'
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+
+import React, { ChangeEvent } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { kMaxLength } from 'buffer'
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 // Tipagem do formulario
-export type FormularioFields = z.infer<typeof formularioSchema>
+
+export type EditarContatoSchemaForm = z.infer<typeof editarContatoSchema>
+
+const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
+  {
+    label: 'E-mail',
+    textHelper: 'Endereço de E-mail principal',
+    placeHolder: 'exemplo@exemplo.com',
+    icon: <WhatsAppIcon />,
+  },
+  {
+    label: 'Número de Telefone',
+    textHelper: 'Número de telefone fixo.',
+    placeHolder: '(99) 9999-9999',
+    icon: <LocalPhoneIcon />,
+  },
+]
 
 export default function EditarContato() {
-  const [valorEmail, setValorEmail] = React.useState('')
-
   // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
 
   // controlador mudança email
-  const handleEmailChange = (e: { currentTarget: { value: string } }) => {
-    const email = e.currentTarget.value
 
-    setValorEmail(email)
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<EditarContatoSchemaForm>({
+    mode: 'onChange',
+    resolver: zodResolver(editarContatoSchema),
+  })
+
+  const formatPhoneNumber = (value: string) => {
+    const formattedValue = value
+      .replace(/\D/g, '')
+      .slice(0, 11)
+      .replace(/(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3')
+    return formattedValue
   }
-  const emailRegex =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi
+
+  const handlePhoneNumberChanger = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const rawValue = event.target.value
+
+    const formattedValue = formatPhoneNumber(rawValue)
+
+    setValue('telefone', formattedValue)
+  }
+
+  const onSubmit: SubmitHandler<EditarContatoSchemaForm> = (data) => {
+    console.log('DADOS: ', data, 'ERRO: ', errors)
+    console.log('VALID: ', isValid)
+  }
 
   return (
     <Box
@@ -32,6 +79,8 @@ export default function EditarContato() {
       }}
     >
       <Paper
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -87,16 +136,17 @@ export default function EditarContato() {
                 width: '35vw',
               },
             }}
-            value={valorEmail}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              handleEmailChange(e)
-              console.log(valorEmail)
-              console.log(emailRegex.test(valorEmail.toString()))
-            }}
             id="input-email"
-            label="E-MAIL"
             variant="standard"
-            error={!emailRegex.test(valorEmail.toString()) && valorEmail !== ''}
+            {...register('email')}
+            error={errors.email !== undefined}
+            helperText={
+              errors.email !== undefined
+                ? errors.email.message
+                : FORMULARIO_CAMPOS_EDITAR_CONTATO[0].textHelper
+            }
+            label={FORMULARIO_CAMPOS_EDITAR_CONTATO[0].label}
+            placeholder={FORMULARIO_CAMPOS_EDITAR_CONTATO[0].placeHolder}
           />
 
           <TextField
@@ -106,9 +156,23 @@ export default function EditarContato() {
                 width: '35vw',
               },
             }}
+            {...register('telefone', {
+              maxLength: 15,
+              onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                console.log(event.target.value)
+              },
+            })}
+            onChange={handlePhoneNumberChanger}
             id="input-telefone"
-            label="N° DE TELEFONE"
             variant="standard"
+            error={errors.telefone !== undefined}
+            helperText={
+              errors.telefone !== undefined
+                ? errors.telefone.message
+                : FORMULARIO_CAMPOS_EDITAR_CONTATO[1].textHelper
+            }
+            label={FORMULARIO_CAMPOS_EDITAR_CONTATO[1].label}
+            placeholder={FORMULARIO_CAMPOS_EDITAR_CONTATO[1].placeHolder}
           />
           <Button
             sx={{
