@@ -1,55 +1,55 @@
 import { MaskUtils } from '@/utils/MaskUtils'
 import { z } from 'zod'
 import {
-  FORMULARIO_ERROS_MENSAGENS,
-  INPUT_MASK_REGEX,
-} from '../components/formulario/constants'
+  FORMULARIOS_ERROS_MENSAGENS,
+  FORMULARIOS_REGEX_DAS_MASCARAS,
+} from '../../../utils/constants/formularios'
 
 export const dadosPessoaisSchema = z.object({
   nomeMae: z.string().refine(
     (value) => {
-      if (value === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+    { message: FORMULARIOS_ERROS_MENSAGENS.apenasLetras },
   ),
   nomePai: z.string().refine(
     (value) => {
-      if (value === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+    { message: FORMULARIOS_ERROS_MENSAGENS.apenasLetras },
   ),
   dataNascimento: z.date({ coerce: true }),
   sexo: z.enum(['feminino', 'masculino']),
   estadoCivil: z.enum(['casado', 'solteiro', 'divorciado', 'viuvo']),
   nomeSocial: z.string().refine(
     (value) => {
-      if (value === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+    { message: FORMULARIOS_ERROS_MENSAGENS.apenasLetras },
   ),
-  rg: z.string().length(7, FORMULARIO_ERROS_MENSAGENS.rg),
+  rg: z.string().length(7, FORMULARIOS_ERROS_MENSAGENS.rg),
   rgOrgao: z.string().refine(
     (value) => {
-      if (value === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+    { message: FORMULARIOS_ERROS_MENSAGENS.apenasLetras },
   ),
   certidao: z.string().refine(
     (value) => {
       value = MaskUtils.limitarTamanhoString(value, 40)
-      if (value === '' || value.match(INPUT_MASK_REGEX.certidao)) {
+      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.certidao)) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.certidao },
+    { message: FORMULARIOS_ERROS_MENSAGENS.certidao },
   ),
   tipoCertidao: z.enum(['certidao_nascimento', 'certidao_casamento']),
 })

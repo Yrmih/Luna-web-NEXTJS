@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import {
-  FORMULARIO_ERROS_MENSAGENS,
-  INPUT_MASK_REGEX,
-} from '../components/formulario/constants'
+  FORMULARIOS_ERROS_MENSAGENS,
+  FORMULARIOS_REGEX_DAS_MASCARAS,
+} from '../../../utils/constants/formularios'
 
 export const qualificacaoFinanceiraSchema = z.object({
   numeroMembrosFamilia: z.number().min(0),
@@ -16,12 +16,12 @@ export const qualificacaoFinanceiraSchema = z.object({
         (value) => {
           if (
             value.trim() === '' ||
-            value.match(INPUT_MASK_REGEX.apenasLetras)
+            value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
           ) {
             return true
           }
         },
-        { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+        { message: FORMULARIOS_ERROS_MENSAGENS.apenasLetras },
       ),
     }),
   ),

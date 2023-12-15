@@ -21,6 +21,20 @@ export class MaskUtils {
     }
   }
 
+  static maskAtendimento = (value: string | undefined) => {
+    if (!value) return ''
+
+    const cleanedValue = value.replace(/\D/g, '')
+
+    if (cleanedValue.length <= 12) {
+      const cpf = cleanedValue
+        .replace(/(\d{6})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})$/, '$1')
+      return cpf
+    }
+  }
+
   static stringToNumberConverter = (value: string): number => {
     value = value.replace(/\D/g, '')
     const moneyValue: number = Number(value) / 100
@@ -88,5 +102,10 @@ export class MaskUtils {
   static limitarTamanhoString = (string: string, limite: number) => {
     // Use a regex para remover qualquer caractere que apareça após os primeiros 'limite' caracteres.
     return string.replace(new RegExp(`^(.{${limite}}).*$`), '$1')
+  }
+
+  static getOnlyDigits(value: string | undefined) {
+    if (!value) return ''
+    return value.replace(/\D/g, '')
   }
 }
