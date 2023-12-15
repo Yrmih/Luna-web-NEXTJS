@@ -1,16 +1,23 @@
 'use client'
 // Internal
-import { Box, Button, Paper, Stack, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+  InputAdornment,
+} from '@mui/material'
 import { z } from 'zod'
 import { editarContatoSchema } from './editarContatoSchema'
 
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 
 import React, { ChangeEvent } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { kMaxLength } from 'buffer'
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 // Tipagem do formulario
@@ -22,7 +29,7 @@ const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
     label: 'E-mail',
     textHelper: 'Endereço de E-mail principal',
     placeHolder: 'exemplo@exemplo.com',
-    icon: <WhatsAppIcon />,
+    icon: <MailOutlineIcon />,
   },
   {
     label: 'Número de Telefone',
@@ -147,6 +154,13 @@ export default function EditarContato() {
             }
             label={FORMULARIO_CAMPOS_EDITAR_CONTATO[0].label}
             placeholder={FORMULARIO_CAMPOS_EDITAR_CONTATO[0].placeHolder}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_CAMPOS_EDITAR_CONTATO[0].icon}
+                </InputAdornment>
+              ),
+            }}
           />
 
           <TextField
@@ -173,6 +187,13 @@ export default function EditarContato() {
             }
             label={FORMULARIO_CAMPOS_EDITAR_CONTATO[1].label}
             placeholder={FORMULARIO_CAMPOS_EDITAR_CONTATO[1].placeHolder}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_CAMPOS_EDITAR_CONTATO[1].icon}
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             sx={{
