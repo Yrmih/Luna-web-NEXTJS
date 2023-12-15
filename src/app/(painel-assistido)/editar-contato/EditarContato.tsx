@@ -40,13 +40,8 @@ const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
 ]
 
 export default function EditarContato() {
-  // Define os campos recebidos pelo formulário (bem como seu tipo e parametros caso necessário, bem como sua mensagem de error ex.: ddd coloquei minimo de 3 caracteres)
-
-  // controlador mudança email
-
   const {
     register,
-    watch,
     setValue,
     formState: { errors, isValid },
     handleSubmit,
