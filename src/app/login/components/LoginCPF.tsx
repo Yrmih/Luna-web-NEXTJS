@@ -1,7 +1,17 @@
 import { AccountCircle } from '@mui/icons-material'
 import { Box, Button, TextField, Typography } from '@mui/material'
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { LoginInputsFrom } from '../types/formTypes'
+import { ChangeEvent } from 'react'
+import { MaskUtils } from '@/utils/MaskUtils'
 
-export function LoginCPF() {
+export type LoginCpfProps = {
+  register: UseFormRegister<LoginInputsFrom>
+  errors: FieldErrors<LoginInputsFrom>
+  setValue: UseFormSetValue<LoginInputsFrom>
+}
+
+export function LoginCPF({ register, errors, setValue }: LoginCpfProps) {
   return (
     <>
       <Typography
@@ -29,6 +39,17 @@ export function LoginCPF() {
           id="input-cpf"
           label="CPF"
           variant="standard"
+          error={errors.cpf !== undefined}
+          helperText={
+            errors.cpf !== undefined
+              ? errors.cpf.message
+              : 'Digite seu número de atendimento'
+          }
+          {...register('cpf', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              setValue('cpf', MaskUtils.maskCpfCnpj(event.target.value))
+            },
+          })}
         />
         <Button
           sx={{

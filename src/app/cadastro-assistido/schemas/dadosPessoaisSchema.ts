@@ -8,7 +8,10 @@ import {
 export const dadosPessoaisSchema = z.object({
   nomeMae: z.string().refine(
     (value) => {
-      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
+      if (
+        value === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
+      ) {
         return true
       }
     },
@@ -16,7 +19,10 @@ export const dadosPessoaisSchema = z.object({
   ),
   nomePai: z.string().refine(
     (value) => {
-      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
+      if (
+        value === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
+      ) {
         return true
       }
     },
@@ -27,7 +33,10 @@ export const dadosPessoaisSchema = z.object({
   estadoCivil: z.enum(['casado', 'solteiro', 'divorciado', 'viuvo']),
   nomeSocial: z.string().refine(
     (value) => {
-      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
+      if (
+        value === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
+      ) {
         return true
       }
     },
@@ -36,7 +45,10 @@ export const dadosPessoaisSchema = z.object({
   rg: z.string().length(7, FORMULARIOS_ERROS_MENSAGENS.rg),
   rgOrgao: z.string().refine(
     (value) => {
-      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
+      if (
+        value === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
+      ) {
         return true
       }
     },
@@ -45,7 +57,10 @@ export const dadosPessoaisSchema = z.object({
   certidao: z.string().refine(
     (value) => {
       value = MaskUtils.limitarTamanhoString(value, 40)
-      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.certidao)) {
+      if (
+        value === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.certidao)
+      ) {
         return true
       }
     },

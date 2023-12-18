@@ -5,6 +5,7 @@ export const FORMULARIOS_ERROS_MENSAGENS = {
   string: 'Somente textos são permitidos',
   cpf: 'número de CPF inválido',
   rg: 'número de RG inválido',
+  atendimento: 'número de atendimeto inválido',
   certidao: 'número de certidão inválido',
   cep: 'CEP inválido',
   telefone: 'Telefone inválido',

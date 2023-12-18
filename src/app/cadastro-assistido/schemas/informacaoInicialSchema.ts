@@ -10,7 +10,10 @@ export const informacaoInicialSchema = z.object({
     .string({ invalid_type_error: FORMULARIOS_ERROS_MENSAGENS.string })
     .refine(
       (value) => {
-        if (value.trim() === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)) {
+        if (
+          value.trim() === '' ||
+          value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
+        ) {
           return true
         }
       },

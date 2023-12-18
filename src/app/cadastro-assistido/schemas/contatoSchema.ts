@@ -7,7 +7,10 @@ import {
 export const contatoSchema = z.object({
   celular: z.string().refine(
     (value) => {
-      if (value.trim() === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.celular)) {
+      if (
+        value.trim() === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.celular)
+      ) {
         return true
       }
     },
@@ -15,7 +18,10 @@ export const contatoSchema = z.object({
   ),
   telefone: z.string().refine(
     (value) => {
-      if (value.trim() === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.telefone)) {
+      if (
+        value.trim() === '' ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.telefone)
+      ) {
         return true
       }
     },

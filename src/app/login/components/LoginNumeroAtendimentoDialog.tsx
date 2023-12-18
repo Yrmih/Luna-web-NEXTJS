@@ -23,7 +23,6 @@ export type LoginAtendimentoProps = {
   errors: FieldErrors<LoginInputsFrom>
   setValue: UseFormSetValue<LoginInputsFrom>
   isValid: boolean
-  isLoading: boolean
 }
 
 export default function LoginAtendimentoDialog({
@@ -31,7 +30,6 @@ export default function LoginAtendimentoDialog({
   errors,
   setValue,
   isValid,
-  isLoading,
 }: LoginAtendimentoProps) {
   const matches = useMediaQuery('(min-width:900px)')
   return (
@@ -58,6 +56,11 @@ export default function LoginAtendimentoDialog({
               ),
           })}
           error={errors.atendimento !== undefined}
+          helperText={
+            errors.atendimento !== undefined
+              ? errors.atendimento.message
+              : 'Digite seu número de atendimento'
+          }
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-around' }}>

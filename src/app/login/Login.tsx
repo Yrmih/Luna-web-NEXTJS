@@ -51,13 +51,12 @@ export function Login() {
       >
         <Stack>
           <Stack component="form">
-            <LoginCPF />
+            <LoginCPF register={register} errors={errors} setValue={setValue} />
             <LoginAtendimentoDialog
               register={register}
               errors={errors}
               setValue={setValue}
-              isValid={isLoading}
-              isLoading={isLoading}
+              isValid={isValid}
             />
           </Stack>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
