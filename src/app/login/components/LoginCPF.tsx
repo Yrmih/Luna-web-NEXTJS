@@ -43,7 +43,7 @@ export function LoginCPF({ register, errors, setValue }: LoginCpfProps) {
           helperText={
             errors.cpf !== undefined
               ? errors.cpf.message
-              : 'Digite seu número de atendimento'
+              : 'Digite seu número de CPF'
           }
           {...register('cpf', {
             onChange: (event: ChangeEvent<HTMLInputElement>) => {
