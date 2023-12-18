@@ -20,6 +20,17 @@ export const editarContatoSchema = z.object({
     .string()
     .refine(
       (value) => {
+        if (value.trim() === '' || value.match(INPUT_MASK_REGEX.telefone)) {
+          return true
+        }
+      },
+      { message: FORMULARIO_ERROS_MENSAGENS.telefone },
+    )
+    .nullable(),
+  celular: z
+    .string()
+    .refine(
+      (value) => {
         if (value.trim() === '' || value.match(INPUT_MASK_REGEX.celular)) {
           return true
         }

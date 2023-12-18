@@ -12,6 +12,7 @@ import {
 import { z } from 'zod'
 import { editarContatoSchema } from './editarContatoSchema'
 
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 
@@ -30,6 +31,12 @@ const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
     textHelper: 'Endereço de E-mail principal',
     placeHolder: 'exemplo@exemplo.com',
     icon: <MailOutlineIcon />,
+  },
+  {
+    label: 'Número de Celular',
+    textHelper: 'Número de Celular com DDD',
+    placeHolder: '(99) 99999-9999',
+    icon: <WhatsAppIcon />,
   },
   {
     label: 'Número de Telefone',
@@ -58,12 +65,30 @@ export default function EditarContato() {
     return formattedValue
   }
 
+  const formatTelephoneNumber = (value: string) => {
+    const formattedValue = value
+      .replace(/\D/g, '')
+      .slice(0, 10)
+      .replace(/(\d{2})(\d{0,4})(\d{0,4})/, '($1) $2-$3')
+    return formattedValue
+  }
+
   const handlePhoneNumberChanger = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const rawValue = event.target.value
 
     const formattedValue = formatPhoneNumber(rawValue)
+
+    setValue('celular', formattedValue)
+  }
+
+  const handleTelephoneNumberChanger = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const rawValue = event.target.value
+
+    const formattedValue = formatTelephoneNumber(rawValue)
 
     setValue('telefone', formattedValue)
   }
@@ -165,19 +190,19 @@ export default function EditarContato() {
                 width: '35vw',
               },
             }}
-            {...register('telefone', {
+            {...register('celular', {
               maxLength: 15,
               onChange: (event: ChangeEvent<HTMLInputElement>) => {
                 console.log(event.target.value)
               },
             })}
             onChange={handlePhoneNumberChanger}
-            id="input-telefone"
+            id="input-celular"
             variant="standard"
-            error={errors.telefone !== undefined}
+            error={errors.celular !== undefined}
             helperText={
-              errors.telefone !== undefined
-                ? errors.telefone.message
+              errors.celular !== undefined
+                ? errors.celular.message
                 : FORMULARIO_CAMPOS_EDITAR_CONTATO[1].textHelper
             }
             label={FORMULARIO_CAMPOS_EDITAR_CONTATO[1].label}
@@ -186,6 +211,38 @@ export default function EditarContato() {
               startAdornment: (
                 <InputAdornment position="start">
                   {FORMULARIO_CAMPOS_EDITAR_CONTATO[1].icon}
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            sx={{
+              width: '50vw',
+              '@media (min-width:900px)': {
+                width: '35vw',
+              },
+            }}
+            {...register('telefone', {
+              maxLength: 14,
+              onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                console.log(event.target.value)
+              },
+            })}
+            onChange={handleTelephoneNumberChanger}
+            id="input-telefone"
+            variant="standard"
+            error={errors.telefone !== undefined}
+            helperText={
+              errors.telefone !== undefined
+                ? errors.telefone.message
+                : FORMULARIO_CAMPOS_EDITAR_CONTATO[2].textHelper
+            }
+            label={FORMULARIO_CAMPOS_EDITAR_CONTATO[2].label}
+            placeholder={FORMULARIO_CAMPOS_EDITAR_CONTATO[2].placeHolder}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  {FORMULARIO_CAMPOS_EDITAR_CONTATO[2].icon}
                 </InputAdornment>
               ),
             }}
