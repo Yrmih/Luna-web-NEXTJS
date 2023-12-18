@@ -13,8 +13,26 @@ import {
 } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import { LoginInputsFrom } from '../types/formTypes'
+import { MaskUtils } from '@/utils/MaskUtils'
+import { ChangeEvent } from 'react'
 
-export default function LoginAtendimentoDialog() {
+export type LoginAtendimentoProps = {
+  register: UseFormRegister<LoginInputsFrom>
+  errors: FieldErrors<LoginInputsFrom>
+  setValue: UseFormSetValue<LoginInputsFrom>
+  isValid: boolean
+  isLoading: boolean
+}
+
+export default function LoginAtendimentoDialog({
+  register,
+  errors,
+  setValue,
+  isValid,
+  isLoading,
+}: LoginAtendimentoProps) {
   const matches = useMediaQuery('(min-width:900px)')
   return (
     <Dialog open={false} onClose={undefined}>
@@ -32,10 +50,19 @@ export default function LoginAtendimentoDialog() {
           id="input-atendimento"
           label="N° DE ATENDIMENTO"
           variant="standard"
+          {...register('atendimento', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) =>
+              setValue(
+                'atendimento',
+                MaskUtils.maskAtendimento(event.target.value),
+              ),
+          })}
+          error={errors.atendimento !== undefined}
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-around' }}>
         <Button
+          disabled={!isValid}
           sx={{
             marginLeft: '2vw',
             marginBottom: '2vh',

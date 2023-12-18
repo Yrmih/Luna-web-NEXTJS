@@ -10,7 +10,7 @@ import {
 
 export default function RecuperarAtendimentoDialog() {
   return (
-    <Dialog open={false} onClose={undefined}>
+    <Dialog component="form" open={false} onClose={undefined}>
       <DialogTitle>Recuperar Atendimento</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
