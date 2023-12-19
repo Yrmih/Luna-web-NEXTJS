@@ -16,9 +16,10 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { MaskUtils } from '@/utils/MaskUtils'
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 // Tipagem do formulario
@@ -50,6 +51,7 @@ export default function EditarContato() {
   const {
     register,
     setValue,
+    watch,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<EditarContatoSchemaForm>({
@@ -57,41 +59,16 @@ export default function EditarContato() {
     resolver: zodResolver(editarContatoSchema),
   })
 
-  const formatPhoneNumber = (value: string) => {
-    const formattedValue = value
-      .replace(/\D/g, '')
-      .slice(0, 11)
-      .replace(/(\d{2})(\d{0,5})(\d{0,4})/, '($1) $2-$3')
-    return formattedValue
-  }
+  const celularValue = watch('celular') || ''
+  const telephoneValue = watch('telefone') || ''
 
-  const formatTelephoneNumber = (value: string) => {
-    const formattedValue = value
-      .replace(/\D/g, '')
-      .slice(0, 10)
-      .replace(/(\d{2})(\d{0,4})(\d{0,4})/, '($1) $2-$3')
-    return formattedValue
-  }
+  useEffect(() => {
+    setValue('celular', MaskUtils.maskCelular(celularValue))
+  }, [setValue, celularValue])
 
-  const handlePhoneNumberChanger = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const rawValue = event.target.value
-
-    const formattedValue = formatPhoneNumber(rawValue)
-
-    setValue('celular', formattedValue)
-  }
-
-  const handleTelephoneNumberChanger = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const rawValue = event.target.value
-
-    const formattedValue = formatTelephoneNumber(rawValue)
-
-    setValue('telefone', formattedValue)
-  }
+  useEffect(() => {
+    setValue('telefone', MaskUtils.maskTelefone(telephoneValue))
+  }, [setValue, telephoneValue])
 
   const onSubmit: SubmitHandler<EditarContatoSchemaForm> = (data) => {
     console.log('DADOS: ', data, 'ERRO: ', errors)
@@ -165,7 +142,12 @@ export default function EditarContato() {
             }}
             id="input-email"
             variant="standard"
-            {...register('email')}
+            {...(register('email'),
+            {
+              onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                console.log(event.target.value)
+              },
+            })}
             error={errors.email !== undefined}
             helperText={
               errors.email !== undefined
@@ -191,12 +173,10 @@ export default function EditarContato() {
               },
             }}
             {...register('celular', {
-              maxLength: 15,
               onChange: (event: ChangeEvent<HTMLInputElement>) => {
                 console.log(event.target.value)
               },
             })}
-            onChange={handlePhoneNumberChanger}
             id="input-celular"
             variant="standard"
             error={errors.celular !== undefined}
@@ -223,12 +203,10 @@ export default function EditarContato() {
               },
             }}
             {...register('telefone', {
-              maxLength: 14,
               onChange: (event: ChangeEvent<HTMLInputElement>) => {
                 console.log(event.target.value)
               },
             })}
-            onChange={handleTelephoneNumberChanger}
             id="input-telefone"
             variant="standard"
             error={errors.telefone !== undefined}

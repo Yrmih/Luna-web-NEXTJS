@@ -24,7 +24,7 @@ import {
 // Internal
 
 import { MaskUtils } from '@/utils/MaskUtils'
-import { useEffect } from 'react'
+import { useEffect, ChangeEvent } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -355,7 +355,14 @@ export function DadosPessoaisForm({
             ),
           }}
           placeholder={FORMULARIO_DADOS_PESSOAIS[9].placeHolder}
-          {...register('dadosPessoais.certidao')}
+          {...register('dadosPessoais.certidao', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              setValue(
+                'dadosPessoais.certidao',
+                MaskUtils.maskCertidao(event.target.value),
+              )
+            },
+          })}
           error={errors.dadosPessoais?.certidao !== undefined}
           helperText={
             errors.dadosPessoais?.certidao !== undefined
