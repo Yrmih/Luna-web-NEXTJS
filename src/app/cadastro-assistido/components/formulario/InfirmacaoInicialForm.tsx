@@ -4,7 +4,7 @@ import BadgeIcon from '@mui/icons-material/Badge'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import { Grid, InputAdornment, TextField } from '@mui/material'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -44,7 +44,6 @@ export type InformacaoInicialProps = {
 export function InformacaoInicialForm({
   register,
   setValue,
-  watch,
   errors,
 }: InformacaoInicialProps) {
   return (
