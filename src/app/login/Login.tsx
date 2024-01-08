@@ -12,7 +12,6 @@ import FalhaRecuperarAtendimentoDialog from './components/FalhaRecuperarAtendime
 import { LoginCPF } from './components/LoginCPF'
 import LoginAtendimentoDialog from './components/LoginNumeroAtendimentoDialog'
 import RecuperarAtendimentoDialog from './components/RecuperarAtendimentoDialog'
-import { LoginUseFormStateProvider } from './hooks/LoginFormContext'
 
 export function Login() {
   return (
@@ -40,10 +39,8 @@ export function Login() {
       >
         <Stack>
           <Stack component="form">
-            <LoginUseFormStateProvider>
-              <LoginCPF />
-              <LoginAtendimentoDialog />
-            </LoginUseFormStateProvider>
+            <LoginCPF />
+            <LoginAtendimentoDialog />
           </Stack>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <CPFNaoEncontradoDialog />

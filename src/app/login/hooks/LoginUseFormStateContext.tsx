@@ -1,22 +1,30 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ReactNode, createContext, useContext } from 'react'
 import {
   FieldErrors,
+  UseFormHandleSubmit,
   UseFormRegister,
   UseFormSetValue,
+  UseFormTrigger,
   useForm,
 } from 'react-hook-form'
 import { loginSchema } from '../schemas/loginSchema'
-import { LoginInputsFrom } from '../types/formTypes'
+import { LoginInputsFrom, LoginInputsFromDirtyFiels } from '../types/formTypes'
 
 interface LoginUseFormStateContextProps {
   children: ReactNode
 }
 
-type LoginUseFormState = {
+export type LoginUseFormState = {
+  handleSubmit: UseFormHandleSubmit<LoginInputsFrom>
   register: UseFormRegister<LoginInputsFrom>
   errors: FieldErrors<LoginInputsFrom>
   setValue: UseFormSetValue<LoginInputsFrom>
+  trigger: UseFormTrigger<LoginInputsFrom>
+  dirtyFields: Partial<Readonly<LoginInputsFromDirtyFiels>>
+  isDirty: boolean
   isLoading: boolean
   isValid: boolean
 }
@@ -29,9 +37,11 @@ export const LoginUseFormStateProvider = ({
   children,
 }: LoginUseFormStateContextProps) => {
   const {
+    handleSubmit,
     register,
     setValue,
-    formState: { errors, isValid, isLoading },
+    trigger,
+    formState: { errors, isValid, isLoading, isDirty, dirtyFields },
   } = useForm<LoginInputsFrom>({
     mode: 'onChange',
     resolver: zodResolver(loginSchema),
@@ -40,11 +50,15 @@ export const LoginUseFormStateProvider = ({
   return (
     <LoginUseFormStateContext.Provider
       value={{
+        handleSubmit,
         register,
         errors,
         setValue,
+        trigger,
+        dirtyFields,
         isLoading,
         isValid,
+        isDirty,
       }}
     >
       {children}

@@ -2,12 +2,13 @@ import { MaskUtils } from '@/utils/MaskUtils'
 import { AccountCircle } from '@mui/icons-material'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import { ChangeEvent } from 'react'
-import { useLoginUseFormSate } from '../hooks/LoginFormContext'
-
-
+import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
+import { useLoginUseFormSate } from '../hooks/LoginUseFormStateContext'
 
 export function LoginCPF() {
-  const { register, errors, setValue } = useLoginUseFormSate()
+  const { register, errors, setValue, dirtyFields } = useLoginUseFormSate()
+
+  const { onCloseLoginAtendimentoDialog } = useLoginStateDialogs()
   return (
     <>
       <Typography
@@ -48,7 +49,8 @@ export function LoginCPF() {
           })}
         />
         <Button
-          disabled={errors.cpf !== undefined}
+          onClick={onCloseLoginAtendimentoDialog}
+          disabled={errors.cpf !== undefined || !dirtyFields.cpf}
           sx={{
             marginLeft: '2vw',
             backgroundColor: (theme) =>

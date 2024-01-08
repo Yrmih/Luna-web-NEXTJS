@@ -15,13 +15,26 @@ import {
   useMediaQuery,
 } from '@mui/material'
 import { ChangeEvent } from 'react'
-import { useLoginUseFormSate } from '../hooks/LoginFormContext'
+import { useLoginUseFormSate } from '../hooks/LoginUseFormStateContext'
+import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
+import { LoginInputsFrom } from '../types/formTypes'
 
 export default function LoginAtendimentoDialog() {
   const matches = useMediaQuery('(min-width:900px)')
-  const { register, errors, setValue, isValid } = useLoginUseFormSate()
+  const {
+    openLoginAtendimentoDialog: open,
+    onCloseLoginAtendimentoDialog: onClose,
+  } = useLoginStateDialogs()
+
+  const { handleSubmit, register, errors, setValue, isValid } =
+    useLoginUseFormSate()
+
+  const onSubmit = (data: LoginInputsFrom) => {
+    console.log(data)
+  }
+
   return (
-    <Dialog open={false} onClose={undefined}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle>
         Agora você deve digitar o número do seu atendimento.
       </DialogTitle>
@@ -53,6 +66,7 @@ export default function LoginAtendimentoDialog() {
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-around' }}>
         <Button
+          onClick={handleSubmit(onSubmit)}
           disabled={!isValid}
           sx={{
             marginLeft: '2vw',
