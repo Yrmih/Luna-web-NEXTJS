@@ -6,10 +6,16 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
 export default function FalhaRecuperarAtendimentoDialog() {
+  const {
+    openFalhaRecuperarAtendimentoDialog: open,
+    handleCloseFalhaRecuperarAtendimentoDialog: handleClose,
+  } = useLoginStateDialogs()
+
   return (
-    <Dialog open={false} onClose={undefined}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Gostaria de Tentar novamente?</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>

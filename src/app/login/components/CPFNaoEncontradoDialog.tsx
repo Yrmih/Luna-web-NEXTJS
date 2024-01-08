@@ -6,10 +6,16 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
 export default function CPFNaoEncontradoDialog() {
+  const {
+    openCPFNaoEncontradoDialog: open,
+    handleCloseCPFNaoEncontradoDialog: handleClose,
+  } = useLoginStateDialogs()
+
   return (
-    <Dialog open={false} onClose={undefined}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Desculpe, não encontrei seus dados.</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
@@ -40,6 +46,7 @@ export default function CPFNaoEncontradoDialog() {
           Realizar Novo Cadastro
         </Button>
         <Button
+          onClick={handleClose}
           sx={{
             marginRight: '2vw',
             marginBottom: '2vh',
@@ -55,7 +62,6 @@ export default function CPFNaoEncontradoDialog() {
             },
           }}
           variant="contained"
-          onClick={undefined}
         >
           Fechar
         </Button>

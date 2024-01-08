@@ -7,10 +7,16 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
 export default function RecuperarAtendimentoDialog() {
+  const {
+    openRecuperarAtendimentoDialog: open,
+    handleCloseRecuperarAtendimentoDialog: handleClose,
+  } = useLoginStateDialogs()
+
   return (
-    <Dialog component="form" open={false} onClose={undefined}>
+    <Dialog component="form" open={open} onClose={handleClose}>
       <DialogTitle>Recuperar Atendimento</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
@@ -63,6 +69,7 @@ export default function RecuperarAtendimentoDialog() {
           Enviar
         </Button>
         <Button
+          onClick={handleClose}
           sx={{
             marginRight: '2vw',
             marginBottom: '2vh',
