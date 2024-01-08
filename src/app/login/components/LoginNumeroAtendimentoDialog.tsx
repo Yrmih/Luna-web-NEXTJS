@@ -1,6 +1,9 @@
 'use client'
 
 // external libraries
+import { MaskUtils } from '@/utils/MaskUtils'
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
+import SendIcon from '@mui/icons-material/Send'
 import {
   Button,
   Dialog,
@@ -11,27 +14,12 @@ import {
   TextField,
   useMediaQuery,
 } from '@mui/material'
-import SendIcon from '@mui/icons-material/Send'
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
-import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { LoginInputsFrom } from '../types/formTypes'
-import { MaskUtils } from '@/utils/MaskUtils'
 import { ChangeEvent } from 'react'
+import { useLoginUseFormSate } from '../hooks/LoginFormContext'
 
-export type LoginAtendimentoProps = {
-  register: UseFormRegister<LoginInputsFrom>
-  errors: FieldErrors<LoginInputsFrom>
-  setValue: UseFormSetValue<LoginInputsFrom>
-  isValid: boolean
-}
-
-export default function LoginAtendimentoDialog({
-  register,
-  errors,
-  setValue,
-  isValid,
-}: LoginAtendimentoProps) {
+export default function LoginAtendimentoDialog() {
   const matches = useMediaQuery('(min-width:900px)')
+  const { register, errors, setValue, isValid } = useLoginUseFormSate()
   return (
     <Dialog open={false} onClose={undefined}>
       <DialogTitle>

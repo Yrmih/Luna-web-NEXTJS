@@ -6,26 +6,15 @@ import { Box, Stack } from '@mui/material'
 // Framework
 
 // Internal
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
 import AtendimentoNaoEncontradoDialog from './components/AtendimentoNaoEncontradoDialog'
 import CPFNaoEncontradoDialog from './components/CPFNaoEncontradoDialog'
 import FalhaRecuperarAtendimentoDialog from './components/FalhaRecuperarAtendimentoDialog'
 import { LoginCPF } from './components/LoginCPF'
 import LoginAtendimentoDialog from './components/LoginNumeroAtendimentoDialog'
 import RecuperarAtendimentoDialog from './components/RecuperarAtendimentoDialog'
-import { loginSchema } from './schemas/loginSchema'
-import { LoginInputsFrom } from './types/formTypes'
+import { LoginUseFormStateProvider } from './hooks/LoginFormContext'
 
 export function Login() {
-  const {
-    register,
-    setValue,
-    formState: { errors, isValid, isLoading },
-  } = useForm<LoginInputsFrom>({
-    mode: 'onChange',
-    resolver: zodResolver(loginSchema),
-  })
   return (
     <Stack
       bgcolor="white"
@@ -51,13 +40,10 @@ export function Login() {
       >
         <Stack>
           <Stack component="form">
-            <LoginCPF register={register} errors={errors} setValue={setValue} />
-            <LoginAtendimentoDialog
-              register={register}
-              errors={errors}
-              setValue={setValue}
-              isValid={isValid}
-            />
+            <LoginUseFormStateProvider>
+              <LoginCPF />
+              <LoginAtendimentoDialog />
+            </LoginUseFormStateProvider>
           </Stack>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <CPFNaoEncontradoDialog />

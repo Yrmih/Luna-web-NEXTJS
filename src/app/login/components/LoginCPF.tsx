@@ -1,17 +1,13 @@
+import { MaskUtils } from '@/utils/MaskUtils'
 import { AccountCircle } from '@mui/icons-material'
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { LoginInputsFrom } from '../types/formTypes'
 import { ChangeEvent } from 'react'
-import { MaskUtils } from '@/utils/MaskUtils'
+import { useLoginUseFormSate } from '../hooks/LoginFormContext'
 
-export type LoginCpfProps = {
-  register: UseFormRegister<LoginInputsFrom>
-  errors: FieldErrors<LoginInputsFrom>
-  setValue: UseFormSetValue<LoginInputsFrom>
-}
 
-export function LoginCPF({ register, errors, setValue }: LoginCpfProps) {
+
+export function LoginCPF() {
+  const { register, errors, setValue } = useLoginUseFormSate()
   return (
     <>
       <Typography
@@ -52,6 +48,7 @@ export function LoginCPF({ register, errors, setValue }: LoginCpfProps) {
           })}
         />
         <Button
+          disabled={errors.cpf !== undefined}
           sx={{
             marginLeft: '2vw',
             backgroundColor: (theme) =>
@@ -63,7 +60,7 @@ export function LoginCPF({ register, errors, setValue }: LoginCpfProps) {
           }}
           variant="contained"
         >
-          Enviar
+          Próximo
         </Button>
       </Box>
     </>
