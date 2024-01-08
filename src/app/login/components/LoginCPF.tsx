@@ -7,8 +7,8 @@ import { useLoginUseFormSate } from '../hooks/LoginUseFormStateContext'
 
 export function LoginCPF() {
   const { register, errors, setValue, dirtyFields } = useLoginUseFormSate()
+  const { handlenCloseLoginAtendimentoDialog } = useLoginStateDialogs()
 
-  const { onCloseLoginAtendimentoDialog } = useLoginStateDialogs()
   return (
     <>
       <Typography
@@ -49,7 +49,7 @@ export function LoginCPF() {
           })}
         />
         <Button
-          onClick={onCloseLoginAtendimentoDialog}
+          onClick={handlenCloseLoginAtendimentoDialog}
           disabled={errors.cpf !== undefined || !dirtyFields.cpf}
           sx={{
             marginLeft: '2vw',

@@ -6,10 +6,19 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
 export default function AtendimentoNaoEncontradoDialog() {
+  const {
+    openAtendimentoNaoEncontradoDialog,
+    handleCloseAtendimentoNaoEncontradoDialog,
+  } = useLoginStateDialogs()
+
   return (
-    <Dialog open={false} onClose={undefined}>
+    <Dialog
+      open={openAtendimentoNaoEncontradoDialog}
+      onClose={handleCloseAtendimentoNaoEncontradoDialog}
+    >
       <DialogTitle>Humm, eu não encontrei esse atendimento.</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
@@ -39,6 +48,7 @@ export default function AtendimentoNaoEncontradoDialog() {
           Recuperar N° de Atendimento
         </Button>
         <Button
+          onClick={handleCloseAtendimentoNaoEncontradoDialog}
           sx={{
             marginRight: '2vw',
             marginBottom: '2vh',

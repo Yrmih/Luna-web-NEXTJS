@@ -18,19 +18,41 @@ import { ChangeEvent } from 'react'
 import { useLoginUseFormSate } from '../hooks/LoginUseFormStateContext'
 import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 import { LoginInputsFrom } from '../types/formTypes'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export default function LoginAtendimentoDialog() {
   const matches = useMediaQuery('(min-width:900px)')
+  const router = useRouter()
   const {
     openLoginAtendimentoDialog: open,
-    onCloseLoginAtendimentoDialog: onClose,
+    handlenCloseLoginAtendimentoDialog: onClose,
+    handleCloseAtendimentoNaoEncontradoDialog,
   } = useLoginStateDialogs()
 
   const { handleSubmit, register, errors, setValue, isValid } =
     useLoginUseFormSate()
 
-  const onSubmit = (data: LoginInputsFrom) => {
-    console.log(data)
+  const onSubmit = async (data: LoginInputsFrom) => {
+    const cpf = MaskUtils.getOnlyDigits(data.cpf)
+    const atendimento = MaskUtils.getOnlyDigits(data.atendimento)
+    try {
+      const response = await signIn('credentials', {
+        redirect: false,
+        cpf,
+        atendimento,
+      })
+
+      if (response?.error) {
+        onClose()
+        handleCloseAtendimentoNaoEncontradoDialog()
+      } else {
+        router.refresh()
+        router.push('/atendimentos')
+      }
+    } catch (error) {
+      console.log('[LOGIN_ERROR]: ', error)
+    }
   }
 
   return (

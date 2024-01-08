@@ -8,7 +8,9 @@ interface LoginSateDialogsContextStateProps {
 
 export type LoginStateDialogs = {
   openLoginAtendimentoDialog: boolean
-  onCloseLoginAtendimentoDialog: () => void
+  handlenCloseLoginAtendimentoDialog: () => void
+  openAtendimentoNaoEncontradoDialog: boolean
+  handleCloseAtendimentoNaoEncontradoDialog: () => void
 }
 
 const LoginStateDialogsContext = createContext<LoginStateDialogs | undefined>(
@@ -24,11 +26,23 @@ export const LoginStateDialogsProvider = ({
   const handlenCloseLoginAtendimentoDialog = () => {
     setOpenLoginAtendimentoDialog(!openLoginAtendimentoDialog)
   }
+
+  const [
+    openAtendimentoNaoEncontradoDialog,
+    setOpenAtendimentoNaoEncontradoDialog,
+  ] = useState(false)
+
+  const handleCloseAtendimentoNaoEncontradoDialog = () => {
+    setOpenAtendimentoNaoEncontradoDialog(!openAtendimentoNaoEncontradoDialog)
+  }
+
   return (
     <LoginStateDialogsContext.Provider
       value={{
         openLoginAtendimentoDialog,
-        onCloseLoginAtendimentoDialog: handlenCloseLoginAtendimentoDialog,
+        handlenCloseLoginAtendimentoDialog,
+        openAtendimentoNaoEncontradoDialog,
+        handleCloseAtendimentoNaoEncontradoDialog,
       }}
     >
       {children}
