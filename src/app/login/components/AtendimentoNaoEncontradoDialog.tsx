@@ -10,15 +10,12 @@ import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
 export default function AtendimentoNaoEncontradoDialog() {
   const {
-    openAtendimentoNaoEncontradoDialog,
-    handleCloseAtendimentoNaoEncontradoDialog,
+    openAtendimentoNaoEncontradoDialog: open,
+    handleCloseAtendimentoNaoEncontradoDialog: handleClose,
   } = useLoginStateDialogs()
 
   return (
-    <Dialog
-      open={openAtendimentoNaoEncontradoDialog}
-      onClose={handleCloseAtendimentoNaoEncontradoDialog}
-    >
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Humm, eu não encontrei esse atendimento.</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
@@ -48,7 +45,7 @@ export default function AtendimentoNaoEncontradoDialog() {
           Recuperar N° de Atendimento
         </Button>
         <Button
-          onClick={handleCloseAtendimentoNaoEncontradoDialog}
+          onClick={handleClose}
           sx={{
             marginRight: '2vw',
             marginBottom: '2vh',
