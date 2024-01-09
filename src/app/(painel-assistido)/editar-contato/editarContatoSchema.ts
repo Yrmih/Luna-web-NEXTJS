@@ -1,7 +1,7 @@
 import {
-  FORMULARIO_ERROS_MENSAGENS,
-  INPUT_MASK_REGEX,
-} from '@/app/cadastro-assistido/components/formulario/constants'
+  FORMULARIOS_ERROS_MENSAGENS,
+  FORMULARIOS_REGEX_DAS_MASCARAS,
+} from '@/utils/constants/formularios'
 import { z } from 'zod'
 
 export const editarContatoSchema = z.object({
@@ -9,33 +9,36 @@ export const editarContatoSchema = z.object({
     .string()
     .refine(
       (value) => {
-        if (value.trim() === '' || value.match(INPUT_MASK_REGEX.email)) {
-          return true
-        }
+        return (
+          value.trim() === '' ||
+          value.match(FORMULARIOS_REGEX_DAS_MASCARAS.email)
+        )
       },
-      { message: FORMULARIO_ERROS_MENSAGENS.email },
+      { message: FORMULARIOS_ERROS_MENSAGENS.email },
     )
-    .nullable(),
+    .optional(),
   telefone: z
     .string()
     .refine(
       (value) => {
-        if (value.trim() === '' || value.match(INPUT_MASK_REGEX.telefone)) {
-          return true
-        }
+        return (
+          value.trim() === '' ||
+          value.match(FORMULARIOS_REGEX_DAS_MASCARAS.telefone)
+        )
       },
-      { message: FORMULARIO_ERROS_MENSAGENS.telefone },
+      { message: FORMULARIOS_ERROS_MENSAGENS.telefone },
     )
-    .nullable(),
+    .optional(),
   celular: z
     .string()
     .refine(
       (value) => {
-        if (value.trim() === '' || value.match(INPUT_MASK_REGEX.celular)) {
-          return true
-        }
+        return (
+          value.trim() === '' ||
+          value.match(FORMULARIOS_REGEX_DAS_MASCARAS.celular)
+        )
       },
-      { message: FORMULARIO_ERROS_MENSAGENS.celular },
+      { message: FORMULARIOS_ERROS_MENSAGENS.celular },
     )
-    .nullable(),
+    .optional(),
 })

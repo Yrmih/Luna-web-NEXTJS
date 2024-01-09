@@ -12,7 +12,7 @@ import {
   TextField,
 } from '@mui/material'
 
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import BoxPergunta from '../components/BoxPergunta'
 
 export default function NovaSolicitacao() {
@@ -71,15 +71,13 @@ export default function NovaSolicitacao() {
     },
   ]
 
-  const [value, setValue] = React.useState('nao')
+  const [value, setValue] = useState('nao')
 
-  const handleChangeOpcaoIntimacao = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeOpcaoIntimacao = (event: ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value)
   }
 
-  const [valorAssunto, setValorAssunto] = React.useState('default')
+  const [valorAssunto, setValorAssunto] = useState('default')
 
   const handleAssuntoChange = (e: { currentTarget: { value: string } }) => {
     const assunto = e.currentTarget.value
@@ -87,7 +85,7 @@ export default function NovaSolicitacao() {
     setValorAssunto(assunto)
   }
 
-  const [valorArea, setValorArea] = React.useState('default')
+  const [valorArea, setValorArea] = useState('default')
 
   const handleAreaChange = (e: { currentTarget: { value: string } }) => {
     const area = e.currentTarget.value
@@ -95,8 +93,7 @@ export default function NovaSolicitacao() {
     setValorArea(area)
   }
 
-  const [valorLocalAtendimento, setValorLocalAtendimento] =
-    React.useState('default')
+  const [valorLocalAtendimento, setValorLocalAtendimento] = useState('default')
 
   const handleLocalAtendimentoChange = (e: {
     currentTarget: { value: string }
