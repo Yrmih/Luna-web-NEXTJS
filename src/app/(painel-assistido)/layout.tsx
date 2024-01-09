@@ -3,8 +3,10 @@ import ContentLayout from '@/components/ContentLayout'
 import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 import Footer from '../../components/Footer'
-import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
 import { BottoMenu } from './components/BottoMenu'
+import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
+import { SnackbarAreaAssistido } from './components/SnackbarAreaAssistido'
+import { SnackbarAreaAssistidoStateProvider } from './hooks/SnackbarAreaAssistidoStateProvider'
 
 export const metadata = {
   title: 'Painel do Assistido',
@@ -23,7 +25,12 @@ export async function PainelAssistidoLayout({
       <AppBarAreaAssistido />
       {/* Conteúdo parte da <main> */}
 
-      <ContentLayout>{children}</ContentLayout>
+      <ContentLayout>
+        <SnackbarAreaAssistidoStateProvider>
+          {children}
+          <SnackbarAreaAssistido />
+        </SnackbarAreaAssistidoStateProvider>
+      </ContentLayout>
       {/* Footer parte do <footer> */}
       <BottoMenu />
       <Footer />

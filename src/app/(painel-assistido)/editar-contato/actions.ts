@@ -1,18 +1,31 @@
 'use server'
 
-import { FormularioFields } from '@/app/(painel-assistido)/editar-contato/page'
+import { EditarContatoInputsForm } from './formularioTypes'
+import { ResponseSolar } from './types'
 
-export async function handleFormularioSubmit(data: FormularioFields) {
-  // Realizar requisição para api externa (Ex.: backend solar)
-  console.log(data)
+export async function runActionFormularioContatos(
+  data: EditarContatoInputsForm,
+): Promise<ResponseSolar<unknown>> {
+  console.log('dados contato: ', data)
   console.log(process.env.TOKEN_SOLAR)
-  fetch('http://localhost:8000/api/v2/locais/', {
+  const response = await fetch('http://localhost:8000/api/v2/locais/', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       Authorization: `Token ${process.env.TOKEN_SOLAR}`,
     },
   })
-    .then((response) => response.json())
-    .then((response) => console.log(JSON.stringify(response)))
+  const dataResponse = await response.json()
+
+  if (!response.ok || response.status !== 201) {
+    return {
+      success: false,
+      result: dataResponse,
+    }
+  }
+
+  return {
+    success: true,
+    result: dataResponse,
+  }
 }

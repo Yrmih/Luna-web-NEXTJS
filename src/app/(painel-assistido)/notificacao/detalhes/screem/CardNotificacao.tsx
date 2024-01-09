@@ -1,24 +1,20 @@
 'use client'
 import React, { ReactNode } from 'react'
-import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { Box, Divider, Paper, useTheme } from '@mui/material'
+import { Box, Divider, useTheme } from '@mui/material'
 import Link from 'next/link'
-import { TableNotificarModulo } from '../module/TableNotificarModule'
-import { ReceiptLong } from '@mui/icons-material'
-
 
 interface ChildrenProps {
   children?: ReactNode
 }
 // type CardNotificacaoProps = ChildrenProps & TableNotificarModulo;
 
-export function CardNotificacao( props: ChildrenProps) {
+export function CardNotificacao(props: ChildrenProps) {
   const handlereloading = () => {
-       window.location.reload()
+    window.location.reload()
   }
   const theme = useTheme()
   return (
@@ -49,8 +45,8 @@ export function CardNotificacao( props: ChildrenProps) {
           border: `1px solid ${theme.palette.grey.A100}`, // Adicione a cor da borda desejada
           borderRadius: 4, // Adicione um raio de borda se desejar
           padding: 2, // Adicione preenchimento para afastar o conteúdo da borda
-          height:'30vh',
-          overflow:'auto',
+          height: '30vh',
+          overflow: 'auto',
         }}
       >
         <Typography
@@ -110,15 +106,21 @@ export function CardNotificacao( props: ChildrenProps) {
         }}
         variant="fullWidth"
       />
-     
-      <CardActions sx={{display:'flex', justifyContent:'space-between'}}>
-        <Button LinkComponent={Link} onClick={() => {window.location.href=`/notificacao`}}
-         size="medium">Todas as notificações</Button>
-        <Button LinkComponent={Link} onClick={handlereloading}
-         size="medium">Abrir Detalhes Da Notificação</Button>
+
+      <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button
+          LinkComponent={Link}
+          onClick={() => {
+            window.location.href = `/notificacao`
+          }}
+          size="medium"
+        >
+          Todas as notificações
+        </Button>
+        <Button LinkComponent={Link} onClick={handlereloading} size="medium">
+          Abrir Detalhes Da Notificação
+        </Button>
       </CardActions>
-     
     </Box>
   )
 }
-
