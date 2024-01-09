@@ -49,7 +49,6 @@ export function LoginAtendimentoDialog() {
         onClose()
         handleCloseAtendimentoNaoEncontradoDialog()
       } else {
-        router.refresh()
         router.push('/atendimentos')
       }
     } catch (error) {
