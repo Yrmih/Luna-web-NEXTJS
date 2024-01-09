@@ -5,12 +5,14 @@ import { MaskUtils } from '@/utils/MaskUtils'
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import SendIcon from '@mui/icons-material/Send'
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  LinearProgress,
   TextField,
   useMediaQuery,
 } from '@mui/material'
@@ -30,7 +32,7 @@ export default function LoginAtendimentoDialog() {
     handleCloseAtendimentoNaoEncontradoDialog,
   } = useLoginStateDialogs()
 
-  const { handleSubmit, register, errors, setValue, isValid } =
+  const { handleSubmit, register, errors, setValue, isValid, isSubmitting } =
     useLoginUseFormSate()
 
   const onSubmit = async (data: LoginInputsFrom) => {
@@ -57,6 +59,9 @@ export default function LoginAtendimentoDialog() {
 
   return (
     <Dialog open={open} onClose={onClose}>
+      <Box sx={{ width: '100%', display: isSubmitting ? undefined : 'none' }}>
+        <LinearProgress />
+      </Box>
       <DialogTitle>
         Agora você deve digitar o número do seu atendimento.
       </DialogTitle>

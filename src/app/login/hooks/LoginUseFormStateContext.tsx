@@ -24,8 +24,7 @@ export type LoginUseFormState = {
   setValue: UseFormSetValue<LoginInputsFrom>
   trigger: UseFormTrigger<LoginInputsFrom>
   dirtyFields: Partial<Readonly<LoginInputsFromDirtyFiels>>
-  isDirty: boolean
-  isLoading: boolean
+  isSubmitting: boolean
   isValid: boolean
 }
 
@@ -41,7 +40,7 @@ export const LoginUseFormStateProvider = ({
     register,
     setValue,
     trigger,
-    formState: { errors, isValid, isLoading, isDirty, dirtyFields },
+    formState: { errors, isValid, isSubmitting, dirtyFields },
   } = useForm<LoginInputsFrom>({
     mode: 'onChange',
     resolver: zodResolver(loginSchema),
@@ -56,9 +55,8 @@ export const LoginUseFormStateProvider = ({
         setValue,
         trigger,
         dirtyFields,
-        isLoading,
+        isSubmitting,
         isValid,
-        isDirty,
       }}
     >
       {children}
