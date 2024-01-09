@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
-export default function CPFNaoEncontradoDialog() {
+export function CPFNaoEncontradoDialog() {
   const {
     openCPFNaoEncontradoDialog: open,
     handleCloseCPFNaoEncontradoDialog: handleClose,

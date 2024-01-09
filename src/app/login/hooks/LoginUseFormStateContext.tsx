@@ -32,9 +32,9 @@ const LoginUseFormStateContext = createContext<LoginUseFormState | undefined>(
   undefined,
 )
 
-export const LoginUseFormStateProvider = ({
+export function LoginUseFormStateProvider({
   children,
-}: LoginUseFormStateContextProps) => {
+}: LoginUseFormStateContextProps) {
   const {
     handleSubmit,
     register,

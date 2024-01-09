@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
-export default function AtendimentoNaoEncontradoDialog() {
+export function AtendimentoNaoEncontradoDialog() {
   const {
     openAtendimentoNaoEncontradoDialog: open,
     handleCloseAtendimentoNaoEncontradoDialog: handleClose,

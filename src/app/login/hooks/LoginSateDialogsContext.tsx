@@ -23,9 +23,9 @@ const LoginStateDialogsContext = createContext<LoginStateDialogs | undefined>(
   undefined,
 )
 
-export const LoginStateDialogsProvider = ({
+export function LoginStateDialogsProvider({
   children,
-}: LoginSateDialogsContextStateProps) => {
+}: LoginSateDialogsContextStateProps) {
   const [openLoginAtendimentoDialog, setOpenLoginAtendimentoDialog] =
     useState(false)
 

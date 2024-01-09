@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
 
-export default function RecuperarAtendimentoDialog() {
+export function RecuperarAtendimentoDialog() {
   const {
     openRecuperarAtendimentoDialog: open,
     handleCloseRecuperarAtendimentoDialog: handleClose,

@@ -6,12 +6,12 @@ import { Box, Stack } from '@mui/material'
 // Framework
 
 // Internal
-import AtendimentoNaoEncontradoDialog from './components/AtendimentoNaoEncontradoDialog'
-import CPFNaoEncontradoDialog from './components/CPFNaoEncontradoDialog'
-import FalhaRecuperarAtendimentoDialog from './components/FalhaRecuperarAtendimentoDialog'
 import { LoginCPF } from './components/LoginCPF'
-import LoginAtendimentoDialog from './components/LoginNumeroAtendimentoDialog'
-import RecuperarAtendimentoDialog from './components/RecuperarAtendimentoDialog'
+import { LoginAtendimentoDialog } from './components/LoginNumeroAtendimentoDialog'
+import { CPFNaoEncontradoDialog } from './components/CPFNaoEncontradoDialog'
+import { AtendimentoNaoEncontradoDialog } from './components/AtendimentoNaoEncontradoDialog'
+import { RecuperarAtendimentoDialog } from './components/RecuperarAtendimentoDialog'
+import { FalhaRecuperarAtendimentoDialog } from './components/FalhaRecuperarAtendimentoDialog'
 
 export function Login() {
   return (
