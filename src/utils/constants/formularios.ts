@@ -1,10 +1,11 @@
-export const FORMULARIO_ERROS_MENSAGENS = {
+export const FORMULARIOS_ERROS_MENSAGENS = {
   required: 'Campo Obrigatório',
   apenasLetras: 'O texto deve conter apenas letras',
   number: 'Somente números são permitidos',
   string: 'Somente textos são permitidos',
   cpf: 'número de CPF inválido',
   rg: 'número de RG inválido',
+  atendimento: 'número de atendimeto inválido',
   certidao: 'número de certidão inválido',
   cep: 'CEP inválido',
   telefone: 'Telefone inválido',
@@ -12,9 +13,10 @@ export const FORMULARIO_ERROS_MENSAGENS = {
   email: 'Email inválido',
 }
 
-export const INPUT_MASK_REGEX = {
+export const FORMULARIOS_REGEX_DAS_MASCARAS = {
   cpf: /^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}))$/,
   cnpj: /^(([0-9]{2}.[0-9]{3}.[0-9]{3}\/[0-9]{4}-[0-9]{2}))$/,
+  atendimento: /^(([0-9]{6}.[0-9]{3}.[0-9]{3}))$/,
   certidao:
     /^(([0-9]{6} [0-9]{2} [0-9]{2} [0-9]{4} [0-9]{1} [0-9]{5} [0-9]{3} [0-9]{7} [0-9]{2}))$/,
   cep: /^(([0-9]{5}-[0-9]{3}))$/,

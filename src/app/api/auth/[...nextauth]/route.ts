@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { SITUACAO_AUTENTICADO } from '../constants'
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -31,7 +32,7 @@ const authOptions: NextAuthOptions = {
         // Seguindo o banco de dados, situacao 3 é o retorno da API para quando o usuário é autenticado
         if (data.results) {
           for (const resultado of data.results) {
-            if (resultado.situacao === 3) {
+            if (resultado.situacao === SITUACAO_AUTENTICADO) {
               const user = {
                 id: resultado.pessoa_id,
                 name: resultado.pessoa_nome,

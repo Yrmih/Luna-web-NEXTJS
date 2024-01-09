@@ -32,7 +32,7 @@ import { ImovelDynamicTextFields } from '../ImovelDynamicTextFields'
 import { InvestimentoDynamicTextFields } from '../InvestimentoDynamicTextFields'
 import { MovelDynamicTextFields } from '../MovelDynamicTextFields'
 import { ChangeEvent } from 'react'
-import { INPUT_MASK_REGEX } from './constants'
+import { FORMULARIOS_REGEX_DAS_MASCARAS } from '../../../../utils/constants/formularios'
 
 export const FORMULARIO_QUALIFICACAO_FINANCEIRA: TextFieldAttributes[] = [
   {
@@ -112,7 +112,7 @@ export type QualificacaoFinanceraProps = {
 }
 
 function allowOnlyNumbers(event: React.KeyboardEvent<HTMLDivElement>) {
-  if (INPUT_MASK_REGEX.apenasUmaLetra.test(event.key)) {
+  if (FORMULARIOS_REGEX_DAS_MASCARAS.apenasUmaLetra.test(event.key)) {
     event.preventDefault()
   }
 }

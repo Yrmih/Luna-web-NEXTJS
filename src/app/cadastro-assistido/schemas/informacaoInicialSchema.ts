@@ -1,40 +1,43 @@
 import { MaskUtils } from '@/utils/MaskUtils'
 import { z } from 'zod'
 import {
-  FORMULARIO_ERROS_MENSAGENS,
-  INPUT_MASK_REGEX,
-} from '../components/formulario/constants'
+  FORMULARIOS_ERROS_MENSAGENS,
+  FORMULARIOS_REGEX_DAS_MASCARAS,
+} from '../../../utils/constants/formularios'
 
 export const informacaoInicialSchema = z.object({
   nomeCompleto: z
-    .string({ invalid_type_error: FORMULARIO_ERROS_MENSAGENS.string })
+    .string({ invalid_type_error: FORMULARIOS_ERROS_MENSAGENS.string })
     .refine(
       (value) => {
-        if (value.trim() === '' || value.match(INPUT_MASK_REGEX.apenasLetras)) {
+        if (
+          value.trim() === '' ||
+          value.match(FORMULARIOS_REGEX_DAS_MASCARAS.apenasLetras)
+        ) {
           return true
         }
       },
-      { message: FORMULARIO_ERROS_MENSAGENS.apenasLetras },
+      { message: FORMULARIOS_ERROS_MENSAGENS.apenasLetras },
     ),
   cpf: z.string().refine(
     (value) => {
       value = MaskUtils.limitarTamanhoString(value, 18)
       if (
         value.trim() === '' ||
-        value.match(INPUT_MASK_REGEX.cpf) ||
-        value.match(INPUT_MASK_REGEX.cnpj)
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.cpf) ||
+        value.match(FORMULARIOS_REGEX_DAS_MASCARAS.cnpj)
       ) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.cpf },
+    { message: FORMULARIOS_ERROS_MENSAGENS.cpf },
   ),
   email: z.string().refine(
     (value) => {
-      if (value === '' || value.match(INPUT_MASK_REGEX.email)) {
+      if (value === '' || value.match(FORMULARIOS_REGEX_DAS_MASCARAS.email)) {
         return true
       }
     },
-    { message: FORMULARIO_ERROS_MENSAGENS.email },
+    { message: FORMULARIOS_ERROS_MENSAGENS.email },
   ),
 })
