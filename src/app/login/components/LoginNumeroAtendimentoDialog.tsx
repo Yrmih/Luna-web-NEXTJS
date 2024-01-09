@@ -52,7 +52,7 @@ export function LoginAtendimentoDialog() {
         router.push('/atendimentos')
       }
     } catch (error) {
-      console.log('[LOGIN_ERROR]: ', error)
+      throw Error(`[LOGIN_ERROR]: ${error}`)
     }
   }
 
