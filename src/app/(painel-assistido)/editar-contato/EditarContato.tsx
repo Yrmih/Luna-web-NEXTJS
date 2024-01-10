@@ -20,10 +20,10 @@ import { MaskUtils } from '@/utils/MaskUtils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangeEvent, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { EditarContatoInputsForm } from './formularioTypes'
-import { runActionFormularioContatos } from './actions'
 import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
 import { SnackBarType } from '../types/snackbar-types'
+import { EditarContatoInputsForm } from './formularioTypes'
+import { atualizarContato } from './services'
 
 const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
   {
@@ -77,8 +77,7 @@ export function EditarContato() {
   }, [setValue, telephoneValue])
 
   const onSubmit: SubmitHandler<EditarContatoInputsForm> = async (data) => {
-    const response = await runActionFormularioContatos(data)
-
+    const response = await atualizarContato(data)
     if (response.success) {
       showSnackbarMessage('Contato Atualizado com sucesso!', 'success')
     } else {
