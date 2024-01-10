@@ -25,7 +25,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { ContatoForm } from './components/formulario/ContatoForm'
 import { DadosPessoaisForm } from './components/formulario/DadosPessoaisForm'
 import { EnderecoForm } from './components/formulario/EnderecoForm'
-import { InformacaoInicialForm } from './components/formulario/InfirmacaoInicialForm'
+import { InformacaoInicialForm } from './components/formulario/InformacaoInicialForm'
 import { QualificacaoFinanceiraForm } from './components/formulario/QualificacaoFinanceiraForm'
 import { cadastroAssistidoSchema } from './schemas/cadastroAssistidoSchema'
 
