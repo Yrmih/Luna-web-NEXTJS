@@ -24,7 +24,7 @@ import {
 // Internal
 
 import { MaskUtils } from '@/utils/MaskUtils'
-import { useEffect, ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -121,12 +121,6 @@ export function DadosPessoaisForm({
   setValue,
   errors,
 }: DadosPessoaisProps) {
-  const certidaoValue = watch('dadosPessoais.certidao')
-
-  useEffect(() => {
-    setValue('dadosPessoais.certidao', MaskUtils.maskCertidao(certidaoValue))
-  }, [setValue, certidaoValue])
-
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>
@@ -357,9 +351,10 @@ export function DadosPessoaisForm({
           placeholder={FORMULARIO_DADOS_PESSOAIS[9].placeHolder}
           {...register('dadosPessoais.certidao', {
             onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const numeroCertidaoValue = event.target.value
               setValue(
                 'dadosPessoais.certidao',
-                MaskUtils.maskCertidao(event.target.value),
+                MaskUtils.maskCertidao(numeroCertidaoValue),
               )
             },
           })}

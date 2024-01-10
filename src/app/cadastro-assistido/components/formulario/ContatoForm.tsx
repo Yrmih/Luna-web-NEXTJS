@@ -3,7 +3,7 @@ import { MaskUtils } from '@/utils/MaskUtils'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { Grid, InputAdornment, TextField } from '@mui/material'
-import { useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
@@ -34,23 +34,7 @@ export type ContatoProps = {
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-export function ContatoForm({
-  register,
-  watch,
-  setValue,
-  errors,
-}: ContatoProps) {
-  const celularValue = watch('contatos.celular')
-  const telefoneValue = watch('contatos.telefone')
-
-  useEffect(() => {
-    setValue('contatos.celular', MaskUtils.maskCelular(celularValue))
-  }, [setValue, celularValue])
-
-  useEffect(() => {
-    setValue('contatos.telefone', MaskUtils.maskTelefone(telefoneValue))
-  }, [setValue, telefoneValue])
-
+export function ContatoForm({ register, setValue, errors }: ContatoProps) {
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>
@@ -65,7 +49,12 @@ export function ContatoForm({
               </InputAdornment>
             ),
           }}
-          {...register('contatos.celular')}
+          {...register('contatos.celular', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const celularValue = event.target.value
+              setValue('contatos.celular', MaskUtils.maskCelular(celularValue))
+            },
+          })}
           error={errors.contatos?.celular !== undefined}
           helperText={
             errors.contatos?.celular !== undefined
@@ -88,7 +77,15 @@ export function ContatoForm({
               </InputAdornment>
             ),
           }}
-          {...register('contatos.telefone')}
+          {...register('contatos.telefone', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const telefoneValue = event.target.value
+              setValue(
+                'contatos.telefone',
+                MaskUtils.maskTelefone(telefoneValue),
+              )
+            },
+          })}
           error={errors.contatos?.telefone !== undefined}
           helperText={
             errors.contatos?.telefone !== undefined

@@ -1,47 +1,55 @@
 // Third party
+import { MaskUtils } from '@/utils/MaskUtils'
 import BadgeIcon from '@mui/icons-material/Badge'
 import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import PersonIcon from '@mui/icons-material/Person'
 import { Grid, InputAdornment, TextField } from '@mui/material'
+import { ChangeEvent } from 'react'
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_CAMPOS_INFO_INICIAL = [
   {
-    name: 'nomeCompleto',
     label: 'Nome Completo',
     textHelper: 'nome e sobrenomes.',
     placeHolder: 'Ex.: Luiza de Suza Menezes',
     icon: <PersonIcon />,
-    required: true,
   },
   {
-    name: 'cpf',
     label: 'CPF',
     textHelper: 'Número de CPF ou CNPJ',
     placeHolder: '000.000.000-00',
     icon: <BadgeIcon />,
-    required: true,
   },
   {
-    name: 'email',
     label: 'Endereço de Email',
-    textHelper: 'O email é inportante para envio de informações.',
-    placeHolder: 'EX.: alfser@gmail.com',
+    textHelper: 'O email é importante para envio de informações ao assistido.',
+    placeHolder: 'Ex.: alfser@gmail.com',
     icon: <MailOutlineIcon />,
-    required: true,
   },
 ]
 
-export function InformacaoInicial() {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget)
-    console.log(event.target)
-  }
+export type InformacaoInicialProps = {
+  register: UseFormRegister<CadastroAssistidoInputsForm>
+  watch: UseFormWatch<CadastroAssistidoInputsForm>
+  setValue: UseFormSetValue<CadastroAssistidoInputsForm>
+  errors: FieldErrors<CadastroAssistidoInputsForm>
+}
 
+export function InformacaoInicialForm({
+  register,
+  setValue,
+  errors,
+}: InformacaoInicialProps) {
   return (
     <Grid container flexDirection={'column'} px={4} spacing={3}>
       <Grid item xs={12}>
         <TextField
-          required
           id="nomeCompleto"
           fullWidth
           autoComplete="cc-name"
@@ -52,10 +60,14 @@ export function InformacaoInicial() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FORMULARIO_CAMPOS_INFO_INICIAL[0].name}
+          {...register('informacaoInicial.nomeCompleto')}
+          helperText={
+            errors.informacaoInicial?.nomeCompleto !== undefined
+              ? errors.informacaoInicial.nomeCompleto?.message
+              : FORMULARIO_CAMPOS_INFO_INICIAL[0].textHelper
+          }
+          error={errors.informacaoInicial?.nomeCompleto !== undefined}
           label={FORMULARIO_CAMPOS_INFO_INICIAL[0].label}
-          helperText={FORMULARIO_CAMPOS_INFO_INICIAL[0].textHelper}
           placeholder={FORMULARIO_CAMPOS_INFO_INICIAL[0].placeHolder}
         />
       </Grid>
@@ -71,11 +83,20 @@ export function InformacaoInicial() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
-          name={FORMULARIO_CAMPOS_INFO_INICIAL[1].name}
+          {...register('informacaoInicial.cpf', {
+            required: 'Campo Obrigatório',
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const cpfValue = event.target.value
+              setValue('informacaoInicial.cpf', MaskUtils.maskCpfCnpj(cpfValue))
+            },
+          })}
+          helperText={
+            errors.informacaoInicial !== undefined
+              ? errors.informacaoInicial.cpf?.message
+              : FORMULARIO_CAMPOS_INFO_INICIAL[1].textHelper
+          }
+          error={errors.informacaoInicial?.cpf !== undefined}
           label={FORMULARIO_CAMPOS_INFO_INICIAL[1].label}
-          required={FORMULARIO_CAMPOS_INFO_INICIAL[1].required}
-          helperText={FORMULARIO_CAMPOS_INFO_INICIAL[1].textHelper}
           placeholder={FORMULARIO_CAMPOS_INFO_INICIAL[1].placeHolder}
         />
       </Grid>
@@ -89,13 +110,16 @@ export function InformacaoInicial() {
               </InputAdornment>
             ),
           }}
-          onChange={handleChange}
           fullWidth
-          autoComplete="cc-exp"
-          name={FORMULARIO_CAMPOS_INFO_INICIAL[2].name}
+          autoComplete="email"
+          {...register('informacaoInicial.email')}
+          helperText={
+            errors.informacaoInicial?.email !== undefined
+              ? errors.informacaoInicial.email?.message
+              : FORMULARIO_CAMPOS_INFO_INICIAL[2].textHelper
+          }
+          error={errors.informacaoInicial?.email !== undefined}
           label={FORMULARIO_CAMPOS_INFO_INICIAL[2].label}
-          required={FORMULARIO_CAMPOS_INFO_INICIAL[2].required}
-          helperText={FORMULARIO_CAMPOS_INFO_INICIAL[2].textHelper}
           placeholder={FORMULARIO_CAMPOS_INFO_INICIAL[2].placeHolder}
         />
       </Grid>
