@@ -3,28 +3,27 @@
 import {
   Box,
   Button,
+  CircularProgress,
+  InputAdornment,
   Paper,
   Stack,
   TextField,
   Typography,
-  InputAdornment,
 } from '@mui/material'
-import { z } from 'zod'
 import { editarContatoSchema } from './editarContatoSchema'
 
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import MailOutlineIcon from '@mui/icons-material/MailOutline'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 
-import React, { ChangeEvent, useEffect } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { MaskUtils } from '@/utils/MaskUtils'
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
-// Tipagem do formulario
-
-export type EditarContatoSchemaForm = z.infer<typeof editarContatoSchema>
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ChangeEvent, useEffect } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { EditarContatoInputsForm } from './formularioTypes'
+import { runActionFormularioContatos } from './actions'
+import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
+import { SnackBarType } from '../types/snackbar-types'
 
 const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
   {
@@ -47,17 +46,24 @@ const FORMULARIO_CAMPOS_EDITAR_CONTATO = [
   },
 ]
 
-export default function EditarContato() {
+export function EditarContato() {
   const {
     register,
     setValue,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
     handleSubmit,
-  } = useForm<EditarContatoSchemaForm>({
+  } = useForm<EditarContatoInputsForm>({
     mode: 'onChange',
     resolver: zodResolver(editarContatoSchema),
   })
+  const { handleClose, setMessage, setType } = useSnackbarAreaAssistidoState()
+
+  const showSnackbarMessage = (message: string, type: SnackBarType) => {
+    setType(type)
+    setMessage(message)
+    handleClose()
+  }
 
   const celularValue = watch('celular') || ''
   const telephoneValue = watch('telefone') || ''
@@ -70,9 +76,14 @@ export default function EditarContato() {
     setValue('telefone', MaskUtils.maskTelefone(telephoneValue))
   }, [setValue, telephoneValue])
 
-  const onSubmit: SubmitHandler<EditarContatoSchemaForm> = (data) => {
-    console.log('DADOS: ', data, 'ERRO: ', errors)
-    console.log('VALID: ', isValid)
+  const onSubmit: SubmitHandler<EditarContatoInputsForm> = async (data) => {
+    const response = await runActionFormularioContatos(data)
+
+    if (response.success) {
+      showSnackbarMessage('Contato Atualizado com sucesso!', 'success')
+    } else {
+      showSnackbarMessage('Erro ao atualizar contato!', 'error')
+    }
   }
 
   return (
@@ -140,14 +151,8 @@ export default function EditarContato() {
                 width: '35vw',
               },
             }}
-            id="input-email"
             variant="standard"
-            {...(register('email'),
-            {
-              onChange: (event: ChangeEvent<HTMLInputElement>) => {
-                console.log(event.target.value)
-              },
-            })}
+            {...register('email')}
             error={errors.email !== undefined}
             helperText={
               errors.email !== undefined
@@ -225,29 +230,42 @@ export default function EditarContato() {
               ),
             }}
           />
-          <Button
-            sx={{
-              width: '17vw',
+          <Stack direction={'row'}>
+            <Button
+              type="submit"
+              disabled={!isValid || isSubmitting}
+              sx={{
+                width: '17vw',
 
-              '@media (min-width:900px)': {
-                width: '12vw',
-              },
-              '@media (min-width:1100px)': {
-                width: '9vw',
-              },
-              marginTop: '3vh',
-              mb: '2vh',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
-              '&:hover': {
+                '@media (min-width:900px)': {
+                  width: '12vw',
+                },
+                '@media (min-width:1100px)': {
+                  width: '9vw',
+                },
+                marginTop: '3vh',
+                mb: '2vh',
                 backgroundColor: (theme) =>
-                  theme.palette.mode === 'light' ? '#005bc9' : '#757575',
-              },
-            }}
-            variant="contained"
-          >
-            Atualizar
-          </Button>
+                  theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
+                '&:hover': {
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#005bc9' : '#757575',
+                },
+              }}
+              variant="contained"
+            >
+              Atualizar
+            </Button>
+            <Box
+              sx={{
+                ml: '3vh',
+                display: isSubmitting ? 'flex' : 'none',
+                alignItems: 'center',
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          </Stack>
         </Stack>
       </Paper>
     </Box>
