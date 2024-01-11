@@ -1,5 +1,9 @@
 'use client'
+
+// Third party
 import { Box, CardHeader, Paper } from '@mui/material'
+
+// Internal
 import { DetalhesAtendimento } from './DetalhesAtendimento'
 
 export default function DetalhesAtendimentoPage({

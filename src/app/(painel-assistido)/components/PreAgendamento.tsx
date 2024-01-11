@@ -1,4 +1,6 @@
 'use client'
+
+// Third party
 import {
   Card,
   CardContent,
@@ -11,6 +13,7 @@ import {
   useTheme,
 } from '@mui/material'
 
+// Internal
 import BarradeProgresso from './BarradeProgresso'
 
 interface PreAgendamentoProps {

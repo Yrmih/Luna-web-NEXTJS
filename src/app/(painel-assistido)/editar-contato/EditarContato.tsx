@@ -1,5 +1,10 @@
 'use client'
-// Internal
+
+// Third party
+import { zodResolver } from '@hookform/resolvers/zod'
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
+import MailOutlineIcon from '@mui/icons-material/MailOutline'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import {
   Box,
   Button,
@@ -10,18 +15,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { editarContatoSchema } from './editarContatoSchema'
-
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
-import MailOutlineIcon from '@mui/icons-material/MailOutline'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-
-import { MaskUtils } from '@/utils/MaskUtils'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { ChangeEvent } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+
+// Framework
+import { ChangeEvent } from 'react'
+
+// Internal
+import { MaskUtils } from '@/utils/MaskUtils'
 import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
-import { SnackBarType } from '../types/snackbar-types'
+import { editarContatoSchema } from './editarContatoSchema'
 import { EditarContatoInputsForm } from './formularioTypes'
 import { atualizarContato } from './services'
 
@@ -56,20 +58,14 @@ export function EditarContato() {
     mode: 'onChange',
     resolver: zodResolver(editarContatoSchema),
   })
-  const { handleClose, setMessage, setType } = useSnackbarAreaAssistidoState()
-
-  const showSnackbarMessage = (message: string, type: SnackBarType) => {
-    setType(type)
-    setMessage(message)
-    handleClose()
-  }
+  const { showSnackbarAreaAssistido } = useSnackbarAreaAssistidoState()
 
   const onSubmit: SubmitHandler<EditarContatoInputsForm> = async (data) => {
     const response = await atualizarContato(data)
     if (response.success) {
-      showSnackbarMessage('Contato Atualizado com sucesso!', 'success')
+      showSnackbarAreaAssistido('Contato Atualizado com sucesso!', 'success')
     } else {
-      showSnackbarMessage('Erro ao atualizar contato!', 'error')
+      showSnackbarAreaAssistido('Erro ao atualizar contato!', 'error')
     }
   }
 

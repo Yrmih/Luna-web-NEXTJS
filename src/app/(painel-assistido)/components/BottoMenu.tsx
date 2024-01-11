@@ -1,9 +1,14 @@
 'use client'
 
+// Third party
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
-import { MENU_PRINCIPAL_LINKS } from '../constants'
-import { useState } from 'react'
+
+// Framework
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+
+// Internal
+import { MENU_PRINCIPAL_LINKS } from '../constants'
 
 export function BottoMenu() {
   const pathname = usePathname()

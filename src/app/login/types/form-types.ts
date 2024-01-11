@@ -1,5 +1,8 @@
+// Third party
 import { z } from 'zod'
-import { loginSchema } from '../schemas/loginSchema'
+
+// Internal
+import { loginSchema } from '../schemas/login-schema'
 
 export type LoginInputsFrom = z.infer<typeof loginSchema>
 

@@ -24,14 +24,14 @@ import {
 
 // Framework
 import Link from 'next/link'
+import { ChangeEvent } from 'react'
 
 // Internal
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { TextFieldAttributes } from '../../types/TextFieldAttributes'
+import { TextFieldAttributes } from '../../../types/TextFieldAttributes'
 import { ImovelDynamicTextFields } from '../ImovelDynamicTextFields'
 import { InvestimentoDynamicTextFields } from '../InvestimentoDynamicTextFields'
 import { MovelDynamicTextFields } from '../MovelDynamicTextFields'
-import { ChangeEvent } from 'react'
 import { FORMULARIOS_REGEX_DAS_MASCARAS } from '../../../../utils/constants/formularios'
 
 export const FORMULARIO_QUALIFICACAO_FINANCEIRA: TextFieldAttributes[] = [

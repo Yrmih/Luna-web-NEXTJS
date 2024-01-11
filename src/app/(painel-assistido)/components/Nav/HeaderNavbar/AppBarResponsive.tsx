@@ -12,10 +12,12 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
-import { Notification } from './Notification'
 
 // Framework
 import { ReactNode, useState, MouseEvent } from 'react'
+
+// Internal
+import { Notification } from './Notification'
 import { MENU_AVANCADO_LINKS } from '@/app/(painel-assistido)/constants'
 
 interface AppBarResponsiveProps {

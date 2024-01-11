@@ -1,3 +1,4 @@
+// Internal
 import NovaSolicitacao from './NovaSolicitacao'
 
 export default function NovaSolicitacaoPage() {

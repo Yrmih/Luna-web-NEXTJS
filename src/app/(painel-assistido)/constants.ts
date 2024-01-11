@@ -1,3 +1,4 @@
+// Third party
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import ChecklistIcon from '@mui/icons-material/Checklist'
 import LogoutIcon from '@mui/icons-material/Logout'
@@ -8,6 +9,7 @@ import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { SvgIconTypeMap } from '@mui/material/SvgIcon'
 import { signOut } from 'next-auth/react'
 
+// Internal
 export const MENU_PRINCIPAL_LINKS: {
   key: string
   text: string

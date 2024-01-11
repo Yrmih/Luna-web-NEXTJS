@@ -1,3 +1,4 @@
+// Third party
 import {
   Button,
   Dialog,
@@ -6,7 +7,9 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
-import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
+
+// Internal
+import { useLoginStateDialogs } from '../context/LoginSateDialogsContext'
 
 export function CPFNaoEncontradoDialog() {
   const {

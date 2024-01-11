@@ -1,5 +1,4 @@
 // Third party
-import { MENU_PRINCIPAL_LINKS } from '@/app/(painel-assistido)/constants'
 import {
   Box,
   Divider,
@@ -13,6 +12,9 @@ import {
 
 // Framework
 import Link from 'next/link'
+
+// Internal
+import { MENU_PRINCIPAL_LINKS } from '@/app/(painel-assistido)/constants'
 
 export function DrawerMenuAreaAssistido() {
   return (

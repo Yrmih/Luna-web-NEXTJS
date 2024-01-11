@@ -1,7 +1,6 @@
-// Third party
 'use client'
 
-// framework
+// Framework
 import {
   Card,
   CardContent,

@@ -1,5 +1,6 @@
 'use server'
 
+// Internal
 import { ResponseSolar } from '@/api/solar/types'
 import { EditarContatoInputsForm } from './formularioTypes'
 import { AssistidoPessoaApi } from '@/api/solar/AssistidoPessoaApi'

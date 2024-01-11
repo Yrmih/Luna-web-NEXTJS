@@ -1,5 +1,8 @@
+// Third party
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+
+// Internal
 import { SITUACAO_AUTENTICADO } from '../constants'
 
 const authOptions: NextAuthOptions = {

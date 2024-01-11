@@ -1,7 +1,13 @@
 'use client'
+
+// Third party
 import CloseIcon from '@mui/icons-material/Close'
 import { CardHeader, Container, IconButton, Modal, Paper } from '@mui/material'
+
+// Framework
 import React from 'react'
+
+// Internal
 import { CardNotificacao } from '../../../detalhes/screem/CardNotificacao'
 import { CustomSubheader } from '../../../detalhes/screem/TableNotificar'
 

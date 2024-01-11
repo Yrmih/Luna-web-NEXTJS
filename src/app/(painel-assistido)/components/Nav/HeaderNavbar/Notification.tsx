@@ -1,6 +1,9 @@
+// Third party
 import { Box, Menu, MenuItem, Typography, useTheme } from '@mui/material'
-import NextLink from 'next/link'
+
+// Framework
 import Link from '@mui/material/Link'
+import NextLink from 'next/link'
 
 const notificationsList = [
   {

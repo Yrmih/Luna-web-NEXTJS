@@ -3,8 +3,6 @@
 // External
 import { Box, Stack } from '@mui/material'
 
-// Framework
-
 // Internal
 import { LoginCPF } from './components/LoginCPF'
 import { LoginAtendimentoDialog } from './components/LoginNumeroAtendimentoDialog'

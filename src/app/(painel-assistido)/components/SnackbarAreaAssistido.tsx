@@ -1,6 +1,9 @@
 'use client'
 
+// Third party
 import { Alert, Fade, Snackbar } from '@mui/material'
+
+// Internal
 import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
 
 export function SnackbarAreaAssistido() {

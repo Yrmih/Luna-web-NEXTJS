@@ -1,14 +1,15 @@
 'use client'
 
+// Framework
 import {
-  Dispatch,
   ReactNode,
-  SetStateAction,
   SyntheticEvent,
   createContext,
   useContext,
   useState,
 } from 'react'
+
+// Internal
 import { SnackBarType } from '../types/snackbar-types'
 
 interface SnackbarAreaAssistidoStateProps {
@@ -18,10 +19,9 @@ interface SnackbarAreaAssistidoStateProps {
 type SnackbarAreaAssistidoState = {
   open: boolean
   handleClose: (event?: SyntheticEvent | Event, reason?: string) => void
-  setType: Dispatch<SetStateAction<SnackBarType>>
   type: SnackBarType
-  setMessage: Dispatch<SetStateAction<string>>
   message: string
+  showSnackbarAreaAssistido: (message: string, type: SnackBarType) => void
 }
 
 const SnackBarAreaAssistidoStateContext = createContext<
@@ -46,9 +46,15 @@ export function SnackbarAreaAssistidoStateProvider({
     }, 6000)
   }
 
+  const showSnackbarAreaAssistido = (message: string, type: SnackBarType) => {
+    setType(type)
+    setMessage(message)
+    handleClose()
+  }
+
   return (
     <SnackBarAreaAssistidoStateContext.Provider
-      value={{ open, handleClose, setType, type, setMessage, message }}
+      value={{ open, handleClose, type, message, showSnackbarAreaAssistido }}
     >
       {children}
     </SnackBarAreaAssistidoStateContext.Provider>

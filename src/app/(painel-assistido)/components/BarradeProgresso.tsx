@@ -1,4 +1,4 @@
-import * as React from 'react'
+// Third party
 import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress'

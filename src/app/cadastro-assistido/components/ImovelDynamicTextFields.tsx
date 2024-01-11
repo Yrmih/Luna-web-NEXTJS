@@ -13,13 +13,13 @@ import {
 } from 'react-hook-form'
 
 // framework
+import { ChangeEvent } from 'react'
 
 // Internal
 import styles from '@/styles/FadeTransitionItens.module.css'
 import { CadastroAssistidoInputsForm } from '../CadastroAssistido'
-import { TextFieldAttributes } from '../types/TextFieldAttributes'
+import { TextFieldAttributes } from '../../types/TextFieldAttributes'
 import { MaskUtils } from '@/utils/MaskUtils'
-import { ChangeEvent } from 'react'
 
 export type RenderDimanicTextFieldsMovelOptions = {
   valorAttribute: TextFieldAttributes

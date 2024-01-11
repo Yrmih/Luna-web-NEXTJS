@@ -1,6 +1,9 @@
+// Third party
+import { Box } from '@mui/material'
+
+// Internal
 import { Header } from '@/components/Header'
 import Footer from '@/components/Footer'
-import { Box } from '@mui/material'
 
 export default function Login({ children }: { children: React.ReactNode }) {
   return (

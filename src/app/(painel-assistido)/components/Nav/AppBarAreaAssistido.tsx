@@ -2,7 +2,6 @@
 
 // Third party
 import { Box, Drawer } from '@mui/material'
-// Framework
 
 // internal
 import { AppBarResponsive } from './HeaderNavbar/AppBarResponsive'

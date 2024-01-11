@@ -1,6 +1,9 @@
 'use client'
+
+// Third party
 import { Box, Paper, Stack } from '@mui/material'
 
+// Internal
 import ContainerAtendimento from '../components/ContainerAtendimento'
 
 export default function HomePage() {

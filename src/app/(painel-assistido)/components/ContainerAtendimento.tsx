@@ -1,5 +1,9 @@
 'use client'
+
+// Third Party
 import { Stack, Divider, Typography, Grid, useMediaQuery } from '@mui/material'
+
+// Internal
 import CardAtendimento from './CardAtendimento'
 
 interface ContainerAtendimentoProps {

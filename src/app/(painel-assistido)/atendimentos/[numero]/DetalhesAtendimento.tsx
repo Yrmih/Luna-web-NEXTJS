@@ -1,6 +1,8 @@
 'use client'
+
 // Third party
 import { Box, Grid } from '@mui/material'
+
 // Internal
 import { CardAvatar } from '../../components/CardAvatar'
 import { CardDocumentoEnvio } from '../../components/CardDocumentoEnvio'

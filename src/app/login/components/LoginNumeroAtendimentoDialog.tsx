@@ -1,7 +1,6 @@
 'use client'
 
-// external libraries
-import { MaskUtils } from '@/utils/MaskUtils'
+// Third party
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
 import SendIcon from '@mui/icons-material/Send'
 import {
@@ -16,12 +15,17 @@ import {
   TextField,
   useMediaQuery,
 } from '@mui/material'
-import { ChangeEvent } from 'react'
-import { useLoginUseFormSate } from '../hooks/LoginUseFormStateContext'
-import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
-import { LoginInputsFrom } from '../types/formTypes'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+
+// Framework
+import { ChangeEvent } from 'react'
+
+// Internal
+import { MaskUtils } from '@/utils/MaskUtils'
+import { useLoginUseFormSate } from '../context/LoginUseFormStateContext'
+import { useLoginStateDialogs } from '../context/LoginSateDialogsContext'
+import { LoginInputsFrom } from '../types/form-types'
 
 export function LoginAtendimentoDialog() {
   const matches = useMediaQuery('(min-width:900px)')

@@ -18,19 +18,18 @@ import {
   Select,
   TextField,
 } from '@mui/material'
-
-// Framework
-
-// Internal
-
-import { MaskUtils } from '@/utils/MaskUtils'
-import { useEffect, ChangeEvent } from 'react'
 import {
   FieldErrors,
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form'
+
+// Framework
+import { ChangeEvent } from 'react'
+
+// Internal
+import { MaskUtils } from '@/utils/MaskUtils'
 import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FORMULARIO_DADOS_PESSOAIS = [
@@ -121,12 +120,6 @@ export function DadosPessoaisForm({
   setValue,
   errors,
 }: DadosPessoaisProps) {
-  const certidaoValue = watch('dadosPessoais.certidao')
-
-  useEffect(() => {
-    setValue('dadosPessoais.certidao', MaskUtils.maskCertidao(certidaoValue))
-  }, [setValue, certidaoValue])
-
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12}>

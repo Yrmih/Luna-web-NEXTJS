@@ -1,7 +1,7 @@
 'use client'
 
+// Third party
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ReactNode, createContext, useContext } from 'react'
 import {
   FieldErrors,
   UseFormHandleSubmit,
@@ -10,8 +10,13 @@ import {
   UseFormTrigger,
   useForm,
 } from 'react-hook-form'
-import { loginSchema } from '../schemas/loginSchema'
-import { LoginInputsFrom, LoginInputsFromDirtyFiels } from '../types/formTypes'
+
+// Framework
+import { ReactNode, createContext, useContext } from 'react'
+
+// Internal
+import { loginSchema } from '../schemas/login-schema'
+import { LoginInputsFrom, LoginInputsFromDirtyFiels } from '../types/form-types'
 
 interface LoginUseFormStateContextProps {
   children: ReactNode

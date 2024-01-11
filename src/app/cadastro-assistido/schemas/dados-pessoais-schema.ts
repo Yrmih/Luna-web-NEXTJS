@@ -1,5 +1,8 @@
-import { MaskUtils } from '@/utils/MaskUtils'
+// Third party
 import { z } from 'zod'
+
+// Internal
+import { MaskUtils } from '@/utils/MaskUtils'
 import {
   FORMULARIOS_ERROS_MENSAGENS,
   FORMULARIOS_REGEX_DAS_MASCARAS,

@@ -1,5 +1,6 @@
 'use client'
 
+// Third party
 import {
   DialogTitle,
   DialogContent,
@@ -12,12 +13,13 @@ import {
   Dialog,
   useMediaQuery,
 } from '@mui/material'
-
 import CancelIcon from '@mui/icons-material/Cancel'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import PendingIcon from '@mui/icons-material/Pending'
+
+// Framework
 import React, { Dispatch, SetStateAction, useState } from 'react'
 
 // Animação de alerta
@@ -224,8 +226,8 @@ export default function ModalEnvioDocumento({
                   {situacaoArquivo === 'pendente'
                     ? 'Arquivo pendente de envio...'
                     : situacaoArquivo === 'erro'
-                    ? 'Ocorreu um erro com seu arquivo'
-                    : 'Arquivo carregado com sucesso! Clique em enviar para finalizar o envio do eu arquivo'}
+                      ? 'Ocorreu um erro com seu arquivo'
+                      : 'Arquivo carregado com sucesso! Clique em enviar para finalizar o envio do eu arquivo'}
                 </Typography>
               </Box>
             </Box>

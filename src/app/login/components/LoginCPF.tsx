@@ -1,9 +1,14 @@
-import { MaskUtils } from '@/utils/MaskUtils'
+// Third party
 import { AccountCircle } from '@mui/icons-material'
 import { Box, Button, TextField, Typography } from '@mui/material'
+
+// Framework
 import { ChangeEvent } from 'react'
-import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
-import { useLoginUseFormSate } from '../hooks/LoginUseFormStateContext'
+
+// Internal
+import { MaskUtils } from '@/utils/MaskUtils'
+import { useLoginStateDialogs } from '../context/LoginSateDialogsContext'
+import { useLoginUseFormSate } from '../context/LoginUseFormStateContext'
 
 export function LoginCPF() {
   const { register, errors, setValue, dirtyFields } = useLoginUseFormSate()

@@ -1,6 +1,6 @@
 // Third party
-import GiteIcon from '@mui/icons-material/Gite'
 import EditRoadIcon from '@mui/icons-material/EditRoad'
+import GiteIcon from '@mui/icons-material/Gite'
 import { Grid, InputAdornment, TextField } from '@mui/material'
 import {
   FieldErrors,
@@ -8,9 +8,13 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form'
-import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
-import { useEffect } from 'react'
+
+// Framework
+import { ChangeEvent } from 'react'
+
+//  Internal
 import { MaskUtils } from '@/utils/MaskUtils'
+import { CadastroAssistidoInputsForm } from '../../CadastroAssistido'
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {
@@ -68,18 +72,7 @@ export type EnderecoProps = {
   errors: FieldErrors<CadastroAssistidoInputsForm>
 }
 
-export function EnderecoForm({
-  register,
-  setValue,
-  watch,
-  errors,
-}: EnderecoProps) {
-  const cepValue = watch('endereco.cep')
-
-  useEffect(() => {
-    setValue('endereco.cep', MaskUtils.maskCep(cepValue))
-  }, [setValue, cepValue])
-
+export function EnderecoForm({ register, setValue, errors }: EnderecoProps) {
   return (
     <Grid container spacing={3} px={4}>
       <Grid item xs={12} sm={4}>
@@ -140,7 +133,11 @@ export function EnderecoForm({
               </InputAdornment>
             ),
           }}
-          {...register('endereco.cep')}
+          {...register('endereco.cep', {
+            onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              setValue('endereco.cep', MaskUtils.maskCep(event.target.value))
+            },
+          })}
           error={errors.endereco?.cep !== undefined}
           helperText={
             errors.endereco?.cep !== undefined

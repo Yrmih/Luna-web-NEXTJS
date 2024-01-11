@@ -1,5 +1,4 @@
-// data/mockData.ts
-
+// Internal
 import { TableNotificarModulo } from '../module/TableNotificarModule'
 
 const mockDataNotificar: TableNotificarModulo[] = [

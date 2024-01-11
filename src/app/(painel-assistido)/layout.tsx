@@ -1,7 +1,11 @@
+// Third party
+import { CssBaseline } from '@mui/material'
+
+// Framework
+import { ReactNode } from 'react'
+
 // Internal
 import ContentLayout from '@/components/ContentLayout'
-import { CssBaseline } from '@mui/material'
-import { ReactNode } from 'react'
 import Footer from '../../components/Footer'
 import { BottoMenu } from './components/BottoMenu'
 import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'

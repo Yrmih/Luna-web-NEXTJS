@@ -1,10 +1,12 @@
 'use client'
-// Internal
+
+// Third party
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import { Box, Button, Paper, Stack, Typography } from '@mui/material'
-
 import { keyframes } from '@emotion/react'
+
+// Framework
 import { useState } from 'react'
 
 const shake = keyframes`

@@ -1,12 +1,13 @@
+// Thier party
 import { Box } from '@mui/material'
+
+// Inernal
 import mockDataNotificar from '../Mock/TableNotificarMock'
 import { TableNotificar } from '../screem/TableNotificar'
 
-// Mock data
-// const rows: TableNotificarModulo[] = []
 const rows = mockDataNotificar
 
-export default function ContainListdeNotificacao() {
+export function ContainListdeNotificacao() {
   return (
     <Box
       sx={{

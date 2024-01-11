@@ -1,3 +1,4 @@
+// Third party
 import {
   Button,
   Dialog,
@@ -7,7 +8,9 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material'
-import { useLoginStateDialogs } from '../hooks/LoginSateDialogsContext'
+
+// Internal
+import { useLoginStateDialogs } from '../context/LoginSateDialogsContext'
 
 export function RecuperarAtendimentoDialog() {
   const {

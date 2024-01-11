@@ -1,9 +1,12 @@
+// Third party
+import { z } from 'zod'
+
+// Internal
 import { CpfUtils } from '@/utils/CpfUtils'
 import {
   FORMULARIOS_ERROS_MENSAGENS,
   FORMULARIOS_REGEX_DAS_MASCARAS,
 } from '@/utils/constants/formularios'
-import { z } from 'zod'
 
 export const loginSchema = z.object({
   cpf: z.string().refine(
