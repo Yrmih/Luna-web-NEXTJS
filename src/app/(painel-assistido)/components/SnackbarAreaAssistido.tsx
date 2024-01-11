@@ -8,7 +8,7 @@ export function SnackbarAreaAssistido() {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       open={open}
       onClose={handleClose}
       TransitionComponent={Fade}

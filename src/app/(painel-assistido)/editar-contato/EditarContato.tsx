@@ -18,7 +18,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 
 import { MaskUtils } from '@/utils/MaskUtils'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
 import { SnackBarType } from '../types/snackbar-types'
@@ -50,7 +50,6 @@ export function EditarContato() {
   const {
     register,
     setValue,
-    watch,
     formState: { errors, isValid, isSubmitting },
     handleSubmit,
   } = useForm<EditarContatoInputsForm>({
@@ -64,17 +63,6 @@ export function EditarContato() {
     setMessage(message)
     handleClose()
   }
-
-  const celularValue = watch('celular') || ''
-  const telephoneValue = watch('telefone') || ''
-
-  useEffect(() => {
-    setValue('celular', MaskUtils.maskCelular(celularValue))
-  }, [setValue, celularValue])
-
-  useEffect(() => {
-    setValue('telefone', MaskUtils.maskTelefone(telephoneValue))
-  }, [setValue, telephoneValue])
 
   const onSubmit: SubmitHandler<EditarContatoInputsForm> = async (data) => {
     const response = await atualizarContato(data)
@@ -178,10 +166,9 @@ export function EditarContato() {
             }}
             {...register('celular', {
               onChange: (event: ChangeEvent<HTMLInputElement>) => {
-                console.log(event.target.value)
+                setValue('celular', MaskUtils.maskCelular(event.target.value))
               },
             })}
-            id="input-celular"
             variant="standard"
             error={errors.celular !== undefined}
             helperText={
@@ -208,7 +195,7 @@ export function EditarContato() {
             }}
             {...register('telefone', {
               onChange: (event: ChangeEvent<HTMLInputElement>) => {
-                console.log(event.target.value)
+                setValue('telefone', MaskUtils.maskTelefone(event.target.value))
               },
             })}
             id="input-telefone"
