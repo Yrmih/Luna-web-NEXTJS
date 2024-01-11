@@ -1,10 +1,10 @@
 'use client'
 
+import { DetalhesAtendimento } from '@/features/painel-assistido/atendimentos/components/page'
 // Third party
 import { Box, CardHeader, Paper } from '@mui/material'
 
 // Internal
-import { DetalhesAtendimento } from './DetalhesAtendimento'
 
 export default function DetalhesAtendimentoPage({
   params: { numero },

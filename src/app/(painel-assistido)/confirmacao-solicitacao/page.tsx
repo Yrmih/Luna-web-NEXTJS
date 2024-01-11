@@ -1,6 +1,6 @@
 // Internal
-import ConfirmarSolicitacao from './ConfirmacaoSolicitacao'
+import { ConfirmacaoSolicitacao } from '../../../features/painel-assistido/confirmacao-solicitacao/components/page/ConfirmacaoSolicitacao'
 
 export default function ConfirmacaoSolicitacaoPage() {
-  return <ConfirmarSolicitacao />
+  return <ConfirmacaoSolicitacao />
 }

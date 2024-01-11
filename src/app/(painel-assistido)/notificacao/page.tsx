@@ -1,6 +1,7 @@
 // Internal
-import { ContainListdeNotificacao } from './components/ui/ContainTableNotificar'
+
+import { ListaDeNotificacao } from '@/features/painel-assistido/notificacao/components/pages'
 
 export default function ListaNotificacao() {
-  return <ContainListdeNotificacao />
+  return <ListaDeNotificacao />
 }

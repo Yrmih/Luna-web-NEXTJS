@@ -1,5 +1,6 @@
 // Internal
-import { CadastroAssistido } from './CadastroAssistido'
+
+import { CadastroAssistido } from '@/features/cadastro-assistido/components/pages'
 
 export type CadastroAssitidoPageSearchParams = {
   step: string
