@@ -10,7 +10,7 @@ import { useState } from 'react'
 // Internal
 import { MENU_PRINCIPAL_LINKS } from '../../constants'
 
-export function BottoMenu() {
+export function BottonMenu() {
   const pathname = usePathname()
   const [value, setValue] = useState<string>(getValueFromPathname(pathname))
 

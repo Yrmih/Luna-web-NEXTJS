@@ -7,7 +7,7 @@ import { ReactNode } from 'react'
 // Internal
 import ContentLayout from '@/components/ContentLayout'
 import Footer from '../../components/Footer'
-import { BottoMenu } from './components/ui/BottoMenu'
+import { BottonMenu } from './components/ui/BottonMenu'
 import { AppBarAreaAssistido } from './components/ui/Nav/AppBarAreaAssistido'
 import { SnackbarAreaAssistido } from './components/ui/SnackbarAreaAssistido'
 import { SnackbarAreaAssistidoStateProvider } from './context/SnackbarAreaAssistidoStateProvider'
@@ -36,7 +36,7 @@ export async function PainelAssistidoLayout({
         </SnackbarAreaAssistidoStateProvider>
       </ContentLayout>
       {/* Footer parte do <footer> */}
-      <BottoMenu />
+      <BottonMenu />
       <Footer />
     </>
   )
