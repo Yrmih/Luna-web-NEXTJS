@@ -1,8 +1,8 @@
 'use server'
 
-import { AssistidoPessoaApi } from '@/lib/solar/api/AssistidoPessoaApi'
+import { AssistidoPessoaApi } from '@/api/AssistidoPessoaApi'
 import { EditarContatoInputsForm } from './formularioTypes'
-import { ResponseSolar } from '@/lib/solar/api/types'
+import { ResponseSolar } from '@/api/types'
 
 export const atualizarContato = async (
   data: EditarContatoInputsForm,
