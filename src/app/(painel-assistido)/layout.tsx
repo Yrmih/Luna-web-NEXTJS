@@ -7,9 +7,9 @@ import { ReactNode } from 'react'
 // Internal
 import ContentLayout from '@/components/ContentLayout'
 import Footer from '../../components/Footer'
-import { BottoMenu } from './components/BottoMenu'
-import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
-import { SnackbarAreaAssistido } from './components/SnackbarAreaAssistido'
+import { BottoMenu } from './components/ui/BottoMenu'
+import { AppBarAreaAssistido } from './components/ui/Nav/AppBarAreaAssistido'
+import { SnackbarAreaAssistido } from './components/ui/SnackbarAreaAssistido'
 import { SnackbarAreaAssistidoStateProvider } from './context/SnackbarAreaAssistidoStateProvider'
 
 export const metadata = {

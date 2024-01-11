@@ -2,8 +2,8 @@
 import { Box } from '@mui/material'
 
 // Inernal
-import mockDataNotificar from '../Mock/TableNotificarMock'
-import { TableNotificar } from '../screem/TableNotificar'
+import mockDataNotificar from '../../detalhes/mocks/TableNotificarMock'
+import { TableNotificar } from './TableNotificar'
 
 const rows = mockDataNotificar
 

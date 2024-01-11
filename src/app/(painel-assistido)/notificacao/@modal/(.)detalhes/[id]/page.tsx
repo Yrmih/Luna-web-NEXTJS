@@ -8,8 +8,8 @@ import { CardHeader, Container, IconButton, Modal, Paper } from '@mui/material'
 import React from 'react'
 
 // Internal
-import { CardNotificacao } from '../../../detalhes/screem/CardNotificacao'
-import { CustomSubheader } from '../../../detalhes/screem/TableNotificar'
+import { CardNotificacao } from '../../../components/ui/CardNotificacao'
+import { CustomSubheader } from '../../../components/ui/TableNotificar'
 
 export default function DetalhesNotificacaoPage({
   params: { id },

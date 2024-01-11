@@ -1,5 +1,5 @@
 // Internal
-import { TableNotificarModulo } from '../module/TableNotificarModule'
+import { TableNotificarModulo } from './types'
 
 const mockDataNotificar: TableNotificarModulo[] = [
   {

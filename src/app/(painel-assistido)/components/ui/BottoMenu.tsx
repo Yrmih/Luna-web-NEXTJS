@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 // Internal
-import { MENU_PRINCIPAL_LINKS } from '../constants'
+import { MENU_PRINCIPAL_LINKS } from '../../constants'
 
 export function BottoMenu() {
   const pathname = usePathname()

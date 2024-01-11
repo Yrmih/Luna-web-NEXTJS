@@ -16,9 +16,9 @@ import {
 
 // Framework
 import React, { ChangeEvent, useState } from 'react'
+import BoxPergunta from './components/ui/BoxPergunta'
 
 // Internal
-import BoxPergunta from '../components/BoxPergunta'
 
 export default function NovaSolicitacao() {
   const opcoesLocalAtendimento = [

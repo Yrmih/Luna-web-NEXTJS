@@ -4,10 +4,10 @@
 import { Box, Grid } from '@mui/material'
 
 // Internal
-import { CardAvatar } from '../../components/CardAvatar'
-import { CardDocumentoEnvio } from '../../components/CardDocumentoEnvio'
-import { CardeProcesso } from '../../components/CardProcesso'
-import PreAgendamento from '../../components/PreAgendamento'
+import { CardAvatar } from '../components/ui/CardAvatar'
+import { CardDocumentoEnvio } from '../components/ui/CardDocumentoEnvio'
+import { CardeProcesso } from '../components/ui/CardProcesso'
+import PreAgendamento from '../components/ui/PreAgendamento'
 
 export function DetalhesAtendimento() {
   return (
