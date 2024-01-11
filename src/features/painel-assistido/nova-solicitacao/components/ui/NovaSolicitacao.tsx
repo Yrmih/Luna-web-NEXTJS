@@ -20,7 +20,7 @@ import { BoxPergunta } from './BoxPergunta'
 
 // Internal
 
-export default function NovaSolicitacao() {
+export function NovaSolicitacao() {
   const opcoesLocalAtendimento = [
     {
       value: 'default',

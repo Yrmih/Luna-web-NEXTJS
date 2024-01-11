@@ -5,7 +5,7 @@ interface ContentProps {
   children?: ReactNode
 }
 
-const ContentLayout = ({ children }: ContentProps) => {
+export function ContentLayout({ children }: ContentProps) {
   return (
     <>
       {/* Captura área para conteúdo */}
@@ -23,5 +23,3 @@ const ContentLayout = ({ children }: ContentProps) => {
     </>
   )
 }
-
-export default ContentLayout

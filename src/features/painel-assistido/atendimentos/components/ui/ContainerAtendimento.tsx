@@ -12,9 +12,7 @@ interface ContainerAtendimentoProps {
   }
 }
 
-export default function ContainerAtendimento({
-  props,
-}: ContainerAtendimentoProps) {
+export function ContainerAtendimento({ props }: ContainerAtendimentoProps) {
   const matches = useMediaQuery('(min-width:900px)')
   if (props.tipoAtendimento === 'pre')
     return (

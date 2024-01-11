@@ -7,8 +7,8 @@ import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material'
 import { ReactNode, useMemo } from 'react'
 
 // Internal
-import NextAppDirEmotionCacheProvider from './EmotionCache'
-import getTheme from './theme'
+import { NextAppDirEmotionCacheProvider } from './EmotionCache'
+import { getTheme } from './theme'
 
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')

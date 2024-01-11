@@ -1,3 +1,3 @@
-import NovaSolicitacao from '../ui/NovaSolicitacao'
+import { NovaSolicitacao } from '../ui/NovaSolicitacao'
 
 export { NovaSolicitacao }

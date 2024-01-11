@@ -5,7 +5,7 @@ import { Box, CardHeader, Paper } from '@mui/material'
 import { CardNotificacao } from '../../components/ui/CardNotificacao'
 import { CustomSubheader } from '../../components/ui/TableNotificar'
 
-export default function DetalhesNotificacao({
+export function DetalhesNotificacao({
   params: { id },
 }: {
   params: { id: string }

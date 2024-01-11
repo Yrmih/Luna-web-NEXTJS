@@ -56,7 +56,7 @@ interface BarradeProgressoProps {
   }
 }
 
-export default function BarradeProgresso({ props }: BarradeProgressoProps) {
+export function BarradeProgresso({ props }: BarradeProgressoProps) {
   return (
     <Box sx={{ display: 'grid', width: '100%', alignItems: 'center' }}>
       <LinearProgressWithLabel

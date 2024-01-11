@@ -1,7 +1,7 @@
 // Internal
 import { TableNotificarModulo } from './types'
 
-const mockDataNotificar: TableNotificarModulo[] = [
+export const mockDataNotificar: TableNotificarModulo[] = [
   {
     id: 1,
     title: 'Notificação',
@@ -53,5 +53,3 @@ const mockDataNotificar: TableNotificarModulo[] = [
 
   // Adicione mais dados mockados conforme necessário
 ]
-
-export default mockDataNotificar

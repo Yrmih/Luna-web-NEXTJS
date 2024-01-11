@@ -5,12 +5,12 @@ import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 
 // Internal
-import ContentLayout from '@/components/ContentLayout'
+import { ContentLayout } from '@/components/ContentLayout'
 
 import { AppBarAreaAssistido } from '../../features/painel-assistido/components/ui/Nav/AppBarAreaAssistido'
 import { SnackbarAreaAssistido } from '../../features/painel-assistido/components/ui/SnackbarAreaAssistido'
 
-import Footer from '@/components/Footer'
+import { Footer } from '@/components/Footer'
 import { BottonMenu } from '@/features/painel-assistido/components/ui/BottonMenu'
 import { SnackbarAreaAssistidoStateProvider } from '@/features/painel-assistido/context'
 
