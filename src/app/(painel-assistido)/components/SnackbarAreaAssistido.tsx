@@ -4,7 +4,7 @@
 import { Alert, Fade, Snackbar } from '@mui/material'
 
 // Internal
-import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
+import { useSnackbarAreaAssistidoState } from '../context/SnackbarAreaAssistidoStateProvider'
 
 export function SnackbarAreaAssistido() {
   const { open, handleClose, type, message } = useSnackbarAreaAssistidoState()

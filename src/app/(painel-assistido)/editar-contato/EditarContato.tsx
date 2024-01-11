@@ -22,9 +22,9 @@ import { ChangeEvent } from 'react'
 
 // Internal
 import { MaskUtils } from '@/utils/MaskUtils'
-import { useSnackbarAreaAssistidoState } from '../hooks/SnackbarAreaAssistidoStateProvider'
-import { editarContatoSchema } from './editarContatoSchema'
-import { EditarContatoInputsForm } from './formularioTypes'
+import { useSnackbarAreaAssistidoState } from '../context/SnackbarAreaAssistidoStateProvider'
+import { editarContatoSchema } from './editar-contato-schema'
+import { EditarContatoInputsForm } from './form-types'
 import { atualizarContato } from './services'
 
 const FORMULARIO_CAMPOS_EDITAR_CONTATO = [

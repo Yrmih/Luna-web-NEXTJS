@@ -2,7 +2,7 @@
 
 // Internal
 import { ResponseSolar } from '@/api/solar/types'
-import { EditarContatoInputsForm } from './formularioTypes'
+import { EditarContatoInputsForm } from './form-types'
 import { AssistidoPessoaApi } from '@/api/solar/AssistidoPessoaApi'
 
 export const atualizarContato = async (

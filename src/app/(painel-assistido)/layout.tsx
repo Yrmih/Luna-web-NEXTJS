@@ -10,7 +10,7 @@ import Footer from '../../components/Footer'
 import { BottoMenu } from './components/BottoMenu'
 import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
 import { SnackbarAreaAssistido } from './components/SnackbarAreaAssistido'
-import { SnackbarAreaAssistidoStateProvider } from './hooks/SnackbarAreaAssistidoStateProvider'
+import { SnackbarAreaAssistidoStateProvider } from './context/SnackbarAreaAssistidoStateProvider'
 
 export const metadata = {
   title: 'Painel do Assistido',
