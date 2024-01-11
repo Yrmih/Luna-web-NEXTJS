@@ -10,7 +10,7 @@ import { ContentLayout } from '@/components/ContentLayout'
 import { AppBarAreaAssistido } from '../../features/painel-assistido/components/ui/Nav/AppBarAreaAssistido'
 import { SnackbarAreaAssistido } from '../../features/painel-assistido/components/ui/SnackbarAreaAssistido'
 
-import { Footer } from '@/components/Footer'
+import Footer from '@/components/Footer'
 import { BottonMenu } from '@/features/painel-assistido/components/ui/BottonMenu'
 import { SnackbarAreaAssistidoStateProvider } from '@/features/painel-assistido/context'
 
@@ -19,7 +19,7 @@ export const metadata = {
   description: 'Área de acesso do assistido.',
 }
 
-export async function PainelAssistidoLayout({
+export default function PainelAssistidoLayout({
   children,
 }: {
   children: ReactNode
@@ -43,5 +43,3 @@ export async function PainelAssistidoLayout({
     </>
   )
 }
-
-export default PainelAssistidoLayout

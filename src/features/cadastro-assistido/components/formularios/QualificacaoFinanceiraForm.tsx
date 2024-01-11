@@ -32,7 +32,7 @@ import { TextFieldAttributes } from '../../../../types/TextFieldAttributes'
 import { ImovelDynamicTextFields } from '../ui/ImovelDynamicTextFields'
 import { InvestimentoDynamicTextFields } from '../ui/InvestimentoDynamicTextFields'
 import { MovelDynamicTextFields } from '../ui/MovelDynamicTextFields'
-import { FORMULARIOS_REGEX_DAS_MASCARAS } from '../../../../utils/constants/formularios'
+import { FORMULARIOS_REGEX_DAS_MASCARAS } from '@/constants/formularios'
 
 export const FORMULARIO_QUALIFICACAO_FINANCEIRA: TextFieldAttributes[] = [
   {
