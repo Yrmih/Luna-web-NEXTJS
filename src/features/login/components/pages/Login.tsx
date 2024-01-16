@@ -2,15 +2,14 @@
 
 // External
 import { Box, Stack } from '@mui/material'
+import { LoginCPF } from '../ui/LoginCPF'
+import { LoginAtendimentoDialog } from '../ui/LoginNumeroAtendimentoDialog'
+import { CPFNaoEncontradoDialog } from '../ui/CPFNaoEncontradoDialog'
+import { AtendimentoNaoEncontradoDialog } from '../ui/AtendimentoNaoEncontradoDialog'
+import { RecuperarAtendimentoDialog } from '../ui/RecuperarAtendimentoDialog'
+import { FalhaRecuperarAtendimentoDialog } from '../ui/FalhaRecuperarAtendimentoDialog'
 
 // Internal
-
-import { LoginCPF } from './LoginCPF'
-import { LoginAtendimentoDialog } from './LoginNumeroAtendimentoDialog'
-import { CPFNaoEncontradoDialog } from './CPFNaoEncontradoDialog'
-import { AtendimentoNaoEncontradoDialog } from './AtendimentoNaoEncontradoDialog'
-import { RecuperarAtendimentoDialog } from './RecuperarAtendimentoDialog'
-import { FalhaRecuperarAtendimentoDialog } from './FalhaRecuperarAtendimentoDialog'
 
 export function Login() {
   return (

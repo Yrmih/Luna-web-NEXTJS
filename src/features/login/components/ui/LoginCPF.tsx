@@ -5,9 +5,9 @@ import { ChangeEvent } from 'react'
 
 // Internal
 import { MaskUtils } from '@/utils/MaskUtils'
-import { useLoginStateDialogs } from '../../context/LoginSateDialogsContext'
-import { useLoginUseFormSate } from '../../context/LoginUseFormStateContext'
+
 import { Box, Button, TextField, Typography } from '@mui/material'
+import { useLoginStateDialogs, useLoginUseFormSate } from '../../context'
 
 export function LoginCPF() {
   const { register, errors, setValue, dirtyFields } = useLoginUseFormSate()

@@ -23,8 +23,7 @@ import { ChangeEvent } from 'react'
 
 // Internal
 import { MaskUtils } from '@/utils/MaskUtils'
-import { useLoginUseFormSate } from '../../context/LoginUseFormStateContext'
-import { useLoginStateDialogs } from '../../context/LoginSateDialogsContext'
+import { useLoginStateDialogs, useLoginUseFormSate } from '../../context'
 import { LoginInputsFrom } from '../../types'
 
 export function LoginAtendimentoDialog() {

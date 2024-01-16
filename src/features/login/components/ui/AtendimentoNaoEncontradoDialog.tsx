@@ -7,9 +7,9 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../../context'
 
 // internal
-import { useLoginStateDialogs } from '../../context/LoginSateDialogsContext'
 
 export function AtendimentoNaoEncontradoDialog() {
   const {

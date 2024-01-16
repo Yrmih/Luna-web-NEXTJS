@@ -8,9 +8,9 @@ import {
   DialogTitle,
   TextField,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../../context'
 
 // Internal
-import { useLoginStateDialogs } from '../../context/LoginSateDialogsContext'
 
 export function RecuperarAtendimentoDialog() {
   const {

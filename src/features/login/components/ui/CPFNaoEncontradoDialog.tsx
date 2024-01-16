@@ -7,9 +7,9 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material'
+import { useLoginStateDialogs } from '../../context'
 
 // Internal
-import { useLoginStateDialogs } from '../../context/LoginSateDialogsContext'
 
 export function CPFNaoEncontradoDialog() {
   const {
