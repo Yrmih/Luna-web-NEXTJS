@@ -1,10 +1,5 @@
-'use client'
-
-import { Atendimentos } from '@/features/painel-assistido/atendimentos/components/page'
-
-// Third party
-
 // Internal
+import { Atendimentos } from './components/page'
 
 export default function HomePage() {
   return <Atendimentos />

@@ -1,6 +1,6 @@
 // Internal
 
-import { NovaSolicitacao } from '@/features/painel-assistido/nova-solicitacao/components/pages'
+import { NovaSolicitacao } from './components/pages'
 
 export default function NovaSolicitacaoPage() {
   return <NovaSolicitacao />

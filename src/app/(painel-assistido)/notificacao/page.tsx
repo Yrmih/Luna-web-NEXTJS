@@ -1,6 +1,6 @@
 // Internal
 
-import { ListaDeNotificacao } from '@/features/painel-assistido/notificacao/components/pages'
+import { ListaDeNotificacao } from './components/pages'
 
 export default function ListaNotificacao() {
   return <ListaDeNotificacao />

@@ -1,7 +1,8 @@
 'use client'
 
+import { PageErrorAreaAssistido } from './components'
+
 // Internal
-import { PageErrorAreaAssistido } from '../../features/painel-assistido/components/ui/PageErrorAreaAssistido'
 
 export default function Error({
   error,

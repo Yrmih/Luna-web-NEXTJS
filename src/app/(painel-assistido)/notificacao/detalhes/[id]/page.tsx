@@ -1,6 +1,6 @@
 // Internal
 
-import { DetalhesNotificacao } from '@/features/painel-assistido/notificacao/components/pages'
+import { DetalhesNotificacao } from '../../components/pages'
 
 export default function DetalhesNotificacaoPage({
   params: { id },

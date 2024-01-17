@@ -1,4 +1,4 @@
-import { ModalDetalhesNotificacao } from '@/features/painel-assistido/notificacao/components/pages'
+import { ModalDetalhesNotificacao } from '../../../components/ui/ModalDetalhesNotificacao'
 
 export default function DetalhesNotificacaoPage({
   params: { id },

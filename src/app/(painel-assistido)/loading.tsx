@@ -1,6 +1,6 @@
 // Internal
 
-import { PageLoadingAreaAssistido } from '@/features/painel-assistido/components'
+import { PageLoadingAreaAssistido } from './components'
 
 export default function loading() {
   return <PageLoadingAreaAssistido />

@@ -6,13 +6,13 @@ import { ReactNode } from 'react'
 
 // Internal
 import { ContentLayout } from '@/components/ContentLayout'
-
-import { AppBarAreaAssistido } from '../../features/painel-assistido/components/ui/Nav/AppBarAreaAssistido'
-import { SnackbarAreaAssistido } from '../../features/painel-assistido/components/ui/SnackbarAreaAssistido'
-
 import Footer from '@/components/Footer'
-import { BottonMenu } from '@/features/painel-assistido/components/ui/BottonMenu'
-import { SnackbarAreaAssistidoStateProvider } from '@/features/painel-assistido/context'
+import {
+  AppBarAreaAssistido,
+  BottonMenu,
+  SnackbarAreaAssistido,
+} from './components'
+import { SnackbarAreaAssistidoStateProvider } from './context'
 
 export const metadata = {
   title: 'Painel do Assistido',
