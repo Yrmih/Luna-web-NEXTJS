@@ -1,10 +1,14 @@
+'use client'
+
 // Third party
-import { Box, Paper, Stack } from '@mui/material'
+import { Box, Card, Paper, Stack, Typography, useTheme } from '@mui/material'
 
 // Internal
 import { ContainerAtendimento } from '../ui/ContainerAtendimento'
 
 export function Atendimentos() {
+  const theme = useTheme()
+
   return (
     <>
       <Box
@@ -22,10 +26,34 @@ export function Atendimentos() {
             m: 0,
           }}
         >
-          <Box color="white" fontWeight={600} fontSize={'1.5rem'}>
-            Meus Atendimentos
+          <Box
+            fontWeight={600}
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+              paddingTop: '8vh',
+              paddingLeft: '5vh',
+              width: '100%',
+              height: '25vh',
+              marginBottom: -8,
+            }}
+          >
+            <Typography color={'white'} variant="h3">
+              Meus Atendimentos
+            </Typography>
           </Box>
-          <Stack direction={'column'}>
+          <Stack
+            direction={'column'}
+            component={Card}
+            sx={{
+              padding: '2vh',
+              paddingBottom: '10vh',
+              alignItems: 'center',
+              boxShadow: 2,
+              borderRadius: '3vh',
+              marginBottom: '4vh',
+              width: '95%',
+            }}
+          >
             <ContainerAtendimento props={{ tipoAtendimento: 'pre' }} />
             <ContainerAtendimento props={{ tipoAtendimento: 'atendimento' }} />
             <ContainerAtendimento props={{ tipoAtendimento: 'agendamento' }} />
