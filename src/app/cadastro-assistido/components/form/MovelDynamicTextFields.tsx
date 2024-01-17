@@ -17,9 +17,9 @@ import { ChangeEvent } from 'react'
 
 // Internal
 import styles from '@/styles/FadeTransitionItens.module.css'
-import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
-import { TextFieldAttributes } from '../../../../types/TextFieldAttributes'
 import { MaskUtils } from '@/utils/MaskUtils'
+import { TextFieldAttributes } from '@/types'
+import { CadastroAssistidoInputsForm } from '../../types'
 
 export type RenderMovelDimanicTextFieldsOptions = {
   valorAttribute: TextFieldAttributes

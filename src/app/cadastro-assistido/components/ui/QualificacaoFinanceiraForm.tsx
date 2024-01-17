@@ -28,7 +28,7 @@ import { ChangeEvent } from 'react'
 
 // Internal
 import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
-import { TextFieldAttributes } from '../../../../types/TextFieldAttributes'
+import { TextFieldAttributes } from '../../../../types'
 import { ImovelDynamicTextFields } from '../form/ImovelDynamicTextFields'
 import { InvestimentoDynamicTextFields } from '../form/InvestimentoDynamicTextFields'
 import { MovelDynamicTextFields } from '../form/MovelDynamicTextFields'
