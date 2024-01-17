@@ -15,19 +15,19 @@ import {
   Typography,
 } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 // Framework
 import { useEffect, useMemo, useState } from 'react'
 
 // Internal
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { cadastroAssistidoSchema } from '../../schemas'
+import { CadastroAssistidoInputsForm } from '../../types'
 import { ContatoForm } from '../ui/ContatoForm'
 import { DadosPessoaisForm } from '../ui/DadosPessoaisForm'
 import { EnderecoForm } from '../ui/EnderecoForm'
 import { InformacaoInicialForm } from '../ui/InformacaoInicialForm'
 import { QualificacaoFinanceiraForm } from '../ui/QualificacaoFinanceiraForm'
-import { cadastroAssistidoSchema } from '../../schemas'
 
 const steps = [
   {
@@ -57,10 +57,6 @@ const steps = [
 export type CadastroAssistidoProps = {
   step?: string
 }
-
-export type CadastroAssistidoInputsForm = z.infer<
-  typeof cadastroAssistidoSchema
->
 
 export function CadastroAssistido({ step }: CadastroAssistidoProps) {
   const searchParams = useSearchParams()

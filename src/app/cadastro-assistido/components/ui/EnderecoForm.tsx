@@ -14,7 +14,7 @@ import { ChangeEvent } from 'react'
 
 //  Internal
 import { MaskUtils } from '@/utils/MaskUtils'
-import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
+import { CadastroAssistidoInputsForm } from '../../types'
 
 const FOMULARIO_CAMPOS_ENDERECO = [
   {

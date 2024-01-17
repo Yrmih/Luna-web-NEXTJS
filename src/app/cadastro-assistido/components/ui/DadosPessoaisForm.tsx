@@ -18,6 +18,7 @@ import {
   Select,
   TextField,
 } from '@mui/material'
+
 import {
   FieldErrors,
   UseFormRegister,
@@ -30,7 +31,7 @@ import { ChangeEvent } from 'react'
 
 // Internal
 import { MaskUtils } from '@/utils/MaskUtils'
-import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
+import { CadastroAssistidoInputsForm } from '../../types'
 
 const FORMULARIO_DADOS_PESSOAIS = [
   {
@@ -350,9 +351,10 @@ export function DadosPessoaisForm({
           placeholder={FORMULARIO_DADOS_PESSOAIS[9].placeHolder}
           {...register('dadosPessoais.certidao', {
             onChange: (event: ChangeEvent<HTMLInputElement>) => {
+              const numeroCertidaoValue = event.target.value
               setValue(
                 'dadosPessoais.certidao',
-                MaskUtils.maskCertidao(event.target.value),
+                MaskUtils.maskCertidao(numeroCertidaoValue),
               )
             },
           })}

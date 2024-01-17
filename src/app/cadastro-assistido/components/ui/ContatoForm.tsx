@@ -9,10 +9,12 @@ import {
   UseFormWatch,
 } from 'react-hook-form'
 
+// Framework
+import { ChangeEvent } from 'react'
+
 // Internal
 import { MaskUtils } from '@/utils/MaskUtils'
-import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
-import { ChangeEvent } from 'react'
+import { CadastroAssistidoInputsForm } from '../../types'
 
 const FORMULARIO_CAMPOS_CONTATOS = [
   {
