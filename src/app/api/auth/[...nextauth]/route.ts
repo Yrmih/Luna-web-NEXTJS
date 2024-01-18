@@ -3,9 +3,8 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Internal
-import { SITUACAO_AUTENTICADO } from '../constants'
-import { AuthAssistidoAPI } from '@/lib/api/solar/client'
 import { HttpStatusCodes } from '@/lib/api/fetch/types'
+import { AuthAssistidoAPI } from '@/lib/api/solar/client'
 
 const authOptions: NextAuthOptions = {
   providers: [
