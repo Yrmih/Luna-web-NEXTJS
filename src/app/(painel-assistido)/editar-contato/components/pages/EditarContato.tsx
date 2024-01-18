@@ -61,12 +61,8 @@ export function EditarContato() {
   const { showSnackbarAreaAssistido } = useSnackbarAreaAssistidoState()
 
   const onSubmit: SubmitHandler<EditarContatoInputsForm> = async (data) => {
-    const response = await atualizarContato(data)
-    if (response.success) {
-      showSnackbarAreaAssistido('Contato Atualizado com sucesso!', 'success')
-    } else {
-      showSnackbarAreaAssistido('Erro ao atualizar contato!', 'error')
-    }
+    await atualizarContato(data)
+    showSnackbarAreaAssistido('Contato Atualizado com sucesso!', 'success')
   }
 
   return (
