@@ -1,3 +1,5 @@
+'use client'
+
 // Third party
 import { Box, CardHeader, Paper } from '@mui/material'
 

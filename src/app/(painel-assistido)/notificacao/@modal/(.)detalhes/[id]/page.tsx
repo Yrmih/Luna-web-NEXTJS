@@ -1,6 +1,6 @@
 import { ModalDetalhesNotificacao } from '../../../components/ui/ModalDetalhesNotificacao'
 
-export default function DetalhesNotificacaoPage({
+export default function ModalDetalhesNotificacaoPage({
   params: { id },
 }: {
   params: { id: string }

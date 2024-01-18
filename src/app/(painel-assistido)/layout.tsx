@@ -1,7 +1,4 @@
-// Third party
-import { CssBaseline } from '@mui/material'
-
-// Framework
+// framework
 import { ReactNode } from 'react'
 
 // Internal
@@ -26,11 +23,9 @@ export default function PainelAssistidoLayout({
 }) {
   return (
     <>
-      <CssBaseline />
       {/* Navbar e Sidebar parte do <header> */}
       <AppBarAreaAssistido />
       {/* Conteúdo parte da <main> */}
-
       <ContentLayout>
         <SnackbarAreaAssistidoStateProvider>
           {children}
