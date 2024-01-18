@@ -1,6 +1,5 @@
 // Internal
 import ContentLayout from '@/components/ContentLayout'
-import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 import Footer from '../../components/Footer'
 import { BottoMenu } from './components/BottoMenu'
@@ -13,18 +12,12 @@ export const metadata = {
   description: 'Área de acesso do assistido.',
 }
 
-export async function PainelAssistidoLayout({
-  children,
-}: {
-  children: ReactNode
-}) {
+export function PainelAssistidoLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <CssBaseline />
       {/* Navbar e Sidebar parte do <header> */}
       <AppBarAreaAssistido />
       {/* Conteúdo parte da <main> */}
-
       <ContentLayout>
         <SnackbarAreaAssistidoStateProvider>
           {children}
