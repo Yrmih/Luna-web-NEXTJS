@@ -25,11 +25,14 @@ export interface BaseRequestInit {
   window?: null
 }
 
-export type FetchOptions = {
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
+export interface FetchOptions {
   endpoint: string
   requestInit?: BaseRequestInit
   params?: Record<string, string>
+}
+
+export interface FetchOptionsWithMethods extends FetchOptions {
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
 }
 
 export class HttpStatusCodes {

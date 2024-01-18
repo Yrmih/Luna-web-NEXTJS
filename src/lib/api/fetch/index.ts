@@ -1,4 +1,10 @@
-import { BaseResponse, FetchOptions, HttpStatusCodes, Token } from './types'
+import {
+  BaseResponse,
+  FetchOptions,
+  FetchOptionsWithMethods,
+  HttpStatusCodes,
+  Token,
+} from './types'
 
 export class BaseFetch {
   baseUrl: string
@@ -10,7 +16,7 @@ export class BaseFetch {
   }
 
   private async requestByBaseFetch<T>(
-    options: FetchOptions,
+    options: FetchOptionsWithMethods,
   ): Promise<BaseResponse<T>> {
     const httpCodesSucess = [
       HttpStatusCodes.OK,
