@@ -25,6 +25,13 @@ export interface BaseRequestInit {
   window?: null
 }
 
+export type FetchOptions = {
+  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
+  endpoint: string
+  requestInit?: BaseRequestInit
+  params?: Record<string, string>
+}
+
 export class HttpStatusCodes {
   static readonly OK = 200
   static readonly CREATED = 201

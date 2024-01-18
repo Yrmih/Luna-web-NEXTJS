@@ -1,4 +1,4 @@
-import { BaseRequestInit, BaseResponse, HttpStatusCodes, Token } from './types'
+import { BaseResponse, FetchOptions, HttpStatusCodes, Token } from './types'
 
 export class BaseFetch {
   baseUrl: string
@@ -10,10 +10,7 @@ export class BaseFetch {
   }
 
   private async requestByBaseFetch<T>(
-    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'OPTIONS',
-    endpont: string,
-    options: BaseRequestInit,
-    params?: Record<string, string>,
+    options: FetchOptions,
   ): Promise<BaseResponse<T>> {
     const httpCodesSucess = [
       HttpStatusCodes.OK,
@@ -21,8 +18,8 @@ export class BaseFetch {
       HttpStatusCodes.ACCEPTED,
       HttpStatusCodes.NO_CONTENT,
     ]
-    const queryParams = new URLSearchParams(params).toString()
-    const requestUrl = `${this.baseUrl}${endpont}?${queryParams}`
+    const queryParams = new URLSearchParams(options.params).toString()
+    const requestUrl = `${this.baseUrl}${options.endpoint}?${queryParams}`
 
     const defaultHeaders: HeadersInit = {
       Accept: 'application/json',
@@ -30,15 +27,14 @@ export class BaseFetch {
     }
     const headers = {
       ...defaultHeaders,
-      ...options.headers,
+      ...options.requestInit?.headers,
     }
 
     const definedOptions = {
-      ...options,
+      ...options.requestInit,
       headers,
-      method,
+      method: options.method,
     }
-
     try {
       const responseFetched = await fetch(requestUrl, definedOptions)
       const data = (await responseFetched.json()) as T
@@ -62,70 +58,68 @@ export class BaseFetch {
     }
   }
 
-  async get<T>(
-    endpont: string,
-    options: BaseRequestInit,
-    params: Record<string, string>,
+  async get<T, B = undefined>(
+    options: FetchOptions,
+    body?: B,
   ): Promise<BaseResponse<T>> {
-    return await this.requestByBaseFetch<T>('GET', endpont, options, params)
-  }
-
-  async post<T, B>(
-    endpoint: string,
-    options: BaseRequestInit,
-    body: B,
-    params: Record<string, string>,
-  ): Promise<BaseResponse<T> | void> {
-    this.requestByBaseFetch<T | unknown>(
-      'POST',
-      endpoint,
-      {
-        ...options,
+    return await this.requestByBaseFetch<T>({
+      ...options,
+      method: 'GET',
+      requestInit: {
         ...(body !== undefined && { body: JSON.stringify(body) }),
       },
-      params,
-    )
+    })
   }
 
-  async put<T, B>(
-    endpoint: string,
-    options: BaseRequestInit,
-    body: B,
-    params: Record<string, string>,
-  ): Promise<BaseResponse<T> | void> {
-    this.requestByBaseFetch<T | unknown>(
-      'POST',
-      endpoint,
-      {
-        ...options,
+  async post<T, B = undefined>(
+    options: FetchOptions,
+    body?: B,
+  ): Promise<BaseResponse<T>> {
+    return this.requestByBaseFetch<T>({
+      ...options,
+      method: 'POST',
+      requestInit: {
         ...(body !== undefined && { body: JSON.stringify(body) }),
       },
-      params,
-    )
+    })
   }
 
-  async patch<T, B>(
-    endpoint: string,
-    options: BaseRequestInit,
-    body: B,
-    params: Record<string, string>,
-  ): Promise<BaseResponse<T> | void> {
-    this.requestByBaseFetch<T | unknown>(
-      'POST',
-      endpoint,
-      {
-        ...options,
+  async put<T, B = undefined>(
+    options: FetchOptions,
+    body?: B,
+  ): Promise<BaseResponse<T>> {
+    return this.requestByBaseFetch<T>({
+      ...options,
+      method: 'PUT',
+      requestInit: {
         ...(body !== undefined && { body: JSON.stringify(body) }),
       },
-      params,
-    )
+    })
   }
 
-  async delete<T>(
-    endpont: string,
-    options: BaseRequestInit,
-    params: Record<string, string>,
+  async patch<T, B = undefined>(
+    options: FetchOptions,
+    body?: B,
   ): Promise<BaseResponse<T> | void> {
-    return await this.requestByBaseFetch<T>('GET', endpont, options, params)
+    return this.requestByBaseFetch<T>({
+      ...options,
+      method: 'PATCH',
+      requestInit: {
+        ...(body !== undefined && { body: JSON.stringify(body) }),
+      },
+    })
+  }
+
+  async delete<T, B = undefined>(
+    options: FetchOptions,
+    body?: B,
+  ): Promise<BaseResponse<T> | void> {
+    return this.requestByBaseFetch<T>({
+      ...options,
+      method: 'DELETE',
+      requestInit: {
+        ...(body !== undefined && { body: JSON.stringify(body) }),
+      },
+    })
   }
 }
