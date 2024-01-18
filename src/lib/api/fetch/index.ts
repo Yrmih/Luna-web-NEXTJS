@@ -25,10 +25,14 @@ export class BaseFetch {
       HttpStatusCodes.NO_CONTENT,
     ]
     const queryParams = new URLSearchParams(options.params).toString()
-    const requestUrl = `${this.baseUrl}${options.endpoint}?${queryParams}`
+
+    const requestUrl = `${this.baseUrl}${options.endpoint}${
+      queryParams ? `?${queryParams}` : ''
+    }`
 
     const defaultHeaders: HeadersInit = {
       Accept: 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Token ${process.env.TOKEN_SOLAR}`,
     }
     const headers = {

@@ -4,6 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Internal
 import { SITUACAO_AUTENTICADO } from '../constants'
+import { AuthAssistidoAPI } from '@/lib/api/solar/client'
+import { HttpStatusCodes } from '@/lib/api/fetch/types'
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -14,35 +16,13 @@ const authOptions: NextAuthOptions = {
         atendimento: { label: 'Atendimento', type: 'string' },
       },
       async authorize(credentials) {
-        const requestUrl =
-          process.env.ENDPOINT_SOLAR +
-          'auth-assistido-luna/' +
-          `?cpf=${credentials?.cpf}&atendimento=${credentials?.atendimento}`
-
-        const fetchData = fetch(requestUrl, {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Token ${process.env.TOKEN_SOLAR}`,
-          },
+        const resposta = await AuthAssistidoAPI.autenticar({
+          cpf: credentials?.cpf,
+          numero_atendimento: credentials?.atendimento,
         })
-          .then((response) => response.json())
-          .then((response) => {
-            return response
-          })
 
-        const data = await fetchData
-        // Seguindo o banco de dados, situacao 3 é o retorno da API para quando o usuário é autenticado
-        if (data.results) {
-          for (const resultado of data.results) {
-            if (resultado.situacao === SITUACAO_AUTENTICADO) {
-              const user = {
-                id: resultado.pessoa_id,
-                name: resultado.pessoa_nome,
-              }
-              return user
-            }
-          }
+        if (resposta.status === HttpStatusCodes.OK) {
+          return resposta.data
         } else {
           return null
         }
