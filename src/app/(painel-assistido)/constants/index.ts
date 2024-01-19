@@ -54,5 +54,10 @@ export const MENU_AVANCADO_LINKS: {
     action: '/informacoes',
     icon: SupportIcon,
   },
-  { key: 3, text: 'Sair', action: () => signOut(), icon: LogoutIcon },
+  {
+    key: 3,
+    text: 'Sair',
+    action: () => signOut({ callbackUrl: '/login' }),
+    icon: LogoutIcon,
+  },
 ]

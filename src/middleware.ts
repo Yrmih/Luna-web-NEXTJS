@@ -5,12 +5,13 @@
 //     return NextResponse.redirect(new URL('/login', request.url))
 //   }
 // }
+import { JWT } from 'next-auth/jwt'
 import {
   withAuth,
   NextRequestWithAuth,
   NextAuthMiddlewareOptions,
 } from 'next-auth/middleware'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 const middleware = (request: NextRequestWithAuth) => {
   if (
@@ -21,7 +22,21 @@ const middleware = (request: NextRequestWithAuth) => {
   }
 }
 
-const callbackOptions: NextAuthMiddlewareOptions = {}
+// Permitir acessar as telas de nova solicitação e cadastro assistido
+const authorized = async (params: { token: JWT | null; req: NextRequest }) => {
+  const cookies = params.req.cookies
+
+  const isSemCadastro =
+    cookies.has('sem-cadastro') &&
+    params.req.nextUrl.pathname === '/cadastro-assistido'
+  const isSemAtendimento =
+    cookies.has('sem-atendimento') &&
+    params.req.nextUrl.pathname === '/nova-solicitacao'
+
+  // Permitir o assistido acessar a página de cadastro e de nova solicitação se necessário
+  return isSemCadastro || isSemAtendimento || !!params.token // forcer ser booleano
+}
+const callbackOptions: NextAuthMiddlewareOptions = { callbacks: { authorized } }
 
 export default withAuth(middleware, callbackOptions)
 
