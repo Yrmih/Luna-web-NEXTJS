@@ -10,10 +10,84 @@ import {
 export class BaseFetch {
   baseUrl: string
   token: Token
+  private readonly pathValuePlaceHolder = '{pathValue}'
 
   constructor(baseUrl: string, token: Token) {
     this.baseUrl = baseUrl
     this.token = token
+  }
+
+  private addPathValues(
+    templateEndpoint: string,
+    pathValues: string[] | number[],
+  ) {
+    let result = templateEndpoint
+    if (pathValues.length > 0) {
+      for (const pathValue of pathValues) {
+        result = result.replace(this.pathValuePlaceHolder, pathValue.toString())
+      }
+    } else {
+      result = result.replace(this.pathValuePlaceHolder, '')
+    }
+    return result
+  }
+
+  private addSearchParamsToEndpoint(
+    endpoint: string,
+    params: Record<string, string | string[]>,
+  ) {
+    const queryParams = new URLSearchParams()
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        // If the value is an array, repeat the key for each array element
+        value.forEach((arrayValue) => {
+          queryParams.append(key, arrayValue)
+        })
+      } else {
+        // If the value is not an array, use the key as is
+        queryParams.append(key, value.toString())
+      }
+    })
+
+    const result = `${endpoint}${
+      queryParams ? `?${queryParams.toString()}` : ''
+    }`
+
+    return result
+  }
+
+  private buildEndpoint(
+    endpoint: string[],
+    pathValues?: string[] | number[],
+    params?: Record<string, string | string[]>,
+  ): string {
+    let result = '/'
+    for (const path of endpoint) {
+      result =
+        result +
+        `${path}${
+          pathValues !== undefined ? `/${this.pathValuePlaceHolder}/` : ''
+        }`
+    }
+    if (pathValues !== undefined) {
+      result = this.addPathValues(result, pathValues)
+    }
+    if (params !== undefined) {
+      result = this.addSearchParamsToEndpoint(result, params)
+    }
+    return result
+  }
+
+  private getUrlToRequest(
+    endpoint: string[],
+    pathValues?: string[] | number[],
+    params?: Record<string, string | string[]>,
+  ) {
+    const endpointBuilt = this.buildEndpoint(endpoint, pathValues, params)
+    const requestUrl = `${this.baseUrl}${endpointBuilt}`
+    // clear url and return
+    return requestUrl.replace(/\/+/g, '/')
   }
 
   private async requestByBaseFetch<T>(
@@ -25,11 +99,6 @@ export class BaseFetch {
       HttpStatusCodes.ACCEPTED,
       HttpStatusCodes.NO_CONTENT,
     ]
-    const queryParams = new URLSearchParams(options.params).toString()
-
-    const requestUrl = `${this.baseUrl}${options.endpoint}${
-      queryParams ? `?${queryParams}` : ''
-    }`
 
     const defaultHeaders: HeadersInit = {
       Accept: 'application/json',
@@ -46,6 +115,11 @@ export class BaseFetch {
       headers,
       method: options.method,
     }
+    const requestUrl = this.getUrlToRequest(
+      options.endpoint,
+      options.pathValues,
+      options.params,
+    )
     try {
       const responseFetched = await fetch(requestUrl, definedOptions)
       const data = (await responseFetched.json()) as T
@@ -87,34 +161,34 @@ export class BaseFetch {
     options: FetchOptions,
     body?: B,
   ): Promise<BaseResponse<T>> {
-    return await this.requestByFetch('GET', options, body)
+    return await this.requestByFetch<T, B>('GET', options, body)
   }
 
   async post<T, B = undefined>(
     options: FetchOptions,
     body?: B,
   ): Promise<BaseResponse<T>> {
-    return await this.requestByFetch('POST', options, body)
+    return await this.requestByFetch<T, B>('POST', options, body)
   }
 
   async put<T, B = undefined>(
     options: FetchOptions,
     body?: B,
   ): Promise<BaseResponse<T>> {
-    return await this.requestByFetch('PUT', options, body)
+    return await this.requestByFetch<T, B>('PUT', options, body)
   }
 
   async patch<T, B = undefined>(
     options: FetchOptions,
     body?: B,
   ): Promise<BaseResponse<T>> {
-    return await this.requestByFetch('PATCH', options, body)
+    return await this.requestByFetch<T, B>('PATCH', options, body)
   }
 
   async delete<T, B = undefined>(
     options: FetchOptions,
     body?: B,
   ): Promise<BaseResponse<T>> {
-    return await this.requestByFetch('DELETE', options, body)
+    return await this.requestByFetch<T, B>('DELETE', options, body)
   }
 }

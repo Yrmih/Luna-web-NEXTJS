@@ -1,16 +1,48 @@
 import { BaseResponse } from '../fetch/types'
 import { FetchSolar } from './config'
-import { AuthAssistido, AuthAssistidoCredentials } from './types'
+import {
+  AuthAssistido,
+  AuthAssistidoCredentials,
+  PessoaAtendimento,
+  PessoaConsulta,
+} from './types'
 
 export class AuthAssistidoAPI {
+  private static readonly endpoints = {
+    base: 'auth-assistido-luna/',
+  }
+
   static async autenticar(
     credentials: AuthAssistidoCredentials,
   ): Promise<BaseResponse<AuthAssistido>> {
     return await FetchSolar.post<AuthAssistido, AuthAssistidoCredentials>(
       {
-        endpoint: 'auth-assistido-luna/',
+        endpoint: [this.endpoints.base],
       },
       credentials,
+    )
+  }
+}
+
+export class PessoaAtendimentoAPI {
+  private static readonly endpoints = {
+    base: 'atendimentos-partes/',
+    pessoaConsulta: 'pessoa-consulta/',
+  }
+
+  static async consultar(pathValue: number) {
+    return await FetchSolar.get<PessoaAtendimento>({
+      endpoint: [this.endpoints.base],
+      pathValues: [pathValue],
+    })
+  }
+
+  static async consultarPessoa(body: PessoaConsulta) {
+    return await FetchSolar.post<PessoaAtendimento, PessoaConsulta>(
+      {
+        endpoint: [this.endpoints.base, this.endpoints.pessoaConsulta],
+      },
+      body,
     )
   }
 }

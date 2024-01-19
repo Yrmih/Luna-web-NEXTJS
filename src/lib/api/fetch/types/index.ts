@@ -28,9 +28,10 @@ export interface BaseRequestInit {
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
 
 export interface FetchOptions {
-  endpoint: string
+  endpoint: string[]
   requestInit?: BaseRequestInit
-  params?: Record<string, string>
+  params?: Record<string, string[]>
+  pathValues?: string[] | number[]
 }
 
 export interface FetchOptionsWithMethods extends FetchOptions {
