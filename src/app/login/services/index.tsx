@@ -1,5 +1,7 @@
 'use server'
 
-export async function verificarAssistido(cpf: string) {
-  console.log('Assistido cadastrado: ', cpf)
+import { PessoaAtendimentoAPI } from '@/lib/api/solar/client'
+
+export async function consultarPessoaAssistida(cpf: string) {
+  return await PessoaAtendimentoAPI.consultarPessoa({ cpf })
 }

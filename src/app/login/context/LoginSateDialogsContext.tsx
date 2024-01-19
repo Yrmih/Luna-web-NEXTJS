@@ -17,6 +17,8 @@ export type LoginStateDialogs = {
   handleCloseFalhaRecuperarAtendimentoDialog: () => void
   openCPFNaoEncontradoDialog: boolean
   handleCloseCPFNaoEncontradoDialog: () => void
+  openNaoTemAtendimentoDialog: boolean
+  handleCloseNaoTemAtendimentoDialog: () => void
 }
 
 const LoginStateDialogsContext = createContext<LoginStateDialogs | undefined>(
@@ -65,6 +67,13 @@ export function LoginStateDialogsProvider({
     setOpenCPFNaoEncontradoDialog(!openCPFNaoEncontradoDialog)
   }
 
+  const [openNaoTemAtendimentoDialog, setOpenNaoTemAtendimentoDialog] =
+    useState(false)
+
+  const handleCloseNaoTemAtendimentoDialog = () => {
+    setOpenNaoTemAtendimentoDialog(!openNaoTemAtendimentoDialog)
+  }
+
   return (
     <LoginStateDialogsContext.Provider
       value={{
@@ -78,6 +87,8 @@ export function LoginStateDialogsProvider({
         handleCloseFalhaRecuperarAtendimentoDialog,
         openCPFNaoEncontradoDialog,
         handleCloseCPFNaoEncontradoDialog,
+        openNaoTemAtendimentoDialog,
+        handleCloseNaoTemAtendimentoDialog,
       }}
     >
       {children}

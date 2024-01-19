@@ -20,9 +20,9 @@ export type ErrorPessoAtendimentoWithSituacao = {
 }
 
 export type PessoaConsulta = {
-  cpf: string
-  rg_numero: string
-  email: string
+  cpf?: string
+  rg_numero?: string
+  email?: string
 }
 
 export type PessoaAtendimento = {

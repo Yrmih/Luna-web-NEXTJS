@@ -8,6 +8,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
   UseFormTrigger,
+  UseFormWatch,
   useForm,
 } from 'react-hook-form'
 
@@ -27,6 +28,7 @@ export type LoginUseFormState = {
   errors: FieldErrors<LoginInputsFrom>
   setValue: UseFormSetValue<LoginInputsFrom>
   trigger: UseFormTrigger<LoginInputsFrom>
+  watch: UseFormWatch<LoginInputsFrom>
   dirtyFields: Partial<Readonly<LoginInputsFromDirtyFiels>>
   isSubmitting: boolean
   isValid: boolean
@@ -44,6 +46,7 @@ export function LoginUseFormStateProvider({
     register,
     setValue,
     trigger,
+    watch,
     formState: { errors, isValid, isSubmitting, dirtyFields },
   } = useForm<LoginInputsFrom>({
     mode: 'onChange',
@@ -58,6 +61,7 @@ export function LoginUseFormStateProvider({
         errors,
         setValue,
         trigger,
+        watch,
         dirtyFields,
         isSubmitting,
         isValid,

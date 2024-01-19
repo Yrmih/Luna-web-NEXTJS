@@ -3,6 +3,7 @@ import { FetchSolar } from './config'
 import {
   AuthAssistido,
   AuthAssistidoCredentials,
+  ErrorPessoAtendimentoWithSituacao,
   PessoaAtendimento,
   PessoaConsulta,
 } from './types'
@@ -38,7 +39,10 @@ export class PessoaAtendimentoAPI {
   }
 
   static async consultarPessoa(body: PessoaConsulta) {
-    return await FetchSolar.post<PessoaAtendimento, PessoaConsulta>(
+    return await FetchSolar.post<
+      PessoaAtendimento | ErrorPessoAtendimentoWithSituacao,
+      PessoaConsulta
+    >(
       {
         endpoint: [this.endpoints.base, this.endpoints.pessoaConsulta],
       },

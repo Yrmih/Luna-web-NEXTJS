@@ -8,6 +8,7 @@ import { CPFNaoEncontradoDialog } from '../ui/CPFNaoEncontradoDialog'
 import { AtendimentoNaoEncontradoDialog } from '../ui/AtendimentoNaoEncontradoDialog'
 import { RecuperarAtendimentoDialog } from '../ui/RecuperarAtendimentoDialog'
 import { FalhaRecuperarAtendimentoDialog } from '../ui/FalhaRecuperarAtendimentoDialog'
+import { NaoTemAtendimentoDialog } from '../ui/NaoTemAtendimentoDialog'
 
 // Internal
 
@@ -42,6 +43,7 @@ export function Login() {
           </Stack>
           <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
             <CPFNaoEncontradoDialog />
+            <NaoTemAtendimentoDialog />
             <AtendimentoNaoEncontradoDialog />
             <RecuperarAtendimentoDialog />
             <FalhaRecuperarAtendimentoDialog />
