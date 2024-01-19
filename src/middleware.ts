@@ -22,7 +22,7 @@ const middleware = (request: NextRequestWithAuth) => {
   }
 }
 
-// Permitir acessar as telas de nova solicitação e cadastro assistido
+// formas de autorização de acesso às telas
 const authorized = async (params: { token: JWT | null; req: NextRequest }) => {
   const cookies = params.req.cookies
 
