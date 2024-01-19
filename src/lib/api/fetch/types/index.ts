@@ -30,7 +30,7 @@ export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
 export interface FetchOptions {
   endpoint: string[]
   requestInit?: BaseRequestInit
-  params?: Record<string, string[]>
+  params?: Record<string, string | string[]>
   pathValues?: string[] | number[]
 }
 
