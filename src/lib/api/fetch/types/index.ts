@@ -25,6 +25,8 @@ export interface BaseRequestInit {
   window?: null
 }
 
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
+
 export interface FetchOptions {
   endpoint: string
   requestInit?: BaseRequestInit
@@ -32,7 +34,7 @@ export interface FetchOptions {
 }
 
 export interface FetchOptionsWithMethods extends FetchOptions {
-  method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS'
+  method: HttpMethod
 }
 
 export class HttpStatusCodes {
@@ -54,7 +56,7 @@ export class HttpStatusCodes {
   static readonly SERVICE_UNAVAILABLE = 503
 }
 
-export interface BaseResponse<T> {
+export interface BaseResponse<T = undefined> {
   success?: boolean
   status?: HttpStatusCodes
   message?: string
