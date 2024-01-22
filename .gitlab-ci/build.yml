@@ -10,7 +10,8 @@
     
 
 build_production:
-  extends: .build_commom
+  extends: 
+    - .build_commom
   environment:
     name: prod
   rules:
@@ -25,7 +26,8 @@ build_production:
     - docker push $CI_REGISTRY
 
 build_homol:
-  extends: .build_commom
+  extends: 
+    - .build_commom
   environment:
     name: homol
   rules:
@@ -40,7 +42,8 @@ build_homol:
     - docker push $CI_REGISTRY
 
 build_staging:
-  extends: .build_commom
+  extends:
+    - .build_commom
   environment:
     name: staging
   rules:
