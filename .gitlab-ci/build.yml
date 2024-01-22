@@ -42,7 +42,7 @@ build_homol:
 build_staging:
   extends: .build_commom
   environment:
-    name: homol
+    name: staging
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
