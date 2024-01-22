@@ -6,7 +6,7 @@
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose up -d
-    - docker stack ps
+    - docker compose ps
 
 deploy_production:
   extends: .deploy_common
@@ -17,7 +17,7 @@ deploy_production:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    when: never
+      when: never
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 deploy_homolog:
@@ -28,5 +28,5 @@ deploy_homolog:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    when: never
+      when: never
     - if: '$CI_COMMIT_BRANCH == "homologacao"'
