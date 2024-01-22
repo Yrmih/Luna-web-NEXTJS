@@ -1,5 +1,5 @@
 'use client'
-import { Box, CardHeader, Paper } from '@mui/material'
+import { Box, CardHeader, Paper, Typography } from '@mui/material'
 import { DetalhesAtendimento } from './DetalhesAtendimento'
 
 export default function DetalhesAtendimentoPage({
@@ -16,11 +16,33 @@ export default function DetalhesAtendimentoPage({
         }}
       >
         <Paper sx={{ p: 0, m: 0 }}>
-          <CardHeader
-            title={'Atendimento'}
-            subheader={numero}
-            sx={{ width: '100%', height: '10.125rem' }}
-          />
+          <Box
+            color="white"
+            fontWeight={600}
+            fontSize={'1.5rem'}
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.primary.main
+                  : '#171717',
+              paddingTop: '4vh',
+              paddingLeft: '5vh',
+              width: '100%',
+              height: '25vh',
+            }}
+          >
+            AÇÃO DE ALIMENTOS
+            <Typography
+              sx={{
+                color: 'white',
+
+                fontWeight: 600,
+                fontSize: '1rem',
+              }}
+            >
+              {numero}
+            </Typography>
+          </Box>
         </Paper>
       </Box>
       <DetalhesAtendimento />

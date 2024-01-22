@@ -60,6 +60,7 @@ export function CardDocumentoEnvio() {
       component={Paper}
       elevation={3}
       sx={{
+        borderRadius: '3vh',
         width: '100%',
         boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)',
       }}

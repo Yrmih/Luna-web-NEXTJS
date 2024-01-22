@@ -17,9 +17,10 @@ export function CardAvatar() {
       <Card
         component={Paper}
         sx={{
+          p: 4,
           width: '100%',
           boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // sombreamento
-          borderRadius: '8px',
+          borderRadius: '3vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -42,6 +43,7 @@ export function CardAvatar() {
                   width: { xs: 40, lg: 70 },
                   height: { xs: 40, lg: 70 },
                   my: 1,
+
                   boxShadow: '0px 0px 6px hsl(0deg 0.79% 35.3% / 54%)', // sombreamento
                 }}
               />
