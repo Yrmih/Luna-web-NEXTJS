@@ -35,3 +35,4 @@ yarn-error.log*
 next-env.d.ts
 .api_key.config
 .tmp
+.env.production

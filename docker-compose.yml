@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  luna-frontend:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.prod
+    image: luna-frontend
+    ports:
+      - "${APP_PORT:-3002}:3000"

@@ -27,12 +27,12 @@ import Link from 'next/link'
 import { ChangeEvent } from 'react'
 
 // Internal
-import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
 import { TextFieldAttributes } from '../../../../types'
 import { ImovelDynamicTextFields } from '../form/ImovelDynamicTextFields'
 import { InvestimentoDynamicTextFields } from '../form/InvestimentoDynamicTextFields'
 import { MovelDynamicTextFields } from '../form/MovelDynamicTextFields'
 import { FORMULARIOS_REGEX_DAS_MASCARAS } from '@/constants/formularios'
+import { CadastroAssistidoInputsForm } from '../../types'
 
 export const FORMULARIO_QUALIFICACAO_FINANCEIRA: TextFieldAttributes[] = [
   {
