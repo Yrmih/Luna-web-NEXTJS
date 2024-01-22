@@ -4,7 +4,8 @@ import { Grid, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-function TituloPageAtual() {
+
+export function TituloPageAtual() {
   // Obtendo o tema do Material-UI
   const theme = useTheme()
 
@@ -105,5 +106,3 @@ function TituloPageAtual() {
     </Grid>
   )
 }
-
-export default TituloPageAtual

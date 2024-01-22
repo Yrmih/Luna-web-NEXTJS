@@ -1,6 +1,9 @@
+// Third party
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { SITUACAO_AUTENTICADO } from '../constants'
+
+// Internal
+import { autenticarAssistido } from '../services'
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -11,38 +14,10 @@ const authOptions: NextAuthOptions = {
         atendimento: { label: 'Atendimento', type: 'string' },
       },
       async authorize(credentials) {
-        const requestUrl =
-          process.env.ENDPOINT_SOLAR +
-          'auth-assistido-luna/' +
-          `?cpf=${credentials?.cpf}&atendimento=${credentials?.atendimento}`
-
-        const fetchData = fetch(requestUrl, {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Token ${process.env.TOKEN_SOLAR}`,
-          },
+        return await autenticarAssistido({
+          cpf: credentials?.cpf,
+          atendimento: credentials?.atendimento,
         })
-          .then((response) => response.json())
-          .then((response) => {
-            return response
-          })
-
-        const data = await fetchData
-        // Seguindo o banco de dados, situacao 3 é o retorno da API para quando o usuário é autenticado
-        if (data.results) {
-          for (const resultado of data.results) {
-            if (resultado.situacao === SITUACAO_AUTENTICADO) {
-              const user = {
-                id: resultado.pessoa_id,
-                name: resultado.pessoa_nome,
-              }
-              return user
-            }
-          }
-        } else {
-          return null
-        }
       },
     }),
   ],

@@ -1,7 +1,7 @@
 // Internal
-import { Login } from './Login'
-import { LoginStateDialogsProvider } from './hooks/LoginSateDialogsContext'
-import { LoginUseFormStateProvider } from './hooks/LoginUseFormStateContext'
+
+import { Login } from './components/pages'
+import { LoginStateDialogsProvider, LoginUseFormStateProvider } from './context'
 
 export default function LoginPage() {
   return (

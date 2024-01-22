@@ -1,18 +1,26 @@
-// Internal
-import ContentLayout from '@/components/ContentLayout'
+// framework
 import { ReactNode } from 'react'
-import Footer from '../../components/Footer'
-import { BottoMenu } from './components/BottoMenu'
-import { AppBarAreaAssistido } from './components/Nav/AppBarAreaAssistido'
-import { SnackbarAreaAssistido } from './components/SnackbarAreaAssistido'
-import { SnackbarAreaAssistidoStateProvider } from './hooks/SnackbarAreaAssistidoStateProvider'
+
+// Internal
+import { ContentLayout } from '@/components/ContentLayout'
+import Footer from '@/components/Footer'
+import {
+  AppBarAreaAssistido,
+  BottonMenu,
+  SnackbarAreaAssistido,
+} from './components'
+import { SnackbarAreaAssistidoStateProvider } from './context'
 
 export const metadata = {
   title: 'Painel do Assistido',
   description: 'Área de acesso do assistido.',
 }
 
-export function PainelAssistidoLayout({ children }: { children: ReactNode }) {
+export default function PainelAssistidoLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
   return (
     <>
       {/* Navbar e Sidebar parte do <header> */}
@@ -25,10 +33,8 @@ export function PainelAssistidoLayout({ children }: { children: ReactNode }) {
         </SnackbarAreaAssistidoStateProvider>
       </ContentLayout>
       {/* Footer parte do <footer> */}
-      <BottoMenu />
+      <BottonMenu />
       <Footer />
     </>
   )
 }
-
-export default PainelAssistidoLayout

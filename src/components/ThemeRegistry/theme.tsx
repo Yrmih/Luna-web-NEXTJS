@@ -12,7 +12,7 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-function getTheme(prefersDarkMode: boolean) {
+export function getTheme(prefersDarkMode: boolean) {
   const customPallete = {
     primary: {
       main: '#2E7D32',
@@ -147,5 +147,3 @@ function getTheme(prefersDarkMode: boolean) {
     },
   })
 }
-
-export default getTheme

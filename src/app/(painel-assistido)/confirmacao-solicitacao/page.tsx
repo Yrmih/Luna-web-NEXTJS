@@ -1,5 +1,6 @@
-import ConfirmarSolicitacao from './ConfirmacaoSolicitacao'
+// Internal
+import { ConfirmacaoSolicitacao } from './components/page'
 
 export default function ConfirmacaoSolicitacaoPage() {
-  return <ConfirmarSolicitacao />
+  return <ConfirmacaoSolicitacao />
 }

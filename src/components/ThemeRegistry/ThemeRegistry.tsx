@@ -8,7 +8,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import { ReactNode, useMemo } from 'react'
 
 // Internal
-import getTheme from './theme'
+import { getTheme } from './theme'
 
 export function ThemeRegistry({ children }: { children: ReactNode }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')

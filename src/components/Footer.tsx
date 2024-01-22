@@ -3,7 +3,7 @@
 import { Grid, Paper } from '@mui/material'
 import { Copyright } from './Copyright'
 
-export default function Footer() {
+function Footer() {
   return (
     <footer>
       <Grid
@@ -41,3 +41,5 @@ export default function Footer() {
     </footer>
   )
 }
+
+export default Footer

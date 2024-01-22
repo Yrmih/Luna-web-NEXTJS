@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Painel do Assistido',
   description: 'Área de acesso do assistido.',
 }
-function PainelAssistidoLayout({
+export default function NotificacaoLayout({
   children,
   modal,
 }: {
@@ -19,5 +19,3 @@ function PainelAssistidoLayout({
     </>
   )
 }
-
-export default PainelAssistidoLayout

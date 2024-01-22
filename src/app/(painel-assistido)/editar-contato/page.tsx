@@ -1,4 +1,6 @@
-import { EditarContato } from './EditarContato'
+// Internal
+
+import { EditarContato } from './components/pages'
 
 export default function EditarContatoPage() {
   return <EditarContato />
