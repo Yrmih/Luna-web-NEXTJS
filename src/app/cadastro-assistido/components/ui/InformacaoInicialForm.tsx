@@ -11,7 +11,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form'
-import { CadastroAssistidoInputsForm } from '../pages/CadastroAssistido'
+import { CadastroAssistidoInputsForm } from '../../types'
 
 const FORMULARIO_CAMPOS_INFO_INICIAL = [
   {
