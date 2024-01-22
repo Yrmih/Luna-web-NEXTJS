@@ -35,7 +35,7 @@ build_homol:
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: '$CI_COMMIT_BRANCH != "homologacao"'
+    - if: '$CI_COMMIT_BRANCH == "homologacao"'
       variables:
           DOCKER_IMAGE_TAG: "homologacao"
   script: 
@@ -51,7 +51,7 @@ build_staging:
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH != "homologacao" && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
       variables:
           DOCKER_IMAGE_TAG: "commit-checked"
   script:
