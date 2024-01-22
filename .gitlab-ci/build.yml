@@ -1,0 +1,41 @@
+.build_commom:
+  tags:
+    - ssh
+    - luna
+  stage: build
+  script:
+    - env > .env
+    - docker build -f docker/Dockerfile.prod -t $SOLAR_FRONTEND_PRODUCTION_IMAGE .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab.defensoria.to.def.br:5000
+    - docker push $SOLAR_FRONTEND_PRODUCTION_IMAGE
+
+build_production:
+  extends: .build_commom
+  environment:
+    name: prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  
+
+build_staging:
+  environment:
+    name: homol
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    when: never
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+  tags:
+    - ssh
+    - luna
+  stage: build
+  script:
+    - env > .env
+    - docker build -f docker/Dockerfile.prod -t $SOLAR_FRONTEND_STAGING_IMAGE .
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN gitlab.defensoria.to.def.br:5000
+    - docker push $SOLAR_FRONTEND_STAGING_IMAGE

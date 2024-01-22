@@ -1,0 +1,32 @@
+.deploy_common:
+  stage: deploy
+  tags:
+    - ssh
+    - luna
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker compose up -d
+    - docker stack ps
+
+deploy_production:
+  extends: .deploy_common
+  environment:
+    name: prod
+    url: $LUNA_URL
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+deploy_homolog:
+  environment:
+    name: homol
+    url: $LUNA_URL
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    when: never
+    - if: '$CI_COMMIT_BRANCH == "homologacao"'
