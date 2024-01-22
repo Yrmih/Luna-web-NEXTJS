@@ -1,8 +1,8 @@
 export type AuthAssistido = {
   id: number
   nome: string
-  email: string
-  tipo: string
+  email?: string
+  tipo?: string
 }
 
 export type AuthAssistidoCredentials = {

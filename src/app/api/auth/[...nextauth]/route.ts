@@ -3,8 +3,7 @@ import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Internal
-import { HttpStatusCodes } from '@/lib/api/fetch/types'
-import { AuthAssistidoAPI } from '@/lib/api/solar/client'
+import { autenticarAssistido } from '../services'
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -15,16 +14,10 @@ const authOptions: NextAuthOptions = {
         atendimento: { label: 'Atendimento', type: 'string' },
       },
       async authorize(credentials) {
-        const resposta = await AuthAssistidoAPI.autenticar({
+        return await autenticarAssistido({
           cpf: credentials?.cpf,
-          numero_atendimento: credentials?.atendimento,
+          atendimento: credentials?.atendimento,
         })
-
-        if (resposta.status === HttpStatusCodes.OK) {
-          return resposta.data
-        } else {
-          return null
-        }
       },
     }),
   ],
