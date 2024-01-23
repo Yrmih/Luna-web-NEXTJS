@@ -7,7 +7,7 @@
     - env > .env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose -f docker-compose.build.yml build --build-arg CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE --build-arg DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
-    
+    - docker compose -f docker-compose.build.yml push
 
 build_production:
   extends: 
@@ -22,8 +22,6 @@ build_production:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       variables:
         DOCKER_IMAGE_TAG: "latest"
-  script: 
-    - docker compose -f docker-compose.build.yml push
 
 build_homol:
   extends: 
@@ -38,8 +36,6 @@ build_homol:
     - if: '$CI_COMMIT_BRANCH == "homologacao"'
       variables:
           DOCKER_IMAGE_TAG: "homologacao"
-  script: 
-    - docker compose -f docker-compose.build.yml push
 
 build_staging:
   extends:
@@ -54,5 +50,3 @@ build_staging:
     - if: '$CI_COMMIT_BRANCH != "homologacao" && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
       variables:
           DOCKER_IMAGE_TAG: "staging"
-  script:
-    - docker rmi $CI_REGISTRY_IMAGE:$DOCKER_IMAGE_TAG
