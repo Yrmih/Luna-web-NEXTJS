@@ -23,7 +23,7 @@ build_production:
       variables:
         DOCKER_IMAGE_TAG: "latest"
   script: 
-    - docker push $CI_REGISTRY
+    - docker compose -f docker-compose.build.yml push
 
 build_homol:
   extends: 
@@ -39,7 +39,7 @@ build_homol:
       variables:
           DOCKER_IMAGE_TAG: "homologacao"
   script: 
-    - docker push $CI_REGISTRY
+    - docker compose -f docker-compose.build.yml push
 
 build_staging:
   extends:
@@ -53,6 +53,6 @@ build_staging:
       when: never
     - if: '$CI_COMMIT_BRANCH != "homologacao" && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
       variables:
-          DOCKER_IMAGE_TAG: "commit-checked"
+          DOCKER_IMAGE_TAG: "staging"
   script:
-    - docker rmi $CI_REGISTRY_IMAGE/:$DOCKER_IMAGE_TAG
+    - docker rmi $CI_REGISTRY_IMAGE:$DOCKER_IMAGE_TAG
