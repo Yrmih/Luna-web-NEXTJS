@@ -7,5 +7,5 @@ variables:
   DOCKER_IMAGE_TAG: $CI_COMMIT_BRANCH
 
 include:
-  - local: "/.gitlab-ci/build.yml"
-  - local: "/.gitlab-ci/deploy.yml"
+  - local: ".gitlab-ci/build.yml"
+  - local: ".gitlab-ci/deploy.yml"

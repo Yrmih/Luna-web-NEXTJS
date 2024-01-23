@@ -7,10 +7,11 @@
     - env > .env
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose -f docker-compose.build.yml build --build-arg CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE --build-arg DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
-    
+    - docker compose -f docker-compose.build.yml push
 
 build_production:
-  extends: .build_commom
+  extends: 
+    - .build_commom
   environment:
     name: prod
   rules:
@@ -21,11 +22,10 @@ build_production:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       variables:
         DOCKER_IMAGE_TAG: "latest"
-  script: 
-    - docker push $CI_REGISTRY
 
 build_homol:
-  extends: .build_commom
+  extends: 
+    - .build_commom
   environment:
     name: homol
   rules:
@@ -33,23 +33,20 @@ build_homol:
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: '$CI_COMMIT_BRANCH != "homologacao"'
+    - if: '$CI_COMMIT_BRANCH == "homologacao"'
       variables:
           DOCKER_IMAGE_TAG: "homologacao"
-  script: 
-    - docker push $CI_REGISTRY
 
 build_staging:
-  extends: .build_commom
+  extends:
+    - .build_commom
   environment:
-    name: homol
+    name: staging
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: '$CI_COMMIT_BRANCH != "homologacao" && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
       variables:
-          DOCKER_IMAGE_TAG: "commit-checked"
-  script:
-    - docker rmi $CI_REGISTRY_IMAGE/:$DOCKER_IMAGE_TAG
+          DOCKER_IMAGE_TAG: "staging"

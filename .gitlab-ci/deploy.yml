@@ -9,7 +9,8 @@
     - docker compose ps
 
 deploy_production:
-  extends: .deploy_common
+  extends: 
+    - .deploy_common
   environment:
     name: prod
     url: $LUNA_URL
@@ -21,6 +22,8 @@ deploy_production:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 deploy_homolog:
+  extends: 
+    - .deploy_common
   environment:
     name: homol
     url: $LUNA_URL
