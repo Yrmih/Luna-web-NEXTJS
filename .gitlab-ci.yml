@@ -4,7 +4,6 @@ stages:
 
 variables:
   VERSION: luna-$CI_COMMIT_SHORT_SHA
-  DOCKER_IMAGE_TAG: $CI_COMMIT_BRANCH
 
 include:
   - local: ".gitlab-ci/build.yml"
