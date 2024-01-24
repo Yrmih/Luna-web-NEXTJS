@@ -5,8 +5,7 @@
     - luna
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker compose up -d
-    - docker compose ps
+    - docker run -p ${APP_PORT:-3002}:3000  --name luna ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
 
 deploy_production:
   extends: 
