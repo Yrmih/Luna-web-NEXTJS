@@ -1,5 +1,5 @@
 // Third party
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 // Internal
@@ -18,10 +18,16 @@ const authOptions: NextAuthOptions = {
           throw new Error('CPF e atendimento são obrigatórios')
         }
 
-        return await autenticarAssistido({
+        const response = await autenticarAssistido({
           cpf: credentials.cpf,
           atendimento: credentials.atendimento,
         })
+
+        if (response.sucesso) {
+          return response.resultado as User
+        } else {
+          return null
+        }
       },
     }),
   ],
