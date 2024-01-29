@@ -7,7 +7,6 @@ import {
   styled,
   TableRow,
   TableCell,
-  Collapse,
   Dialog,
   rgbToHex,
 } from '@mui/material'
@@ -22,14 +21,14 @@ interface EnviodeDocumentoProps {
     nome: string
     situacao: string
     obrigatorio: boolean
-    dataUpload?: string | null
+    dataEnviado?: string | null
   }
 }
 
 export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
   // Define a cor da alternação das linhas da tabela (impar)
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
+    '&:nth-of-type(even)': {
       backgroundColor: theme.palette.action.hover,
     },
     // Esconde a última borda
@@ -52,15 +51,15 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
     switch (props.situacao) {
       case 'aprovado':
         exibir = true
-        texto = `Seu documento foi enviado no dia ${props.dataUpload} e foi aprovado por nossos atendentes.`
+        texto = `Seu documento foi enviado no dia ${props.dataEnviado} e foi aprovado por nossos atendentes.`
         break
       case 'em analise':
         exibir = true
-        texto = `Seu documento foi enviado para no dia ${props.dataUpload} e está aguardando aprovação de nossos atendentes.`
+        texto = `Seu documento foi enviado para no dia ${props.dataEnviado} e está aguardando aprovação de nossos atendentes.`
         break
       case 'nao tenho':
         exibir = true
-        texto = `Seu documento foi declarado como 'NÃO TENHO' no dia ${props.dataUpload}.`
+        texto = `Seu documento foi declarado como 'NÃO TENHO' no dia ${props.dataEnviado}.`
         break
     }
     return { exibir, texto }
@@ -71,6 +70,11 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
    * @param {boolean} botaoNaoTenho - Se TRUE utiliza a lógica de estilo para opção que abre a modal de "não tenho"
    */
   const estiloBotao = (botaoNaoTenho = false) => {
+    // Situações:
+    // 1 - pendente
+    // 2 - em análise
+    // 3 - reenviar
+    // 4 - aprovado
     const cores = {
       vermelho: 'rgb(220, 0, 0, 1)',
       verde: 'rgb(0, 100, 0, 1)',
@@ -82,25 +86,21 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
 
     if (!botaoNaoTenho) {
       switch (props.situacao) {
-        case 'aprovado':
-          cor = cores.verde
-          texto = 'APROVADO'
-          break
-        case 'em analise':
-          cor = cores.azul
-          texto = 'EM ANÁLISE'
-          break
-        case 'nao tenho':
-          cor = cores.verde
-          texto = 'APROVADO'
-          break
-        case 'pendente':
+        case '1':
           cor = cores.vermelho
           texto = 'ENVIAR'
           break
-        case 'reenviar':
+        case '2':
+          cor = cores.azul
+          texto = 'EM ANÁLISE'
+          break
+        case '3':
           cor = cores.vermelho
           texto = 'REENVIAR'
+          break
+        case '4':
+          cor = cores.verde
+          texto = 'APROVADO'
           break
       }
     } else {
@@ -194,15 +194,6 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
           ) : null}
         </TableCell>
       </StyledTableRow>
-
-      {/* Linha destinada ao Colapse que dá informações extra sobre a situação do documento */}
-      {informacaoDocumento().exibir && openColapse ? (
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={openColapse} timeout="auto" unmountOnExit>
-            {informacaoDocumento().texto}
-          </Collapse>
-        </TableCell>
-      ) : null}
 
       {/* Modal quando o botão é destinado ao "envio" ou "reenvio" de documento */}
       <Dialog

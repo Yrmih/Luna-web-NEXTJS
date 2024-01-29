@@ -2,54 +2,59 @@
 'use client'
 
 // framework
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material'
+import { Card, CardContent, CardHeader, Paper } from '@mui/material'
+import { Tabela } from './Tabela'
 
-// Internal
-import EnviodeDocumento from './EnvioDeDocumentos'
+interface Documento {
+  situacao: string
+  nome: string
+  dataEnviado: string | null
+  obrigatorio: boolean
+}
+function encontrarDocumentosPorSituacao(
+  documentos: Documento[],
+  situacoes: string[],
+): Documento[] {
+  return documentos.filter((doc) => situacoes.includes(doc.situacao))
+}
 
 // Simulação temporária de um retorno de dados
 // TODO: Remover essa simulação quando realizar a integração
-const simularDocumentos = [
+// Situações:
+// 1 - pendente
+// 2 - em análise
+// 3 - reenviar
+// 4 - aprovado
+const documentos: Documento[] = [
   {
-    nome: 'declaração de residência',
-    situacao: 'reenviar',
-    obrigatorio: false,
-    dataUpload: null,
-  },
-  {
-    nome: 'DOCUMENTO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 'nao tenho',
+    situacao: '1',
+    nome: 'CPF',
+    dataEnviado: null,
     obrigatorio: true,
-    dataUpload: '21/02/2023',
   },
   {
-    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 'em analise',
-    obrigatorio: false,
-    dataUpload: '11/05/2023',
-  },
-  {
-    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE HIPOSUFICIENCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 'aprovado',
-    obrigatorio: false,
-    dataUpload: '17/03/2023',
-  },
-  {
-    nome: 'DOCUMENTO OBRIGATÓRIO ',
-    situacao: 'pendente',
+    situacao: '1',
+    nome: 'DOCUMENTO',
+    dataEnviado: null,
     obrigatorio: true,
-    dataUpload: null,
+  },
+  {
+    situacao: '2',
+    nome: 'RG',
+    dataEnviado: '15/08/1996',
+    obrigatorio: true,
+  },
+  {
+    situacao: '3',
+    nome: 'FOTO 3X4',
+    dataEnviado: '15/08/1997',
+    obrigatorio: false,
+  },
+  {
+    situacao: '4',
+    nome: 'COMPROVANTE DE RENDA',
+    dataEnviado: '15/08/1998',
+    obrigatorio: true,
   },
 ]
 
@@ -66,38 +71,52 @@ export function CardDocumentoEnvio() {
       }}
     >
       {/* Header do card */}
-      <CardHeader title="Documentos e perguntas pendentes" />
+      <CardHeader
+        titleTypographyProps={{
+          fontWeight: 600,
+          fontSize: '1.5rem',
+
+          pl: 1.5,
+          pt: 2,
+        }}
+        title={'Meus Documentos'}
+      />
       {/* Body do card */}
       <CardContent>
         {/* Container da tabela */}
-        <TableContainer component={Paper}>
-          <Table>
-            {/* Header da tabela (define o nome das colunas) */}
-            <TableHead>
-              <TableRow>
-                <TableCell>Nome do documento</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>
-                  Enviar Documento
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {/* Body da tabela */}
-            <TableBody>
-              {/* Componente que preenche as linhas da tabela */}
-              {simularDocumentos.map((item) => (
-                <EnviodeDocumento
-                  key={item.nome}
-                  props={{
-                    nome: item.nome,
-                    situacao: item.situacao,
-                    obrigatorio: item.obrigatorio,
-                    dataUpload: item.dataUpload ? item.dataUpload : null,
-                  }}
-                ></EnviodeDocumento>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Tabela
+          props={{
+            corHeaderTabela: 'vermelho',
+            iconeHeader: 'atencao',
+            numeroColunas: 2,
+            nomeHeader: 'PENDÊNCIAS',
+            nomeColunaEsquerda: 'Nome do documento',
+            nomeColunaDireita: 'Enviar Documento',
+            dados: encontrarDocumentosPorSituacao(documentos, ['1', '3']),
+          }}
+        ></Tabela>
+        <Tabela
+          props={{
+            corHeaderTabela: 'azul',
+            iconeHeader: 'relogio',
+            numeroColunas: 2,
+            nomeHeader: 'EM ANÁLISE',
+            nomeColunaEsquerda: 'Nome do documento',
+            nomeColunaDireita: 'Enviar Documento',
+            dados: encontrarDocumentosPorSituacao(documentos, ['2']),
+          }}
+        ></Tabela>
+        <Tabela
+          props={{
+            corHeaderTabela: 'verde',
+            iconeHeader: 'aprovado',
+            numeroColunas: 2,
+            nomeHeader: 'APROVADOS',
+            nomeColunaEsquerda: 'Nome do documento',
+            nomeColunaDireita: 'Enviar Documento',
+            dados: encontrarDocumentosPorSituacao(documentos, ['4']),
+          }}
+        ></Tabela>
       </CardContent>
     </Card>
   )
