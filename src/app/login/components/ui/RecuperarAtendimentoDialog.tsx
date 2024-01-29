@@ -15,7 +15,7 @@ import { useLoginStateDialogs } from '../../context'
 export function RecuperarAtendimentoDialog() {
   const {
     openRecuperarAtendimentoDialog: open,
-    handleCloseRecuperarAtendimentoDialog: handleClose,
+    handleOpenRecuperarAtendimentoDialog: handleClose,
   } = useLoginStateDialogs()
 
   return (

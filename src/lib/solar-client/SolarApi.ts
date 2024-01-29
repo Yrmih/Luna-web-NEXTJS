@@ -486,8 +486,6 @@ export interface PessoaAssistida {
   email?: string | null;
   /** Tipo */
   tipo?: 0 | 1;
-  /** Possui Doença Grave */
-  possui_doenca_grave?: boolean;
   /**
    * Nome social
    * @maxLength 256
@@ -562,8 +560,6 @@ export interface PessoaAssistida {
   modificado_por?: number | null;
   /** Desativado por */
   desativado_por?: number | null;
-  /** Doença Grave */
-  doenca_grave?: number | null;
   /** Orientação Sexual */
   orientacao_sexual?: number | null;
   /** Identidade de Gênero */
@@ -580,6 +576,73 @@ export interface PessoaAssistida {
   deficiencias?: number[];
   /** @uniqueItems true */
   bens?: number[];
+}
+
+export interface PessoaAssistidoConsulta {
+  /**
+   * Cpf
+   * @minLength 1
+   */
+  cpf?: string;
+  /**
+   * Rg numero
+   * @minLength 1
+   */
+  rg_numero?: string;
+  /**
+   * Email
+   * @format email
+   * @minLength 1
+   */
+  email?: string;
+}
+
+export interface Pessoa {
+  /** ID */
+  id?: number;
+  /** Representante modalidade */
+  representante_modalidade?: "P" | "AP" | "SP" | "T" | "C" | null;
+  /** Tipo */
+  tipo: 0 | 1 | 4 | 5;
+  /** Responsavel */
+  responsavel?: boolean;
+  /** Ativo */
+  ativo?: boolean;
+  /** Atendimento */
+  atendimento: number;
+  /** Pessoa */
+  pessoa: string;
+  /** Representante */
+  representante?: number | null;
+}
+
+export interface PessoaConsulta {
+  /**
+   * Cpf
+   * @minLength 1
+   */
+  cpf?: string;
+  /**
+   * Rg numero
+   * @minLength 1
+   */
+  rg_numero?: string;
+  /**
+   * Email
+   * @format email
+   * @minLength 1
+   */
+  email?: string;
+}
+
+export interface ErrorPessoAtendimentoWithSituacaoResponse {
+  /** Situacao */
+  situacao: 0 | 1 | 2 | 3;
+  /**
+   * Mensagem
+   * @minLength 1
+   */
+  mensagem: string;
 }
 
 export interface AtendimentoTotalSerializar {
@@ -731,6 +794,37 @@ export interface AudienciaTotal {
   tipo?: string;
   /** Quantidade */
   quantidade: number;
+}
+
+export interface AuthAssistidoLunaRequest {
+  /**
+   * Cpf
+   * @minLength 11
+   * @maxLength 11
+   */
+  cpf: string;
+  /**
+   * Numero atendimento
+   * @min 0
+   */
+  numero_atendimento: number;
+}
+
+export interface AuthAssistidoLunaResponse {
+  /** ID */
+  id?: number;
+  /**
+   * Nome
+   * @minLength 1
+   */
+  nome?: string | null;
+  /**
+   * Email
+   * @minLength 1
+   */
+  email?: string | null;
+  /** Tipo */
+  tipo: 0 | 1 | 4 | 5;
 }
 
 export interface AssuntoField {
@@ -3165,6 +3259,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     assistidosList: (
       query?: {
+        nome?: string;
+        apelido?: string;
+        tipo?: string;
+        nome_social?: string;
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */
@@ -3205,6 +3303,26 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         body: data,
         secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Irá retornar o assistido se estiver cadastrado no SOLAR.
+     *
+     * @tags assistidos
+     * @name AssistidosConsultarPessoaAssistida
+     * @summary Consultar assistido cadastrado no SOLAR utilizando dados sensíveis.
+     * @request POST:/assistidos/pessoa-consulta/
+     * @secure
+     */
+    assistidosConsultarPessoaAssistida: (data: PessoaAssistidoConsulta, params: RequestParams = {}) =>
+      this.request<PessoaAssistida, any>({
+        path: `/assistidos/pessoa-consulta/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -3293,6 +3411,150 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         body: data,
         secure: true,
         format: "json",
+        ...params,
+      }),
+  };
+  atendimentosPartes = {
+    /**
+     * No description
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesList
+     * @request GET:/atendimentos-partes/
+     * @secure
+     */
+    atendimentosPartesList: (
+      query?: {
+        /** Number of results to return per page. */
+        limit?: number;
+        /** The initial index from which to return the results. */
+        offset?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        {
+          count: number;
+          /** @format uri */
+          next?: string | null;
+          /** @format uri */
+          previous?: string | null;
+          results: Pessoa[];
+        },
+        any
+      >({
+        path: `/atendimentos-partes/`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesCreate
+     * @request POST:/atendimentos-partes/
+     * @secure
+     */
+    atendimentosPartesCreate: (data: Pessoa, params: RequestParams = {}) =>
+      this.request<Pessoa, any>({
+        path: `/atendimentos-partes/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description Há dois erros BAD_REQUEST(400) com situações particulares na consulta da pessoa, são elas: - **0** : Não existe a pessoa. - **1** : Existe a pessoa, porém não existe um atendimento vinculado a ela.
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesConsultarPessoa
+     * @summary Consultar a parte do atendimento usando dados sensíveis.
+     * @request POST:/atendimentos-partes/pessoa-consulta/
+     * @secure
+     */
+    atendimentosPartesConsultarPessoa: (data: PessoaConsulta, params: RequestParams = {}) =>
+      this.request<Pessoa, ErrorPessoAtendimentoWithSituacaoResponse>({
+        path: `/atendimentos-partes/pessoa-consulta/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesRead
+     * @request GET:/atendimentos-partes/{id}/
+     * @secure
+     */
+    atendimentosPartesRead: (id: number, params: RequestParams = {}) =>
+      this.request<Pessoa, any>({
+        path: `/atendimentos-partes/${id}/`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesUpdate
+     * @request PUT:/atendimentos-partes/{id}/
+     * @secure
+     */
+    atendimentosPartesUpdate: (id: number, data: Pessoa, params: RequestParams = {}) =>
+      this.request<Pessoa, any>({
+        path: `/atendimentos-partes/${id}/`,
+        method: "PUT",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesPartialUpdate
+     * @request PATCH:/atendimentos-partes/{id}/
+     * @secure
+     */
+    atendimentosPartesPartialUpdate: (id: number, data: Pessoa, params: RequestParams = {}) =>
+      this.request<Pessoa, any>({
+        path: `/atendimentos-partes/${id}/`,
+        method: "PATCH",
+        body: data,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags atendimentos-partes
+     * @name AtendimentosPartesDelete
+     * @request DELETE:/atendimentos-partes/{id}/
+     * @secure
+     */
+    atendimentosPartesDelete: (id: number, params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/atendimentos-partes/${id}/`,
+        method: "DELETE",
+        secure: true,
         ...params,
       }),
   };
@@ -3497,6 +3759,27 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "GET",
         query: query,
         secure: true,
+        format: "json",
+        ...params,
+      }),
+  };
+  authAssistidoLuna = {
+    /**
+     * @description Algumas situações serão retornadas na resposta ao acesso não autorizado no endpoint. ### São elas: - **0** : Assistido tem atendimento no SOLAR, porém não foi usado para acesso. - **1** : Assistido não tem atendimento cadastrado no SOLAR. - **2** : Não está cadastrado no SOLAR - **3** : Assistido possuí atendimento, porém não é o atendimento fornecido. > Obs.: Essa endpoint não retorna o token de autorização de acesso. Para isso, ultiza-se o token único gerado no SOLAR.
+     *
+     * @tags auth-assistido-luna
+     * @name AuthAssistidoLunaCreate
+     * @summary Endpoint para realização de autenticação no SOLAR para o assistido.
+     * @request POST:/auth-assistido-luna/
+     * @secure
+     */
+    authAssistidoLunaCreate: (data: AuthAssistidoLunaRequest, params: RequestParams = {}) =>
+      this.request<AuthAssistidoLunaResponse, ErrorPessoAtendimentoWithSituacaoResponse>({
+        path: `/auth-assistido-luna/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

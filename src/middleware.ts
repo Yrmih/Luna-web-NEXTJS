@@ -19,9 +19,7 @@ const middleware = (request: NextRequestWithAuth) => {
 const authorized = async (params: { token: JWT | null; req: NextRequest }) => {
   const cookies = params.req.cookies
 
-  const isSemCadastro =
-    cookies.has('sem-cadastro') &&
-    params.req.nextUrl.pathname === '/cadastro-assistido'
+  const isSemCadastro = params.req.nextUrl.pathname === '/cadastro-assistido'
   const isSemAtendimento =
     cookies.has('sem-atendimento') &&
     params.req.nextUrl.pathname === '/nova-solicitacao'

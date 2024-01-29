@@ -7,8 +7,7 @@ import { ChangeEvent, useState } from 'react'
 // Internal
 import { MaskUtils } from '@/utils/MaskUtils'
 
-import { ContraintErrorPessoaAssistida } from '@/lib/api/solar/constants'
-import { ErrorPessoAtendimentoWithSituacao } from '@/lib/api/solar/types'
+import { ConstraintErrorPessoaAssistida } from '@/utils/solar'
 import {
   Box,
   Button,
@@ -24,29 +23,30 @@ export function LoginCPF() {
   const { register, errors, setValue, dirtyFields, watch } =
     useLoginUseFormSate()
   const {
-    handlenCloseLoginAtendimentoDialog,
-    handleCloseNaoTemAtendimentoDialog,
-    handleCloseCPFNaoEncontradoDialog,
+    setCpf,
+    handlenOpenLoginAtendimentoDialog,
+    handleOpenNaoTemAtendimentoDialog,
+    handleOpenCPFNaoEncontradoDialog,
   } = useLoginStateDialogs()
 
   const verificarAssistido = async (cpf: string) => {
     setIsLoading(true)
-    const { data, success } = await consultarPessoaAssistida(cpf)
-    if (success) {
-      setIsLoading(false)
-      handlenCloseLoginAtendimentoDialog()
+    const { sucesso, erro } = await consultarPessoaAssistida(cpf)
+    setIsLoading(false)
+    if (sucesso) {
+      handlenOpenLoginAtendimentoDialog()
     } else {
-      setIsLoading(false)
-      const error = data as ErrorPessoAtendimentoWithSituacao
       if (
-        error.situacao === ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO
+        erro?.situacao ===
+        ConstraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO
       ) {
-        handleCloseCPFNaoEncontradoDialog()
+        setCpf(MaskUtils.maskCpfCnpj(cpf))
+        handleOpenCPFNaoEncontradoDialog()
       } else if (
-        error.situacao ===
-        ContraintErrorPessoaAssistida.SITUACAO_SEM_ATENDIMENTO
+        erro?.situacao ===
+        ConstraintErrorPessoaAssistida.SITUACAO_SEM_ATENDIMENTO
       ) {
-        handleCloseNaoTemAtendimentoDialog()
+        handleOpenNaoTemAtendimentoDialog()
       } else {
         throw Error('Error não tratado na requisição')
       }

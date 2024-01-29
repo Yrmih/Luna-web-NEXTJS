@@ -13,8 +13,10 @@ import { useLoginStateDialogs } from '../../context'
 
 export function AtendimentoNaoEncontradoDialog() {
   const {
+    atendimento,
     openAtendimentoNaoEncontradoDialog: open,
-    handleCloseAtendimentoNaoEncontradoDialog: handleClose,
+    handleOpenAtendimentoNaoEncontradoDialog: handleClose,
+    handleOpenRecuperarAtendimentoDialog,
   } = useLoginStateDialogs()
 
   return (
@@ -23,12 +25,13 @@ export function AtendimentoNaoEncontradoDialog() {
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
           Você pode conferir o número que você digitou para ver se está correto?{' '}
-          {<br />}( {'32985490850'} ) Se você não lembra, tente recuperar seu
+          {<br />}( {atendimento} ) Se você não lembra, tente recuperar seu
           número de atendimento.
         </DialogContentText>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-around' }}>
         <Button
+          onClick={() => handleOpenRecuperarAtendimentoDialog()}
           sx={{
             marginLeft: '2vw',
             marginBottom: '2vh',

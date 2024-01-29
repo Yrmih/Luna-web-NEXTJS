@@ -30,9 +30,11 @@ export function LoginAtendimentoDialog() {
   const matches = useMediaQuery('(min-width:900px)')
   const router = useRouter()
   const {
+    setAtendimento,
     openLoginAtendimentoDialog: open,
-    handlenCloseLoginAtendimentoDialog: onClose,
-    handleCloseAtendimentoNaoEncontradoDialog,
+    handlenOpenLoginAtendimentoDialog: onClose,
+    handleOpenAtendimentoNaoEncontradoDialog:
+      handleCloseAtendimentoNaoEncontradoDialog,
   } = useLoginStateDialogs()
 
   const { handleSubmit, register, errors, setValue, isValid, isSubmitting } =
@@ -50,6 +52,7 @@ export function LoginAtendimentoDialog() {
 
       if (response?.error) {
         onClose()
+        setAtendimento(data.atendimento)
         handleCloseAtendimentoNaoEncontradoDialog()
       } else {
         router.push('/atendimentos')

@@ -14,9 +14,13 @@ const authOptions: NextAuthOptions = {
         atendimento: { label: 'Atendimento', type: 'string' },
       },
       async authorize(credentials) {
+        if (!credentials?.cpf || !credentials?.atendimento) {
+          throw new Error('CPF e atendimento são obrigatórios')
+        }
+
         return await autenticarAssistido({
-          cpf: credentials?.cpf,
-          atendimento: credentials?.atendimento,
+          cpf: credentials.cpf,
+          atendimento: credentials.atendimento,
         })
       },
     }),

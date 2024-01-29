@@ -14,7 +14,7 @@ import { useLoginStateDialogs } from '../../context'
 export function NaoTemAtendimentoDialog() {
   const {
     openNaoTemAtendimentoDialog: open,
-    handleCloseNaoTemAtendimentoDialog: handleClose,
+    handleOpenNaoTemAtendimentoDialog: handleClose,
   } = useLoginStateDialogs()
 
   return (

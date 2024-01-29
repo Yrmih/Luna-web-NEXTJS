@@ -1,25 +1,37 @@
 'use server'
 
-import { PessoaAtendimentoAPI } from '@/lib/api/solar/client'
-import { ContraintErrorPessoaAssistida } from '@/lib/api/solar/constants'
-import { ErrorPessoAtendimentoWithSituacao } from '@/lib/api/solar/types'
+import { SolarApi } from '@/lib'
+import {
+  ErrorPessoAtendimentoWithSituacaoResponse,
+  Pessoa,
+} from '@/lib/solar-client/SolarApi'
+import { ServiceResponse } from '@/types'
+import { ConstraintErrorPessoaAssistida } from '@/utils/solar'
 import { cookies } from 'next/headers'
 
-export async function consultarPessoaAssistida(cpf: string) {
-  const { data, success } = await PessoaAtendimentoAPI.consultarPessoa({ cpf })
+export async function consultarPessoaAssistida(
+  cpf: string,
+): Promise<ServiceResponse<Pessoa, ErrorPessoAtendimentoWithSituacaoResponse>> {
+  try {
+    const response =
+      await SolarApi.atendimentosPartes.atendimentosPartesConsultarPessoa({
+        cpf,
+      })
+    return { sucesso: true, resultado: response.data }
+  } catch (err) {
+    const errorMessage = (
+      err as { error?: ErrorPessoAtendimentoWithSituacaoResponse }
+    ).error
 
-  if (!success) {
-    const error = data as ErrorPessoAtendimentoWithSituacao
     if (
-      error.situacao === ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO
+      errorMessage &&
+      errorMessage.situacao ===
+        ConstraintErrorPessoaAssistida.SITUACAO_SEM_ATENDIMENTO
     ) {
-      cookies().set('sem-cadastro', 'true')
-    } else if (
-      error.situacao === ContraintErrorPessoaAssistida.SITUACAO_SEM_ATENDIMENTO
-    ) {
+      // Certifique-se de que 'cookies' está corretamente importado e configurado
+      // Adicionalmente, considere tratar o caso onde 'cookies()' pode ser indefinido
       cookies().set('sem-atendimento', 'true')
     }
+    return { sucesso: false, erro: errorMessage }
   }
-
-  return await PessoaAtendimentoAPI.consultarPessoa({ cpf })
 }

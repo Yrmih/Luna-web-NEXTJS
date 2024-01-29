@@ -10,11 +10,11 @@ import {
 import { useLoginStateDialogs } from '../../context'
 
 // Internal
-
 export function CPFNaoEncontradoDialog() {
   const {
+    cpf,
     openCPFNaoEncontradoDialog: open,
-    handleCloseCPFNaoEncontradoDialog: handleClose,
+    handleOpenCPFNaoEncontradoDialog: handleClose,
   } = useLoginStateDialogs()
 
   return (
@@ -22,9 +22,9 @@ export function CPFNaoEncontradoDialog() {
       <DialogTitle>Desculpe, não encontrei seus dados.</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
-          O seu CPF é este mesmo ? ( {'54543543543543'} ) , eu acredito que seja
-          a primeira vez que está entrando em contato utilizando este canal de
-          atendimento. Basta clicar no botão abaixo e seguir a instruções.
+          O seu CPF é este mesmo ? ( {cpf} ) , eu acredito que seja a primeira
+          vez que está entrando em contato utilizando este canal de atendimento.
+          Basta clicar no botão abaixo e seguir a instruções.
         </DialogContentText>
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-around' }}>
