@@ -42,6 +42,8 @@ interface ModalEnvioDocumentoProps {
     tipoModal?: string
     handleValue?: boolean
     handleAction: Dispatch<SetStateAction<boolean>>
+    situacao: string
+    dataEnviado: string | null | undefined
   }
 }
 
@@ -70,12 +72,44 @@ export default function ModalEnvioDocumento({
   return (
     <>
       {/* Titulo da modal */}
-      <DialogTitle sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-        {props.tipoModal === 'nao tenho' ? 'ATENÇÃO' : 'ENVIO DE DOCUMENTO'}
+      <DialogTitle
+        sx={{
+          bgcolor:
+            props.situacao === '2'
+              ? '#277a9533'
+              : props.situacao === '4'
+              ? '#00640033'
+              : '',
+          color:
+            props.situacao === '2'
+              ? 'darkblue'
+              : props.situacao === '4'
+              ? 'green'
+              : '',
+          fontWeight: 'bold',
+          textAlign: 'center',
+        }}
+      >
+        {props.tipoModal === 'nao tenho'
+          ? 'ATENÇÃO'
+          : props.tipoModal === 'envio'
+          ? 'ENVIO DE DOCUMENTO'
+          : `${props?.nomeEnvioDocumento}`}
       </DialogTitle>
 
       {/* Conteúdo da modal */}
-      <DialogContent sx={{ alignContent: 'center', alignitems: 'center' }}>
+      <DialogContent
+        sx={{
+          bgcolor:
+            props.situacao === '2'
+              ? '#277a9533'
+              : props.situacao === '4'
+              ? '#00640033'
+              : '',
+          alignContent: 'center',
+          alignitems: 'center',
+        }}
+      >
         {props.tipoModal === 'nao tenho' ? (
           // ! Conteúdo de texto para quando a modal é uma "não tenho"
           <>
@@ -116,12 +150,13 @@ export default function ModalEnvioDocumento({
               </Button>
             </Box>
           </>
-        ) : (
+        ) : props.tipoModal === 'envio' ? (
           // ! Conteúdo de texto para quando a modal é uma "enviar" ou "reenviar"
           <>
             <DialogContentText
               sx={{
                 textAlign: 'center',
+                alignItems: 'center',
               }}
             >
               {`${props.nomeEnvioDocumento}`}
@@ -230,11 +265,35 @@ export default function ModalEnvioDocumento({
               </Box>
             </Box>
           </>
+        ) : (
+          <DialogContentText
+            sx={{
+              color:
+                props.situacao === '2'
+                  ? 'darkblue'
+                  : props.situacao === '4'
+                  ? 'darkgreen'
+                  : '',
+              textAlign: 'center',
+            }}
+          >
+            PEDIDO NÚMERO : 234234265651
+            <Typography
+              sx={{ fontWeight: 600, mt: '2vh', textAlign: 'center' }}
+            >
+              {props.situacao === '2' ? 'EM ANÁLISE' : 'APROVADO'}
+            </Typography>
+            <Typography sx={{ mt: '2vh', textAlign: 'center' }}>
+              {props.situacao === '2'
+                ? `Seu documento foi enviado  no dia ${props.dataEnviado} e está aguardando aprovação de nossos atendentes.`
+                : `Seu documento foi enviado  no dia ${props.dataEnviado} e foi aprovado por nossos atendentes.`}
+            </Typography>
+          </DialogContentText>
         )}
       </DialogContent>
 
       {/* Ações da modal Confirmar / Enviar / Cancelar */}
-      {props.tipoModal !== 'nao tenho' ? (
+      {props.tipoModal === 'envio' ? (
         <DialogActions sx={{ display: 'flex', justifyContent: 'space-around' }}>
           <Button
             sx={{
@@ -268,7 +327,7 @@ export default function ModalEnvioDocumento({
             Cancelar
           </Button>
         </DialogActions>
-      ) : (
+      ) : props.tipoModal === 'nao tenho' ? (
         <DialogActions sx={{ display: 'flex', justifyContent: 'space-around' }}>
           <Button
             sx={{
@@ -301,6 +360,8 @@ export default function ModalEnvioDocumento({
             Cancelar
           </Button>
         </DialogActions>
+      ) : (
+        ''
       )}
       <Dialog
         open={openModeloDocumento}

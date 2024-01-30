@@ -39,31 +39,8 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
 
   // States para controle de abertura de modal
   const [openNaotenho, setOpenNaotenho] = useState(false)
-  const [openColapse, setOpenColapse] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   const [openEnvioArquivo, setOpenEnvioArquivo] = useState(false)
-
-  /**
-   * Função que define o Colapse informativo de cada documento (linha expansiva abaixo do documento para informar a situação dele nos casos de aprovado, em analise e não tenho) A informação nos casos de "reenviado", ou seja, o documento recusado após "analise" é passada dentro da modal ao tentar enviar o arquivo
-   */
-  const informacaoDocumento = () => {
-    let texto
-    let exibir = false
-    switch (props.situacao) {
-      case 'aprovado':
-        exibir = true
-        texto = `Seu documento foi enviado no dia ${props.dataEnviado} e foi aprovado por nossos atendentes.`
-        break
-      case 'em analise':
-        exibir = true
-        texto = `Seu documento foi enviado para no dia ${props.dataEnviado} e está aguardando aprovação de nossos atendentes.`
-        break
-      case 'nao tenho':
-        exibir = true
-        texto = `Seu documento foi declarado como 'NÃO TENHO' no dia ${props.dataEnviado}.`
-        break
-    }
-    return { exibir, texto }
-  }
 
   /**
    * Essa função define os estilos dos botões da coluna "Enviar Documentos", também cuidando de mostrar o o status desses documentos quando já enviado.
@@ -165,8 +142,8 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
           {/* As ações do botão são: exibe Colapse (caso documento já enviado) ou exibe modais para envio de documento (caso documento pendente) */}
           <Button
             onClick={
-              informacaoDocumento().exibir
-                ? () => setOpenColapse(!openColapse)
+              props.situacao === '4' || props.situacao === '2'
+                ? () => setOpenModal(!openModal)
                 : () => {
                     setOpenEnvioArquivo(true)
                   }
@@ -179,8 +156,7 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
           </Button>
 
           {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
-          {!props.obrigatorio &&
-          (props.situacao === 'reenviar' || props.situacao === 'pendente') ? (
+          {props.situacao === '1' || props.situacao === '3' ? (
             <Button
               onClick={() => {
                 setOpenNaotenho(true)
@@ -205,8 +181,11 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
         <ModalEnvioDocumento
           props={{
             nomeEnvioDocumento: props.nome,
+            tipoModal: 'envio',
             handleValue: openEnvioArquivo,
             handleAction: setOpenEnvioArquivo,
+            situacao: props.situacao,
+            dataEnviado: props.dataEnviado,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
@@ -224,6 +203,26 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
             tipoModal: 'nao tenho',
             handleValue: openNaotenho,
             handleAction: setOpenNaotenho,
+            situacao: props.situacao,
+            dataEnviado: props.dataEnviado,
+          }}
+        ></ModalEnvioDocumento>
+      </Dialog>
+
+      <Dialog
+        open={openModal}
+        onClose={() => {
+          setOpenModal(false)
+        }}
+      >
+        <ModalEnvioDocumento
+          props={{
+            nomeEnvioDocumento: props.nome,
+            tipoModal: 'info',
+            handleValue: openModal,
+            handleAction: setOpenModal,
+            situacao: props.situacao,
+            dataEnviado: props.dataEnviado,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
