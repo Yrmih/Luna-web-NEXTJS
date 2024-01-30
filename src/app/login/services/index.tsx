@@ -1,6 +1,6 @@
 'use server'
 
-import { SolarApi } from '@/lib'
+import { solarApi } from '@/lib'
 import {
   ErrorPessoAtendimentoWithSituacaoResponse,
   Pessoa,
@@ -14,7 +14,7 @@ export async function consultarPessoaAssistida(
 ): Promise<ServiceResponse<Pessoa, ErrorPessoAtendimentoWithSituacaoResponse>> {
   try {
     const response =
-      await SolarApi.atendimentosPartes.atendimentosPartesConsultarPessoa({
+      await solarApi.atendimentosPartes.atendimentosPartesConsultarPessoa({
         cpf,
       })
     return { sucesso: true, resultado: response.data }

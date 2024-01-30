@@ -1,6 +1,6 @@
 'use server'
 
-import { SolarApi } from '@/lib'
+import { solarApi } from '@/lib'
 import { ErrorPessoAtendimentoWithSituacaoResponse } from '@/lib/solar-client/SolarApi'
 import { ServiceResponse } from '@/types'
 import { User } from 'next-auth'
@@ -15,7 +15,7 @@ export const autenticarAssistido = async ({
   ServiceResponse<User, ErrorPessoAtendimentoWithSituacaoResponse>
 > => {
   try {
-    const response = await SolarApi.authAssistidoLuna.authAssistidoLunaCreate({
+    const response = await solarApi.authAssistidoLuna.authAssistidoLunaCreate({
       cpf,
       numero_atendimento: Number(atendimento),
     })
