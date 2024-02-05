@@ -15,7 +15,7 @@ import {
 import React, { ChangeEvent, useState } from 'react'
 import BoxPergunta from '../components/BoxPergunta'
 
-export default function NovaSolicitacao() {
+export default function NovoAtendimento() {
   const opcoesLocalAtendimento = [
     {
       value: 'default',
@@ -135,7 +135,7 @@ export default function NovaSolicitacao() {
               height: '25vh',
             }}
           >
-            Nova Solicitação
+            Novo Atendimento
           </Box>
           <Stack
             direction={'column'}
@@ -297,7 +297,9 @@ export default function NovaSolicitacao() {
               alignItems={'start'}
             >
               <FormControl sx={{ width: '50vw' }}>
-                <FormLabel id="intimacao">Existe Intimação ?</FormLabel>
+                <FormLabel id="intimacao">
+                  Recebeu Intimação ou algum documento da justiça?
+                </FormLabel>
                 <RadioGroup
                   row
                   aria-labelledby="intimacao"
@@ -332,36 +334,45 @@ export default function NovaSolicitacao() {
                 helperText={'Digite o número do seu processo'}
               />
             </Box>
+            <Box
+              sx={{
+                justifyContent: 'flex-end',
+                display: 'flex',
+                width: '100%',
+              }}
+            >
+              <Button
+                sx={{
+                  marginRight: '14vw',
+                  width: '17vw',
+
+                  '@media (min-width:900px)': {
+                    width: '12vw',
+                  },
+                  '@media (min-width:1100px)': {
+                    width: '9vw',
+                  },
+                  marginTop: '3vh',
+                  mb: '2vh',
+
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
+                  '&:hover': {
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#005bc9' : '#757575',
+                  },
+                }}
+                variant="contained"
+                onClick={() => {
+                  window.location.href = '/confirmacao-solicitacao'
+                }}
+              >
+                Agendar
+              </Button>
+            </Box>
           </Stack>
         </Paper>
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          {' '}
-          <Button
-            sx={{
-              marginRight: '2vw',
-              width: '17vw',
-
-              '@media (min-width:900px)': {
-                width: '12vw',
-              },
-              '@media (min-width:1100px)': {
-                width: '9vw',
-              },
-              marginTop: '3vh',
-              mb: '2vh',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
-              '&:hover': {
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light' ? '#005bc9' : '#757575',
-              },
-            }}
-            variant="contained"
-            href="/confirmacao-solicitacao"
-          >
-            Agendar
-          </Button>
-        </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'end' }}> </Box>
       </Box>
     </>
   )

@@ -1,8 +1,92 @@
 'use client'
-import { Box, Paper, Stack } from '@mui/material'
+import { Box, Grid, Paper } from '@mui/material'
 
-import ContainerAtendimento from '../components/ContainerAtendimento'
+import { Tabela } from '../components/Tabela'
 
+import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicitacoes'
+interface Atendimento {
+  situacao: string
+  numero?: string
+  dataAgendamento?: string
+  horarioAgendamento?: string
+  quantidadePendencia: number
+  tipo: 'AÇÃO DE ALIMENTOS'
+}
+function encontrarAtendimentosPorSituacao(
+  Atendimentos: Atendimento[],
+  situacoes: string[],
+): Atendimento[] {
+  return Atendimentos.filter((doc) => situacoes.includes(doc.situacao))
+}
+
+// Simulação temporária de um retorno de dados
+// TODO: Remover essa simulação quando realizar a integração
+// Situações:
+// 1 - pendente
+// 2 - agendado
+// 3 - em análise
+// 4 - atendido
+
+const Atendimentos: Atendimento[] = [
+  {
+    situacao: '1',
+    numero: '230830099186',
+    quantidadePendencia: 2,
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '1',
+    numero: '250870015123',
+    quantidadePendencia: 2,
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '2',
+    numero: '120850312253',
+    quantidadePendencia: 0,
+    dataAgendamento: '05/11/2024',
+    horarioAgendamento: '15:10 hs',
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '3',
+    numero: '163450614763',
+    dataAgendamento: '11/06/2024',
+    quantidadePendencia: 0,
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '3',
+    numero: '184555144763',
+    dataAgendamento: '22/05/2024',
+    quantidadePendencia: 0,
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '4',
+    numero: '163619845461',
+    dataAgendamento: '27/09/2024',
+    quantidadePendencia: 0,
+    horarioAgendamento: '16:10 hs',
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '4',
+    numero: '343610154461',
+    dataAgendamento: '15/08/2024',
+    quantidadePendencia: 0,
+    horarioAgendamento: '11:20 hs',
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+  {
+    situacao: '4',
+    numero: '984615464461',
+    dataAgendamento: '12/12/2023',
+    quantidadePendencia: 0,
+    horarioAgendamento: '15:30 hs',
+    tipo: 'AÇÃO DE ALIMENTOS',
+  },
+]
 export default function HomePage() {
   return (
     <>
@@ -14,9 +98,6 @@ export default function HomePage() {
       >
         <Paper
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
             p: 0,
             m: 0,
           }}
@@ -36,30 +117,134 @@ export default function HomePage() {
               height: '25vh',
             }}
           >
-            Meus Atendimentos
+            Minhas Solicitações
           </Box>
-          <Stack
-            direction={'column'}
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light' ? 'white' : '#1b1b1b',
-              padding: '2vh',
-              paddingBottom: '10vh',
-
-              alignItems: 'center',
-              boxShadow: 2,
-              borderRadius: '3vh',
-              marginTop: '-8vh',
-              marginBottom: '4vh',
-              width: '95%',
-            }}
-          >
-            <ContainerAtendimento props={{ tipoAtendimento: 'pre' }} />
-            <ContainerAtendimento props={{ tipoAtendimento: 'atendimento' }} />
-            <ContainerAtendimento props={{ tipoAtendimento: 'agendamento' }} />
-          </Stack>
         </Paper>
       </Box>
+      <Grid
+        container
+        sx={{
+          flexDirection: 'row-reverse',
+          marginTop: '-8vh',
+          width: '100%', // O width segue o tamanho disposto para <main> do layout
+        }}
+      >
+        {/* Detalhes do assistido */}
+        <Grid
+          item
+          lg={4}
+          md={4}
+          sm={12}
+          xs={12}
+          sx={{
+            paddingBottom: '15px',
+            paddingLeft: '2vw',
+            paddingRight: '2vw',
+          }}
+        >
+          {/* Componente que trás dados do perfil do assistido */}
+          <CardInfoMinhasSolicitacoes
+            props={{
+              quantidadeDocumentosPendentes: Atendimentos.filter(
+                (item) => item?.quantidadePendencia !== 0,
+              ).length,
+            }}
+          />
+          {/* Box da margin de um componente para o outro */}
+          <Box
+            sx={{
+              marginBottom: '15px',
+            }}
+          ></Box>
+          {/* Componente que trás dados de processos do assistido */}
+        </Grid>
+        {/* Apresenta: Detalhes do atendimento / Atendimentos pendentes */}
+        <Grid
+          item
+          lg={8}
+          md={8}
+          sm={12}
+          xs={12}
+          sx={{
+            paddingLeft: '2vw',
+            paddingRight: '2vw',
+            paddingBottom: '15px',
+          }}
+        >
+          {/* Box da margin de um componente para o outro */}
+
+          <Grid
+            container
+            component={Paper}
+            elevation={3}
+            sx={{
+              width: '100%',
+              boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
+              borderRadius: '3vh', // Adicione a borda arredondada
+            }}
+          ></Grid>
+          {/* Componente que trás dados dos Atendimentos do atendimento */}
+          <Grid
+            container
+            component={Paper}
+            elevation={3}
+            sx={{
+              p: 4,
+              boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
+              borderRadius: '3vh', // Adicione a borda arredondada
+            }}
+          >
+            <Tabela
+              props={{
+                corHeaderTabela: 'vermelho',
+                iconeHeader: 'atencao',
+                numeroColunas: 3,
+                nomeHeader: 'PEDIDOS COM PENDÊNCIAS',
+                nomeColunaEsquerda: 'Atendimento',
+                nomeColunaDireita: 'Visualizar',
+                nomeColunaCentro: 'PENDÊNCIAS',
+                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['1']),
+              }}
+            ></Tabela>
+            <Tabela
+              props={{
+                corHeaderTabela: 'azul',
+                iconeHeader: 'relogio',
+                numeroColunas: 3,
+                nomeHeader: 'AGENDAMENTOS',
+                nomeColunaEsquerda: 'Atendimento',
+                nomeColunaDireita: 'Visualizar',
+                nomeColunaCentro: 'Descrição',
+                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['2']),
+              }}
+            ></Tabela>
+            <Tabela
+              props={{
+                corHeaderTabela: 'amarelo',
+                iconeHeader: 'relogio',
+                numeroColunas: 3,
+                nomeHeader: 'PEDIDOS COM PENDÊNCIAS',
+                nomeColunaEsquerda: 'Atendimento',
+                nomeColunaDireita: 'Visualizar',
+                nomeColunaCentro: 'Descrição',
+                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['3']),
+              }}
+            ></Tabela>
+            <Tabela
+              props={{
+                corHeaderTabela: 'verde',
+                iconeHeader: 'aprovado',
+                numeroColunas: 3,
+                nomeHeader: 'ATENDIDOS',
+                nomeColunaEsquerda: 'Atendimento',
+                nomeColunaDireita: 'Visualizar',
+                nomeColunaCentro: 'Descrição',
+                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['4']),
+              }}
+            ></Tabela>
+          </Grid>
+        </Grid>
+      </Grid>
     </>
   )
 }

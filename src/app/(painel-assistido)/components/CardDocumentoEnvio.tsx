@@ -10,6 +10,7 @@ interface Documento {
   nome: string
   dataEnviado: string | null
   obrigatorio: boolean
+  dadoRecusa?: string | null | any
 }
 function encontrarDocumentosPorSituacao(
   documentos: Documento[],
@@ -49,6 +50,7 @@ const documentos: Documento[] = [
     nome: 'FOTO 3X4',
     dataEnviado: '15/08/1997',
     obrigatorio: false,
+    dadoRecusa: ' Foto não visível',
   },
   {
     situacao: '4',

@@ -1,5 +1,5 @@
 'use client'
-import { Box, CardHeader, Paper, Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 import { DetalhesAtendimento } from './DetalhesAtendimento'
 
 export default function DetalhesAtendimentoPage({

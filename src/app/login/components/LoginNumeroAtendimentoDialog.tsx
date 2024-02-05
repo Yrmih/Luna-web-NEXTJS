@@ -61,14 +61,10 @@ export function LoginAtendimentoDialog() {
       <Box sx={{ width: '100%', display: isSubmitting ? undefined : 'none' }}>
         <LinearProgress />
       </Box>
-      <DialogTitle>
-        Agora você deve digitar o número do seu atendimento.
-      </DialogTitle>
+      <DialogTitle>Digite o seu número de Atendimento.</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
-          É aquele número que você recebeu quando fez o primeiro acesso aqui.
-          Você anotou ou fez uma foto dele? Caso não encontre o seu número,
-          clique abaixo em &quot;Esqueceu Seu Número&quot;
+          Caso não tenha, clique em 'Não Tenho'
         </DialogContentText>
         <TextField
           fullWidth
@@ -129,9 +125,8 @@ export function LoginAtendimentoDialog() {
             },
           }}
           variant="contained"
-          startIcon={matches ? <PhoneAndroidIcon /> : ''}
         >
-          Esqueceu seu número ?
+          Não tenho ?
         </Button>
       </DialogActions>
     </Dialog>

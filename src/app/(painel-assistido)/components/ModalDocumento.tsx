@@ -11,6 +11,7 @@ import {
   DialogActions,
   Dialog,
   useMediaQuery,
+  TextField,
 } from '@mui/material'
 
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -44,6 +45,7 @@ interface ModalEnvioDocumentoProps {
     handleAction: Dispatch<SetStateAction<boolean>>
     situacao: string
     dataEnviado: string | null | undefined
+    dadoRecusa?: string | null
   }
 }
 
@@ -114,8 +116,24 @@ export default function ModalEnvioDocumento({
           // ! Conteúdo de texto para quando a modal é uma "não tenho"
           <>
             <DialogContentText>
-              Você está prestes a declarar que não possui esse documento, tem
-              certeza que deseja continuar?
+              Os Documentos obrigatórios são necessários para agilizar seu
+              agendamento
+              <Box
+                component="form"
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  '& .MuiTextField-root': { m: 1, width: '32vw' },
+                }}
+                autoComplete="off"
+              >
+                <TextField
+                  id="outlined-multiline-static"
+                  label="Descreva o seu caso"
+                  multiline
+                  rows={3}
+                />
+              </Box>
             </DialogContentText>
             <Box
               display="flex"
@@ -160,6 +178,12 @@ export default function ModalEnvioDocumento({
               }}
             >
               {`${props.nomeEnvioDocumento}`}
+
+              {props.situacao === '3' ? (
+                <Typography>{`${props.dadoRecusa}`}</Typography>
+              ) : (
+                <></>
+              )}
             </DialogContentText>
 
             {/* Botões para instrução e carregamento do arquivo */}

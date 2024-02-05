@@ -41,6 +41,11 @@ interface TabelaProps {
     nomeColunaEsquerda: string
     nomeColunaDireita: string
     nomeColunaCentro?: string
+    numero?: string
+    dataAgendamento?: string
+    horarioAgendamento?: string
+    quantidadePendencia?: number
+    tipo?: string
     dados: any
   }
 }
@@ -95,8 +100,19 @@ export function Tabela({ props }: TabelaProps) {
         >
           {/* Nome das colunas */}
           <TableRow>
-            <TableCell>Nome do documento</TableCell>
-            <TableCell sx={{ textAlign: 'center' }}>Enviar Documento</TableCell>
+            <TableCell component="th" sx={{ textAlign: 'left' }}>
+              {props.nomeColunaEsquerda}
+            </TableCell>
+            {props.numeroColunas === 3 ? (
+              <TableCell sx={{ textAlign: 'center' }}>
+                {props.nomeColunaCentro}
+              </TableCell>
+            ) : null}
+            <TableCell
+              sx={{ textAlign: props.numeroColunas === 3 ? 'center' : 'right' }}
+            >
+              {props.nomeColunaDireita}
+            </TableCell>
           </TableRow>
         </TableHead>
         {/* Body da tabela */}
@@ -110,6 +126,13 @@ export function Tabela({ props }: TabelaProps) {
                 situacao: item.situacao,
                 obrigatorio: item.obrigatorio,
                 dataEnviado: item.dataEnviado ? item.dataEnviado : null,
+                dadoRecusa: item.dadoRecusa ? item.dadoRecusa : null,
+                numeroColunas: props.numeroColunas,
+                numero: item.numero,
+                dataAgendamento: item.dataAgendamento,
+                horarioAgendamento: item.horarioAgendamento,
+                quantidadePendencia: item.quantidadePendencia,
+                tipo: item.tipo,
               }}
             ></EnviodeDocumento>
           ))}

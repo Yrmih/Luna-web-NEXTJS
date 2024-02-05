@@ -9,6 +9,7 @@ import {
   TableCell,
   Dialog,
   rgbToHex,
+  Box,
 } from '@mui/material'
 import { useState } from 'react'
 
@@ -22,6 +23,13 @@ interface EnviodeDocumentoProps {
     situacao: string
     obrigatorio: boolean
     dataEnviado?: string | null
+    dadoRecusa?: string | null
+    numeroColunas?: 2 | 3
+    numero: string | undefined
+    dataAgendamento?: string | null
+    horarioAgendamento?: string | null
+    quantidadePendencia?: number | undefined
+    tipo?: string
   }
 }
 
@@ -56,6 +64,7 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
       vermelho: 'rgb(220, 0, 0, 1)',
       verde: 'rgb(0, 100, 0, 1)',
       azul: 'rgb(39, 122, 149, 1)',
+      azulEscuro: 'rgb(0, 45, 120, 1)',
       cinza: 'rgb(169, 169, 169, 1)',
     }
     let cor = ''
@@ -83,6 +92,10 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
     } else {
       cor = cores.cinza
       texto = 'NÃO TENHO'
+    }
+    if (props.numeroColunas === 3) {
+      cor = cores.azulEscuro
+      texto = 'VISUALIZAR'
     }
 
     const sxTexto = {
@@ -122,41 +135,96 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
       {/* Define a linha com estilo próprio para poder alternar entre as cores "const StyledTableRow". Esse é o container da linha */}
       <StyledTableRow>
         {/* Define celula da linha referente a primeira coluna da tabela (Nome do documento) */}
-        <TableCell sx={{ p: '5px' }}>
-          <Typography
-            sx={{ fontSize: '12px', fontWeight: 'bold', ml: '0.5vw' }}
-          >
-            {props.nome?.toUpperCase()}
-          </Typography>
+        <TableCell
+          sx={{
+            width:
+              props.numeroColunas === 3 ? '30% !important' : '50% !important',
+          }}
+        >
+          {props.numeroColunas === 3 ? (
+            <>
+              <Typography
+                sx={{
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {`${props.tipo}`}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {` NÚMERO: ${props.numero}`}
+              </Typography>
+            </>
+          ) : (
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 'bold',
+              }}
+            >
+              {props.nome.toUpperCase()}
+            </Typography>
+          )}
         </TableCell>
+        {props.numeroColunas === 3 ? (
+          <TableCell
+            sx={{
+              fontWeight: 600,
+              color:
+                props.quantidadePendencia && props.quantidadePendencia !== 0
+                  ? 'red'
+                  : 'black',
+              width: '40% !important',
+            }}
+            align="center"
+          >
+            {props.quantidadePendencia !== 0
+              ? `${props.quantidadePendencia} DOCUMENTOS PENDENTES`
+              : props.situacao === '1' || props.situacao === '3'
+              ? 'NENHUM DOCUMENTO PENDENTE'
+              : `${props.dataAgendamento} as ${props.horarioAgendamento}`}
+          </TableCell>
+        ) : null}
         {/* Define celula da linha referente a segunda coluna da tabela (Enviar Documento) */}
         <TableCell
           align="center"
           sx={{
-            width: '13vw !important',
-            justifyContent: 'center',
-            allingContent: 'center',
-            p: '5px',
+            display: props.numeroColunas === 3 ? 'null' : 'grid',
+            width: props.numeroColunas === 3 ? '30% !important' : '100%',
+            justifyContent: props.numeroColunas === 3 ? 'null' : 'end',
           }}
         >
-          {/* As ações do botão são: exibe Colapse (caso documento já enviado) ou exibe modais para envio de documento (caso documento pendente) */}
-          <Button
-            onClick={
-              props.situacao === '4' || props.situacao === '2'
-                ? () => setOpenModal(!openModal)
-                : () => {
-                    setOpenEnvioArquivo(true)
-                  }
-            }
-            sx={estiloBotao().sxBotao}
-          >
-            <Typography sx={estiloBotao().sxTexto}>
-              {estiloBotao().texto}
-            </Typography>
-          </Button>
+          <Box>
+            {/* As ações do botão são: exibe Colapse (caso documento já enviado) ou exibe modais para envio de documento (caso documento pendente) */}
+            <Button
+              onClick={
+                (props.situacao === '4' && props.numeroColunas === 2) ||
+                (props.situacao === '2' && props.numeroColunas === 2)
+                  ? () => setOpenModal(!openModal)
+                  : props.numeroColunas === 2
+                  ? () => {
+                      setOpenEnvioArquivo(true)
+                    }
+                  : () => {
+                      window.location.href = `atendimentos/${props.numero}`
+                    }
+              }
+              sx={estiloBotao().sxBotao}
+            >
+              <Typography sx={estiloBotao().sxTexto}>
+                {estiloBotao().texto}
+              </Typography>
+            </Button>
+          </Box>
 
           {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
-          {props.situacao === '1' || props.situacao === '3' ? (
+          {(props.situacao === '1' && props.numeroColunas === 2) ||
+          (props.situacao === '3' && props.numeroColunas === 2) ? (
             <Button
               onClick={() => {
                 setOpenNaotenho(true)
@@ -186,6 +254,7 @@ export default function EnviodeDocumento({ props }: EnviodeDocumentoProps) {
             handleAction: setOpenEnvioArquivo,
             situacao: props.situacao,
             dataEnviado: props.dataEnviado,
+            dadoRecusa: props.dadoRecusa ? props.dadoRecusa : null,
           }}
         ></ModalEnvioDocumento>
       </Dialog>

@@ -13,7 +13,7 @@ export function BottoMenu() {
     setValue(newValue)
   }
 
-  const NovaSolicitacaoIcon = MENU_PRINCIPAL_LINKS[0].icon
+  const NovoAtendimentoIcon = MENU_PRINCIPAL_LINKS[0].icon
   const MinhasSolicitacoesIcon = MENU_PRINCIPAL_LINKS[1].icon
   const EditarContato = MENU_PRINCIPAL_LINKS[2].icon
 
@@ -40,7 +40,7 @@ export function BottoMenu() {
         label={MENU_PRINCIPAL_LINKS[0].text}
         value={MENU_PRINCIPAL_LINKS[0].key}
         href={MENU_PRINCIPAL_LINKS[0].href}
-        icon={<NovaSolicitacaoIcon />}
+        icon={<NovoAtendimentoIcon />}
       />
       <BottomNavigationAction
         key={MENU_PRINCIPAL_LINKS[2].key}
