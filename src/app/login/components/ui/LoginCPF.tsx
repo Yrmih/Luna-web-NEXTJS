@@ -92,7 +92,7 @@ export function LoginCPF() {
           })}
         />
         <Button
-          data-testid='login-cpf-proximo'
+          data-testid="login-cpf-proximo"
           onClick={() =>
             verificarAssistido(MaskUtils.getOnlyDigits(watch('cpf')))
           }
@@ -111,7 +111,7 @@ export function LoginCPF() {
           Próximo
         </Button>
         <CircularProgress
-        data-testid='login-cpf-loding'
+          data-testid="login-cpf-loading"
           sx={{ mx: 2, display: isLoading ? undefined : 'none' }}
         />
       </Box>
