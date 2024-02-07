@@ -20,7 +20,7 @@ describe('Validação dos estados do input de CPF e o botão de próximo', () =>
     expect(button).toBeEnabled()
   }
 
-  test('Verificar se no estado inicial da tela de login com CPF o botão está desabilitado ', () => {
+  test('Iniciar tela de login o botão desabilitado ', () => {
     render(
       <LoginStateDialogsProvider>
         <LoginUseFormStateProvider>
@@ -32,7 +32,7 @@ describe('Validação dos estados do input de CPF e o botão de próximo', () =>
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Verificar se acusou erro no TextField de login para CPF inválido', async () => {
+  test('Acusou erro no input CPF inválido e desabilitou botão', async () => {
     const user = userEvent.setup()
 
     render(
@@ -54,7 +54,7 @@ describe('Validação dos estados do input de CPF e o botão de próximo', () =>
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Verificar se deabilitou botão de login quando o TextField de CPF está zavio', async () => {
+  test('Desabilitou botão quando o TextField de CPF está zavio', async () => {
     const user = userEvent.setup()
 
     render(
@@ -72,7 +72,7 @@ describe('Validação dos estados do input de CPF e o botão de próximo', () =>
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Verificar estado do textField login para CPF correto', async () => {
+  test('habilitou botão no input de CPF correto', async () => {
     const user = userEvent.setup()
     render(
       <LoginStateDialogsProvider>
