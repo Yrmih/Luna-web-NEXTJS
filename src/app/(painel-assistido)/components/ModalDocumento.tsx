@@ -64,12 +64,27 @@ export default function ModalEnvioDocumento({
   const [openModeloFoto, setOpenModeloFoto] = useState(false)
 
   const handleClique = () => {
+    if (descricao.length < 20) {
+      seterroDescricao(true)
+    } else {
+      seterroDescricao(false)
+    }
     // ! Quando o botão é clicado, alternamos o estado para acionar a animação de tremor
     setTremendo(true)
     setTimeout(() => {
       setTremendo(false)
     }, 500) // ! Garante o tempo para execução completa da animação
   }
+
+  const [descricao, setDescricao] = useState('')
+  const handleChange = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
+    setDescricao(event.target.value)
+  }
+
+  const [erroDescricao, seterroDescricao] = useState(false)
+
   const matches = useMediaQuery('(min-width:900px)')
   return (
     <>
@@ -123,7 +138,7 @@ export default function ModalEnvioDocumento({
                 sx={{
                   display: 'flex',
                   justifyContent: 'center',
-                  '& .MuiTextField-root': { m: 1, width: '32vw' },
+                  '& .MuiTextField-root': { m: 1, width: '100vw' },
                 }}
                 autoComplete="off"
               >
@@ -131,6 +146,14 @@ export default function ModalEnvioDocumento({
                   id="outlined-multiline-static"
                   label="Descreva o seu caso"
                   multiline
+                  value={descricao}
+                  error={erroDescricao}
+                  helperText={
+                    !erroDescricao
+                      ? null
+                      : 'A descrição precisa ter no mínimo 20 caracteres'
+                  }
+                  onChange={handleChange}
                   rows={3}
                 />
               </Box>
@@ -164,7 +187,7 @@ export default function ModalEnvioDocumento({
                 <CheckBoxIcon
                   sx={{ display: estadoBotao ? 'flex' : 'none', mr: '1vw' }}
                 />
-                Li e entendi que enviar os documentos é obrigatório
+                Li e entendi
               </Button>
             </Box>
           </>

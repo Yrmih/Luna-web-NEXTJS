@@ -2,7 +2,7 @@
 
 // external libraries
 import { MaskUtils } from '@/utils/MaskUtils'
-import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid'
+
 import SendIcon from '@mui/icons-material/Send'
 import {
   Box,
@@ -126,7 +126,7 @@ export function LoginAtendimentoDialog() {
           }}
           variant="contained"
         >
-          Não tenho ?
+          Não tenho
         </Button>
       </DialogActions>
     </Dialog>

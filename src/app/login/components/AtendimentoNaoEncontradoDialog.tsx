@@ -16,7 +16,7 @@ export function AtendimentoNaoEncontradoDialog() {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Humm, eu não encontrei esse atendimento.</DialogTitle>
+      <DialogTitle>Atendimento não encontrado.</DialogTitle>
       <DialogContent>
         <DialogContentText marginBottom={'2vh'}>
           Você pode conferir o número que você digitou para ver se está correto?{' '}
