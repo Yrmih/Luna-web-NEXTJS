@@ -89,7 +89,7 @@ export function CadastroAssistido({ step }: CadastroAssistidoProps) {
 
   const isTermosAceito = watch('qualificacaoFinanceira.aceitoTermosCondicoes')
 
-  const cadastroAssistidoWatchedFields = watch()
+  const cadastroAssistidoWatchedFields: CadastroAssistidoInputsForm = watch()
   useEffect(() => {
     function saveFormStateToSession(data: CadastroAssistidoInputsForm) {
       if (JSON.stringify(data) !== JSON.stringify(defaultValues)) {

@@ -3,20 +3,37 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 // Internal
+import { ContraintErrorPessoaAssistida } from '@/lib/api/solar/constants'
+import { ErrorPessoAtendimentoWithSituacao } from '@/lib/api/solar/types'
 import { LoginCPF } from '../components/ui/LoginCPF'
 import {
   LoginStateDialogsProvider,
   LoginUseFormStateProvider,
+  useLoginStateDialogs,
 } from '../context'
+import { consultarPessoaAssistida } from '../services'
 
-describe('Validação dos estados do input de CPF e o botão de próximo', () => {
+jest.mock('../services', () => ({
+  consultarPessoaAssistida: jest.fn(),
+}))
+
+jest.mock('../context', () => ({
+  ...jest.requireActual('../context'),
+  useLoginStateDialogs: jest.fn().mockReturnValue({
+    handleCloseAtendimentoNaoEncontradoDialog: jest.fn(),
+    handleCloseCPFNaoEncontradoDialog: jest.fn(),
+    handleCloseNaoTemAtendimentoDialog: jest.fn(),
+  }), // apenas os "handles" usados no componente
+}))
+
+describe('LoginCPF: Validação dos estados do input de CPF e o botão de próximo', () => {
   const verificarSeBotaoEstaDesabilitado = () => {
-    const button = screen.getByTestId('login-cpf-proximo')
+    const button = screen.getByRole('button')
     expect(button).toBeDisabled()
   }
 
   const verificarSeBotaoEstaHabilitado = () => {
-    const button = screen.getByTestId('login-cpf-proximo')
+    const button = screen.getByRole('button')
     expect(button).toBeEnabled()
   }
 
@@ -92,5 +109,51 @@ describe('Validação dos estados do input de CPF e o botão de próximo', () =>
     expect(textFieldLoginCPF).toHaveAttribute('aria-invalid', 'false')
     expect(textFieldLoginCPF).toHaveValue(cpfCorretoMascarado)
     verificarSeBotaoEstaHabilitado()
+  })
+})
+
+describe('LoginCPF: Verificação do fluxo de login na etapa de entrada com CPF', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  const user = userEvent.setup()
+
+  test('Se assistido não cadastrado, abrir dialog de assistido não encontrado', async () => {
+    const cpfNaoCadastrado = '42571133080'
+    const mockData: ErrorPessoAtendimentoWithSituacao = {
+      situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
+      mensagem: 'Assistido não cadastrado',
+    }
+    const mockSuccess = false
+
+    const mockConsultarPessoaAssistida = consultarPessoaAssistida as jest.Mock
+    mockConsultarPessoaAssistida.mockImplementation(async (cpf: string) => {
+      return { data: mockData, success: mockSuccess }
+    })
+
+    const mockUseLoginStateDialogs = useLoginStateDialogs as jest.Mock
+    mockUseLoginStateDialogs.mockReturnValue({
+      handleCloseCPFNaoEncontradoDialog: jest.fn(),
+      handleCloseNaoTemAtendimentoDialog: jest.fn(),
+    })
+
+    render(
+      <LoginStateDialogsProvider>
+        <LoginUseFormStateProvider>
+          <LoginCPF />
+        </LoginUseFormStateProvider>
+      </LoginStateDialogsProvider>,
+    )
+    const textFieldCPF = screen.getByRole('textbox', { name: /cpf/i })
+    await user.type(textFieldCPF, cpfNaoCadastrado)
+
+    const buttonProximo = screen.getByRole('button')
+    await user.click(buttonProximo)
+
+    expect(consultarPessoaAssistida).toHaveBeenCalledWith(cpfNaoCadastrado)
+    expect(
+      useLoginStateDialogs().handleCloseCPFNaoEncontradoDialog,
+    ).toHaveBeenCalled()
   })
 })
