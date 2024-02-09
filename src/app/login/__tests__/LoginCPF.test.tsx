@@ -26,7 +26,7 @@ jest.mock('../context', () => ({
   }), // apenas os "handles" usados no componente
 }))
 
-describe('LoginCPF: Validação dos estados do input de CPF e o botão de próximo', () => {
+describe('LoginCPF: Validação para entrada de CPF', () => {
   const verificarSeBotaoEstaDesabilitado = () => {
     const button = screen.getByRole('button')
     expect(button).toBeDisabled()
@@ -37,7 +37,7 @@ describe('LoginCPF: Validação dos estados do input de CPF e o botão de próxi
     expect(button).toBeEnabled()
   }
 
-  test('Iniciar tela de login o botão desabilitado ', () => {
+  test('Botão deveria está desabilitar no início da componente', () => {
     render(
       <LoginStateDialogsProvider>
         <LoginUseFormStateProvider>
@@ -49,7 +49,7 @@ describe('LoginCPF: Validação dos estados do input de CPF e o botão de próxi
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Acusou erro no input CPF inválido e desabilitou botão', async () => {
+  test('Deveria acusar erro no TextField e desabilitar botão na entrada de CPF inválido', async () => {
     const user = userEvent.setup()
 
     render(
@@ -71,7 +71,7 @@ describe('LoginCPF: Validação dos estados do input de CPF e o botão de próxi
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Desabilitou botão quando o TextField de CPF está zavio', async () => {
+  test('Deveria desabilitar botão quando o TextField de CPF está vazio', async () => {
     const user = userEvent.setup()
 
     render(
@@ -89,7 +89,7 @@ describe('LoginCPF: Validação dos estados do input de CPF e o botão de próxi
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('habilitou botão no input de CPF correto', async () => {
+  test('Deveria habilitar botão e não acusar erro no TextField na entrada de CPF correto', async () => {
     const user = userEvent.setup()
     render(
       <LoginStateDialogsProvider>
@@ -112,14 +112,14 @@ describe('LoginCPF: Validação dos estados do input de CPF e o botão de próxi
   })
 })
 
-describe('LoginCPF: Verificação do fluxo de login na etapa de entrada com CPF', () => {
+describe('LoginCPF: Etapa de verificação do usuário no Login', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   const user = userEvent.setup()
 
-  test('Se assistido não cadastrado, abrir dialog de assistido não encontrado', async () => {
+  test('Deveria abrir dialogo não cadastrado quando assistido não é encontrado', async () => {
     const cpfNaoCadastrado = '42571133080'
     const mockData: ErrorPessoAtendimentoWithSituacao = {
       situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
