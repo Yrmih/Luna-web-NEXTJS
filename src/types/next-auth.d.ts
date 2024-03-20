@@ -5,6 +5,6 @@ declare module 'next-auth' {
     id: number
     nome: string
     email?: string
-    tipo?: string
+    tipo?: 0 | 1 | 4 | 5
   }
 }
