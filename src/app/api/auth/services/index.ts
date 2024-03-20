@@ -15,7 +15,7 @@ export const autenticarAssistido = async ({
   ServiceResponse<User, ErrorPessoAtendimentoWithSituacaoResponse>
 > => {
   try {
-    const response = await solarApi.authAssistidoLuna.authAssistidoLunaCreate({
+    const response = await solarApi.authAssistido.authAssistidoCreate({
       cpf,
       numero_atendimento: Number(atendimento),
     })
