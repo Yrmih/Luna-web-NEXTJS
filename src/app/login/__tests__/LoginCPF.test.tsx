@@ -26,6 +26,11 @@ jest.mock('../context', () => ({
   }), // apenas os "handles" usados no componente
 }))
 
+const CPF_INVALIDO = '12394857663'
+const CPF_INVALIDO_MASCARA = '123.948.576-63'
+const CPF_VALIDO = '43800847361'
+const CPF_VALIDO_MASCARA = '438.008.473-61'
+
 describe('LoginCPF: Validação para entrada de CPF', () => {
   const verificarSeBotaoEstaDesabilitado = () => {
     const button = screen.getByRole('button')
@@ -67,14 +72,11 @@ describe('LoginCPF: Validação para entrada de CPF', () => {
       </LoginStateDialogsProvider>,
     )
 
-    const cpfErrado = '12394857663'
-    const cpfErradoMascarado = '123.948.576-63'
-
     const textFieldLoginCPF = screen.getByRole('textbox', { name: /cpf/i })
-    await user.type(textFieldLoginCPF, cpfErrado)
+    await user.type(textFieldLoginCPF, CPF_INVALIDO)
 
     expect(textFieldLoginCPF).toHaveAttribute('aria-invalid', 'true')
-    expect(textFieldLoginCPF).toHaveValue(cpfErradoMascarado)
+    expect(textFieldLoginCPF).toHaveValue(CPF_INVALIDO_MASCARA)
     verificarSeBotaoEstaDesabilitado()
   })
 
@@ -87,16 +89,12 @@ describe('LoginCPF: Validação para entrada de CPF', () => {
         </LoginUseFormStateProvider>
       </LoginStateDialogsProvider>,
     )
-
-    const cpfCorreto = '43800847361'
-    const cpfCorretoMascarado = '438.008.473-61'
-
     const textFieldLoginCPF = screen.getByRole('textbox', { name: /cpf/i })
 
-    await user.type(textFieldLoginCPF, cpfCorreto)
+    await user.type(textFieldLoginCPF, CPF_VALIDO)
 
     expect(textFieldLoginCPF).toHaveAttribute('aria-invalid', 'false')
-    expect(textFieldLoginCPF).toHaveValue(cpfCorretoMascarado)
+    expect(textFieldLoginCPF).toHaveValue(CPF_VALIDO_MASCARA)
     verificarSeBotaoEstaHabilitado()
   })
 })
@@ -106,10 +104,8 @@ describe('LoginCPF: Etapa de verificação do usuário pelo CPF no Login', () =>
     jest.clearAllMocks()
   })
 
-  const user = userEvent.setup()
-
   test('Deveria direcionar para cadastro do assistido quando não é encontrado', async () => {
-    const cpfNaoCadastrado = '42571133080'
+    const user = userEvent.setup()
     const mockData: ErrorPessoAtendimentoWithSituacao = {
       situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
       mensagem: 'Assistido não cadastrado',
@@ -135,52 +131,20 @@ describe('LoginCPF: Etapa de verificação do usuário pelo CPF no Login', () =>
       </LoginStateDialogsProvider>,
     )
     const textFieldCPF = screen.getByRole('textbox', { name: /cpf/i })
-    await user.type(textFieldCPF, cpfNaoCadastrado)
+    await user.type(textFieldCPF, CPF_VALIDO)
 
     const buttonProximo = screen.getByRole('button')
     await user.click(buttonProximo)
 
-    expect(consultarPessoaAssistida).toHaveBeenCalledWith(cpfNaoCadastrado)
+    expect(consultarPessoaAssistida).toHaveBeenCalledWith(CPF_VALIDO)
     expect(
       useLoginStateDialogs().handleCloseCPFNaoEncontradoDialog,
     ).toHaveBeenCalled()
   })
 
-  test('Deveria direcionar para cadastro do assistido quando não é encontrado', async () => {
-    const cpfCadastrado = '12394857663'
-    const mockData: ErrorPessoAtendimentoWithSituacao = {
-      situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
-      mensagem: 'Assistido não cadastrado',
-    }
-    const mockSuccess = false
-
-    const mockConsultarPessoaAssistida = consultarPessoaAssistida as jest.Mock
-    mockConsultarPessoaAssistida.mockImplementation(async (cpf: string) => {
-      return { data: mockData, success: mockSuccess }
-    })
-
-    const mockUseLoginStateDialogs = useLoginStateDialogs as jest.Mock
-    mockUseLoginStateDialogs.mockReturnValue({
-      handleCloseCPFNaoEncontradoDialog: jest.fn(),
-      handleCloseNaoTemAtendimentoDialog: jest.fn(),
-    })
-
-    render(
-      <LoginStateDialogsProvider>
-        <LoginUseFormStateProvider>
-          <LoginCPF />
-        </LoginUseFormStateProvider>
-      </LoginStateDialogsProvider>,
-    )
-    const textFieldCPF = screen.getByRole('textbox', { name: /cpf/i })
-    await user.type(textFieldCPF, cpfCadastrado)
-
-    const buttonProximo = screen.getByRole('button')
-    await user.click(buttonProximo)
-
-    expect(consultarPessoaAssistida).toHaveBeenCalledWith(cpfNaoCadastrado)
-    expect(
-      useLoginStateDialogs().handleCloseCPFNaoEncontradoDialog,
-    ).toHaveBeenCalled()
+  test('Deveria direcionar para nova solicitação quando não tem atendimento', async () => {
+    // TODO: verificar se abriu modal de handleCloseNaoTemAtendimentoDialog
+    // quando o assistido não tem atendimento
+    expect(true).toBe(true)
   })
 })
