@@ -37,7 +37,8 @@ describe('LoginCPF: Validação para entrada de CPF', () => {
     expect(button).toBeEnabled()
   }
 
-  test('Botão deveria está desabilitar no início da componente', () => {
+  test('Deveria não permitir busca de assistido sem entrar com CPF', async () => {
+    const user = userEvent.setup()
     render(
       <LoginStateDialogsProvider>
         <LoginUseFormStateProvider>
@@ -47,9 +48,15 @@ describe('LoginCPF: Validação para entrada de CPF', () => {
     )
 
     verificarSeBotaoEstaDesabilitado()
+
+    const cpfVazio = ' '
+
+    const textFieldLoginCPF = screen.getByRole('textbox', { name: /cpf/i })
+    await user.type(textFieldLoginCPF, cpfVazio)
+    verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Deveria acusar erro no TextField e desabilitar botão na entrada de CPF inválido', async () => {
+  test('Deveria acusar erro e não permitir login com CPF inválido', async () => {
     const user = userEvent.setup()
 
     render(
@@ -71,25 +78,7 @@ describe('LoginCPF: Validação para entrada de CPF', () => {
     verificarSeBotaoEstaDesabilitado()
   })
 
-  test('Deveria desabilitar botão quando o TextField de CPF está vazio', async () => {
-    const user = userEvent.setup()
-
-    render(
-      <LoginStateDialogsProvider>
-        <LoginUseFormStateProvider>
-          <LoginCPF />
-        </LoginUseFormStateProvider>
-      </LoginStateDialogsProvider>,
-    )
-
-    const cpfVazio = ' '
-
-    const textFieldLoginCPF = screen.getByRole('textbox', { name: /cpf/i })
-    await user.type(textFieldLoginCPF, cpfVazio)
-    verificarSeBotaoEstaDesabilitado()
-  })
-
-  test('Deveria habilitar botão e não acusar erro no TextField na entrada de CPF correto', async () => {
+  test('Deveria permitir login com CPF correto', async () => {
     const user = userEvent.setup()
     render(
       <LoginStateDialogsProvider>
@@ -112,14 +101,14 @@ describe('LoginCPF: Validação para entrada de CPF', () => {
   })
 })
 
-describe('LoginCPF: Etapa de verificação do usuário no Login', () => {
+describe('LoginCPF: Etapa de verificação do usuário pelo CPF no Login', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   const user = userEvent.setup()
 
-  test('Deveria abrir dialogo não cadastrado quando assistido não é encontrado', async () => {
+  test('Deveria direcionar para cadastro do assistido quando não é encontrado', async () => {
     const cpfNaoCadastrado = '42571133080'
     const mockData: ErrorPessoAtendimentoWithSituacao = {
       situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
@@ -147,6 +136,44 @@ describe('LoginCPF: Etapa de verificação do usuário no Login', () => {
     )
     const textFieldCPF = screen.getByRole('textbox', { name: /cpf/i })
     await user.type(textFieldCPF, cpfNaoCadastrado)
+
+    const buttonProximo = screen.getByRole('button')
+    await user.click(buttonProximo)
+
+    expect(consultarPessoaAssistida).toHaveBeenCalledWith(cpfNaoCadastrado)
+    expect(
+      useLoginStateDialogs().handleCloseCPFNaoEncontradoDialog,
+    ).toHaveBeenCalled()
+  })
+
+  test('Deveria direcionar para cadastro do assistido quando não é encontrado', async () => {
+    const cpfCadastrado = '12394857663'
+    const mockData: ErrorPessoAtendimentoWithSituacao = {
+      situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
+      mensagem: 'Assistido não cadastrado',
+    }
+    const mockSuccess = false
+
+    const mockConsultarPessoaAssistida = consultarPessoaAssistida as jest.Mock
+    mockConsultarPessoaAssistida.mockImplementation(async (cpf: string) => {
+      return { data: mockData, success: mockSuccess }
+    })
+
+    const mockUseLoginStateDialogs = useLoginStateDialogs as jest.Mock
+    mockUseLoginStateDialogs.mockReturnValue({
+      handleCloseCPFNaoEncontradoDialog: jest.fn(),
+      handleCloseNaoTemAtendimentoDialog: jest.fn(),
+    })
+
+    render(
+      <LoginStateDialogsProvider>
+        <LoginUseFormStateProvider>
+          <LoginCPF />
+        </LoginUseFormStateProvider>
+      </LoginStateDialogsProvider>,
+    )
+    const textFieldCPF = screen.getByRole('textbox', { name: /cpf/i })
+    await user.type(textFieldCPF, cpfCadastrado)
 
     const buttonProximo = screen.getByRole('button')
     await user.click(buttonProximo)
