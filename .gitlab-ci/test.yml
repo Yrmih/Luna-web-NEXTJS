@@ -11,7 +11,7 @@
 
 test_production:
   extends: 
-    - .test_commom
+    - .test_common
   environment:
     name: prod
   rules:
@@ -38,7 +38,7 @@ test_homol:
           DOCKER_IMAGE_TAG: "homologacao"
 
 test_staging:
-  extends:
+  extends: 
     - .test_common
   environment:
     name: staging
