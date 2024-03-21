@@ -15,7 +15,7 @@ export function DetalhesAtendimento() {
     <Grid
       container
       sx={{
-        marginTop: '10px',
+        marginTop: '-8vh',
         width: '100%', // O width segue o tamanho disposto para <main> do layout
       }}
     >
@@ -53,7 +53,6 @@ export function DetalhesAtendimento() {
         sm={12}
         xs={12}
         sx={{
-          paddingTop: '15px',
           paddingBottom: '15px',
           paddingLeft: '2vw',
           paddingRight: '2vw',

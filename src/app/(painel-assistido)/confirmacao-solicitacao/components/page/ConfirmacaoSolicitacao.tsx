@@ -119,21 +119,14 @@ export function ConfirmacaoSolicitacao() {
             </Typography>
           </Box>
           <Typography variant="h5">Nº Atendimento</Typography>
-          <Typography color="red" variant="h3">
+          <Typography fontWeight="600" color="red" variant="h3">
             123456123456
           </Typography>
 
           <Button
             sx={{
               animation: tremendo ? `${shake} 1s ease-in-out` : 'none',
-              width: '75vw',
 
-              '@media (min-width:900px)': {
-                width: '34vw',
-              },
-              '@media (min-width:1100px)': {
-                width: '31vw',
-              },
               marginTop: '3vh',
               mb: '2vh',
               backgroundColor: (theme) =>
@@ -154,7 +147,7 @@ export function ConfirmacaoSolicitacao() {
             <CheckBoxIcon
               sx={{ display: estadoBotao ? 'flex' : 'none', mr: '1vw' }}
             />
-            Li e entendi que enviar os documentos é obrigatório
+            Li e entendi
           </Button>
           <Button
             onClick={!estadoBotao ? handleClique : redirect}

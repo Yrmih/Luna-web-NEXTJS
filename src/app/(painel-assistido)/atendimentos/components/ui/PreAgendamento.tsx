@@ -32,11 +32,11 @@ export function PreAgendamento({ props }: PreAgendamentoProps) {
       sx={{
         width: '100%',
         boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
-        borderRadius: '8px', // Adicione a borda arredondada
+        borderRadius: '3vh', // Adicione a borda arredondada
       }}
     >
       <Grid item sx={{ width: '100%' }}>
-        <Card sx={{ p: 2 }}>
+        <Card sx={{ borderRadius: '3vh', p: 4 }}>
           {props.tipoAtendimento === 'Pré-agendamento' ? (
             <BarradeProgresso props={{ valor: 10 }} />
           ) : (
@@ -44,7 +44,7 @@ export function PreAgendamento({ props }: PreAgendamentoProps) {
               sx={{
                 backgroundColor: theme.palette.primary.light,
                 height: '10px',
-                borderRadius: '10px',
+                borderRadius: '3vh',
                 textAlign: 'center',
               }}
               title={'Pré-agendamento'}

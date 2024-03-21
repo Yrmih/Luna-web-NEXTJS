@@ -17,9 +17,9 @@ export const MENU_PRINCIPAL_LINKS: {
   icon: OverridableComponent<SvgIconTypeMap> & { muiName: string }
 }[] = [
   {
-    key: 'nova-solicitacao',
-    text: 'Nova Solicitação',
-    href: '/nova-solicitacao',
+    key: 'novo-atendimento',
+    text: 'Novo Atendimento',
+    href: '/novo-atendimento',
     icon: CalendarMonthIcon,
   },
   {
