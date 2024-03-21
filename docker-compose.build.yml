@@ -5,7 +5,7 @@ services:
     restart: always
     build:
       context: ./
-      dockerfile: docker/Dockerfile.prod
+      dockerfile: docker/Dockerfile
     image: ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
     ports:
       - ${APP_PORT:-3002}:3000

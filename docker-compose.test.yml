@@ -2,7 +2,9 @@ version: "3"
 
 services:
   luna-test:
-    image: :${DOCKER_IMAGE_TAG:-latest}
+    environment:
+      - NODE_ENV=test
+    image: ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
     volumes:
       - .:/app
-    command: npm test
+    command: npm run test
