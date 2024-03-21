@@ -2,7 +2,6 @@ version: "3"
 
 services:
   luna-test:
-    restart: always
     image: :${DOCKER_IMAGE_TAG:-latest}
     volumes:
       - .:/app
