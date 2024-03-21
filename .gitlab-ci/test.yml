@@ -1,5 +1,7 @@
 .test_common:
   stage: test
+  dependencies:
+    - build
   tags:
     - ssh
     - luna
@@ -7,7 +9,7 @@
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker compose run --rm luna-test
 
-build_production:
+test_production:
   extends: 
     - .test_commom
   environment:
@@ -21,7 +23,7 @@ build_production:
       variables:
         DOCKER_IMAGE_TAG: "latest"
 
-build_homol:
+test_homol:
   extends: 
     - .test_common
   environment:
@@ -35,7 +37,7 @@ build_homol:
       variables:
           DOCKER_IMAGE_TAG: "homologacao"
 
-build_staging:
+test_staging:
   extends:
     - .test_common
   environment:

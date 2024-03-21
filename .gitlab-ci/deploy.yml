@@ -1,5 +1,7 @@
 .deploy_common:
   stage: deploy
+  dependencies:
+    - test
   tags:
     - ssh
     - luna
