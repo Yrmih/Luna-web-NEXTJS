@@ -23,7 +23,7 @@ build_production:
       variables:
         DOCKER_IMAGE_TAG: "latest"
 
-build_homol:
+build_homolog:
   extends: 
     - .build_commom
   environment:

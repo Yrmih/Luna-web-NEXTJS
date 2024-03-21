@@ -1,7 +1,5 @@
 .test_common:
   stage: test
-  dependencies:
-    - build
   tags:
     - ssh
     - luna
@@ -10,6 +8,8 @@
     - docker compose run --rm luna-test
 
 test_production:
+  dependencies:
+    - build_production
   extends: 
     - .test_common
   environment:
@@ -23,7 +23,9 @@ test_production:
       variables:
         DOCKER_IMAGE_TAG: "latest"
 
-test_homol:
+test_homolog:
+  dependencies:
+    - build_homolog
   extends: 
     - .test_common
   environment:
@@ -38,6 +40,8 @@ test_homol:
           DOCKER_IMAGE_TAG: "homologacao"
 
 test_staging:
+  dependencies:
+    - build_staging
   extends: 
     - .test_common
   environment:
