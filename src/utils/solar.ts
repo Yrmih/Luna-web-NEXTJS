@@ -1,4 +1,4 @@
-export class ContraintErrorPessoaAssistida {
+export class ConstraintErrorPessoaAssistida {
   // Tem atendimento disponível (deve enviar para segunda etapa onde é solicitado o numero do atendimento)
   static readonly SITUACAO_TEM_ATENDIMENTO = 0
   // Não tem atendimento disponível (deve perguntar se deseja realizar uma nova solicitação)

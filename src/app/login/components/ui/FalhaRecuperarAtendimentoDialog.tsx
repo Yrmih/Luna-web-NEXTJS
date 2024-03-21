@@ -8,13 +8,15 @@ import {
   DialogTitle,
 } from '@mui/material'
 import { useLoginStateDialogs } from '../../context'
+import Link from 'next/link'
 
 // Internal
 
 export function FalhaRecuperarAtendimentoDialog() {
   const {
     openFalhaRecuperarAtendimentoDialog: open,
-    handleCloseFalhaRecuperarAtendimentoDialog: handleClose,
+    handleOpenFalhaRecuperarAtendimentoDialog: handleClose,
+    handleOpenRecuperarAtendimentoDialog,
   } = useLoginStateDialogs()
 
   return (
@@ -30,6 +32,7 @@ export function FalhaRecuperarAtendimentoDialog() {
       </DialogContent>
       <DialogActions sx={{ justifyContent: 'space-around' }}>
         <Button
+          onClick={() => handleOpenRecuperarAtendimentoDialog()}
           sx={{
             marginLeft: '2vw',
             marginBottom: '2vh',
@@ -49,6 +52,7 @@ export function FalhaRecuperarAtendimentoDialog() {
           Tentar Novamente
         </Button>
         <Button
+          LinkComponent={Link}
           href="https://www.defensoria.es.def.br/numeros-para-agendamento/"
           target="_blank"
           sx={{

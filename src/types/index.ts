@@ -7,3 +7,9 @@ export type TextFieldAttributes = {
   placeHolder: string
   icon: ReactNode
 }
+
+export interface ServiceResponse<D, E> {
+  sucesso: boolean
+  resultado?: D
+  erro?: E
+}

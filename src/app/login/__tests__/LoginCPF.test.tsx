@@ -3,8 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 // Internal
-import { ContraintErrorPessoaAssistida } from '@/lib/api/solar/constants'
-import { ErrorPessoAtendimentoWithSituacao } from '@/lib/api/solar/types'
+import { ConstraintErrorPessoaAssistida } from '@/utils/solar'
 import { LoginCPF } from '../components/ui/LoginCPF'
 import {
   LoginStateDialogsProvider,
@@ -20,9 +19,10 @@ jest.mock('../services', () => ({
 jest.mock('../context', () => ({
   ...jest.requireActual('../context'),
   useLoginStateDialogs: jest.fn().mockReturnValue({
-    handleCloseAtendimentoNaoEncontradoDialog: jest.fn(),
-    handleCloseCPFNaoEncontradoDialog: jest.fn(),
-    handleCloseNaoTemAtendimentoDialog: jest.fn(),
+    handleOpenAtendimentoNaoEncontradoDialog: jest.fn(),
+    handleOpenCPFNaoEncontradoDialog: jest.fn(),
+    handleOpenNaoTemAtendimentoDialog: jest.fn(),
+    setCpf: jest.fn(),
   }), // apenas os "handles" usados no componente
 }))
 
@@ -106,21 +106,20 @@ describe('LoginCPF: Etapa de verificação do usuário pelo CPF no Login', () =>
 
   test('Deveria direcionar para cadastro do assistido quando não é encontrado', async () => {
     const user = userEvent.setup()
-    const mockData: ErrorPessoAtendimentoWithSituacao = {
-      situacao: ContraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
-      mensagem: 'Assistido não cadastrado',
-    }
-    const mockSuccess = false
 
     const mockConsultarPessoaAssistida = consultarPessoaAssistida as jest.Mock
-    mockConsultarPessoaAssistida.mockImplementation(async (cpf: string) => {
-      return { data: mockData, success: mockSuccess }
+    mockConsultarPessoaAssistida.mockResolvedValue({
+      sucesso: false,
+      erro: {
+        mensagem: 'Assistido não cadastrado',
+        situacao: ConstraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO,
+      },
     })
 
     const mockUseLoginStateDialogs = useLoginStateDialogs as jest.Mock
     mockUseLoginStateDialogs.mockReturnValue({
-      handleCloseCPFNaoEncontradoDialog: jest.fn(),
-      handleCloseNaoTemAtendimentoDialog: jest.fn(),
+      handleOpenCPFNaoEncontradoDialog: jest.fn(),
+      setCpf: jest.fn(),
     })
 
     render(
@@ -137,8 +136,11 @@ describe('LoginCPF: Etapa de verificação do usuário pelo CPF no Login', () =>
     await user.click(buttonProximo)
 
     expect(consultarPessoaAssistida).toHaveBeenCalledWith(CPF_VALIDO)
+    expect(useLoginStateDialogs().setCpf).toHaveBeenCalledWith(
+      CPF_VALIDO_MASCARA,
+    )
     expect(
-      useLoginStateDialogs().handleCloseCPFNaoEncontradoDialog,
+      useLoginStateDialogs().handleOpenCPFNaoEncontradoDialog,
     ).toHaveBeenCalled()
   })
 

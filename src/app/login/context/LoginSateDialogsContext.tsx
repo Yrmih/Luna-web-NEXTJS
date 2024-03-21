@@ -1,24 +1,35 @@
 'use client'
 // Framework
-import { ReactNode, createContext, useContext, useState } from 'react'
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from 'react'
 
 interface LoginSateDialogsContextStateProps {
   children: ReactNode
 }
 
 export type LoginStateDialogs = {
+  cpf: string
+  atendimento: string
+  setCpf: Dispatch<SetStateAction<string>>
+  setAtendimento: Dispatch<SetStateAction<string>>
   openLoginAtendimentoDialog: boolean
-  handlenCloseLoginAtendimentoDialog: () => void
+  handlenOpenLoginAtendimentoDialog: () => void
   openAtendimentoNaoEncontradoDialog: boolean
-  handleCloseAtendimentoNaoEncontradoDialog: () => void
+  handleOpenAtendimentoNaoEncontradoDialog: () => void
   openRecuperarAtendimentoDialog: boolean
-  handleCloseRecuperarAtendimentoDialog: () => void
+  handleOpenRecuperarAtendimentoDialog: () => void
   openFalhaRecuperarAtendimentoDialog: boolean
-  handleCloseFalhaRecuperarAtendimentoDialog: () => void
+  handleOpenFalhaRecuperarAtendimentoDialog: () => void
   openCPFNaoEncontradoDialog: boolean
-  handleCloseCPFNaoEncontradoDialog: () => void
+  handleOpenCPFNaoEncontradoDialog: () => void
   openNaoTemAtendimentoDialog: boolean
-  handleCloseNaoTemAtendimentoDialog: () => void
+  handleOpenNaoTemAtendimentoDialog: () => void
 }
 
 const LoginStateDialogsContext = createContext<LoginStateDialogs | undefined>(
@@ -28,10 +39,13 @@ const LoginStateDialogsContext = createContext<LoginStateDialogs | undefined>(
 export function LoginStateDialogsProvider({
   children,
 }: LoginSateDialogsContextStateProps) {
+  const [cpf, setCpf] = useState<string>('')
+  const [atendimento, setAtendimento] = useState<string>('')
+
   const [openLoginAtendimentoDialog, setOpenLoginAtendimentoDialog] =
     useState(false)
 
-  const handlenCloseLoginAtendimentoDialog = () => {
+  const handlenOpenLoginAtendimentoDialog = () => {
     setOpenLoginAtendimentoDialog(!openLoginAtendimentoDialog)
   }
 
@@ -40,14 +54,14 @@ export function LoginStateDialogsProvider({
     setOpenAtendimentoNaoEncontradoDialog,
   ] = useState(false)
 
-  const handleCloseAtendimentoNaoEncontradoDialog = () => {
+  const handleOpenAtendimentoNaoEncontradoDialog = () => {
     setOpenAtendimentoNaoEncontradoDialog(!openAtendimentoNaoEncontradoDialog)
   }
 
   const [openRecuperarAtendimentoDialog, setOpenRecuperarAtendimentoDialog] =
     useState(false)
 
-  const handleCloseRecuperarAtendimentoDialog = () => {
+  const handleOpenRecuperarAtendimentoDialog = () => {
     setOpenRecuperarAtendimentoDialog(!openRecuperarAtendimentoDialog)
   }
 
@@ -56,39 +70,43 @@ export function LoginStateDialogsProvider({
     setOpenFalhaRecuperarAtendimentoDialog,
   ] = useState(false)
 
-  const handleCloseFalhaRecuperarAtendimentoDialog = () => {
+  const handleOpenFalhaRecuperarAtendimentoDialog = () => {
     setOpenFalhaRecuperarAtendimentoDialog(!openFalhaRecuperarAtendimentoDialog)
   }
 
   const [openCPFNaoEncontradoDialog, setOpenCPFNaoEncontradoDialog] =
     useState(false)
 
-  const handleCloseCPFNaoEncontradoDialog = () => {
+  const handleOpenCPFNaoEncontradoDialog = () => {
     setOpenCPFNaoEncontradoDialog(!openCPFNaoEncontradoDialog)
   }
 
   const [openNaoTemAtendimentoDialog, setOpenNaoTemAtendimentoDialog] =
     useState(false)
 
-  const handleCloseNaoTemAtendimentoDialog = () => {
+  const handleOpenNaoTemAtendimentoDialog = () => {
     setOpenNaoTemAtendimentoDialog(!openNaoTemAtendimentoDialog)
   }
 
   return (
     <LoginStateDialogsContext.Provider
       value={{
+        cpf,
+        atendimento,
+        setCpf,
+        setAtendimento,
         openLoginAtendimentoDialog,
-        handlenCloseLoginAtendimentoDialog,
+        handlenOpenLoginAtendimentoDialog,
         openAtendimentoNaoEncontradoDialog,
-        handleCloseAtendimentoNaoEncontradoDialog,
+        handleOpenAtendimentoNaoEncontradoDialog,
         openRecuperarAtendimentoDialog,
-        handleCloseRecuperarAtendimentoDialog,
+        handleOpenRecuperarAtendimentoDialog,
         openFalhaRecuperarAtendimentoDialog,
-        handleCloseFalhaRecuperarAtendimentoDialog,
+        handleOpenFalhaRecuperarAtendimentoDialog,
         openCPFNaoEncontradoDialog,
-        handleCloseCPFNaoEncontradoDialog,
+        handleOpenCPFNaoEncontradoDialog,
         openNaoTemAtendimentoDialog,
-        handleCloseNaoTemAtendimentoDialog,
+        handleOpenNaoTemAtendimentoDialog,
       }}
     >
       {children}
