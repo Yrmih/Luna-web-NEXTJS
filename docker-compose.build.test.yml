@@ -4,5 +4,9 @@ services:
   luna-test:
     environment:
       - NODE_ENV=test
+    build:
+      context: .
+      dockerfile: docker/test/Dockerfile
     image: ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
-    command: npm run test
+    volumes:
+      - .:/home/node/app
