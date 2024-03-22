@@ -10,7 +10,7 @@ WORKDIR /home/node/app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN npm ci
+RUN npm install
 COPY . .
 # This will do the trick, use the corresponding env file for each environment.
 COPY .env.production .env.production
