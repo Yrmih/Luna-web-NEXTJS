@@ -5,6 +5,9 @@
     - luna
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - if [ "${NEXT_OUTPUT}" = "standalone" ]; then 
+        docker compose -f docker-compose.test.yml build --no-cache luna-test
+      fi
     - docker compose -f docker-compose.test.yml run --rm luna-test
 
 test_production:
