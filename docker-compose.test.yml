@@ -6,7 +6,7 @@ services:
       - NODE_ENV=test
     build:
       context: .
-      dockerfile: docker/test/{NEXT_OUTPUT:-default}/Dockerfile
+      dockerfile: docker/test/${NEXT_OUTPUT:-default}/Dockerfile
     image: ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
     volumes:
       - .:/home/node/app
