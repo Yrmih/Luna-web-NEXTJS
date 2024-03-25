@@ -8,10 +8,8 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /home/node/app
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN npm install
 COPY . .
+RUN npm ci
 # This will do the trick, use the corresponding env file for each environment.
 COPY .env.production .env.production
 
