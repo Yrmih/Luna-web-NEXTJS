@@ -1,5 +1,5 @@
 # 1. Base image with necessary dependencies
-FROM node:20-alpine AS base
+FROM node:20-slim
 RUN apk add --no-cache libc6-compat
 
 USER node
