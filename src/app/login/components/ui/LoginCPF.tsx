@@ -40,7 +40,8 @@ export function LoginCPF() {
         erro?.situacao ===
         ConstraintErrorPessoaAssistida.SITUACAO_NAO_CADASTRADO
       ) {
-        setCpf(MaskUtils.maskCpfCnpj(cpf))
+        const cpfMascarado = MaskUtils.maskCpfCnpj(cpf)
+        setCpf(cpfMascarado)
         handleOpenCPFNaoEncontradoDialog()
       } else if (
         erro?.situacao ===

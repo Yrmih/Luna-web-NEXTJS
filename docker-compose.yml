@@ -4,7 +4,7 @@ services:
   luna-frontend:
     build:
       context: ./
-      dockerfile: docker/Dockerfile.prod
+      dockerfile: docker/Dockerfile
     image: luna-frontend
     restart: always
     ports:

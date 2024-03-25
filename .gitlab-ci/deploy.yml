@@ -9,6 +9,8 @@
     - docker run -p ${APP_PORT:-3002}:3000 -d --rm --pull always --name $DOCKER_CONTAINER_NAME ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
 
 deploy_production:
+  dependencies:
+    - test_production
   extends: 
     - .deploy_common
   environment:
@@ -20,8 +22,9 @@ deploy_production:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
 deploy_homolog:
+  dependencies:
+    - test_homolog
   extends: 
     - .deploy_common
   environment:

@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  luna-test:
+    environment:
+      - NODE_ENV=test
+    image: ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
+    command: npm run test

@@ -4,8 +4,8 @@ services:
   luna-frontend:
     restart: always
     build:
-      context: ./
-      dockerfile: docker/Dockerfile.prod
+      context: .
+      dockerfile: docker/production/${NEXT_OUTPUT:-default}/Dockerfile
     image: ${CI_REGISTRY_IMAGE}:${DOCKER_IMAGE_TAG:-latest}
     ports:
       - ${APP_PORT:-3002}:3000

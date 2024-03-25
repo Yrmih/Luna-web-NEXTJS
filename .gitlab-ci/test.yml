@@ -1,17 +1,24 @@
-.build_commom:
+.test_common:
+  stage: test
   tags:
     - ssh
     - luna
-  stage: build
   script:
     - env > .env.production
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker compose -f docker-compose.build.yml build --no-cache --build-arg CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE --build-arg DOCKER_IMAGE_TAG=$DOCKER_IMAGE_TAG
-    - docker compose -f docker-compose.build.yml push
+    - if [ "${NEXT_OUTPUT}" = "standalone" ]; then 
+        docker compose -f docker-compose.build.test.yml build --no-cache luna-test;
+        docker compose -f docker-compose.build.test.yml run --rm luna-test;
+      else
+        docker-compose -f docker-compose.test.yml pull luna-test;
+        docker compose -f docker-compose.test.yml run --rm luna-test;
+      fi
 
-build_production:
+test_production:
+  dependencies:
+    - build_production
   extends: 
-    - .build_commom
+    - .test_common
   environment:
     name: prod
   rules:
@@ -23,9 +30,11 @@ build_production:
       variables:
         DOCKER_IMAGE_TAG: "latest"
 
-build_homolog:
+test_homolog:
+  dependencies:
+    - build_homolog
   extends: 
-    - .build_commom
+    - .test_common
   environment:
     name: homol
   rules:
@@ -37,9 +46,11 @@ build_homolog:
       variables:
           DOCKER_IMAGE_TAG: "homologacao"
 
-build_staging:
-  extends:
-    - .build_commom
+test_staging:
+  dependencies:
+    - build_staging
+  extends: 
+    - .test_common
   environment:
     name: staging
   rules:
