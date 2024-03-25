@@ -1,16 +1,15 @@
 # 3. Production image, copy all the files and run next
 FROM node:20-alpine AS base
-
-# 1. Install dependencies only when needed
-FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
+
+USER node
 
 WORKDIR /home/node/app
 
-COPY . .
+COPY --chown=1000:1000 package.json package-lock.json ${APP_HOME}/
+
 RUN npm ci
-# This will do the trick, use the corresponding env file for each environment.
-COPY .env.production .env.production
+
+COPY --chown=1000:1000 . ${APP_HOME}
 
 CMD ["npm", "run", "test"]
