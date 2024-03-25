@@ -1,4 +1,4 @@
-# 3. Production image, copy all the files and run next
+# 1. Base image with necessary dependencies
 FROM node:20-alpine AS base
 RUN apk add --no-cache libc6-compat
 
@@ -6,10 +6,11 @@ USER node
 
 WORKDIR /home/node/app
 
-COPY --chown=1000:1000 package.json package-lock.json ${APP_HOME}/
-
+COPY --chown=node:node package.json package-lock.json ./
 RUN npm ci
 
-COPY --chown=1000:1000 . ${APP_HOME}
 
+COPY --chown=node:node . .
+
+# 6. Command to run your tests
 CMD ["npm", "run", "test"]
