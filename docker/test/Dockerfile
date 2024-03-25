@@ -4,11 +4,14 @@ RUN apk add --no-cache libc6-compat
 
 USER node
 
-WORKDIR /home/node/app
+ENV APP_HOME=/home/node/solar-frontend
+RUN mkdir -p ${APP_HOME}
+
+WORKDIR ${APP_HOME}
 
 COPY --chown=node:node package.json package-lock.json ./
-RUN npm ci
 
+RUN npm ci
 
 COPY --chown=node:node . .
 
