@@ -10,6 +10,11 @@
     "test": "jest",
     "test-dev": "jest --watch"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
@@ -42,6 +47,7 @@
     "@types/node": "20.5.7",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
+    "husky": "^9.0.11",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "typescript": "^5.3.3"
