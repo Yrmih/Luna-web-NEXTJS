@@ -8,12 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test-dev": "jest --watch"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint"
-    }
+    "test-dev": "jest --watch",
+    "prepare": "husky"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
