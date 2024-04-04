@@ -18,22 +18,32 @@ import { ModalEnvioDocumento } from './ModalDocumento'
 
 // Define tipos das propriedades recebidas por EnviodeDocumento
 interface EnviodeDocumentoProps {
-  props: {
-    nome: string
-    situacao: string
-    obrigatorio: boolean
-    dataEnviado?: string | null
-    dataUpload?: string | null
-    dadoRecusa?: string | null
-    numeroColunas: 2 | 3
-    numero?: string | undefined
-    dataAgendamento?: string | null
-    horarioAgendamento?: string | null
-    quantidadePendencia?: number | undefined
-  }
+  nome: string
+  situacao: string
+  obrigatorio: boolean
+  dataEnviado?: string | null
+  dataUpload?: string | null
+  dadoRecusa?: string | null
+  numeroColunas: 2 | 3
+  numero?: string | undefined
+  dataAgendamento?: string | null
+  horarioAgendamento?: string | null
+  quantidadePendencia?: number | undefined
 }
 
-export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
+export function EnvioDeDocumento({
+  nome,
+  situacao,
+  obrigatorio,
+  dataEnviado,
+  dataUpload,
+  dadoRecusa,
+  numeroColunas,
+  numero,
+  dataAgendamento,
+  horarioAgendamento,
+  quantidadePendencia,
+}: EnviodeDocumentoProps) {
   // Define a cor da alternação das linhas da tabela (impar)
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(even)': {
@@ -52,9 +62,9 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
 
   /**
    * Essa função define os estilos dos botões da coluna "Enviar Documentos", também cuidando de mostrar o o status desses documentos quando já enviado.
-   * @param {boolean} botaoNaoTenho - Se TRUE utiliza a lógica de estilo para opção que abre a modal de "não tenho"
+   * @param {string} tipo - Define o tipo de botão que será usado
    */
-  const estiloBotao = (tipo = props.situacao) => {
+  const estiloBotao = (tipo = situacao) => {
     // Situações:
     // 1 - pendente
     // 2 - em análise
@@ -70,7 +80,7 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
     let cor = 'rgb(169, 169, 169, 1)'
     let texto = 'teste'
 
-    const tipoDeBotao = props.numeroColunas === 2 ? tipo : '6'
+    const tipoDeBotao = numeroColunas === 2 ? tipo : '6'
 
     switch (tipoDeBotao) {
       case '1':
@@ -138,11 +148,10 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
         {/* Define celula da linha referente a primeira coluna da tabela (Nome do documento) */}
         <TableCell
           sx={{
-            width:
-              props.numeroColunas === 3 ? '30% !important' : '50% !important',
+            width: numeroColunas === 3 ? '30% !important' : '50% !important',
           }}
         >
-          {props.numeroColunas === 3 ? (
+          {numeroColunas === 3 ? (
             <>
               <Typography
                 sx={{
@@ -156,7 +165,7 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
                   fontWeight: 'bold',
                 }}
               >
-                {` NÚMERO: ${props.numero}`}
+                {` NÚMERO: ${numero}`}
               </Typography>
             </>
           ) : (
@@ -166,48 +175,46 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
                 fontWeight: 'bold',
               }}
             >
-              {props.nome.toUpperCase()}
+              {nome.toUpperCase()}
             </Typography>
           )}
         </TableCell>
-        {props.numeroColunas === 3 ? (
+        {numeroColunas === 3 ? (
           <TableCell
             sx={{
               fontWeight: 600,
               color:
-                props.quantidadePendencia && props.quantidadePendencia !== 0
+                quantidadePendencia && quantidadePendencia !== 0
                   ? 'red'
                   : 'black',
               width: '40% !important',
             }}
             align="center"
           >
-            {props.quantidadePendencia !== 0
-              ? `${props.quantidadePendencia} DOCUMENTOS PENDENTES`
-              : props.situacao === '1' || props.situacao === '3'
+            {quantidadePendencia !== 0
+              ? `${quantidadePendencia} DOCUMENTOS PENDENTES`
+              : situacao === '1' || situacao === '3'
                 ? 'NENHUM DOCUMENTO PENDENTE'
-                : `${props.dataAgendamento} as ${props.horarioAgendamento}`}
+                : `${dataAgendamento} as ${horarioAgendamento}`}
           </TableCell>
         ) : null}
         {/* Define celula da linha referente a segunda coluna da tabela (Enviar Documento) */}
-        <TableCell
-          align="center"
-          sx={{
-            display: props.numeroColunas === 3 ? 'null' : 'grid',
-            width: props.numeroColunas === 3 ? '30% !important' : '100%',
-            justifyContent: props.numeroColunas === 3 ? 'null' : 'end',
-          }}
-        >
-          <Box>
+        <TableCell align="center">
+          <Box
+            sx={{
+              display: 'grid',
+              justifyContent: 'end',
+            }}
+          >
             {/* As ações do botão são: exibe modais para envio de documento (caso documento pendente) */}
             <Button
               onClick={() => {
-                if (['4', '2'].includes(props.situacao)) {
+                if (['4', '2'].includes(situacao)) {
                   setOpenModal(!openModal)
-                } else if (props.numeroColunas === 2) {
+                } else if (numeroColunas === 2) {
                   setOpenEnvioArquivo(true)
                 } else {
-                  window.location.href = `atendimentos/${props.numero}`
+                  window.location.href = `atendimentos/${numero}`
                 }
               }}
               sx={estiloBotao().sxBotao}
@@ -216,23 +223,21 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
                 {estiloBotao().texto}
               </Typography>
             </Button>
-          </Box>
 
-          {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
-          {!props.obrigatorio &&
-          !props.dataUpload &&
-          props.numeroColunas === 2 ? (
-            <Button
-              onClick={() => {
-                setOpenNaotenho(true)
-              }}
-              sx={estiloBotao('5').sxBotao}
-            >
-              <Typography sx={estiloBotao('5').sxTexto}>
-                {estiloBotao('5').texto}
-              </Typography>
-            </Button>
-          ) : null}
+            {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
+            {!obrigatorio && !dataUpload && numeroColunas === 2 ? (
+              <Button
+                onClick={() => {
+                  setOpenNaotenho(true)
+                }}
+                sx={estiloBotao('5').sxBotao}
+              >
+                <Typography sx={estiloBotao('5').sxTexto}>
+                  {estiloBotao('5').texto}
+                </Typography>
+              </Button>
+            ) : null}
+          </Box>
         </TableCell>
       </StyledTableRow>
 
@@ -245,13 +250,13 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
       >
         <ModalEnvioDocumento
           props={{
-            nomeEnvioDocumento: props.nome,
+            nomeEnvioDocumento: nome,
             tipoModal: 'envio',
             handleValue: openEnvioArquivo,
             handleAction: setOpenEnvioArquivo,
-            situacao: props.situacao,
-            dataEnviado: props.dataEnviado,
-            dadoRecusa: props.dadoRecusa ? props.dadoRecusa : null,
+            situacao,
+            dataEnviado,
+            dadoRecusa: dadoRecusa || null,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
@@ -265,12 +270,12 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
       >
         <ModalEnvioDocumento
           props={{
-            nomeEnvioDocumento: props.nome,
+            nomeEnvioDocumento: nome,
             tipoModal: 'nao tenho',
             handleValue: openNaotenho,
             handleAction: setOpenNaotenho,
-            situacao: props.situacao,
-            dataEnviado: props.dataEnviado,
+            situacao,
+            dataEnviado,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
@@ -283,12 +288,12 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
       >
         <ModalEnvioDocumento
           props={{
-            nomeEnvioDocumento: props.nome,
+            nomeEnvioDocumento: nome,
             tipoModal: 'info',
             handleValue: openModal,
             handleAction: setOpenModal,
-            situacao: props.situacao,
-            dataEnviado: props.dataEnviado,
+            situacao,
+            dataEnviado,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
