@@ -7,9 +7,9 @@ import {
   styled,
   TableRow,
   TableCell,
-  Collapse,
   Dialog,
   rgbToHex,
+  Box,
 } from '@mui/material'
 import { useState } from 'react'
 import { ModalEnvioDocumento } from './ModalDocumento'
@@ -22,14 +22,21 @@ interface EnviodeDocumentoProps {
     nome: string
     situacao: string
     obrigatorio: boolean
+    dataEnviado?: string | null
     dataUpload?: string | null
+    dadoRecusa?: string | null
+    numeroColunas: 2 | 3
+    numero?: string | undefined
+    dataAgendamento?: string | null
+    horarioAgendamento?: string | null
+    quantidadePendencia?: number | undefined
   }
 }
 
 export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
   // Define a cor da alternação das linhas da tabela (impar)
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
+    '&:nth-of-type(even)': {
       backgroundColor: theme.palette.action.hover,
     },
     // Esconde a última borda
@@ -40,72 +47,56 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
 
   // States para controle de abertura de modal
   const [openNaotenho, setOpenNaotenho] = useState(false)
-  const [openColapse, setOpenColapse] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   const [openEnvioArquivo, setOpenEnvioArquivo] = useState(false)
-
-  /**
-   * Função que define o Colapse informativo de cada documento (linha expansiva abaixo do documento para informar a situação dele nos casos de aprovado, em analise e não tenho) A informação nos casos de "reenviado", ou seja, o documento recusado após "analise" é passada dentro da modal ao tentar enviar o arquivo
-   */
-  const informacaoDocumento = () => {
-    let texto
-    let exibir = false
-    switch (props.situacao) {
-      case 'aprovado':
-        exibir = true
-        texto = `Seu documento foi enviado no dia ${props.dataUpload} e foi aprovado por nossos atendentes.`
-        break
-      case 'em analise':
-        exibir = true
-        texto = `Seu documento foi enviado para no dia ${props.dataUpload} e está aguardando aprovação de nossos atendentes.`
-        break
-      case 'nao tenho':
-        exibir = true
-        texto = `Seu documento foi declarado como 'NÃO TENHO' no dia ${props.dataUpload}.`
-        break
-    }
-    return { exibir, texto }
-  }
 
   /**
    * Essa função define os estilos dos botões da coluna "Enviar Documentos", também cuidando de mostrar o o status desses documentos quando já enviado.
    * @param {boolean} botaoNaoTenho - Se TRUE utiliza a lógica de estilo para opção que abre a modal de "não tenho"
    */
-  const estiloBotao = (botaoNaoTenho = false) => {
+  const estiloBotao = (tipo = props.situacao) => {
+    // Situações:
+    // 1 - pendente
+    // 2 - em análise
+    // 3 - reenviar
+    // 4 - aprovado
     const cores = {
       vermelho: 'rgb(220, 0, 0, 1)',
       verde: 'rgb(0, 100, 0, 1)',
       azul: 'rgb(39, 122, 149, 1)',
+      azulEscuro: 'rgb(0, 45, 120, 1)',
       cinza: 'rgb(169, 169, 169, 1)',
     }
-    let cor = ''
-    let texto
+    let cor = 'rgb(169, 169, 169, 1)'
+    let texto = 'teste'
 
-    if (!botaoNaoTenho) {
-      switch (props.situacao) {
-        case 'aprovado':
-          cor = cores.verde
-          texto = 'APROVADO'
-          break
-        case 'em analise':
-          cor = cores.azul
-          texto = 'EM ANÁLISE'
-          break
-        case 'nao tenho':
-          cor = cores.verde
-          texto = 'APROVADO'
-          break
-        case 'pendente':
-          cor = cores.vermelho
-          texto = 'ENVIAR'
-          break
-        case 'reenviar':
-          cor = cores.vermelho
-          texto = 'REENVIAR'
-          break
-      }
-    } else {
-      cor = cores.cinza
-      texto = 'NÃO TENHO'
+    const tipoDeBotao = props.numeroColunas === 2 ? tipo : '6'
+
+    switch (tipoDeBotao) {
+      case '1':
+        cor = cores.vermelho
+        texto = 'ENVIAR'
+        break
+      case '2':
+        cor = cores.azul
+        texto = 'EM ANÁLISE'
+        break
+      case '3':
+        cor = cores.vermelho
+        texto = 'REENVIAR'
+        break
+      case '4':
+        cor = cores.verde
+        texto = 'APROVADO'
+        break
+      case '5':
+        cor = cores.cinza
+        texto = 'NÃO TENHO'
+        break
+      case '6':
+        cor = cores.azulEscuro
+        texto = 'VISUALIZAR'
+        break
     }
 
     const sxTexto = {
@@ -145,64 +136,105 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
       {/* Define a linha com estilo próprio para poder alternar entre as cores "const StyledTableRow". Esse é o container da linha */}
       <StyledTableRow>
         {/* Define celula da linha referente a primeira coluna da tabela (Nome do documento) */}
-        <TableCell sx={{ p: '5px' }}>
-          <Typography
-            sx={{ fontSize: '12px', fontWeight: 'bold', ml: '0.5vw' }}
-          >
-            {props.nome?.toUpperCase()}
-          </Typography>
+        <TableCell
+          sx={{
+            width:
+              props.numeroColunas === 3 ? '30% !important' : '50% !important',
+          }}
+        >
+          {props.numeroColunas === 3 ? (
+            <>
+              <Typography
+                sx={{
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                }}
+              ></Typography>
+              <Typography
+                sx={{
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {` NÚMERO: ${props.numero}`}
+              </Typography>
+            </>
+          ) : (
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 'bold',
+              }}
+            >
+              {props.nome.toUpperCase()}
+            </Typography>
+          )}
         </TableCell>
+        {props.numeroColunas === 3 ? (
+          <TableCell
+            sx={{
+              fontWeight: 600,
+              color:
+                props.quantidadePendencia && props.quantidadePendencia !== 0
+                  ? 'red'
+                  : 'black',
+              width: '40% !important',
+            }}
+            align="center"
+          >
+            {props.quantidadePendencia !== 0
+              ? `${props.quantidadePendencia} DOCUMENTOS PENDENTES`
+              : props.situacao === '1' || props.situacao === '3'
+                ? 'NENHUM DOCUMENTO PENDENTE'
+                : `${props.dataAgendamento} as ${props.horarioAgendamento}`}
+          </TableCell>
+        ) : null}
         {/* Define celula da linha referente a segunda coluna da tabela (Enviar Documento) */}
         <TableCell
           align="center"
           sx={{
-            width: '13vw !important',
-            justifyContent: 'center',
-            allingContent: 'center',
-            p: '5px',
+            display: props.numeroColunas === 3 ? 'null' : 'grid',
+            width: props.numeroColunas === 3 ? '30% !important' : '100%',
+            justifyContent: props.numeroColunas === 3 ? 'null' : 'end',
           }}
         >
-          {/* As ações do botão são: exibe Colapse (caso documento já enviado) ou exibe modais para envio de documento (caso documento pendente) */}
-          <Button
-            onClick={
-              informacaoDocumento().exibir
-                ? () => setOpenColapse(!openColapse)
-                : () => {
-                    setOpenEnvioArquivo(true)
-                  }
-            }
-            sx={estiloBotao().sxBotao}
-          >
-            <Typography sx={estiloBotao().sxTexto}>
-              {estiloBotao().texto}
-            </Typography>
-          </Button>
+          <Box>
+            {/* As ações do botão são: exibe modais para envio de documento (caso documento pendente) */}
+            <Button
+              onClick={() => {
+                if (['4', '2'].includes(props.situacao)) {
+                  setOpenModal(!openModal)
+                } else if (props.numeroColunas === 2) {
+                  setOpenEnvioArquivo(true)
+                } else {
+                  window.location.href = `atendimentos/${props.numero}`
+                }
+              }}
+              sx={estiloBotao().sxBotao}
+            >
+              <Typography sx={estiloBotao().sxTexto}>
+                {estiloBotao().texto}
+              </Typography>
+            </Button>
+          </Box>
 
           {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
           {!props.obrigatorio &&
-          (props.situacao === 'reenviar' || props.situacao === 'pendente') ? (
+          !props.dataUpload &&
+          props.numeroColunas === 2 ? (
             <Button
               onClick={() => {
                 setOpenNaotenho(true)
               }}
-              sx={estiloBotao(true).sxBotao}
+              sx={estiloBotao('5').sxBotao}
             >
-              <Typography sx={estiloBotao().sxTexto}>
-                {estiloBotao(true).texto}
+              <Typography sx={estiloBotao('5').sxTexto}>
+                {estiloBotao('5').texto}
               </Typography>
             </Button>
           ) : null}
         </TableCell>
       </StyledTableRow>
-
-      {/* Linha destinada ao Colapse que dá informações extra sobre a situação do documento */}
-      {informacaoDocumento().exibir && openColapse ? (
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={openColapse} timeout="auto" unmountOnExit>
-            {informacaoDocumento().texto}
-          </Collapse>
-        </TableCell>
-      ) : null}
 
       {/* Modal quando o botão é destinado ao "envio" ou "reenvio" de documento */}
       <Dialog
@@ -214,8 +246,12 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
         <ModalEnvioDocumento
           props={{
             nomeEnvioDocumento: props.nome,
+            tipoModal: 'envio',
             handleValue: openEnvioArquivo,
             handleAction: setOpenEnvioArquivo,
+            situacao: props.situacao,
+            dataEnviado: props.dataEnviado,
+            dadoRecusa: props.dadoRecusa ? props.dadoRecusa : null,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
@@ -233,6 +269,26 @@ export function EnvioDeDocumento({ props }: EnviodeDocumentoProps) {
             tipoModal: 'nao tenho',
             handleValue: openNaotenho,
             handleAction: setOpenNaotenho,
+            situacao: props.situacao,
+            dataEnviado: props.dataEnviado,
+          }}
+        ></ModalEnvioDocumento>
+      </Dialog>
+
+      <Dialog
+        open={openModal}
+        onClose={() => {
+          setOpenModal(false)
+        }}
+      >
+        <ModalEnvioDocumento
+          props={{
+            nomeEnvioDocumento: props.nome,
+            tipoModal: 'info',
+            handleValue: openModal,
+            handleAction: setOpenModal,
+            situacao: props.situacao,
+            dataEnviado: props.dataEnviado,
           }}
         ></ModalEnvioDocumento>
       </Dialog>
