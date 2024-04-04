@@ -85,13 +85,11 @@ export function CardDocumentoEnvio() {
               {simularDocumentos.map((item) => (
                 <EnvioDeDocumento
                   key={item.nome}
-                  props={{
-                    nome: item.nome,
-                    situacao: item.situacao,
-                    obrigatorio: item.obrigatorio,
-                    dataUpload: item.dataUpload ? item.dataUpload : null,
-                    numeroColunas: 2,
-                  }}
+                  nome={item.nome}
+                  situacao={item.situacao}
+                  obrigatorio={item.obrigatorio}
+                  dataUpload={item.dataUpload ? item.dataUpload : null}
+                  numeroColunas={2}
                 ></EnvioDeDocumento>
               ))}
             </TableBody>
