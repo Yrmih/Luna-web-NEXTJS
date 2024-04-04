@@ -32,6 +32,18 @@ const icones = {
   aprovado: <CheckCircleIcon />,
 }
 
+interface Dados {
+  nome: string
+  situacao: string
+  obrigatorio: boolean
+  dataEnviado: string
+  dadoRecusa: string
+  numero: string
+  dataAgendamento: string
+  horarioAgendamento: string
+  quantidadePendencia: number
+}
+
 interface TabelaProps {
   props: {
     corHeaderTabela: keyof typeof cores
@@ -46,7 +58,7 @@ interface TabelaProps {
     horarioAgendamento?: string
     quantidadePendencia?: number
     tipo?: string
-    dados: any
+    dados: Dados[]
   }
 }
 
@@ -121,18 +133,16 @@ export function Tabela({ props }: TabelaProps) {
           {props.dados.map((item) => (
             <EnvioDeDocumento
               key={item.nome}
-              props={{
-                nome: item.nome,
-                situacao: item.situacao,
-                obrigatorio: item.obrigatorio,
-                dataEnviado: item.dataEnviado ? item.dataEnviado : null,
-                dadoRecusa: item.dadoRecusa ? item.dadoRecusa : null,
-                numeroColunas: props.numeroColunas,
-                numero: item.numero,
-                dataAgendamento: item.dataAgendamento,
-                horarioAgendamento: item.horarioAgendamento,
-                quantidadePendencia: item.quantidadePendencia,
-              }}
+              nome={item.nome}
+              situacao={item.situacao}
+              obrigatorio={item.obrigatorio}
+              dataEnviado={item.dataEnviado ? item.dataEnviado : null}
+              dadoRecusa={item.dadoRecusa ? item.dadoRecusa : null}
+              numeroColunas={props.numeroColunas}
+              numero={item.numero}
+              dataAgendamento={item.dataAgendamento}
+              horarioAgendamento={item.horarioAgendamento}
+              quantidadePendencia={item.quantidadePendencia}
             ></EnvioDeDocumento>
           ))}
         </TableBody>
