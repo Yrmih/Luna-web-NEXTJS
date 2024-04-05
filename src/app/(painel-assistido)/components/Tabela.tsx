@@ -34,15 +34,15 @@ const icones = {
 }
 
 interface Dados {
-  nome: string
+  nome?: string
   situacao: string
-  obrigatorio: boolean
-  dataEnviado: string
-  dadoRecusa: string
-  numero: string
-  dataAgendamento: string
-  horarioAgendamento: string
-  quantidadePendencia: number
+  obrigatorio?: boolean
+  dataEnviado?: string
+  dadoRecusa?: string
+  numero?: string
+  dataAgendamento?: string
+  horarioAgendamento?: string
+  quantidadePendencia?: number
 }
 
 interface TabelaProps {

@@ -18,9 +18,9 @@ import { ModalEnvioDocumento } from './ModalDocumento'
 
 // Define tipos das propriedades recebidas por EnviodeDocumento
 interface EnviodeDocumentoProps {
-  nome: string
+  nome?: string
   situacao: string
-  obrigatorio: boolean
+  obrigatorio?: boolean
   dataEnviado?: string | null
   dataUpload?: string | null
   dadoRecusa?: string | null
@@ -175,7 +175,7 @@ export function EnvioDeDocumento({
                 fontWeight: 'bold',
               }}
             >
-              {nome.toUpperCase()}
+              {nome?.toUpperCase()}
             </Typography>
           )}
         </TableCell>
