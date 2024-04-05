@@ -34,6 +34,9 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
+        token.pessoaId = user.id_pessoa
+        token.nome = user.nome
+        token.email = user.email
         return {
           ...token,
         }
@@ -45,8 +48,9 @@ const authOptions: NextAuthOptions = {
       return {
         ...session,
         dados: {
-          id: token.id,
-          name: token.name,
+          pessoaId: token.pessoaId,
+          nome: token.nome,
+          email: token.email,
         },
       }
     },
