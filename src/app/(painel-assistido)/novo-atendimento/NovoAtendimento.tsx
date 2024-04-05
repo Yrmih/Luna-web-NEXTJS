@@ -1,6 +1,4 @@
 'use client'
-
-// Third party
 import {
   Box,
   Button,
@@ -14,13 +12,10 @@ import {
   TextField,
 } from '@mui/material'
 
-// Framework
 import React, { ChangeEvent, useState } from 'react'
-import { BoxPergunta } from '../ui/BoxPergunta'
+import { BoxPergunta } from './components/BoxPergunta'
 
-// Internal
-
-export function NovaSolicitacao() {
+export default function NovoAtendimento() {
   const opcoesLocalAtendimento = [
     {
       value: 'default',
@@ -44,6 +39,25 @@ export function NovaSolicitacao() {
     {
       value: 'familia',
       label: 'Família',
+    },
+  ]
+
+  const opcoesPrioridade = [
+    {
+      value: 'default',
+      label: 'Selecione uma Opção',
+    },
+    {
+      value: 'prioridade1',
+      label: '80 Anos ou mais ',
+    },
+    {
+      value: 'prioridade2',
+      label: '60 Anos ou mais ',
+    },
+    {
+      value: 'prioridade3',
+      label: 'PCD',
     },
   ]
 
@@ -80,6 +94,14 @@ export function NovaSolicitacao() {
 
   const handleChangeOpcaoIntimacao = (event: ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value)
+  }
+
+  const [value2, setValue2] = useState('nao')
+
+  const handleChangeOpcaoPrioridade = (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
+    setValue2((event.target as HTMLInputElement).value)
   }
 
   const [valorAssunto, setValorAssunto] = useState('default')
@@ -140,7 +162,7 @@ export function NovaSolicitacao() {
               height: '25vh',
             }}
           >
-            Nova Solicitação
+            Novo Atendimento
           </Box>
           <Stack
             direction={'column'}
@@ -302,7 +324,9 @@ export function NovaSolicitacao() {
               alignItems={'start'}
             >
               <FormControl sx={{ width: '50vw' }}>
-                <FormLabel id="intimacao">Existe Intimação ?</FormLabel>
+                <FormLabel id="intimacao">
+                  Recebeu Intimação ou algum documento da justiça?
+                </FormLabel>
                 <RadioGroup
                   row
                   aria-labelledby="intimacao"
@@ -337,36 +361,97 @@ export function NovaSolicitacao() {
                 helperText={'Digite o número do seu processo'}
               />
             </Box>
+            <Box
+              sx={{
+                '& .MuiTextField-root': { m: 1, width: '50vw' },
+              }}
+              display="flex"
+              alignItems={'start'}
+            >
+              <FormControl sx={{ width: '50vw' }}>
+                <FormLabel id="prioridade">Atendimento prioritário ?</FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="prioridade"
+                  name="prioridade"
+                  value={value2}
+                  onChange={handleChangeOpcaoPrioridade}
+                >
+                  <FormControlLabel
+                    value="sim"
+                    control={<Radio />}
+                    label="Sim"
+                  />
+                  <FormControlLabel
+                    value="nao"
+                    control={<Radio />}
+                    label="Não"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Box>
+            <Box
+              sx={{ width: '50vw' }}
+              display={value2 === 'sim' ? 'flex' : 'none'}
+              flexDirection={'column'}
+            >
+              <TextField
+                id="area-do-direito"
+                select
+                label="Tipo de Prioridade"
+                defaultValue={valorArea}
+                SelectProps={{
+                  native: true,
+                }}
+                variant="filled"
+                onChange={handleAreaChange}
+              >
+                {opcoesPrioridade.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
+            </Box>
+            <Box
+              sx={{
+                justifyContent: 'flex-end',
+                display: 'flex',
+                width: '100%',
+              }}
+            >
+              <Button
+                sx={{
+                  marginRight: '14vw',
+                  width: '17vw',
+
+                  '@media (min-width:900px)': {
+                    width: '12vw',
+                  },
+                  '@media (min-width:1100px)': {
+                    width: '9vw',
+                  },
+                  marginTop: '3vh',
+                  mb: '2vh',
+
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
+                  '&:hover': {
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light' ? '#005bc9' : '#757575',
+                  },
+                }}
+                variant="contained"
+                onClick={() => {
+                  window.location.href = '/confirmacao-solicitacao'
+                }}
+              >
+                Agendar
+              </Button>
+            </Box>
           </Stack>
         </Paper>
-        <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          {' '}
-          <Button
-            sx={{
-              marginRight: '2vw',
-              width: '17vw',
-
-              '@media (min-width:900px)': {
-                width: '12vw',
-              },
-              '@media (min-width:1100px)': {
-                width: '9vw',
-              },
-              marginTop: '3vh',
-              mb: '2vh',
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light' ? '#023B7E' : '#2d2d2d',
-              '&:hover': {
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light' ? '#005bc9' : '#757575',
-              },
-            }}
-            variant="contained"
-            href="/confirmacao-solicitacao"
-          >
-            Agendar
-          </Button>
-        </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'end' }}> </Box>
       </Box>
     </>
   )

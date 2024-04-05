@@ -22,31 +22,31 @@ import { EnvioDeDocumento } from './EnvioDeDocumentos'
 const simularDocumentos = [
   {
     nome: 'declaração de residência',
-    situacao: 'reenviar',
+    situacao: '3',
     obrigatorio: false,
     dataUpload: null,
   },
   {
     nome: 'DOCUMENTO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 'nao tenho',
+    situacao: '4',
     obrigatorio: true,
     dataUpload: '21/02/2023',
   },
   {
     nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 'em analise',
+    situacao: '1',
     obrigatorio: false,
-    dataUpload: '11/05/2023',
+    dataUpload: null,
   },
   {
     nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE HIPOSUFICIENCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 'aprovado',
+    situacao: '4',
     obrigatorio: false,
     dataUpload: '17/03/2023',
   },
   {
     nome: 'DOCUMENTO OBRIGATÓRIO ',
-    situacao: 'pendente',
+    situacao: '1',
     obrigatorio: true,
     dataUpload: null,
   },
@@ -84,13 +84,12 @@ export function CardDocumentoEnvio() {
               {/* Componente que preenche as linhas da tabela */}
               {simularDocumentos.map((item) => (
                 <EnvioDeDocumento
-                  key={item.nome}
-                  props={{
-                    nome: item.nome,
-                    situacao: item.situacao,
-                    obrigatorio: item.obrigatorio,
-                    dataUpload: item.dataUpload ? item.dataUpload : null,
-                  }}
+                  key={Math.random()}
+                  nome={item.nome}
+                  situacao={item.situacao}
+                  obrigatorio={item.obrigatorio}
+                  dataUpload={item.dataUpload ? item.dataUpload : null}
+                  numeroColunas={2}
                 ></EnvioDeDocumento>
               ))}
             </TableBody>

@@ -26,9 +26,9 @@ export function CardProcesso() {
         component={Paper}
         sx={{
           width: '100%',
-          p: 2,
+          p: 4,
           boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
-          borderRadius: '8px', // Adicione a borda arredondada
+          borderRadius: '3vh', // Adicione a borda arredondada
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -56,9 +56,9 @@ export function CardProcesso() {
         component={Paper}
         sx={{
           width: '100%',
-          p: 2,
+          p: 4,
           boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
-          borderRadius: '8px', // Adicione a borda arredondada
+          borderRadius: '3vh', // Adicione a borda arredondada
         }}
       >
         <Typography>Interessados</Typography>

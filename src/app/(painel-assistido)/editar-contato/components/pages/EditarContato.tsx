@@ -99,7 +99,7 @@ export function EditarContato() {
             height: '25vh',
           }}
         >
-          Meus Atendimentos
+          Editar Contato
         </Box>
         <Stack
           direction={'column'}
@@ -110,7 +110,7 @@ export function EditarContato() {
             paddingTop: '8vh',
             paddingBottom: '8vh',
             paddingLeft: '8vh',
-            height: '45vh',
+
             boxShadow: 2,
             borderRadius: '3vh',
             marginTop: '-8vh',
