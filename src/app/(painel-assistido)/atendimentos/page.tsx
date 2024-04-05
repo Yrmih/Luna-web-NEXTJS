@@ -195,52 +195,23 @@ export default function HomePage() {
             }}
           >
             <Tabela
-              props={{
-                corHeaderTabela: 'vermelho',
-                iconeHeader: 'atencao',
-                numeroColunas: 3,
-                nomeHeader: 'PEDIDOS COM PENDÊNCIAS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'PENDÊNCIAS',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['1']),
+              configuracaoTabela={{
+                corTabela: 'vermelho',
+                iconeTabela: 'atencao',
+                nomeTabela: 'Pedidos com Pendêncas',
+                colunas: [
+                  {
+                    nome: 'Atendimento',
+                  },
+                  {
+                    nome: 'Pendências',
+                  },
+                  {
+                    nome: 'Ação',
+                  },
+                ],
               }}
-            ></Tabela>
-            <Tabela
-              props={{
-                corHeaderTabela: 'azul',
-                iconeHeader: 'relogio',
-                numeroColunas: 3,
-                nomeHeader: 'AGENDAMENTOS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'Descrição',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['2']),
-              }}
-            ></Tabela>
-            <Tabela
-              props={{
-                corHeaderTabela: 'amarelo',
-                iconeHeader: 'relogio',
-                numeroColunas: 3,
-                nomeHeader: 'PEDIDOS COM PENDÊNCIAS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'Descrição',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['3']),
-              }}
-            ></Tabela>
-            <Tabela
-              props={{
-                corHeaderTabela: 'verde',
-                iconeHeader: 'aprovado',
-                numeroColunas: 3,
-                nomeHeader: 'ATENDIDOS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'Descrição',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['4']),
-              }}
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['1'])}
             ></Tabela>
           </Grid>
         </Grid>
