@@ -84,7 +84,7 @@ export function CardDocumentoEnvio() {
               {/* Componente que preenche as linhas da tabela */}
               {simularDocumentos.map((item) => (
                 <EnvioDeDocumento
-                  key={item.nome}
+                  key={Math.random()}
                   nome={item.nome}
                   situacao={item.situacao}
                   obrigatorio={item.obrigatorio}

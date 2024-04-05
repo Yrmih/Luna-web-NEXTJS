@@ -20,6 +20,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 // Internal
 import { EnvioDeDocumento } from '../atendimentos/components/ui/EnvioDeDocumentos'
+
 const cores = {
   vermelho: 'rgb(220, 0, 0, 1)',
   verde: 'rgb(0, 100, 0, 1)',
@@ -132,7 +133,7 @@ export function Tabela({ props }: TabelaProps) {
           {/* Componente que preenche as linhas da tabela */}
           {props.dados.map((item) => (
             <EnvioDeDocumento
-              key={item.nome}
+              key={Math.random()}
               nome={item.nome}
               situacao={item.situacao}
               obrigatorio={item.obrigatorio}
