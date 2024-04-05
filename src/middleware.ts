@@ -19,13 +19,13 @@ const middleware = (request: NextRequestWithAuth) => {
 const authorized = async (params: { token: JWT | null; req: NextRequest }) => {
   const cookies = params.req.cookies
 
-  const isSemCadastro = params.req.nextUrl.pathname === '/cadastro-assistido'
+  const isSemCpode_alterar_defensoriaadastro = params.req.nextUrl.pathname === '/cadastro-assistido'
   const isSemAtendimento =
     cookies.has('sem-atendimento') &&
     params.req.nextUrl.pathname === '/nova-solicitacao'
 
   // Permitir o assistido acessar a página de cadastro e de nova solicitação se necessário
-  return isSemCadastro || isSemAtendimento || !!params.token // forcer ser booleano
+  return isSemCpode_alterar_defensoriaadastro || isSemAtendimento || !!params.token // forcer ser booleano
 }
 const callbackOptions: NextAuthMiddlewareOptions = { callbacks: { authorized } }
 
