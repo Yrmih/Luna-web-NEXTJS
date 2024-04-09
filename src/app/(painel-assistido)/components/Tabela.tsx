@@ -68,8 +68,11 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
     const elementos = document.querySelectorAll<HTMLElement>(`#${id}`)
 
     elementos.forEach((elemento) => {
-      const display = elemento.style.display
-      elemento.style.display = display === 'none' ? '' : 'none'
+      const visibility = elemento.style.visibility
+      elemento.style.transition = '0.2s'
+      elemento.style.opacity = visibility === 'collapse' ? '1' : '0'
+      elemento.style.visibility =
+        visibility === 'collapse' ? 'visible' : 'collapse'
     })
   }
 
@@ -139,7 +142,9 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
         {/* Header das colunas (define o nome das colunas e quantidade) */}
         <TableHead
           id={id}
-          style={{ display: id === 'pedidos_pendentes' ? '' : 'none' }}
+          style={{
+            visibility: id === 'pedidos_pendentes' ? 'visible' : 'collapse',
+          }}
         >
           <TableRow
             sx={{
@@ -172,7 +177,9 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
         {/* Body da tabela */}
         <TableBody
           id={id}
-          style={{ display: id === 'pedidos_pendentes' ? '' : 'none' }}
+          style={{
+            visibility: id === 'pedidos_pendentes' ? 'visible' : 'collapse',
+          }}
         >
           {/* Componente que preenche as linhas da tabela */}
           {conteudo.map((item) => (
