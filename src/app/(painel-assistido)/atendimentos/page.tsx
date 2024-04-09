@@ -87,6 +87,19 @@ const Atendimentos: Atendimento[] = [
     tipo: 'AÇÃO DE ALIMENTOS',
   },
 ]
+
+const padraoTabela = [
+  {
+    nome: 'Atendimento',
+  },
+  {
+    nome: 'Descrição',
+  },
+  {
+    nome: 'Ações',
+  },
+]
+
 export default function HomePage() {
   return (
     <>
@@ -190,7 +203,6 @@ export default function HomePage() {
             elevation={3}
             sx={{
               p: 4,
-              boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
               borderRadius: '3vh', // Adicione a borda arredondada
             }}
           >
@@ -199,20 +211,37 @@ export default function HomePage() {
                 corTabela: 'vermelho',
                 iconeTabela: 'atencao',
                 nomeTabela: 'Pedidos com Pendêncas',
-                colunas: [
-                  {
-                    nome: 'Atendimento',
-                  },
-                  {
-                    nome: 'Pendências',
-                  },
-                  {
-                    nome: 'Ação',
-                  },
-                ],
+                colunas: padraoTabela,
               }}
               conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['1'])}
-            ></Tabela>
+            />
+            <Tabela
+              configuracaoTabela={{
+                corTabela: 'azul',
+                iconeTabela: 'relogio',
+                nomeTabela: 'Agendamentos',
+                colunas: padraoTabela,
+              }}
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['2'])}
+            />
+            <Tabela
+              configuracaoTabela={{
+                corTabela: 'amarelo',
+                iconeTabela: 'relogio',
+                nomeTabela: 'Pedidos em Análise',
+                colunas: padraoTabela,
+              }}
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['3'])}
+            />
+            <Tabela
+              configuracaoTabela={{
+                corTabela: 'verde',
+                iconeTabela: 'aprovado',
+                nomeTabela: 'Atendidos',
+                colunas: padraoTabela,
+              }}
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['4'])}
+            />
           </Grid>
         </Grid>
       </Grid>

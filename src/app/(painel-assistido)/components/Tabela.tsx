@@ -63,7 +63,16 @@ export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
   const totalColunas = configuracaoTabela.colunas.length
 
   return (
-    <TableContainer sx={{ mt: 2, borderRadius: '15px' }} component={Paper}>
+    <TableContainer
+      sx={{
+        mt: 2,
+        borderRadius: '15px',
+        marginBottom: '23px',
+        boxShadow:
+          '3px 4px 3px -1px rgba(151, 151, 151, 0.2),1px 1px 2px 1px rgba(130, 130, 130, 0.14),2px 2px 3px 1px rgba(9, 9, 9, 0.12)',
+      }}
+      component={Paper}
+    >
       <Table
         sx={{
           overflow: 'hidden',
@@ -90,10 +99,21 @@ export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
                   gap: '5px',
                 }}
               >
-                <Typography align="center">
+                <Typography align="center" fontWeight={500}>
                   {configuracaoTabela.nomeTabela}
                 </Typography>
-                <Icon>{icones[configuracaoTabela.iconeTabela]}</Icon>
+                <Icon
+                  sx={{
+                    color: rgbToHex(
+                      cores[configuracaoTabela.corTabela].replace(
+                        /..$/g,
+                        '0.8)',
+                      ),
+                    ),
+                  }}
+                >
+                  {icones[configuracaoTabela.iconeTabela]}
+                </Icon>
               </Box>
             </TableCell>
           </TableRow>
@@ -109,14 +129,21 @@ export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
             }}
           >
             {/* Colunas da tabela */}
-            {configuracaoTabela.colunas.map((item) => (
+            {configuracaoTabela.colunas.map((item, index) => (
               <TableCell
                 key={Math.random()}
                 sx={{
-                  textAlign: 'center',
+                  textAlign:
+                    index === 0
+                      ? 'left'
+                      : index === totalColunas - 1
+                        ? 'right'
+                        : 'center',
                 }}
               >
-                <Typography>{item.nome}</Typography>
+                <Typography fontSize={15} fontWeight={500}>
+                  {item.nome}
+                </Typography>
               </TableCell>
             ))}
           </TableRow>
