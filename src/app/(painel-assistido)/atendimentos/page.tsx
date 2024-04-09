@@ -130,7 +130,7 @@ export default function HomePage() {
               height: '25vh',
             }}
           >
-            Minhas Solicitações
+            Meus Pedidos
           </Box>
         </Paper>
       </Box>
@@ -207,6 +207,7 @@ export default function HomePage() {
             }}
           >
             <Tabela
+              id={'pedidos_pendentes'}
               configuracaoTabela={{
                 corTabela: 'vermelho',
                 iconeTabela: 'atencao',
@@ -216,6 +217,7 @@ export default function HomePage() {
               conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['1'])}
             />
             <Tabela
+              id={'agendamentos'}
               configuracaoTabela={{
                 corTabela: 'azul',
                 iconeTabela: 'relogio',
@@ -225,6 +227,7 @@ export default function HomePage() {
               conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['2'])}
             />
             <Tabela
+              id={'pedidos_analise'}
               configuracaoTabela={{
                 corTabela: 'amarelo',
                 iconeTabela: 'relogio',
@@ -234,6 +237,7 @@ export default function HomePage() {
               conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['3'])}
             />
             <Tabela
+              id={'atendidos'}
               configuracaoTabela={{
                 corTabela: 'verde',
                 iconeTabela: 'aprovado',

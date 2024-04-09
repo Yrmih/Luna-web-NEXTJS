@@ -3,6 +3,7 @@
 
 // framework
 import {
+  Badge,
   Box,
   Icon,
   Paper,
@@ -50,6 +51,7 @@ interface Colunas {
 }
 
 interface TabelaProps {
+  id: string
   conteudo: Dados[]
   configuracaoTabela: {
     corTabela: keyof typeof cores
@@ -59,8 +61,17 @@ interface TabelaProps {
   }
 }
 
-export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
+export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
   const totalColunas = configuracaoTabela.colunas.length
+
+  const ocultarTabela = () => {
+    const elementos = document.querySelectorAll<HTMLElement>(`#${id}`)
+
+    elementos.forEach((elemento) => {
+      const display = elemento.style.display
+      elemento.style.display = display === 'none' ? '' : 'none'
+    })
+  }
 
   return (
     <TableContainer
@@ -83,6 +94,9 @@ export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
           sx={{
             paddingBottom: '50px',
           }}
+          onClick={() => {
+            ocultarTabela()
+          }}
         >
           <TableRow
             sx={{
@@ -102,25 +116,31 @@ export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
                 <Typography align="center" fontWeight={500}>
                   {configuracaoTabela.nomeTabela}
                 </Typography>
-                <Icon
-                  sx={{
-                    color: rgbToHex(
-                      cores[configuracaoTabela.corTabela].replace(
-                        /..$/g,
-                        '0.8)',
+                <Badge badgeContent={conteudo.length} color="error" showZero>
+                  <Icon
+                    sx={{
+                      marginRight: '1px',
+                      color: rgbToHex(
+                        cores[configuracaoTabela.corTabela].replace(
+                          /..$/g,
+                          '0.8)',
+                        ),
                       ),
-                    ),
-                  }}
-                >
-                  {icones[configuracaoTabela.iconeTabela]}
-                </Icon>
+                    }}
+                  >
+                    {icones[configuracaoTabela.iconeTabela]}
+                  </Icon>
+                </Badge>
               </Box>
             </TableCell>
           </TableRow>
         </TableHead>
 
         {/* Header das colunas (define o nome das colunas e quantidade) */}
-        <TableHead>
+        <TableHead
+          id={id}
+          style={{ display: id === 'pedidos_pendentes' ? '' : 'none' }}
+        >
           <TableRow
             sx={{
               backgroundColor: rgbToHex(
@@ -150,7 +170,10 @@ export function Tabela({ configuracaoTabela, conteudo }: TabelaProps) {
         </TableHead>
 
         {/* Body da tabela */}
-        <TableBody>
+        <TableBody
+          id={id}
+          style={{ display: id === 'pedidos_pendentes' ? '' : 'none' }}
+        >
           {/* Componente que preenche as linhas da tabela */}
           {conteudo.map((item) => (
             <ConteudoTabela
