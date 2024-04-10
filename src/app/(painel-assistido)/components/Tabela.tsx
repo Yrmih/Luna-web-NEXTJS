@@ -40,10 +40,15 @@ interface Dados {
   obrigatorio?: boolean
   dataEnviado?: string
   dadoRecusa?: string
-  numero?: string
-  dataAgendamento?: string
   horarioAgendamento?: string
   quantidadePendencia?: number
+  // abaixo segue o integrado
+  area?: string
+  qualificacao?: string
+  numero?: string
+  dataAgendamento?: string
+  dataAtendimento?: string
+  documentosPendentes?: number
 }
 
 interface Colunas {

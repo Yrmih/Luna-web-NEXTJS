@@ -743,6 +743,44 @@ export interface Assunto {
   excluido_por?: number | null;
 }
 
+export interface AtendimentoPessoaResponse {
+  /**
+   * Area
+   * @minLength 1
+   */
+  area: string;
+  /**
+   * Qualificacao
+   * @minLength 1
+   */
+  qualificacao: string;
+  /**
+   * Numero
+   * @minLength 1
+   */
+  numero: string;
+  /**
+   * Data agendamento
+   * @minLength 1
+   */
+  data_agendamento?: string | null;
+  /**
+   * Data atendimento
+   * @minLength 1
+   */
+  data_atendimento?: string | null;
+  /** Documentos pendentes */
+  documentos_pendentes?: number;
+}
+
+export interface AtendimentoPessoaError {
+  /**
+   * Mensagem
+   * @minLength 1
+   */
+  mensagem: string;
+}
+
 export interface Coletivo {
   /** ID */
   id?: number;
@@ -1505,11 +1543,8 @@ export interface AuthAssistidoLunaRequest {
 }
 
 export interface AuthAssistidoLunaResponse {
-  /**
-   * Id pessoa
-   * @minLength 1
-   */
-  id_pessoa?: string | null;
+  /** ID */
+  id?: number;
   /**
    * Nome
    * @minLength 1
@@ -8806,6 +8841,31 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/assuntos/${id}/`,
         method: "DELETE",
         secure: true,
+        ...params,
+      }),
+  };
+  atendimentoPessoa = {
+    /**
+     * @description Endpoint para capturar os atendimentos de um assistido
+     *
+     * @tags atendimento-pessoa
+     * @name AtendimentoPessoaList
+     * @request GET:/atendimento-pessoa/
+     * @secure
+     */
+    atendimentoPessoaList: (
+      query: {
+        /** @minLength 1 */
+        pessoa: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<AtendimentoPessoaResponse[], AtendimentoPessoaError>({
+        path: `/atendimento-pessoa/`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
         ...params,
       }),
   };
