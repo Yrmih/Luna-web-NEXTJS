@@ -39,9 +39,15 @@ interface Colunas {
   nome: string
 }
 
+interface Documentos {
+  nome: string
+  situacao: number
+}
+
 interface TabelaProps {
   id: string
-  conteudo: AtendimentoPessoaResponse[] | undefined
+  documentos?: Documentos[] | undefined
+  conteudo?: AtendimentoPessoaResponse[] | undefined
   configuracaoTabela: {
     corTabela: keyof typeof cores
     iconeTabela: keyof typeof icones
@@ -50,8 +56,16 @@ interface TabelaProps {
   }
 }
 
-export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
+export function Tabela({
+  id,
+  configuracaoTabela,
+  conteudo,
+  documentos,
+}: TabelaProps) {
   const totalColunas = configuracaoTabela.colunas.length
+
+  // TODO: Remover console só para evitar erro
+  console.log(documentos)
 
   const ocultarTabela = () => {
     const elementos = document.querySelectorAll<HTMLElement>(`#${id}`)
@@ -106,10 +120,16 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
                 <Typography align="center" fontWeight={500}>
                   {configuracaoTabela.nomeTabela}
                 </Typography>
-                <Badge badgeContent={conteudo?.length} color="error" showZero>
+                <Badge
+                  badgeContent={
+                    conteudo ? conteudo?.length : documentos?.length
+                  }
+                  color="error"
+                  showZero
+                >
                   <Icon
                     sx={{
-                      marginRight: '1px',
+                      marginRight: '2px',
                       color: rgbToHex(
                         cores[configuracaoTabela.corTabela].replace(
                           /..$/g,

@@ -1,19 +1,8 @@
 'use client'
 
 // Framework
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material'
-import { ConteudoTabela } from './ConteudoTabela'
+import { Card, CardContent, CardHeader, Paper } from '@mui/material'
+import { Tabela } from '@/app/(painel-assistido)/components/Tabela'
 
 // Internal
 
@@ -22,33 +11,42 @@ import { ConteudoTabela } from './ConteudoTabela'
 const simularDocumentos = [
   {
     nome: 'declaração de residência',
-    situacao: '3',
+    situacao: 3,
     obrigatorio: false,
     dataUpload: null,
   },
   {
     nome: 'DOCUMENTO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: '4',
+    situacao: 4,
     obrigatorio: true,
     dataUpload: '21/02/2023',
   },
   {
     nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: '1',
+    situacao: 1,
     obrigatorio: false,
     dataUpload: null,
   },
   {
     nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE HIPOSUFICIENCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: '4',
+    situacao: 4,
     obrigatorio: false,
     dataUpload: '17/03/2023',
   },
   {
     nome: 'DOCUMENTO OBRIGATÓRIO ',
-    situacao: '1',
+    situacao: 1,
     obrigatorio: true,
     dataUpload: null,
+  },
+]
+
+const padraoTabela = [
+  {
+    nome: 'Documento',
+  },
+  {
+    nome: 'Ações',
   },
 ]
 
@@ -68,33 +66,36 @@ export function CardDocumentoEnvio() {
       {/* Body do card */}
       <CardContent>
         {/* Container da tabela */}
-        <TableContainer component={Paper}>
-          <Table>
-            {/* Header da tabela (define o nome das colunas) */}
-            <TableHead>
-              <TableRow>
-                <TableCell>Nome do documento</TableCell>
-                <TableCell sx={{ textAlign: 'center' }}>
-                  Enviar Documento
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {/* Body da tabela */}
-            <TableBody>
-              {/* Componente que preenche as linhas da tabela */}
-              {simularDocumentos.map((item) => (
-                <ConteudoTabela
-                  key={Math.random()}
-                  nome={item.nome}
-                  situacao={item.situacao}
-                  obrigatorio={item.obrigatorio}
-                  dataUpload={item.dataUpload ? item.dataUpload : null}
-                  numeroColunas={2}
-                ></ConteudoTabela>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Tabela
+          id={'pendentes'}
+          configuracaoTabela={{
+            corTabela: 'vermelho',
+            iconeTabela: 'atencao',
+            nomeTabela: 'Pendências',
+            colunas: padraoTabela,
+          }}
+          documentos={simularDocumentos}
+        />
+        <Tabela
+          id={'analise'}
+          configuracaoTabela={{
+            corTabela: 'azul',
+            iconeTabela: 'relogio',
+            nomeTabela: 'Em Análise',
+            colunas: padraoTabela,
+          }}
+          documentos={simularDocumentos}
+        />
+        <Tabela
+          id={'aprovado'}
+          configuracaoTabela={{
+            corTabela: 'verde',
+            iconeTabela: 'aprovado',
+            nomeTabela: 'Aprovados',
+            colunas: padraoTabela,
+          }}
+          documentos={simularDocumentos}
+        />
       </CardContent>
     </Card>
   )
