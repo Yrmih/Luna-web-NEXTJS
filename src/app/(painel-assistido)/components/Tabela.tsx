@@ -21,6 +21,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 // Internal
 import { ConteudoTabela } from '../atendimentos/components/ui/ConteudoTabela'
+import { AtendimentoPessoaResponse } from '@/lib/solar-client/SolarApi'
 
 const cores = {
   vermelho: 'rgb(220, 0, 0, 1)',
@@ -34,30 +35,13 @@ const icones = {
   aprovado: <CheckCircleIcon />,
 }
 
-interface Dados {
-  nome?: string
-  situacao: string
-  obrigatorio?: boolean
-  dataEnviado?: string
-  dadoRecusa?: string
-  horarioAgendamento?: string
-  quantidadePendencia?: number
-  // abaixo segue o integrado
-  area?: string
-  qualificacao?: string
-  numero?: string
-  dataAgendamento?: string
-  dataAtendimento?: string
-  documentosPendentes?: number
-}
-
 interface Colunas {
   nome: string
 }
 
 interface TabelaProps {
   id: string
-  conteudo: Dados[]
+  conteudo: AtendimentoPessoaResponse[] | undefined
   configuracaoTabela: {
     corTabela: keyof typeof cores
     iconeTabela: keyof typeof icones
@@ -74,8 +58,6 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
 
     elementos.forEach((elemento) => {
       const visibility = elemento.style.visibility
-      elemento.style.transition = '0.2s'
-      elemento.style.opacity = visibility === 'collapse' ? '1' : '0'
       elemento.style.visibility =
         visibility === 'collapse' ? 'visible' : 'collapse'
     })
@@ -124,7 +106,7 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
                 <Typography align="center" fontWeight={500}>
                   {configuracaoTabela.nomeTabela}
                 </Typography>
-                <Badge badgeContent={conteudo.length} color="error" showZero>
+                <Badge badgeContent={conteudo?.length} color="error" showZero>
                   <Icon
                     sx={{
                       marginRight: '1px',
@@ -148,7 +130,7 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
         <TableHead
           id={id}
           style={{
-            visibility: id === 'pedidos_pendentes' ? 'visible' : 'collapse',
+            visibility: 'collapse',
           }}
         >
           <TableRow
@@ -183,23 +165,18 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
         <TableBody
           id={id}
           style={{
-            visibility: id === 'pedidos_pendentes' ? 'visible' : 'collapse',
+            visibility: 'collapse',
           }}
         >
           {/* Componente que preenche as linhas da tabela */}
-          {conteudo.map((item) => (
+          {conteudo?.map((item) => (
             <ConteudoTabela
               key={Math.random()}
-              nome={item.nome}
-              situacao={item.situacao}
-              obrigatorio={item.obrigatorio}
-              dataEnviado={item.dataEnviado ? item.dataEnviado : null}
-              dadoRecusa={item.dadoRecusa ? item.dadoRecusa : null}
+              nome={'item.nome'}
+              situacao={item?.situacao ? item.situacao : 1}
               numeroColunas={totalColunas}
               numero={item.numero}
-              dataAgendamento={item.dataAgendamento}
-              horarioAgendamento={item.horarioAgendamento}
-              quantidadePendencia={item.quantidadePendencia}
+              dataAgendamento={item.data_agendamento}
             ></ConteudoTabela>
           ))}
         </TableBody>

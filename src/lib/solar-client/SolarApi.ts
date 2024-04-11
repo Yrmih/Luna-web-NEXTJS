@@ -771,6 +771,8 @@ export interface AtendimentoPessoaResponse {
   data_atendimento?: string | null;
   /** Documentos pendentes */
   documentos_pendentes?: number;
+  /** Situacao */
+  situacao?: 1 | 2 | 3 | 4;
 }
 
 export interface AtendimentoPessoaError {
@@ -8857,6 +8859,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query: {
         /** @minLength 1 */
         pessoa: string;
+        situacao?: boolean;
+        documentos_pendentes?: boolean;
       },
       params: RequestParams = {},
     ) =>

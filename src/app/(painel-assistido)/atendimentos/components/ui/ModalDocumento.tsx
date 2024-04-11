@@ -45,7 +45,7 @@ interface ModalEnvioDocumentoProps {
     tipoModal?: string
     handleValue?: boolean
     handleAction: Dispatch<SetStateAction<boolean>>
-    situacao: string
+    situacao: number
     dataEnviado: string | null | undefined
     dadoRecusa?: string | null
   }
@@ -92,15 +92,15 @@ export function ModalEnvioDocumento({ props }: ModalEnvioDocumentoProps) {
       <DialogTitle
         sx={{
           bgcolor:
-            props.situacao === '2'
+            props.situacao === 2
               ? '#277a9533'
-              : props.situacao === '4'
+              : props.situacao === 4
                 ? '#00640033'
                 : '',
           color:
-            props.situacao === '2'
+            props.situacao === 2
               ? 'darkblue'
-              : props.situacao === '4'
+              : props.situacao === 4
                 ? 'green'
                 : '',
           fontWeight: 'bold',
@@ -118,9 +118,9 @@ export function ModalEnvioDocumento({ props }: ModalEnvioDocumentoProps) {
       <DialogContent
         sx={{
           bgcolor:
-            props.situacao === '2'
+            props.situacao === 2
               ? '#277a9533'
-              : props.situacao === '4'
+              : props.situacao === 4
                 ? '#00640033'
                 : '',
           alignContent: 'center',
@@ -202,7 +202,7 @@ export function ModalEnvioDocumento({ props }: ModalEnvioDocumentoProps) {
             >
               {`${props.nomeEnvioDocumento}`}
 
-              {props.situacao === '3' ? (
+              {props.situacao === 3 ? (
                 <Typography>{`${props.dadoRecusa}`}</Typography>
               ) : (
                 <></>
@@ -316,9 +316,9 @@ export function ModalEnvioDocumento({ props }: ModalEnvioDocumentoProps) {
           <DialogContentText
             sx={{
               color:
-                props.situacao === '2'
+                props.situacao === 2
                   ? 'darkblue'
-                  : props.situacao === '4'
+                  : props.situacao === 4
                     ? 'darkgreen'
                     : '',
               textAlign: 'center',
@@ -328,10 +328,10 @@ export function ModalEnvioDocumento({ props }: ModalEnvioDocumentoProps) {
             <Typography
               sx={{ fontWeight: 600, mt: '2vh', textAlign: 'center' }}
             >
-              {props.situacao === '2' ? 'EM ANÁLISE' : 'APROVADO'}
+              {props.situacao === 2 ? 'EM ANÁLISE' : 'APROVADO'}
             </Typography>
             <Typography sx={{ mt: '2vh', textAlign: 'center' }}>
-              {props.situacao === '2'
+              {props.situacao === 2
                 ? `Seu documento foi enviado  no dia ${props.dataEnviado} e está aguardando aprovação de nossos atendentes.`
                 : `Seu documento foi enviado  no dia ${props.dataEnviado} e foi aprovado por nossos atendentes.`}
             </Typography>

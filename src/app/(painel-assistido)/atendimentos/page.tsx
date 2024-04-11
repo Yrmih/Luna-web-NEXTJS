@@ -9,19 +9,15 @@ import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicita
 import { useEffect, useState } from 'react'
 import { AtendimentoPessoaResponse } from '@/lib/solar-client/SolarApi'
 import { PageLoading } from '@/components/ui/PageLoading'
-interface Atendimento {
-  situacao: string
-  numero?: string
-  dataAgendamento?: string
-  horarioAgendamento?: string
-  quantidadePendencia: number
-  tipo: 'AÇÃO DE ALIMENTOS'
-}
+
 function encontrarAtendimentosPorSituacao(
-  Atendimentos: Atendimento[],
-  situacoes: string[],
-): Atendimento[] {
-  return Atendimentos.filter((doc) => situacoes.includes(doc.situacao))
+  Atendimentos: AtendimentoPessoaResponse[] | undefined,
+  situacoes: [number],
+): AtendimentoPessoaResponse[] | undefined {
+  console.log(Atendimentos)
+  return Atendimentos?.filter((doc) =>
+    situacoes.includes(doc?.situacao ? doc.situacao : 1),
+  )
 }
 
 // Simulação temporária de um retorno de dados
@@ -31,15 +27,6 @@ function encontrarAtendimentosPorSituacao(
 // 2 - agendado
 // 3 - em análise
 // 4 - atendido
-
-const Atendimentos: Atendimento[] = [
-  {
-    situacao: '1',
-    numero: '230830099186',
-    quantidadePendencia: 2,
-    tipo: 'AÇÃO DE ALIMENTOS',
-  },
-]
 
 const padraoTabela = [
   {
@@ -55,32 +42,35 @@ const padraoTabela = [
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [atendimentos, setAtendimentos] = useState<
-    AtendimentoPessoaResponse[] | undefined
-  >()
+  const [atendimentos, setAtendimentos] =
+    useState<AtendimentoPessoaResponse[]>()
 
-  async function buscarAtendimentos(pessoa: string) {
+  async function buscarAtendimentos(
+    pessoa: string,
+    situacao?: boolean,
+    documentosPendentes?: boolean,
+  ) {
     setIsLoading(true)
-    const { sucesso, resultado } =
-      await consultarAtendimentoPessoaAssistida(pessoa)
+    const { sucesso, resultado } = await consultarAtendimentoPessoaAssistida(
+      pessoa,
+      situacao,
+      documentosPendentes,
+    )
 
-    if (sucesso) {
+    if (sucesso && resultado) {
       setAtendimentos(resultado)
     }
     setIsLoading(false)
   }
 
   useEffect(() => {
-    buscarAtendimentos('392061')
+    buscarAtendimentos('392061', true, true)
   }, [])
 
   return (
     <>
       {isLoading && <PageLoading />}
-      {atendimentos?.forEach((item) => {
-        console.log(item)
-      })}
-      {!isLoading && (
+      {!isLoading && atendimentos && (
         <>
           <Box
             sx={{
@@ -136,11 +126,11 @@ export default function HomePage() {
             >
               {/* Componente que trás dados do perfil do assistido */}
               <CardInfoMinhasSolicitacoes
-                props={{
-                  quantidadeDocumentosPendentes: Atendimentos.filter(
-                    (item) => item?.quantidadePendencia !== 0,
-                  ).length,
-                }}
+                quantidadeDocumentosPendentes={
+                  atendimentos?.filter(
+                    (item) => item?.documentos_pendentes !== 0,
+                  ).length
+                }
               />
               {/* Box da margin de um componente para o outro */}
               <Box
@@ -193,9 +183,7 @@ export default function HomePage() {
                     nomeTabela: 'Pedidos com Pendêncas',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(Atendimentos, [
-                    '1',
-                  ])}
+                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [1])}
                 />
                 <Tabela
                   id={'agendamentos'}
@@ -205,9 +193,7 @@ export default function HomePage() {
                     nomeTabela: 'Agendamentos',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(Atendimentos, [
-                    '2',
-                  ])}
+                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [2])}
                 />
                 <Tabela
                   id={'pedidos_analise'}
@@ -217,9 +203,7 @@ export default function HomePage() {
                     nomeTabela: 'Pedidos em Análise',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(Atendimentos, [
-                    '3',
-                  ])}
+                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [3])}
                 />
                 <Tabela
                   id={'atendidos'}
@@ -229,9 +213,7 @@ export default function HomePage() {
                     nomeTabela: 'Atendidos',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(Atendimentos, [
-                    '4',
-                  ])}
+                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [4])}
                 />
               </Grid>
             </Grid>

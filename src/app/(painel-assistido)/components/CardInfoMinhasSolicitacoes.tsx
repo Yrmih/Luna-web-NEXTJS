@@ -8,12 +8,10 @@ import {
   rgbToHex,
 } from '@mui/material'
 interface CardInfoMinhasSolicitacoesProps {
-  props: {
-    quantidadeDocumentosPendentes: number
-  }
+  quantidadeDocumentosPendentes: number | undefined
 }
 export function CardInfoMinhasSolicitacoes({
-  props,
+  quantidadeDocumentosPendentes,
 }: CardInfoMinhasSolicitacoesProps) {
   return (
     <Grid display="flex" justifyContent={'space-around'} container>
@@ -41,7 +39,7 @@ export function CardInfoMinhasSolicitacoes({
             fontWeight: 600,
           }}
         >
-          {props.quantidadeDocumentosPendentes}
+          {quantidadeDocumentosPendentes}
         </Typography>
         <Typography sx={{ textAlign: 'center', fontWeight: 600 }}>
           Pedido(s) com documentos pendentes

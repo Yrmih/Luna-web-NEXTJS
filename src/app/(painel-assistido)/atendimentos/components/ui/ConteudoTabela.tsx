@@ -19,7 +19,7 @@ import { ModalEnvioDocumento } from './ModalDocumento'
 // Define tipos das propriedades recebidas por ConteudoTabela
 interface ConteudoTabelaProps {
   nome?: string
-  situacao: string
+  situacao: number
   obrigatorio?: boolean
   dataEnviado?: string | null
   dataUpload?: string | null
@@ -83,27 +83,27 @@ export function ConteudoTabela({
     const tipoDeBotao = numeroColunas === 2 ? tipo : '6'
 
     switch (tipoDeBotao) {
-      case '1':
+      case 1:
         cor = cores.vermelho
         texto = 'ENVIAR'
         break
-      case '2':
+      case 2:
         cor = cores.azul
         texto = 'EM ANÁLISE'
         break
-      case '3':
+      case 3:
         cor = cores.vermelho
         texto = 'REENVIAR'
         break
-      case '4':
+      case 4:
         cor = cores.verde
         texto = 'APROVADO'
         break
-      case '5':
+      case 5:
         cor = cores.cinza
         texto = 'NÃO TENHO'
         break
-      case '6':
+      case 6:
         cor = cores.azulEscuro
         texto = 'VISUALIZAR'
         break
@@ -193,7 +193,7 @@ export function ConteudoTabela({
           >
             {quantidadePendencia !== 0
               ? `${quantidadePendencia} DOCUMENTOS PENDENTES`
-              : situacao === '1' || situacao === '3'
+              : situacao === 1 || situacao === 3
                 ? 'NENHUM DOCUMENTO PENDENTE'
                 : `${dataAgendamento} as ${horarioAgendamento}`}
           </TableCell>
@@ -209,7 +209,7 @@ export function ConteudoTabela({
             {/* As ações do botão são: exibe modais para envio de documento (caso documento pendente) */}
             <Button
               onClick={() => {
-                if (['4', '2'].includes(situacao)) {
+                if ([4, 2].includes(situacao)) {
                   setOpenModal(!openModal)
                 } else if (numeroColunas === 2) {
                   setOpenEnvioArquivo(true)
@@ -230,10 +230,10 @@ export function ConteudoTabela({
                 onClick={() => {
                   setOpenNaotenho(true)
                 }}
-                sx={estiloBotao('5').sxBotao}
+                sx={estiloBotao(5).sxBotao}
               >
-                <Typography sx={estiloBotao('5').sxTexto}>
-                  {estiloBotao('5').texto}
+                <Typography sx={estiloBotao(5).sxTexto}>
+                  {estiloBotao(5).texto}
                 </Typography>
               </Button>
             ) : null}
