@@ -19,29 +19,30 @@ import { ModalEnvioDocumento } from './ModalDocumento'
 // Define tipos das propriedades recebidas por ConteudoTabela
 interface ConteudoTabelaProps {
   nome?: string
+  ehDocumento: boolean
   situacao: number
   obrigatorio?: boolean
   dataEnviado?: string | null
   dataUpload?: string | null
   dadoRecusa?: string | null
-  numeroColunas: number
   numero?: string | undefined
   dataAgendamento?: string | null
+  dataAtendimento?: string | null
   horarioAgendamento?: string | null
   quantidadePendencia?: number | undefined
 }
 
 export function ConteudoTabela({
   nome,
+  ehDocumento,
   situacao,
   obrigatorio,
   dataEnviado,
   dataUpload,
   dadoRecusa,
-  numeroColunas,
   numero,
   dataAgendamento,
-  horarioAgendamento,
+  dataAtendimento,
   quantidadePendencia,
 }: ConteudoTabelaProps) {
   // Define a cor da alternação das linhas da tabela (impar)
@@ -62,9 +63,9 @@ export function ConteudoTabela({
 
   /**
    * Essa função define os estilos dos botões da coluna "Enviar Documentos", também cuidando de mostrar o o status desses documentos quando já enviado.
-   * @param {string} tipo - Define o tipo de botão que será usado
+   * @param {number} tipo - Define o tipo de botão que será usado
    */
-  const estiloBotao = (tipo = situacao) => {
+  const estiloBotao = (tipo: number = situacao) => {
     // Situações:
     // 1 - pendente
     // 2 - em análise
@@ -80,7 +81,8 @@ export function ConteudoTabela({
     let cor = 'rgb(169, 169, 169, 1)'
     let texto = 'teste'
 
-    const tipoDeBotao = numeroColunas === 2 ? tipo : '6'
+    // Verifica se os botões devem seguir o padrão de documentos ou não
+    const tipoDeBotao = ehDocumento ? tipo : 6
 
     switch (tipoDeBotao) {
       case 1:
@@ -148,56 +150,44 @@ export function ConteudoTabela({
         {/* Define celula da linha referente a primeira coluna da tabela (Nome do documento) */}
         <TableCell
           sx={{
-            width: numeroColunas === 3 ? '30% !important' : '50% !important',
+            width: !ehDocumento ? '30% !important' : '50% !important',
           }}
         >
-          {numeroColunas === 3 ? (
-            <>
-              <Typography
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                }}
-              ></Typography>
-              <Typography
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                }}
-              >
-                {` NÚMERO: ${numero}`}
-              </Typography>
-            </>
-          ) : (
-            <Typography
-              sx={{
-                fontSize: '12px',
-                fontWeight: 'bold',
-              }}
-            >
-              {nome?.toUpperCase()}
-            </Typography>
-          )}
-        </TableCell>
-        {numeroColunas === 3 ? (
-          <TableCell
+          <Typography
             sx={{
-              fontWeight: 600,
-              color:
-                quantidadePendencia && quantidadePendencia !== 0
-                  ? 'red'
-                  : 'black',
-              width: '40% !important',
+              fontSize: '12px',
+              fontWeight: 'bold',
             }}
-            align="center"
           >
-            {quantidadePendencia !== 0
-              ? `${quantidadePendencia} DOCUMENTOS PENDENTES`
-              : situacao === 1 || situacao === 3
-                ? 'NENHUM DOCUMENTO PENDENTE'
-                : `${dataAgendamento} as ${horarioAgendamento}`}
-          </TableCell>
-        ) : null}
+            {nome}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '12px',
+            }}
+          >
+            {` Nº: ${numero}`}
+          </Typography>
+        </TableCell>
+        <TableCell
+          sx={{
+            fontWeight: 600,
+            color:
+              quantidadePendencia && quantidadePendencia !== 0
+                ? 'red'
+                : 'black',
+            width: '40% !important',
+          }}
+          align="center"
+        >
+          {situacao === 1
+            ? `${quantidadePendencia} Documentos Pendentes`
+            : situacao === 2
+              ? `${dataAgendamento}`
+              : situacao === 4
+                ? `${dataAtendimento}`
+                : 'Pedido em análise'}
+        </TableCell>
         {/* Define celula da linha referente a segunda coluna da tabela (Enviar Documento) */}
         <TableCell align="center">
           <Box
@@ -211,7 +201,7 @@ export function ConteudoTabela({
               onClick={() => {
                 if ([4, 2].includes(situacao)) {
                   setOpenModal(!openModal)
-                } else if (numeroColunas === 2) {
+                } else if (ehDocumento) {
                   setOpenEnvioArquivo(true)
                 } else {
                   window.location.href = `atendimentos/${numero}`
@@ -225,7 +215,7 @@ export function ConteudoTabela({
             </Button>
 
             {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
-            {!obrigatorio && !dataUpload && numeroColunas === 2 ? (
+            {!obrigatorio && !dataUpload && ehDocumento ? (
               <Button
                 onClick={() => {
                   setOpenNaotenho(true)

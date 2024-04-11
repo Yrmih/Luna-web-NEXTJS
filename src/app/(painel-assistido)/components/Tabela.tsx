@@ -153,7 +153,11 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
                         : 'center',
                 }}
               >
-                <Typography fontSize={15} fontWeight={500}>
+                <Typography
+                  fontSize={15}
+                  fontWeight={500}
+                  marginRight={index === totalColunas - 1 ? '10px' : '0px'}
+                >
                   {item.nome}
                 </Typography>
               </TableCell>
@@ -172,11 +176,13 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
           {conteudo?.map((item) => (
             <ConteudoTabela
               key={Math.random()}
-              nome={'item.nome'}
+              nome={item.qualificacao}
+              ehDocumento={false}
               situacao={item?.situacao ? item.situacao : 1}
-              numeroColunas={totalColunas}
               numero={item.numero}
               dataAgendamento={item.data_agendamento}
+              dataAtendimento={item.data_atendimento}
+              quantidadePendencia={item.documentos_pendentes}
             ></ConteudoTabela>
           ))}
         </TableBody>
