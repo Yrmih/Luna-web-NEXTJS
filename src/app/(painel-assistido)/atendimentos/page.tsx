@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import { AtendimentoPessoaResponse } from '@/lib/solar-client/SolarApi'
 import { PageLoading } from '@/components/ui/PageLoading'
 
-function encontrarAtendimentosPorSituacao(
+function classificarAtendimentosPorSituacao(
   Atendimentos: AtendimentoPessoaResponse[] | undefined,
   situacoes: [number],
 ): AtendimentoPessoaResponse[] | undefined {
@@ -183,7 +183,9 @@ export default function HomePage() {
                     nomeTabela: 'Pedidos com Pendêncas',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [1])}
+                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
+                    1,
+                  ])}
                 />
                 <Tabela
                   id={'agendamentos'}
@@ -193,7 +195,9 @@ export default function HomePage() {
                     nomeTabela: 'Agendamentos',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [2])}
+                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
+                    2,
+                  ])}
                 />
                 <Tabela
                   id={'pedidos_analise'}
@@ -203,7 +207,9 @@ export default function HomePage() {
                     nomeTabela: 'Pedidos em Análise',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [3])}
+                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
+                    3,
+                  ])}
                 />
                 <Tabela
                   id={'atendidos'}
@@ -213,7 +219,9 @@ export default function HomePage() {
                     nomeTabela: 'Atendidos',
                     colunas: padraoTabela,
                   }}
-                  conteudo={encontrarAtendimentosPorSituacao(atendimentos, [4])}
+                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
+                    4,
+                  ])}
                 />
               </Grid>
             </Grid>
