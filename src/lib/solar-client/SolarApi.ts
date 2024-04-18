@@ -1545,8 +1545,11 @@ export interface AuthAssistidoLunaRequest {
 }
 
 export interface AuthAssistidoLunaResponse {
-  /** ID */
-  id?: number;
+  /**
+   * Pessoa
+   * @minLength 1
+   */
+  pessoa?: string | null;
   /**
    * Nome
    * @minLength 1
