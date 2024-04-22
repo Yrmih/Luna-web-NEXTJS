@@ -2,7 +2,7 @@
 
 import { solarApi } from '@/lib'
 import {
-  AtendimentoPessoaListResponse,
+  AtendimentoPessoaListResponsePagination,
   AtendimentoPessoaListError,
 } from '@/lib/solar-client/SolarApi'
 import { ServiceResponse } from '@/types'
@@ -13,7 +13,10 @@ export async function consultarAtendimentoPessoaAssistida(
   documentosPendentes?: boolean,
   responsavel?: boolean,
 ): Promise<
-  ServiceResponse<AtendimentoPessoaListResponse[], AtendimentoPessoaListError>
+  ServiceResponse<
+    AtendimentoPessoaListResponsePagination['results'],
+    AtendimentoPessoaListError
+  >
 > {
   try {
     const response = await solarApi.atendimentosPartes.atendimentosPartesList({

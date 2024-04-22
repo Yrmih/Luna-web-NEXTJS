@@ -87,11 +87,7 @@ export function Tabela({
       }}
       component={Paper}
     >
-      <Table
-        sx={{
-          overflow: 'hidden',
-        }}
-      >
+      <Table>
         {/* Header da categoria da Tabela */}
         <TableHead
           sx={{
@@ -124,7 +120,6 @@ export function Tabela({
                     conteudo ? conteudo?.length : documentos?.length
                   }
                   color="error"
-                  showZero
                 >
                   <Icon
                     sx={{
