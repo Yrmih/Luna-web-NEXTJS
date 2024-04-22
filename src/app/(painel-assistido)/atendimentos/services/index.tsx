@@ -1,23 +1,14 @@
 'use server'
 
 import { solarApi } from '@/lib'
-import {
-  AtendimentoPessoaListResponsePagination,
-  AtendimentoPessoaListError,
-} from '@/lib/solar-client/SolarApi'
-import { ServiceResponse } from '@/types'
+import { AtendimentoPessoaListError } from '@/lib/solar-client/SolarApi'
 
 export async function consultarAtendimentoPessoaAssistida(
   pessoa: string,
   situacao?: boolean,
   documentosPendentes?: boolean,
   responsavel?: boolean,
-): Promise<
-  ServiceResponse<
-    AtendimentoPessoaListResponsePagination['results'],
-    AtendimentoPessoaListError
-  >
-> {
+) {
   try {
     const response = await solarApi.atendimentosPartes.atendimentosPartesList({
       pessoa,

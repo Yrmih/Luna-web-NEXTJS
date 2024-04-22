@@ -6,10 +6,7 @@ import { Tabela } from '../components/Tabela'
 import { consultarAtendimentoPessoaAssistida } from './services'
 
 import { PageLoading } from '@/components/ui/PageLoading'
-import {
-  AtendimentoPessoaListResponse,
-  AtendimentoPessoaListResponsePagination,
-} from '@/lib/solar-client/SolarApi'
+import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 import { useEffect, useState } from 'react'
 import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicitacoes'
 import { useSession } from 'next-auth/react'
@@ -46,7 +43,7 @@ const padraoTabela = [
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [atendimentos, setAtendimentos] =
-    useState<AtendimentoPessoaListResponsePagination['results']>()
+    useState<AtendimentoPessoaListResponse[]>()
   const { data: session } = useSession()
 
   async function buscarAtendimentos(
