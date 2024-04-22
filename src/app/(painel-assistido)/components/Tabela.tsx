@@ -21,7 +21,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 // Internal
 import { ConteudoTabela } from '../atendimentos/components/ui/ConteudoTabela'
-import { AtendimentoPessoaResponse } from '@/lib/solar-client/SolarApi'
+import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 
 const cores = {
   vermelho: 'rgb(220, 0, 0, 1)',
@@ -47,7 +47,7 @@ interface Documentos {
 interface TabelaProps {
   id: string
   documentos?: Documentos[] | undefined
-  conteudo?: AtendimentoPessoaResponse[] | undefined
+  conteudo?: AtendimentoPessoaListResponse[] | undefined
   configuracaoTabela: {
     corTabela: keyof typeof cores
     iconeTabela: keyof typeof icones
@@ -65,7 +65,6 @@ export function Tabela({
   const totalColunas = configuracaoTabela.colunas.length
 
   // TODO: Remover console só para evitar erro
-  console.log(documentos)
 
   const ocultarTabela = () => {
     const elementos = document.querySelectorAll<HTMLElement>(`#${id}`)

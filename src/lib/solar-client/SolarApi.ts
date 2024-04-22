@@ -1066,7 +1066,23 @@ export interface AtendimentoPessoaListResponse {
   /** Documentos pendentes */
   documentos_pendentes?: number;
   /** Situacao */
-  situacao?: 1 | 2 | 3 | 4;
+  situacao?: 1 | 2 | 3 | 4 | 5;
+}
+
+export interface AtendimentoPessoaListResponsePagination {
+  /** Count */
+  count: number;
+  /**
+   * Next
+   * @minLength 1
+   */
+  next?: string | null;
+  /**
+   * Previous
+   * @minLength 1
+   */
+  previous?: string | null;
+  results: AtendimentoPessoaListResponse[];
 }
 
 export interface AtendimentoPessoaListError {
@@ -1096,7 +1112,7 @@ export interface AtendimentoPessoa {
   representante?: number | null;
 }
 
-export interface PessoaConsulta {
+export interface AtendimentoPessoaConsulta {
   /**
    * Cpf
    * @minLength 1
@@ -9612,10 +9628,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         documentos_pendentes?: boolean;
         /** @default true */
         responsavel?: boolean;
+        /** @default false */
+        excluidos?: boolean;
       },
       params: RequestParams = {},
     ) =>
-      this.request<AtendimentoPessoaListResponse[], AtendimentoPessoaListError>({
+      this.request<AtendimentoPessoaListResponsePagination[], AtendimentoPessoaListError>({
         path: `/atendimentos-partes/`,
         method: "GET",
         query: query,
@@ -9651,7 +9669,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/atendimentos-partes/consultar/
      * @secure
      */
-    atendimentosPartesConsultarPessoa: (data: PessoaConsulta, params: RequestParams = {}) =>
+    atendimentosPartesConsultarPessoa: (data: AtendimentoPessoaConsulta, params: RequestParams = {}) =>
       this.request<AtendimentoPessoa, ErrorPessoAtendimentoWithSituacaoResponse>({
         path: `/atendimentos-partes/consultar/`,
         method: "POST",

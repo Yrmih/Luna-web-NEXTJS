@@ -47,8 +47,8 @@ const authOptions: NextAuthOptions = {
     session: async ({ session, token }) => {
       return {
         ...session,
-        dados: {
-          pessoaId: token.pessoaId,
+        user: {
+          pessoa: token.pessoaId,
           nome: token.nome,
           email: token.email,
         },

@@ -5,16 +5,16 @@ import { Tabela } from '../components/Tabela'
 
 import { consultarAtendimentoPessoaAssistida } from './services'
 
-import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicitacoes'
-import { useEffect, useState } from 'react'
-import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 import { PageLoading } from '@/components/ui/PageLoading'
+import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
+import { useEffect, useState } from 'react'
+import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicitacoes'
+import { useSession } from 'next-auth/react'
 
 function classificarAtendimentosPorSituacao(
   Atendimentos: AtendimentoPessoaListResponse[] | undefined,
   situacoes: [number],
 ): AtendimentoPessoaListResponse[] | undefined {
-  console.log(Atendimentos)
   return Atendimentos?.filter((doc) =>
     situacoes.includes(doc?.situacao ? doc.situacao : 1),
   )
@@ -44,6 +44,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [atendimentos, setAtendimentos] =
     useState<AtendimentoPessoaListResponse[]>()
+  const { data: session } = useSession()
 
   async function buscarAtendimentos(
     pessoa: string,
@@ -59,8 +60,6 @@ export default function HomePage() {
       responsavel,
     )
 
-    console.log(sucesso, resultado)
-
     if (sucesso && resultado) {
       setAtendimentos(resultado)
     }
@@ -68,8 +67,10 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    buscarAtendimentos('392061', true, true, true)
-  }, [])
+    if (session?.user.pessoa) {
+      buscarAtendimentos(session.user.pessoa, true, true, true)
+    }
+  }, [session])
 
   return (
     <>
