@@ -16,7 +16,7 @@ export async function consultarAtendimentoPessoaAssistida(
       documentos_pendentes: documentosPendentes,
       responsavel,
     })
-    return { sucesso: true, resultado: response.data.results }
+    return { sucesso: true, resultado: response.data }
   } catch (err) {
     const errorMessage = (err as { error?: AtendimentoPessoaListError }).error
     return { sucesso: false, erro: errorMessage }

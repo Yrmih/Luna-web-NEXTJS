@@ -63,7 +63,7 @@ export default function HomePage() {
     console.log(sucesso, resultado)
 
     if (sucesso && resultado) {
-      setAtendimentos(resultado)
+      setAtendimentos(resultado.results)
     }
     setIsLoading(false)
   }
