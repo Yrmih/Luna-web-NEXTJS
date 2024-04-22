@@ -60,6 +60,8 @@ export default function HomePage() {
       responsavel,
     )
 
+    console.log(sucesso, resultado)
+
     if (sucesso && resultado) {
       setAtendimentos(resultado)
     }
