@@ -42,6 +42,28 @@ export interface Usuario {
   username: string;
   /** Nome */
   nome?: string;
+  /**
+   * Endereço de email
+   * @format email
+   * @maxLength 254
+   */
+  email?: string;
+  /**
+   * Foto
+   * @format uri
+   * @minLength 1
+   */
+  foto: string;
+  /**
+   * Papel
+   * @minLength 1
+   */
+  papel: string;
+  /**
+   * Comarca
+   * @minLength 1
+   */
+  comarca: string;
 }
 
 export interface AgendaFilho {
@@ -646,6 +668,11 @@ export interface PessoaAssistida {
   nacionalidade?: 0 | 1 | 2 | null;
   /** Cartão SUS */
   cartao_sus?: boolean;
+  /**
+   * Número de Identificação Social (NIS)
+   * @maxLength 15
+   */
+  nis?: string | null;
   /** Plano de Saúde */
   plano_saude?: boolean;
   /**
@@ -698,6 +725,14 @@ export interface PessoaAssistidoConsulta {
   email?: string;
 }
 
+export interface ErroResponse {
+  /**
+   * Mensagem
+   * @minLength 1
+   */
+  mensagem: string;
+}
+
 export interface Assunto {
   /** ID */
   id?: number;
@@ -743,46 +778,6 @@ export interface Assunto {
   excluido_por?: number | null;
 }
 
-export interface AtendimentoPessoaResponse {
-  /**
-   * Area
-   * @minLength 1
-   */
-  area: string;
-  /**
-   * Qualificacao
-   * @minLength 1
-   */
-  qualificacao: string;
-  /**
-   * Numero
-   * @minLength 1
-   */
-  numero: string;
-  /**
-   * Data agendamento
-   * @minLength 1
-   */
-  data_agendamento?: string | null;
-  /**
-   * Data atendimento
-   * @minLength 1
-   */
-  data_atendimento?: string | null;
-  /** Documentos pendentes */
-  documentos_pendentes?: number;
-  /** Situacao */
-  situacao?: 1 | 2 | 3 | 4;
-}
-
-export interface AtendimentoPessoaError {
-  /**
-   * Mensagem
-   * @minLength 1
-   */
-  mensagem: string;
-}
-
 export interface Coletivo {
   /** ID */
   id?: number;
@@ -813,6 +808,114 @@ export interface AtendimentoDocumento {
   atendimento?: number | null;
   /** Enviado por */
   enviado_por?: number | null;
+}
+
+export interface DocumentoGED {
+  /** Pessoa assistida id */
+  pessoa_assistida_id: number;
+  /** Modelo ged id */
+  modelo_ged_id: number;
+  /** Atendimento id */
+  atendimento_id: number;
+  /**
+   * Nome documento
+   * @minLength 1
+   * @maxLength 255
+   */
+  nome_documento?: string;
+  /**
+   * Conteudo html
+   * @minLength 1
+   */
+  conteudo_html?: string;
+  /** Tipo documento id */
+  tipo_documento_id?: number | null;
+}
+
+export interface DocumentoAtendimento {
+  /** ID */
+  id?: number;
+  /**
+   * Anexo
+   * @format uri
+   */
+  arquivo?: string | null;
+  /**
+   * Nome
+   * @maxLength 255
+   */
+  nome?: string | null;
+  /** Ativo */
+  ativo?: boolean;
+  /**
+   * Data enviado
+   * @format date-time
+   */
+  data_enviado?: string | null;
+  /**
+   * Data de Cadastro
+   * @format date-time
+   */
+  data_cadastro?: string | null;
+  /**
+   * Data de Exclusão
+   * @format date-time
+   */
+  data_exclusao?: string | null;
+  /**
+   * Prazo resposta
+   * @format date-time
+   */
+  prazo_resposta?: string | null;
+  /** Status resposta */
+  status_resposta?: 0 | 1 | 2 | null;
+  /** Analisar */
+  analisar?: boolean;
+  /**
+   * Data analise
+   * @format date-time
+   */
+  data_analise?: string | null;
+  /** Minificado */
+  minificado?: boolean;
+  /** Atendimento */
+  atendimento?: number | null;
+  /** Defensoria */
+  defensoria?: number | null;
+  /** Impedimento */
+  impedimento?: number | null;
+  /** Pessoa */
+  pessoa?: string | null;
+  /** Modelo */
+  modelo?: number | null;
+  /** Tipo */
+  documento?: number | null;
+  /** Documento */
+  documento_online?: number | null;
+  /** Enviado por */
+  enviado_por?: number | null;
+  /** Cadastrado por */
+  cadastrado_por?: number | null;
+  /** Excluido por */
+  excluido_por?: number | null;
+  /** Documento resposta */
+  documento_resposta?: number | null;
+  /** Analisado por */
+  analisado_por?: number | null;
+  /** Documento assinado */
+  documento_assinado?: number | null;
+  /** Pasta */
+  pasta?: number | null;
+  /** Solicitação que deu origem a esse documento */
+  solicitacao?: number | null;
+}
+
+export interface ErrorResponse {
+  /**
+   * Mensagem
+   * @minLength 1
+   */
+  mensagem: string;
 }
 
 export interface Atendimento {
@@ -934,7 +1037,47 @@ export interface Atendimento {
   participantes?: number[];
 }
 
-export interface Pessoa {
+export interface AtendimentoPessoaListResponse {
+  /**
+   * Area
+   * @minLength 1
+   */
+  area: string;
+  /**
+   * Qualificacao
+   * @minLength 1
+   */
+  qualificacao: string;
+  /**
+   * Numero
+   * @minLength 1
+   */
+  numero: string;
+  /**
+   * Data agendamento
+   * @minLength 1
+   */
+  data_agendamento?: string | null;
+  /**
+   * Data atendimento
+   * @minLength 1
+   */
+  data_atendimento?: string | null;
+  /** Documentos pendentes */
+  documentos_pendentes?: number;
+  /** Situacao */
+  situacao?: 1 | 2 | 3 | 4;
+}
+
+export interface AtendimentoPessoaListError {
+  /**
+   * Mensagem
+   * @minLength 1
+   */
+  mensagem: string;
+}
+
+export interface AtendimentoPessoa {
   /** ID */
   id?: number;
   /** Representante modalidade */
@@ -1508,6 +1651,11 @@ export interface Audiencia {
    * @format date-time
    */
   data_baixa?: string | null;
+  /**
+   * Código procapi da audiência
+   * @maxLength 25
+   */
+  codigo_procapi?: string | null;
   /** Cadastrado por */
   cadastrado_por?: number | null;
   /** Modificado por */
@@ -3834,6 +3982,197 @@ export interface Formulario {
   desativado_por?: number | null;
   /** Nucleo */
   nucleo: number;
+}
+
+export interface GedDocumentoListSerializer {
+  /** ID */
+  id?: number;
+  /**
+   * Assunto
+   * @maxLength 255
+   */
+  assunto?: string;
+  /** Eh modelo */
+  eh_modelo?: boolean;
+  /** Eh modelo padrao */
+  eh_modelo_padrao?: boolean;
+  /** Finalizado por */
+  finalizado_por: number;
+  /**
+   * Finalizado por nome
+   * @minLength 1
+   */
+  finalizado_por_nome?: string;
+  /** Versao numero */
+  versao_numero?: number;
+  /** Criado por */
+  criado_por: number;
+  /**
+   * Criado por nome
+   * @maxLength 255
+   */
+  criado_por_nome?: string;
+  /**
+   * Criado em
+   * @format date-time
+   */
+  criado_em?: string;
+  /** Modificado por */
+  modificado_por: number;
+  /**
+   * Modificado em
+   * @format date-time
+   */
+  modificado_em?: string | null;
+  /**
+   * Modificado por nome
+   * @maxLength 255
+   */
+  modificado_por_nome?: string;
+}
+
+export interface GedDocumentoSerializer {
+  /** ID */
+  id?: number;
+  /** Versao numero */
+  versao_numero?: number;
+  /** Is removed */
+  is_removed?: boolean;
+  /**
+   * Pk uuid
+   * @format uuid
+   */
+  pk_uuid?: string | null;
+  /**
+   * Assunto
+   * @maxLength 255
+   */
+  assunto?: string;
+  /** Cabecalho */
+  cabecalho?: string;
+  /** Conteudo */
+  conteudo?: string;
+  /** Conteudo assinaturas */
+  conteudo_assinaturas?: string;
+  /** Rodape */
+  rodape?: string;
+  /** Rodape qr validacao */
+  rodape_qr_validacao?: string;
+  /** Eh modelo */
+  eh_modelo?: boolean;
+  /** Eh modelo padrao */
+  eh_modelo_padrao?: boolean;
+  /** Modelo descricao */
+  modelo_descricao?: string;
+  /** Modelo pronto para utilizacao */
+  modelo_pronto_para_utilizacao?: boolean;
+  /** Modelo publico */
+  modelo_publico?: boolean;
+  /**
+   * Assinatura hash
+   * @minLength 1
+   */
+  assinatura_hash?: string | null;
+  /**
+   * Data assinado
+   * @format date-time
+   */
+  data_assinado?: string | null;
+  /**
+   * Finalizado por nome
+   * @minLength 1
+   */
+  finalizado_por_nome?: string;
+  /** Esta assinado */
+  esta_assinado?: boolean;
+  /** Esta pronto para assinar */
+  esta_pronto_para_assinar?: boolean;
+  /**
+   * Criado por nome
+   * @maxLength 255
+   */
+  criado_por_nome?: string;
+  /**
+   * Criado em
+   * @format date-time
+   */
+  criado_em?: string;
+  /**
+   * Modificado em
+   * @format date-time
+   */
+  modificado_em?: string | null;
+  /**
+   * Modificado por nome
+   * @maxLength 255
+   */
+  modificado_por_nome?: string;
+  /**
+   * Excluido em
+   * @format date-time
+   */
+  excluido_em?: string | null;
+  /**
+   * Excluido por nome
+   * @minLength 1
+   */
+  excluido_por_nome?: string;
+  /** Esta ativo */
+  esta_ativo?: boolean | null;
+  /**
+   * Page margin top
+   * Margem superior em relação a pagina
+   */
+  page_margin_top?: number | null;
+  /**
+   * Page margin bottom
+   * Margem inferior em relação a pagina
+   */
+  page_margin_bottom?: number | null;
+  /**
+   * Page margin left
+   * Margem esquerda em relação a pagina
+   */
+  page_margin_left?: number | null;
+  /**
+   * Page margin right
+   * Margem direita em relação a pagina
+   */
+  page_margin_right?: number | null;
+  /** Modelo */
+  modelo?: number | null;
+  /**
+   * Finalizado por
+   * Usuario que finalizou o documento para o sistema gere o código de validação
+   */
+  finalizado_por?: number | null;
+  /** Grupo dono */
+  grupo_dono?: number | null;
+  /** Tipo do Documento */
+  tipo_documento?: number | null;
+  /** Criado por */
+  criado_por?: number | null;
+  /** Modificado por */
+  modificado_por?: number | null;
+  /** Excluido por */
+  excluido_por?: number | null;
+  /** @uniqueItems true */
+  grupos_assinates?: number[];
+}
+
+export interface GedTipoDocumentoSerializer {
+  /** ID */
+  id?: number;
+  /**
+   * Titulo
+   * @maxLength 255
+   */
+  titulo?: string;
+  /**
+   * Descricao
+   * @maxLength 255
+   */
+  descricao?: string;
 }
 
 export interface CustomAuthToken {
@@ -6460,6 +6799,11 @@ export interface FaseTipo {
   peticao_inicial?: boolean;
   /** Habeas Corpus */
   habeas_corpus?: boolean;
+  /**
+   * Código procapi do tipo de audiência
+   * @maxLength 25
+   */
+  tipo_audiencia_procapi?: string | null;
   /** Cadastrado por */
   cadastrado_por?: number | null;
   /** Modificado por */
@@ -6579,6 +6923,8 @@ export interface Processo {
   situacao?: 0 | 1;
   /** Ativo */
   ativo?: boolean;
+  /** Localidade */
+  localidade?: number | null;
   /** Processo Originário */
   originario?: number | null;
   /** Peticao inicial */
@@ -6668,6 +7014,8 @@ export interface ProcessoCreate {
   situacao?: 0 | 1;
   /** Comarca */
   comarca?: number | null;
+  /** Localidade */
+  localidade?: number | null;
   /** Area */
   area?: number | null;
   /** Vara */
@@ -8628,7 +8976,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     assistidosConsultarPessoaAssistida: (data: PessoaAssistidoConsulta, params: RequestParams = {}) =>
-      this.request<PessoaAssistida, any>({
+      this.request<PessoaAssistida, ErroResponse>({
         path: `/assistidos/consultar/`,
         method: "POST",
         body: data,
@@ -8849,33 +9197,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
-  atendimentoPessoa = {
-    /**
-     * @description Endpoint para capturar os atendimentos de um assistido
-     *
-     * @tags atendimento-pessoa
-     * @name AtendimentoPessoaList
-     * @request GET:/atendimento-pessoa/
-     * @secure
-     */
-    atendimentoPessoaList: (
-      query: {
-        /** @minLength 1 */
-        pessoa: string;
-        situacao?: boolean;
-        documentos_pendentes?: boolean;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<AtendimentoPessoaResponse[], AtendimentoPessoaError>({
-        path: `/atendimento-pessoa/`,
-        method: "GET",
-        query: query,
-        secure: true,
-        format: "json",
-        ...params,
-      }),
-  };
   atendimentosColetivos = {
     /**
      * No description
@@ -9051,6 +9372,25 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         method: "POST",
         body: data,
         secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags atendimentos-documentos
+     * @name AtendimentosDocumentosCriarGed
+     * @request POST:/atendimentos-documentos/criar-ged/
+     * @secure
+     */
+    atendimentosDocumentosCriarGed: (data: DocumentoGED, params: RequestParams = {}) =>
+      this.request<DocumentoAtendimento, ErrorResponse>({
+        path: `/atendimentos-documentos/criar-ged/`,
+        method: "POST",
+        body: data,
+        secure: true,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
@@ -9250,33 +9590,32 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   };
   atendimentosPartes = {
     /**
-     * No description
+     * @description Utiliza a tabela AtendimentoPessoa para trazer informações resumidas sobre os atendimentos da pessoa
      *
      * @tags atendimentos-partes
      * @name AtendimentosPartesList
+     * @summary Consulta todos atendimentos de uma pessoa
      * @request GET:/atendimentos-partes/
      * @secure
      */
     atendimentosPartesList: (
-      query?: {
+      query: {
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */
         offset?: number;
+        /** @minLength 1 */
+        pessoa: string;
+        /** @default false */
+        situacao?: boolean;
+        /** @default false */
+        documentos_pendentes?: boolean;
+        /** @default true */
+        responsavel?: boolean;
       },
       params: RequestParams = {},
     ) =>
-      this.request<
-        {
-          count: number;
-          /** @format uri */
-          next?: string | null;
-          /** @format uri */
-          previous?: string | null;
-          results: Pessoa[];
-        },
-        any
-      >({
+      this.request<AtendimentoPessoaListResponse[], AtendimentoPessoaListError>({
         path: `/atendimentos-partes/`,
         method: "GET",
         query: query,
@@ -9293,8 +9632,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/atendimentos-partes/
      * @secure
      */
-    atendimentosPartesCreate: (data: Pessoa, params: RequestParams = {}) =>
-      this.request<Pessoa, any>({
+    atendimentosPartesCreate: (data: AtendimentoPessoa, params: RequestParams = {}) =>
+      this.request<AtendimentoPessoa, any>({
         path: `/atendimentos-partes/`,
         method: "POST",
         body: data,
@@ -9313,7 +9652,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     atendimentosPartesConsultarPessoa: (data: PessoaConsulta, params: RequestParams = {}) =>
-      this.request<Pessoa, ErrorPessoAtendimentoWithSituacaoResponse>({
+      this.request<AtendimentoPessoa, ErrorPessoAtendimentoWithSituacaoResponse>({
         path: `/atendimentos-partes/consultar/`,
         method: "POST",
         body: data,
@@ -9332,7 +9671,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     atendimentosPartesRead: (id: number, params: RequestParams = {}) =>
-      this.request<Pessoa, any>({
+      this.request<AtendimentoPessoa, any>({
         path: `/atendimentos-partes/${id}/`,
         method: "GET",
         secure: true,
@@ -9348,8 +9687,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/atendimentos-partes/{id}/
      * @secure
      */
-    atendimentosPartesUpdate: (id: number, data: Pessoa, params: RequestParams = {}) =>
-      this.request<Pessoa, any>({
+    atendimentosPartesUpdate: (id: number, data: AtendimentoPessoa, params: RequestParams = {}) =>
+      this.request<AtendimentoPessoa, any>({
         path: `/atendimentos-partes/${id}/`,
         method: "PUT",
         body: data,
@@ -9366,8 +9705,8 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PATCH:/atendimentos-partes/{id}/
      * @secure
      */
-    atendimentosPartesPartialUpdate: (id: number, data: Pessoa, params: RequestParams = {}) =>
-      this.request<Pessoa, any>({
+    atendimentosPartesPartialUpdate: (id: number, data: AtendimentoPessoa, params: RequestParams = {}) =>
+      this.request<AtendimentoPessoa, any>({
         path: `/atendimentos-partes/${id}/`,
         method: "PATCH",
         body: data,
@@ -10527,6 +10866,30 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<void, any>({
         path: `/bairros/${id}/`,
         method: "DELETE",
+        secure: true,
+        ...params,
+      }),
+  };
+  cadUnicoBuscaPessoa = {
+    /**
+     * No description
+     *
+     * @tags cad_unico_busca_pessoa
+     * @name CadUnicoBuscaPessoaList
+     * @request GET:/cad_unico_busca_pessoa/
+     * @secure
+     */
+    cadUnicoBuscaPessoaList: (
+      query?: {
+        cpf?: string;
+        nis?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/cad_unico_busca_pessoa/`,
+        method: "GET",
+        query: query,
         secure: true,
         ...params,
       }),
@@ -14402,6 +14765,114 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  gedDocumentos = {
+    /**
+     * No description
+     *
+     * @tags ged-documentos
+     * @name GedDocumentosList
+     * @request GET:/ged-documentos/
+     * @secure
+     */
+    gedDocumentosList: (
+      query?: {
+        assunto?: string;
+        eh_modelo?: string;
+        eh_modelo_padrao?: string;
+        modelo_id?: number;
+        modelo_pronto_para_utilizacao?: string;
+        modelo_publico?: string;
+        esta_assinado?: string;
+        esta_pronto_para_assinar?: string;
+        tipo_documento_id?: number;
+        esta_ativo?: string;
+        /** Number of results to return per page. */
+        limit?: number;
+        /** The initial index from which to return the results. */
+        offset?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<GedDocumentoListSerializer, any>({
+        path: `/ged-documentos/`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags ged-documentos
+     * @name GedDocumentosRead
+     * @request GET:/ged-documentos/{id}/
+     * @secure
+     */
+    gedDocumentosRead: (id: number, params: RequestParams = {}) =>
+      this.request<GedDocumentoSerializer, any>({
+        path: `/ged-documentos/${id}/`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+  };
+  gedTiposDocumentos = {
+    /**
+     * No description
+     *
+     * @tags ged-tipos-documentos
+     * @name GedTiposDocumentosList
+     * @request GET:/ged-tipos-documentos/
+     * @secure
+     */
+    gedTiposDocumentosList: (
+      query?: {
+        /** Number of results to return per page. */
+        limit?: number;
+        /** The initial index from which to return the results. */
+        offset?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        {
+          count: number;
+          /** @format uri */
+          next?: string | null;
+          /** @format uri */
+          previous?: string | null;
+          results: GedTipoDocumentoSerializer[];
+        },
+        any
+      >({
+        path: `/ged-tipos-documentos/`,
+        method: "GET",
+        query: query,
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags ged-tipos-documentos
+     * @name GedTiposDocumentosRead
+     * @request GET:/ged-tipos-documentos/{id}/
+     * @secure
+     */
+    gedTiposDocumentosRead: (id: number, params: RequestParams = {}) =>
+      this.request<GedTipoDocumentoSerializer, any>({
+        path: `/ged-tipos-documentos/${id}/`,
+        method: "GET",
+        secure: true,
+        format: "json",
+        ...params,
+      }),
+  };
   getAuthToken = {
     /**
      * No description
@@ -15892,6 +16363,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     indeferimentosList: (
       query?: {
+        atendimento_id?: string;
+        resultado?: string;
+        atendimento_numero?: string;
+        classe_tipo?: string;
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */
@@ -19229,6 +19704,39 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         ...params,
       }),
   };
+  peticionarEmMassa = {
+    /**
+     * No description
+     *
+     * @tags peticionar-em-massa
+     * @name PeticionarEmMassaList
+     * @request GET:/peticionar-em-massa/
+     * @secure
+     */
+    peticionarEmMassaList: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/peticionar-em-massa/`,
+        method: "GET",
+        secure: true,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags peticionar-em-massa
+     * @name PeticionarEmMassaCreate
+     * @request POST:/peticionar-em-massa/
+     * @secure
+     */
+    peticionarEmMassaCreate: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/peticionar-em-massa/`,
+        method: "POST",
+        secure: true,
+        ...params,
+      }),
+  };
   peticoesTotaisPorMes = {
     /**
      * No description
@@ -22175,6 +22683,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         orgao_encaminhamento?: number;
         tipo?: string;
         penal?: string;
+        area?: number;
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */

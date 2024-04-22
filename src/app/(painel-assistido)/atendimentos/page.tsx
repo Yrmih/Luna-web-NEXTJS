@@ -7,13 +7,13 @@ import { consultarAtendimentoPessoaAssistida } from './services'
 
 import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicitacoes'
 import { useEffect, useState } from 'react'
-import { AtendimentoPessoaResponse } from '@/lib/solar-client/SolarApi'
+import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 import { PageLoading } from '@/components/ui/PageLoading'
 
 function classificarAtendimentosPorSituacao(
-  Atendimentos: AtendimentoPessoaResponse[] | undefined,
+  Atendimentos: AtendimentoPessoaListResponse[] | undefined,
   situacoes: [number],
-): AtendimentoPessoaResponse[] | undefined {
+): AtendimentoPessoaListResponse[] | undefined {
   console.log(Atendimentos)
   return Atendimentos?.filter((doc) =>
     situacoes.includes(doc?.situacao ? doc.situacao : 1),
@@ -43,19 +43,23 @@ const padraoTabela = [
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [atendimentos, setAtendimentos] =
-    useState<AtendimentoPessoaResponse[]>()
+    useState<AtendimentoPessoaListResponse[]>()
 
   async function buscarAtendimentos(
     pessoa: string,
     situacao?: boolean,
     documentosPendentes?: boolean,
+    responsavel?: boolean,
   ) {
     setIsLoading(true)
     const { sucesso, resultado } = await consultarAtendimentoPessoaAssistida(
       pessoa,
       situacao,
       documentosPendentes,
+      responsavel,
     )
+
+    console.log(sucesso, resultado)
 
     if (sucesso && resultado) {
       setAtendimentos(resultado)
@@ -64,7 +68,7 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    buscarAtendimentos('392061', true, true)
+    buscarAtendimentos('392061', true, true, true)
   }, [])
 
   return (

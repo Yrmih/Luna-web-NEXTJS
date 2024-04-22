@@ -2,8 +2,8 @@
 
 import { solarApi } from '@/lib'
 import {
-  AtendimentoPessoaResponse,
-  AtendimentoPessoaError,
+  AtendimentoPessoaListResponse,
+  AtendimentoPessoaListError,
 } from '@/lib/solar-client/SolarApi'
 import { ServiceResponse } from '@/types'
 
@@ -11,19 +11,20 @@ export async function consultarAtendimentoPessoaAssistida(
   pessoa: string,
   situacao?: boolean,
   documentosPendentes?: boolean,
+  responsavel?: boolean,
 ): Promise<
-  ServiceResponse<AtendimentoPessoaResponse[], AtendimentoPessoaError>
+  ServiceResponse<AtendimentoPessoaListResponse[], AtendimentoPessoaListError>
 > {
   try {
-    const response = await solarApi.atendimentoPessoa.atendimentoPessoaList({
+    const response = await solarApi.atendimentosPartes.atendimentosPartesList({
       pessoa,
       situacao,
       documentos_pendentes: documentosPendentes,
+      responsavel,
     })
-    return { sucesso: true, resultado: response.data }
+    return { sucesso: true, resultado: response.data.results }
   } catch (err) {
-    const errorMessage = (err as { error?: AtendimentoPessoaError }).error
-
+    const errorMessage = (err as { error?: AtendimentoPessoaListError }).error
     return { sucesso: false, erro: errorMessage }
   }
 }
