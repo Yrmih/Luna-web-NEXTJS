@@ -9633,7 +9633,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<AtendimentoPessoaListResponsePagination[], AtendimentoPessoaListError>({
+      this.request<AtendimentoPessoaListResponsePagination, AtendimentoPessoaListError>({
         path: `/atendimentos-partes/`,
         method: "GET",
         query: query,

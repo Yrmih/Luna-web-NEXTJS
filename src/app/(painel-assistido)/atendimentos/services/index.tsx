@@ -14,7 +14,7 @@ export async function consultarAtendimentoPessoaAssistida(
   responsavel?: boolean,
 ): Promise<
   ServiceResponse<
-    AtendimentoPessoaListResponsePagination[],
+    AtendimentoPessoaListResponsePagination,
     AtendimentoPessoaListError
   >
 > {
