@@ -1,20 +1,13 @@
 'use client'
 
 // Third party
-import {
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  SxProps,
-  Theme,
-} from '@mui/material'
+import { DialogTitle, DialogContent, DialogActions } from '@mui/material'
 
 // Animação de alerta
 
 // Define tipos da proriedade da ModalPedidoDocumento
 interface ModalPedidoDocumentoProps {
   nome?: string
-  ehDocumento: boolean
   situacao: number
 }
 
@@ -65,7 +58,6 @@ interface ModalPedidoDocumentoProps {
 
 export function ModalPedidoDocumento({
   nome,
-  ehDocumento,
   situacao,
 }: ModalPedidoDocumentoProps) {
   return (
