@@ -8,7 +8,7 @@ import { consultarAtendimentoPessoaAssistida } from './services'
 import { PageLoading } from '@/components/ui/PageLoading'
 import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 import { useEffect, useState } from 'react'
-import { CardInfoMinhasSolicitacoes } from '../components/CardInfoMinhasSolicitacoes'
+import { ResumoPedidos } from '../components/ResumoPedidos'
 import { useSession } from 'next-auth/react'
 
 function classificarAtendimentosPorSituacao(
@@ -131,12 +131,10 @@ export default function HomePage() {
                 paddingRight: '2vw',
               }}
             >
-              {/* Componente que trás dados do perfil do assistido */}
-              <CardInfoMinhasSolicitacoes
-                quantidadeDocumentosPendentes={
-                  atendimentos?.filter(
-                    (item) => item?.documentos_pendentes !== 0,
-                  ).length
+              {/* Componente que mostra o resumo dos pedidos */}
+              <ResumoPedidos
+                totalDocumentosPendentes={
+                  atendimentos?.filter((item) => item?.situacao === 1).length
                 }
               />
               {/* Box da margin de um componente para o outro */}

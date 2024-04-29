@@ -16,19 +16,19 @@ const simularDocumentos = [
     dataUpload: null,
   },
   {
-    nome: 'DOCUMENTO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
+    nome: 'DOCUMENTO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA',
     situacao: 4,
     obrigatorio: true,
     dataUpload: '21/02/2023',
   },
   {
-    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
+    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA',
     situacao: 1,
     obrigatorio: false,
     dataUpload: null,
   },
   {
-    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE HIPOSUFICIENCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA DECLARAÇÃO DE RESIDÊNCIA',
+    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE HIPOSUFICIENCIA',
     situacao: 4,
     obrigatorio: false,
     dataUpload: '17/03/2023',
@@ -50,7 +50,7 @@ const padraoTabela = [
   },
 ]
 
-export function CardDocumentoEnvio() {
+export function CardDocumentosEPerguntas() {
   return (
     // Card principal dos documentos pendentes (background)
     <Card

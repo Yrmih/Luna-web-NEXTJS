@@ -1,4 +1,3 @@
-import { Atendimentos } from './Atendimentos'
-import { DetalhesAtendimento } from './DetalhesAtendimento'
+import { DetalhesDoPedido } from './DetalhesDoPedido'
 
-export { Atendimentos, DetalhesAtendimento }
+export { DetalhesDoPedido }

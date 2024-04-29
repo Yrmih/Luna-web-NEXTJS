@@ -16,13 +16,13 @@ import { BarradeProgresso } from './BarradeProgresso'
 
 // Internal
 
-interface PreAgendamentoProps {
+interface CardDadosPedidoProps {
   props: {
     tipoAtendimento: string
   }
 }
 
-export function PreAgendamento({ props }: PreAgendamentoProps) {
+export function CardDadosPedido({ props }: CardDadosPedidoProps) {
   const theme = useTheme()
   return (
     <Grid

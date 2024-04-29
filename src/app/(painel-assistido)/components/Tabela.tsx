@@ -42,6 +42,7 @@ interface Colunas {
 interface Documentos {
   nome: string
   situacao: number
+  obrigatorio: boolean
 }
 
 interface TabelaProps {
@@ -90,9 +91,6 @@ export function Tabela({
       <Table>
         {/* Header da categoria da Tabela */}
         <TableHead
-          sx={{
-            paddingBottom: '50px',
-          }}
           onClick={() => {
             ocultarTabela()
           }}
@@ -187,18 +185,28 @@ export function Tabela({
           }}
         >
           {/* Componente que preenche as linhas da tabela */}
-          {conteudo?.map((item) => (
-            <ConteudoTabela
-              key={Math.random()}
-              nome={item.qualificacao}
-              ehDocumento={false}
-              situacao={item?.situacao ? item.situacao : 1}
-              numero={item.numero}
-              dataAgendamento={item.data_agendamento}
-              dataAtendimento={item.data_atendimento}
-              quantidadePendencia={item.documentos_pendentes}
-            ></ConteudoTabela>
-          ))}
+          {conteudo
+            ? conteudo.map((item) => (
+                <ConteudoTabela
+                  key={Math.random()}
+                  nome={item.qualificacao}
+                  ehDocumento={false}
+                  situacao={item?.situacao ? item.situacao : 1}
+                  numero={item.numero}
+                  dataAgendamento={item.data_agendamento}
+                  dataAtendimento={item.data_atendimento}
+                  quantidadePendencia={item.documentos_pendentes}
+                ></ConteudoTabela>
+              ))
+            : documentos?.map((item) => (
+                <ConteudoTabela
+                  key={Math.random()}
+                  nome={item.nome}
+                  ehDocumento={true}
+                  situacao={item?.situacao ? item.situacao : 1}
+                  obrigatorio={item.obrigatorio}
+                ></ConteudoTabela>
+              ))}
         </TableBody>
       </Table>
     </TableContainer>
