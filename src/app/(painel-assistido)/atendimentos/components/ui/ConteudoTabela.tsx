@@ -50,6 +50,12 @@ const ModalAcoesContainer = styled(Dialog)(() => ({
   },
 }))
 
+const sxTextoBotao = {
+  fontWeight: 'bolder',
+  fontSize: '0.7rem',
+  width: 'max-content',
+}
+
 export function ConteudoTabela({
   nome,
   ehDocumento,
@@ -74,6 +80,7 @@ export function ConteudoTabela({
 
   // States para controle de abertura de modal
   const [openModal, setOpenModal] = useState(false)
+  const [openModalNaoTenho, setOpenModalNaoTenho] = useState(false)
 
   /**
    * Essa função define os estilos dos botões da coluna "Enviar Documentos", também cuidando de mostrar o o status desses documentos quando já enviado.
@@ -93,7 +100,7 @@ export function ConteudoTabela({
       cinza: 'rgb(169, 169, 169, 1)',
     }
     let cor = 'rgb(169, 169, 169, 1)'
-    let texto = 'teste'
+    let texto = 'error'
 
     // Verifica se os botões devem seguir o padrão de documentos ou não
     const tipoDeBotao = ehDocumento ? tipo : 6
@@ -125,12 +132,6 @@ export function ConteudoTabela({
         break
     }
 
-    const sxTexto = {
-      fontWeight: 'bolder',
-      fontSize: '0.7rem',
-      width: 'max-content',
-    }
-
     const sxBotao = {
       mt: '0.5vh',
       mb: '0.5vh',
@@ -154,7 +155,7 @@ export function ConteudoTabela({
       },
     }
 
-    return { cor, texto, sxBotao, sxTexto }
+    return { cor, texto, sxBotao }
   }
 
   return (
@@ -220,9 +221,8 @@ export function ConteudoTabela({
             {/* As ações do botão são: exibe modais para envio de documento (caso documento pendente) */}
             <Button
               onClick={() => {
-                if ([4, 2].includes(situacao)) {
+                if (ehDocumento) {
                   setOpenModal(!openModal)
-                } else if (ehDocumento) {
                   console.log('Antes abria modal de Documento')
                 } else {
                   window.location.href = `atendimentos/${numero}`
@@ -230,20 +230,22 @@ export function ConteudoTabela({
               }}
               sx={estiloBotao().sxBotao}
             >
-              <Typography sx={estiloBotao().sxTexto}>
-                {estiloBotao().texto}
-              </Typography>
+              <Typography sx={sxTextoBotao}>{estiloBotao().texto}</Typography>
             </Button>
 
             {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
-            {!obrigatorio && !dataUpload && ehDocumento ? (
+            {!obrigatorio &&
+            !dataUpload &&
+            ehDocumento &&
+            [1, 3].includes(situacao) ? (
               <Button
                 onClick={() => {
+                  setOpenModalNaoTenho(!openModalNaoTenho)
                   console.log('Antes abria modal de NÃO TENHO Documento')
                 }}
                 sx={estiloBotao(5).sxBotao}
               >
-                <Typography sx={estiloBotao(5).sxTexto}>
+                <Typography sx={sxTextoBotao}>
                   {estiloBotao(5).texto}
                 </Typography>
               </Button>
@@ -252,19 +254,36 @@ export function ConteudoTabela({
         </TableCell>
       </StyledTableRow>
 
-      {/* modal de ações */}
-      <ModalAcoesContainer
-        open={openModal}
-        onClose={() => {
-          setOpenModal(false)
-        }}
-      >
-        <ModalPedidoDocumento
-          nome={nome}
-          ehDocumento={ehDocumento}
-          situacao={situacao}
-        ></ModalPedidoDocumento>
-      </ModalAcoesContainer>
+      {/* modal de informações e envio do documento */}
+      {ehDocumento ? (
+        <ModalAcoesContainer
+          open={openModal}
+          onClose={() => {
+            setOpenModal(false)
+          }}
+        >
+          <ModalPedidoDocumento
+            nome={nome}
+            situacao={situacao}
+          ></ModalPedidoDocumento>
+        </ModalAcoesContainer>
+      ) : null}
+
+      {/* modal para declarar que não tem documento */}
+      {!obrigatorio ? (
+        <ModalAcoesContainer
+          open={openModalNaoTenho}
+          onClose={() => {
+            setOpenModalNaoTenho(false)
+          }}
+        >
+          <ModalPedidoDocumento
+            nome={nome}
+            situacao={situacao}
+            naoTenho={true}
+          ></ModalPedidoDocumento>
+        </ModalAcoesContainer>
+      ) : null}
     </>
   )
 }

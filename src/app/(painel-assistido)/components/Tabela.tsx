@@ -43,6 +43,8 @@ interface Documentos {
   nome: string
   situacao: number
   obrigatorio: boolean
+  descricao?: string
+  jusiticativaRecusa?: string
 }
 
 interface TabelaProps {

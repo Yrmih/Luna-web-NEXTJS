@@ -9,34 +9,45 @@ import { Tabela } from '@/app/(painel-assistido)/components/Tabela'
 // Simulação temporária de um retorno de dados
 // TODO: Remover essa simulação quando realizar a integração
 const simularDocumentos = [
+  // Situações:
+  // 1 - pendente (enviar)
+  // 2 - em análise
+  // 3 - reenviar
+  // 4 - aprovado
   {
-    nome: 'declaração de residência',
+    nome: '(Enviar) - Obrigatório',
+    situacao: 1,
+    obrigatorio: true,
+    dataUpload: null,
+  },
+  {
+    nome: '(Enviar) - Não obrigatório',
+    situacao: 1,
+    obrigatorio: false,
+    dataUpload: null,
+  },
+  {
+    nome: '(Reenviar) - Obrigatório',
+    situacao: 3,
+    obrigatorio: true,
+    dataUpload: null,
+  },
+  {
+    nome: '(Reenviar) - Não obrigatório',
     situacao: 3,
     obrigatorio: false,
     dataUpload: null,
   },
   {
-    nome: 'DOCUMENTO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 4,
-    obrigatorio: true,
-    dataUpload: '21/02/2023',
-  },
-  {
-    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE RESIDÊNCIA',
-    situacao: 1,
+    nome: 'Em análise',
+    situacao: 2,
     obrigatorio: false,
     dataUpload: null,
   },
   {
-    nome: 'DOCUMENTO NÃO OBRIGATÓRIO DECLARAÇÃO DE HIPOSUFICIENCIA',
+    nome: 'Aprovado',
     situacao: 4,
     obrigatorio: false,
-    dataUpload: '17/03/2023',
-  },
-  {
-    nome: 'DOCUMENTO OBRIGATÓRIO ',
-    situacao: 1,
-    obrigatorio: true,
     dataUpload: null,
   },
 ]
@@ -49,6 +60,21 @@ const padraoTabela = [
     nome: 'Ações',
   },
 ]
+
+interface Documentos {
+  nome: string
+  situacao: number
+  obrigatorio: boolean
+}
+
+function classificarDocumentosPorSituacao(
+  documentos: Documentos[] | undefined,
+  situacoes: number[],
+): Documentos[] | undefined {
+  return documentos?.filter((doc) =>
+    situacoes.includes(doc?.situacao ? doc.situacao : 1),
+  )
+}
 
 export function CardDocumentosEPerguntas() {
   return (
@@ -74,7 +100,10 @@ export function CardDocumentosEPerguntas() {
             nomeTabela: 'Pendências',
             colunas: padraoTabela,
           }}
-          documentos={simularDocumentos}
+          documentos={classificarDocumentosPorSituacao(
+            simularDocumentos,
+            [1, 3],
+          )}
         />
         <Tabela
           id={'analise'}
@@ -84,7 +113,7 @@ export function CardDocumentosEPerguntas() {
             nomeTabela: 'Em Análise',
             colunas: padraoTabela,
           }}
-          documentos={simularDocumentos}
+          documentos={classificarDocumentosPorSituacao(simularDocumentos, [2])}
         />
         <Tabela
           id={'aprovado'}
@@ -94,7 +123,7 @@ export function CardDocumentosEPerguntas() {
             nomeTabela: 'Aprovados',
             colunas: padraoTabela,
           }}
-          documentos={simularDocumentos}
+          documentos={classificarDocumentosPorSituacao(simularDocumentos, [4])}
         />
       </CardContent>
     </Card>
