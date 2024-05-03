@@ -34,7 +34,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        token.pessoaId = user.id_pessoa
+        token.pessoaId = user.pessoa
         token.nome = user.nome
         token.email = user.email
         return {
