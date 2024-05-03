@@ -87,6 +87,19 @@ const Atendimentos: Atendimento[] = [
     tipo: 'AÇÃO DE ALIMENTOS',
   },
 ]
+
+const padraoTabela = [
+  {
+    nome: 'Atendimento',
+  },
+  {
+    nome: 'Descrição',
+  },
+  {
+    nome: 'Ações',
+  },
+]
+
 export default function HomePage() {
   return (
     <>
@@ -117,7 +130,7 @@ export default function HomePage() {
               height: '25vh',
             }}
           >
-            Minhas Solicitações
+            Meus Pedidos
           </Box>
         </Paper>
       </Box>
@@ -190,58 +203,49 @@ export default function HomePage() {
             elevation={3}
             sx={{
               p: 4,
-              boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
               borderRadius: '3vh', // Adicione a borda arredondada
             }}
           >
             <Tabela
-              props={{
-                corHeaderTabela: 'vermelho',
-                iconeHeader: 'atencao',
-                numeroColunas: 3,
-                nomeHeader: 'PEDIDOS COM PENDÊNCIAS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'PENDÊNCIAS',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['1']),
+              id={'pedidos_pendentes'}
+              configuracaoTabela={{
+                corTabela: 'vermelho',
+                iconeTabela: 'atencao',
+                nomeTabela: 'Pedidos com Pendêncas',
+                colunas: padraoTabela,
               }}
-            ></Tabela>
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['1'])}
+            />
             <Tabela
-              props={{
-                corHeaderTabela: 'azul',
-                iconeHeader: 'relogio',
-                numeroColunas: 3,
-                nomeHeader: 'AGENDAMENTOS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'Descrição',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['2']),
+              id={'agendamentos'}
+              configuracaoTabela={{
+                corTabela: 'azul',
+                iconeTabela: 'relogio',
+                nomeTabela: 'Agendamentos',
+                colunas: padraoTabela,
               }}
-            ></Tabela>
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['2'])}
+            />
             <Tabela
-              props={{
-                corHeaderTabela: 'amarelo',
-                iconeHeader: 'relogio',
-                numeroColunas: 3,
-                nomeHeader: 'PEDIDOS COM PENDÊNCIAS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'Descrição',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['3']),
+              id={'pedidos_analise'}
+              configuracaoTabela={{
+                corTabela: 'amarelo',
+                iconeTabela: 'relogio',
+                nomeTabela: 'Pedidos em Análise',
+                colunas: padraoTabela,
               }}
-            ></Tabela>
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['3'])}
+            />
             <Tabela
-              props={{
-                corHeaderTabela: 'verde',
-                iconeHeader: 'aprovado',
-                numeroColunas: 3,
-                nomeHeader: 'ATENDIDOS',
-                nomeColunaEsquerda: 'Atendimento',
-                nomeColunaDireita: 'Visualizar',
-                nomeColunaCentro: 'Descrição',
-                dados: encontrarAtendimentosPorSituacao(Atendimentos, ['4']),
+              id={'atendidos'}
+              configuracaoTabela={{
+                corTabela: 'verde',
+                iconeTabela: 'aprovado',
+                nomeTabela: 'Atendidos',
+                colunas: padraoTabela,
               }}
-            ></Tabela>
+              conteudo={encontrarAtendimentosPorSituacao(Atendimentos, ['4'])}
+            />
           </Grid>
         </Grid>
       </Grid>

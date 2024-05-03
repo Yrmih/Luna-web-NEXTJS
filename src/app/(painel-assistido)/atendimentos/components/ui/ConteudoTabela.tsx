@@ -16,22 +16,22 @@ import { ModalEnvioDocumento } from './ModalDocumento'
 
 // Internal
 
-// Define tipos das propriedades recebidas por EnviodeDocumento
-interface EnviodeDocumentoProps {
+// Define tipos das propriedades recebidas por ConteudoTabela
+interface ConteudoTabelaProps {
   nome?: string
   situacao: string
   obrigatorio?: boolean
   dataEnviado?: string | null
   dataUpload?: string | null
   dadoRecusa?: string | null
-  numeroColunas: 2 | 3
+  numeroColunas: number
   numero?: string | undefined
   dataAgendamento?: string | null
   horarioAgendamento?: string | null
   quantidadePendencia?: number | undefined
 }
 
-export function EnvioDeDocumento({
+export function ConteudoTabela({
   nome,
   situacao,
   obrigatorio,
@@ -43,7 +43,7 @@ export function EnvioDeDocumento({
   dataAgendamento,
   horarioAgendamento,
   quantidadePendencia,
-}: EnviodeDocumentoProps) {
+}: ConteudoTabelaProps) {
   // Define a cor da alternação das linhas da tabela (impar)
   const StyledTableRow = styled(TableRow)(({ theme }) => ({
     '&:nth-of-type(even)': {

@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import { EnvioDeDocumento } from './EnvioDeDocumentos'
+import { ConteudoTabela } from './ConteudoTabela'
 
 // Internal
 
@@ -83,14 +83,14 @@ export function CardDocumentoEnvio() {
             <TableBody>
               {/* Componente que preenche as linhas da tabela */}
               {simularDocumentos.map((item) => (
-                <EnvioDeDocumento
+                <ConteudoTabela
                   key={Math.random()}
                   nome={item.nome}
                   situacao={item.situacao}
                   obrigatorio={item.obrigatorio}
                   dataUpload={item.dataUpload ? item.dataUpload : null}
                   numeroColunas={2}
-                ></EnvioDeDocumento>
+                ></ConteudoTabela>
               ))}
             </TableBody>
           </Table>
