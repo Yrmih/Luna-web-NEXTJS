@@ -1,5 +1,7 @@
 // Third party
 import DashboardIcon from '@mui/icons-material/Dashboard'
+import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined'
+import ContrastOutlinedIcon from '@mui/icons-material/ContrastOutlined'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import {
   AppBar,
@@ -11,6 +13,7 @@ import {
   MenuItem,
   Toolbar,
   Typography,
+  useTheme,
 } from '@mui/material'
 
 // Framework
@@ -19,12 +22,15 @@ import { ReactNode, useState, MouseEvent } from 'react'
 // Internal
 import { Notification } from './Notification'
 import { MENU_AVANCADO_LINKS } from '@/app/(painel-assistido)/constants'
+import { useThemeColorMode } from '@/app/context'
 
 interface AppBarResponsiveProps {
   children: ReactNode
 }
 
 export function AppBarResponsive({ children }: AppBarResponsiveProps) {
+  const theme = useTheme()
+  const { toggleColorMode } = useThemeColorMode()
   const [notificationAnchorEl, setNotificationAnchorEl] =
     useState<null | HTMLElement>(null)
   const isNotificationsListOpen = Boolean(notificationAnchorEl)
@@ -65,6 +71,17 @@ export function AppBarResponsive({ children }: AppBarResponsiveProps) {
         </Box>
 
         <Box>
+          <IconButton
+            color="inherit"
+            sx={{ marginRight: 1 }}
+            onClick={toggleColorMode}
+          >
+            {theme.palette.mode === 'light' ? (
+              <ContrastOutlinedIcon />
+            ) : (
+              <Brightness4OutlinedIcon />
+            )}
+          </IconButton>
           <IconButton
             color="inherit"
             sx={{ marginRight: 1 }}

@@ -3,15 +3,24 @@ import { ReactNode } from 'react'
 import './global.css'
 
 // Internal
-import { ThemeRegistry } from '@/components/ThemeRegistry/ThemeRegistry'
+import { ThemeColorModeProvider } from '@/app/context'
 import { AuthProvider } from 'providers/auth-provider'
+import { getThemeColorModeFromCookie } from './services'
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode
+}) {
+  const themeColorMode = await getThemeColorModeFromCookie()
+
   return (
     <html lang="pt-br">
       <body>
         <AuthProvider>
-          <ThemeRegistry>{children}</ThemeRegistry>
+          <ThemeColorModeProvider currentThemeColorMode={themeColorMode}>
+            {children}
+          </ThemeColorModeProvider>
         </AuthProvider>
       </body>
     </html>
