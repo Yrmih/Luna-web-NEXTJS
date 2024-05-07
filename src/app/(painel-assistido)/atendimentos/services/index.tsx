@@ -7,12 +7,25 @@ import {
 } from '@/lib/solar-client/SolarApi'
 import { ServiceResponse } from '@/types'
 
-export async function consultarAtendimentoPessoaAssistida(
-  pessoa: string,
-  situacao?: boolean,
-  documentosPendentes?: boolean,
-  responsavel?: boolean,
-): Promise<
+export interface consultarAtendimentoPessoaAssistidaParams {
+  pessoa: number
+  situacao?: boolean
+  documentosPendentes?: boolean
+  responsavel?: boolean
+  detalheAtendimento?: boolean
+  atendimentosLuna?: boolean
+  somenteInicial?: boolean
+}
+
+export async function consultarAtendimentoPessoaAssistida({
+  pessoa,
+  situacao,
+  documentosPendentes,
+  responsavel,
+  detalheAtendimento,
+  atendimentosLuna,
+  somenteInicial,
+}: consultarAtendimentoPessoaAssistidaParams): Promise<
   ServiceResponse<
     AtendimentoPessoaListResponsePagination,
     AtendimentoPessoaListError
@@ -24,6 +37,9 @@ export async function consultarAtendimentoPessoaAssistida(
       situacao,
       documentos_pendentes: documentosPendentes,
       responsavel,
+      detalhe_atendimento: detalheAtendimento,
+      atendimentos_luna: atendimentosLuna,
+      somente_inicial: somenteInicial,
     })
     return { sucesso: true, resultado: response.data }
   } catch (err) {

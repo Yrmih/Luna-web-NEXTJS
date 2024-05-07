@@ -3,7 +3,10 @@ import { Box, Grid, Paper } from '@mui/material'
 
 import { Tabela } from '../components/Tabela'
 
-import { consultarAtendimentoPessoaAssistida } from './services'
+import {
+  consultarAtendimentoPessoaAssistida,
+  consultarAtendimentoPessoaAssistidaParams,
+} from './services'
 
 import { PageLoading } from '@/components/ui/PageLoading'
 import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
@@ -13,10 +16,12 @@ import { useSession } from 'next-auth/react'
 
 function classificarAtendimentosPorSituacao(
   Atendimentos: AtendimentoPessoaListResponse[] | undefined,
-  situacoes: [number],
+  situacoes: number[],
 ): AtendimentoPessoaListResponse[] | undefined {
   return Atendimentos?.filter((doc) =>
-    situacoes.includes(doc?.situacao ? doc.situacao : 1),
+    situacoes.includes(
+      doc?.atendimento?.situacao ? doc.atendimento?.situacao : 1,
+    ),
   )
 }
 
@@ -46,19 +51,24 @@ export default function HomePage() {
     useState<AtendimentoPessoaListResponse[]>()
   const { data: session } = useSession()
 
-  async function buscarAtendimentos(
-    pessoa: string,
-    situacao?: boolean,
-    documentosPendentes?: boolean,
-    responsavel?: boolean,
-  ) {
-    setIsLoading(true)
-    const { sucesso, resultado } = await consultarAtendimentoPessoaAssistida(
+  async function buscarAtendimentos({
+    pessoa,
+    situacao,
+    documentosPendentes,
+    responsavel,
+    detalheAtendimento,
+    atendimentosLuna,
+    somenteInicial,
+  }: consultarAtendimentoPessoaAssistidaParams) {
+    const { sucesso, resultado } = await consultarAtendimentoPessoaAssistida({
       pessoa,
       situacao,
       documentosPendentes,
       responsavel,
-    )
+      detalheAtendimento,
+      atendimentosLuna,
+      somenteInicial,
+    })
 
     console.log(sucesso, resultado)
 
@@ -69,8 +79,16 @@ export default function HomePage() {
   }
 
   useEffect(() => {
+    setIsLoading(true)
     if (session?.user.pessoa) {
-      buscarAtendimentos(session.user.pessoa, true, true, true)
+      buscarAtendimentos({
+        pessoa: parseInt(session.user.pessoa),
+        situacao: true,
+        documentosPendentes: true,
+        responsavel: true,
+        detalheAtendimento: true,
+        somenteInicial: true,
+      })
     }
   }, [session])
 
@@ -134,7 +152,9 @@ export default function HomePage() {
               {/* Componente que mostra o resumo dos pedidos */}
               <ResumoPedidos
                 totalDocumentosPendentes={
-                  atendimentos?.filter((item) => item?.situacao === 1).length
+                  atendimentos?.filter(
+                    (item) => item?.atendimento?.situacao === 1,
+                  ).length
                 }
               />
               {/* Box da margin de um componente para o outro */}
@@ -200,9 +220,10 @@ export default function HomePage() {
                     nomeTabela: 'Agendamentos',
                     colunas: padraoTabela,
                   }}
-                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
-                    2,
-                  ])}
+                  conteudo={classificarAtendimentosPorSituacao(
+                    atendimentos,
+                    [2, 5],
+                  )}
                 />
                 <Tabela
                   id={'pedidos_analise'}

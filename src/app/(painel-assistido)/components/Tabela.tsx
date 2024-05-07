@@ -191,13 +191,15 @@ export function Tabela({
             ? conteudo.map((item) => (
                 <ConteudoTabela
                   key={Math.random()}
-                  nome={item.qualificacao}
+                  nome={item.atendimento?.qualificacao}
                   ehDocumento={false}
-                  situacao={item?.situacao ? item.situacao : 1}
-                  numero={item.numero}
-                  dataAgendamento={item.data_agendamento}
-                  dataAtendimento={item.data_atendimento}
-                  quantidadePendencia={item.documentos_pendentes}
+                  situacao={
+                    item?.atendimento?.situacao ? item.atendimento?.situacao : 1
+                  }
+                  numero={item.atendimento?.numero}
+                  dataAgendamento={item.atendimento?.data_agendamento}
+                  dataAtendimento={item.atendimento?.data_atendimento}
+                  quantidadePendencia={item.atendimento?.documentos_pendentes}
                 ></ConteudoTabela>
               ))
             : documentos?.map((item) => (

@@ -1019,6 +1019,8 @@ export interface Atendimento {
   nucleo?: number | null;
   /** Qualificação */
   qualificacao?: number | null;
+  /** Qualificação (IA) */
+  qualificacao_ia?: number | null;
   /** Forma de atendimento */
   forma_atendimento?: number | null;
   /** Atendimento Coletivo */
@@ -1035,24 +1037,30 @@ export interface Atendimento {
   assuntos?: number[];
   /** @uniqueItems true */
   participantes?: number[];
+  /** @uniqueItems true */
+  etiquetas?: number[];
 }
 
-export interface AtendimentoPessoaListResponse {
+export interface AtendimentoContainer {
+  /** Id */
+  id: number;
+  /** Tipo */
+  tipo?: 0 | 1 | 2 | 3 | 1031 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 1092 | 11 | 12 | 13 | 14 | 999 | 998;
   /**
    * Area
    * @minLength 1
    */
-  area: string;
+  area?: string;
   /**
    * Qualificacao
    * @minLength 1
    */
-  qualificacao: string;
+  qualificacao?: string;
   /**
    * Numero
    * @minLength 1
    */
-  numero: string;
+  numero?: string;
   /**
    * Data agendamento
    * @minLength 1
@@ -1066,7 +1074,30 @@ export interface AtendimentoPessoaListResponse {
   /** Documentos pendentes */
   documentos_pendentes?: number;
   /** Situacao */
-  situacao?: 1 | 2 | 3 | 4 | 5;
+  situacao?: 1 | 2 | 3 | 4 | 5 | 6;
+  /**
+   * Proximo atendimento
+   * @format date-time
+   */
+  proximo_atendimento?: string | null;
+}
+
+export interface AtendimentoPessoaListResponse {
+  /** Id */
+  id: number;
+  /** Representante modalidade */
+  representante_modalidade?: "P" | "AP" | "SP" | "T" | "C" | null;
+  /** Tipo */
+  tipo: 0 | 1 | 4 | 5;
+  /** Responsavel */
+  responsavel: boolean;
+  /** Ativo */
+  ativo: boolean;
+  /** Pessoa */
+  pessoa: number;
+  /** Representante */
+  representante?: number | null;
+  atendimento?: AtendimentoContainer;
 }
 
 export interface AtendimentoPessoaListResponsePagination {
@@ -1159,6 +1190,29 @@ export interface AtendimentoTotalSerializar {
   quantidade: number;
 }
 
+export interface DefensoriaBasico {
+  /** ID */
+  id?: number;
+  /**
+   * Código
+   * @maxLength 25
+   */
+  codigo?: string | null;
+  /**
+   * Nome
+   * @minLength 1
+   * @maxLength 255
+   */
+  nome: string;
+  /**
+   * Atuacao
+   * @maxLength 1024
+   */
+  atuacao?: string | null;
+  /** Pode vincular processo judicial? */
+  pode_vincular_processo_judicial?: boolean;
+}
+
 export interface DefensorUsuario {
   /** ID */
   id?: number;
@@ -1192,10 +1246,6 @@ export interface ServidorUsuario {
 export interface AtendimentoDefensor {
   /** ID */
   id?: number;
-  defensor: DefensorUsuario;
-  atendido_por: ServidorUsuario;
-  /** Salva historico em arquivo */
-  salva_historico_em_arquivo: boolean;
   /**
    * Numero
    * @min -9223372036854776000
@@ -1203,12 +1253,12 @@ export interface AtendimentoDefensor {
    */
   numero?: number | null;
   /**
-   * UUID
-   * @format uuid
+   * Tipo
+   * @minLength 1
    */
-  uuid?: string | null;
-  /** Tipo */
-  tipo?: 0 | 1 | 2 | 3 | 1031 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 1092 | 11 | 12 | 13 | 14 | 999 | 998;
+  tipo: string;
+  qualificacao: Generic;
+  agenda: Generic;
   /**
    * Data do agendamento
    * @format date-time
@@ -1219,126 +1269,19 @@ export interface AtendimentoDefensor {
    * @format date-time
    */
   data_atendimento?: string | null;
-  /** Histórico Atendimento */
-  historico?: string | null;
-  /** Histórico Agendamento */
-  historico_recepcao?: string | null;
-  /** Remarcado auto */
-  remarcado_auto?: boolean;
-  /** Prazo */
-  prazo?: boolean;
-  /** Exibir no Painel de Acompanhamento? */
-  exibir_no_painel_de_acompanhamento?: boolean;
-  /** Prioridade */
-  prioridade?: 0 | 10 | 20 | 30;
-  /** Qualificado por IA? */
-  qualificado_por_ia?: boolean;
-  /** Assertividade da Qualificação por IA */
-  qualificado_por_ia_assertividade?: number | null;
-  /**
-   * Multiplicador
-   * @min 0
-   * @max 32767
-   */
-  multiplicador?: number;
-  /** Interesse conciliacao */
-  interesse_conciliacao?: 10 | 20 | null;
-  /** Justificativa nao interesse */
-  justificativa_nao_interesse?: string | null;
-  /**
-   * Data de Cadastro
-   * @format date-time
-   */
-  data_cadastro?: string | null;
-  /**
-   * Data de Cadastro CRC
-   * @format date-time
-   */
-  data_cadastro_crc?: string | null;
-  /**
-   * Data de Modificação
-   * @format date-time
-   */
-  data_modificacao?: string | null;
-  /**
-   * Motivo exclusao
-   * @maxLength 800
-   */
-  motivo_exclusao?: string | null;
-  /**
-   * Data de Exclusão
-   * @format date-time
-   */
-  data_exclusao?: string | null;
-  /** Ativo */
-  ativo?: boolean;
-  /** Oficio */
-  oficio?: boolean;
-  /** Detalhes do Ofício */
-  detalhes?: string | null;
-  /** Resposta foi visualizada? (pergunta via Luna) */
-  resposta_visualizada_por_atendente?: boolean | null;
-  /**
-   * Data distribuido
-   * @format date-time
-   */
-  data_distribuido?: string | null;
-  /**
-   * Data encaminhado
-   * @format date-time
-   */
-  data_encaminhado?: string | null;
-  /**
-   * Data finalizado
-   * @format date-time
-   */
-  data_finalizado?: string | null;
-  /** Agenda */
-  agenda?: number;
-  /** Agendado por */
-  agendado_por?: number | null;
-  /** Inicial */
-  inicial?: number | null;
-  /** Origem */
-  origem?: number | null;
-  /** Remarcado */
-  remarcado?: number | null;
-  /** Nucleo */
-  nucleo?: number | null;
-  /** Qualificação */
-  qualificacao?: number | null;
-  /** Forma de atendimento */
-  forma_atendimento?: number | null;
-  /** Atendimento Coletivo */
-  tipo_coletividade?: number | null;
-  /** Cadastrado por */
-  cadastrado_por?: number | null;
-  /** Modificado por */
-  modificado_por?: number | null;
-  /** Tipo motivo exclusao */
-  tipo_motivo_exclusao?: number | null;
-  /** Excluido por */
-  excluido_por?: number | null;
-  /** Defensoria */
-  defensoria?: number | null;
-  /** Comarca */
-  comarca?: number | null;
-  /** Substituto */
-  substituto?: number | null;
-  /** Responsavel */
-  responsavel?: number | null;
-  /** Distribuido por */
-  distribuido_por?: number | null;
-  /** Encaminhado para */
-  encaminhado_para?: number | null;
-  /** Impedimento */
-  impedimento?: number | null;
-  /** Finalizado por */
-  finalizado_por?: number | null;
+  defensoria: DefensoriaBasico;
+  defensor: DefensorUsuario;
+  substituto: DefensorUsuario;
+  atendido_por: ServidorUsuario;
+  requerente: Generic;
+  requerido: Generic;
+  prioridades?: string[];
   /** @uniqueItems true */
-  assuntos?: number[];
-  /** @uniqueItems true */
-  participantes?: number[];
+  etiquetas?: number[];
+  /** Situacao */
+  situacao?: string;
+  /** Salva historico em arquivo */
+  salva_historico_em_arquivo: boolean;
 }
 
 export interface DefensoriaRocket {
@@ -9620,16 +9563,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         limit?: number;
         /** The initial index from which to return the results. */
         offset?: number;
-        /** @minLength 1 */
-        pessoa: string;
+        pessoa: number;
+        responsavel?: boolean;
+        atendimentos_ativos?: boolean;
+        atendimentos_luna?: boolean;
+        somente_inicial?: boolean;
         /** @default false */
         situacao?: boolean;
         /** @default false */
         documentos_pendentes?: boolean;
-        /** @default true */
-        responsavel?: boolean;
         /** @default false */
-        excluidos?: boolean;
+        detalhe_atendimento?: boolean;
       },
       params: RequestParams = {},
     ) =>
@@ -9926,8 +9870,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     atendimentosList: (
       query?: {
         numero?: number;
-        data_agendamento?: string;
+        defensoria?: string;
         ativo?: string;
+        data_agendamento_after?: string;
+        data_agendamento_before?: string;
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */
@@ -9983,8 +9929,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     atendimentosConsultarPorTelefone: (
       query: {
         numero?: number;
-        data_agendamento?: string;
+        defensoria?: string;
         ativo?: string;
+        data_agendamento_after?: string;
+        data_agendamento_before?: string;
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */
@@ -10729,6 +10677,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         query: query,
         secure: true,
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags avisos
+     * @name AvisosRedistribuidosList
+     * @request GET:/avisos/redistribuidos/
+     * @secure
+     */
+    avisosRedistribuidosList: (params: RequestParams = {}) =>
+      this.request<void, any>({
+        path: `/avisos/redistribuidos/`,
+        method: "GET",
+        secure: true,
         ...params,
       }),
 
@@ -13904,6 +13868,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     etiquetasList: (
       query?: {
+        defensoria?: string;
         /** Number of results to return per page. */
         limit?: number;
         /** The initial index from which to return the results. */
