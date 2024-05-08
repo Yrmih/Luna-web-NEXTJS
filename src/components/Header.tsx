@@ -1,10 +1,23 @@
 // Third party
 'use client'
+import { useThemeColorMode } from '@/app/context'
 import logo from '@/assets/logo.png'
-import { AppBar, Box, Grid, Toolbar, Typography } from '@mui/material'
+import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined'
+import ContrastOutlinedIcon from '@mui/icons-material/ContrastOutlined'
+import {
+  AppBar,
+  Box,
+  Grid,
+  IconButton,
+  Toolbar,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import Image from 'next/image'
 
 export function Header() {
+  const { toggleColorMode } = useThemeColorMode()
+  const theme = useTheme()
   return (
     <>
       <AppBar
@@ -14,7 +27,6 @@ export function Header() {
           top: 0,
         }}
       >
-        {/* Sessão de Avatar */}
         <Toolbar>
           <Grid container flexWrap={'nowrap'} justifyContent={'space-between'}>
             <Box display="flex" alignItems="center">
@@ -37,6 +49,13 @@ export function Header() {
               {process.env.NEXT_PUBLIC_DEFENSORIA_NOME}
             </Typography>
           </Grid>
+          <IconButton onClick={toggleColorMode}>
+            {theme.palette.mode === 'light' ? (
+              <ContrastOutlinedIcon />
+            ) : (
+              <Brightness4OutlinedIcon />
+            )}
+          </IconButton>
         </Toolbar>
       </AppBar>
     </>

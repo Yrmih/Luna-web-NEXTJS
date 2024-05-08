@@ -1,8 +1,11 @@
+'use client'
+
 // Third party
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { PaletteMode } from '@mui/material'
 import { PaletteOptions, createTheme } from '@mui/material/styles'
 import { Roboto } from 'next/font/google'
 
@@ -12,8 +15,8 @@ const roboto = Roboto({
   display: 'swap',
 })
 
-export function getTheme(prefersDarkMode: boolean) {
-  const customPallete = {
+export function getTheme(mode: PaletteMode) {
+  const lightPallete = {
     primary: {
       main: '#2E7D32',
       light: '#42B148',
@@ -28,22 +31,23 @@ export function getTheme(prefersDarkMode: boolean) {
     },
   }
 
-  const palette: PaletteOptions = prefersDarkMode
-    ? {
-        mode: 'dark',
-        ...customPallete,
-        primary: {
-          main: '#2E7D32',
-          light: '#4CCA52',
-          dark: 'rgb(20 102 24)',
-        },
-        secondary: {
-          main: '#4CCA52',
-          light: '#5FFF67',
-        },
-        background: {},
-      }
-    : customPallete
+  const darkPallete = {
+    primary: {
+      main: '#2E7D32',
+      light: '#4CCA52',
+      dark: 'rgb(20 102 24)',
+    },
+    secondary: {
+      main: '#4CCA52',
+      light: '#5FFF67',
+    },
+    background: {},
+  }
+
+  const palette: PaletteOptions = {
+    mode,
+    ...(mode === 'dark' ? darkPallete : lightPallete),
+  }
 
   return createTheme({
     palette,
@@ -123,7 +127,7 @@ export function getTheme(prefersDarkMode: boolean) {
             fontSize: '16px', // Define o tamanho da fonte
             fontWeight: 'bold', // Define o estilo da fonte (negrito)
             '&:hover': {
-              color: customPallete.primary.main, // Define a cor do texto ao passar o mouse
+              color: lightPallete.primary.main, // Define a cor do texto ao passar o mouse
             },
           },
         },
