@@ -1,1 +1,1 @@
-export const COOKIE_THEME_COLOR_MODE = 'theme-colo-mode'
+export const COOKIE_THEME_COLOR_MODE = 'theme-color-mode'
