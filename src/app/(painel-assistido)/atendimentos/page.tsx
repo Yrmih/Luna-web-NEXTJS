@@ -10,6 +10,8 @@ import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
+import { SITUACAO_ATENDIMENTO } from '@/constants/atendimento'
+
 function classificarAtendimentosPorSituacao(
   Atendimentos: AtendimentoPessoaListResponse[] | undefined,
   situacoes: number[],
@@ -20,14 +22,6 @@ function classificarAtendimentosPorSituacao(
     ),
   )
 }
-
-// Simulação temporária de um retorno de dados
-// TODO: Remover essa simulação quando realizar a integração
-// Situações:
-// 1 - pendente
-// 2 - agendado
-// 3 - em análise
-// 4 - atendido
 
 const padraoTabela = [
   {
@@ -42,13 +36,12 @@ const padraoTabela = [
 ]
 
 export default function HomePage() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [atendimentos, setAtendimentos] =
     useState<AtendimentoPessoaListResponse[]>()
   const { data: session } = useSession()
 
   useEffect(() => {
-    setIsLoading(true)
     ;(async function teste() {
       if (session?.user.pessoa) {
         const { sucesso, resultado } =
@@ -156,7 +149,7 @@ export default function HomePage() {
                     colunas: padraoTabela,
                   }}
                   conteudo={classificarAtendimentosPorSituacao(atendimentos, [
-                    1,
+                    SITUACAO_ATENDIMENTO.pendente,
                   ])}
                 />
                 <Tabela
@@ -167,10 +160,10 @@ export default function HomePage() {
                     nomeTabela: 'Agendamentos',
                     colunas: padraoTabela,
                   }}
-                  conteudo={classificarAtendimentosPorSituacao(
-                    atendimentos,
-                    [2, 6],
-                  )}
+                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
+                    SITUACAO_ATENDIMENTO.agendamento,
+                    SITUACAO_ATENDIMENTO.ausente,
+                  ])}
                 />
                 <Tabela
                   id={'pedidos_analise'}
@@ -181,7 +174,7 @@ export default function HomePage() {
                     colunas: padraoTabela,
                   }}
                   conteudo={classificarAtendimentosPorSituacao(atendimentos, [
-                    3,
+                    SITUACAO_ATENDIMENTO.analise,
                   ])}
                 />
                 <Tabela
@@ -193,7 +186,7 @@ export default function HomePage() {
                     colunas: padraoTabela,
                   }}
                   conteudo={classificarAtendimentosPorSituacao(atendimentos, [
-                    4,
+                    SITUACAO_ATENDIMENTO.atendido,
                   ])}
                 />
               </Grid>
