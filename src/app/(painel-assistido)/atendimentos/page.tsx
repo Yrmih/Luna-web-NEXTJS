@@ -3,15 +3,11 @@ import { Box, Grid, Paper } from '@mui/material'
 
 import { Tabela } from '../components/Tabela'
 
-import {
-  consultarAtendimentoPessoaAssistida,
-  consultarAtendimentoPessoaAssistidaParams,
-} from './services'
+import { consultarAtendimentoPessoaAssistida } from './services'
 
 import { PageLoading } from '@/components/ui/PageLoading'
 import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 import { useEffect, useState } from 'react'
-import { ResumoPedidos } from '../components/ResumoPedidos'
 import { useSession } from 'next-auth/react'
 
 function classificarAtendimentosPorSituacao(
@@ -51,45 +47,28 @@ export default function HomePage() {
     useState<AtendimentoPessoaListResponse[]>()
   const { data: session } = useSession()
 
-  async function buscarAtendimentos({
-    pessoa,
-    situacao,
-    documentosPendentes,
-    responsavel,
-    detalheAtendimento,
-    atendimentosLuna,
-    somenteInicial,
-  }: consultarAtendimentoPessoaAssistidaParams) {
-    const { sucesso, resultado } = await consultarAtendimentoPessoaAssistida({
-      pessoa,
-      situacao,
-      documentosPendentes,
-      responsavel,
-      detalheAtendimento,
-      atendimentosLuna,
-      somenteInicial,
-    })
-
-    console.log(sucesso, resultado)
-
-    if (sucesso && resultado) {
-      setAtendimentos(resultado.results)
-    }
-    setIsLoading(false)
-  }
-
   useEffect(() => {
     setIsLoading(true)
-    if (session?.user.pessoa) {
-      buscarAtendimentos({
-        pessoa: parseInt(session.user.pessoa),
-        situacao: true,
-        documentosPendentes: true,
-        responsavel: true,
-        detalheAtendimento: true,
-        somenteInicial: true,
-      })
-    }
+    ;(async function teste() {
+      if (session?.user.pessoa) {
+        const { sucesso, resultado } =
+          await consultarAtendimentoPessoaAssistida({
+            pessoa: parseInt(session.user.pessoa),
+            situacao: true,
+            documentosPendentes: true,
+            responsavel: true,
+            detalheAtendimento: true,
+            somenteInicial: true,
+          })
+
+        console.log(sucesso, resultado)
+
+        if (sucesso && resultado) {
+          setAtendimentos(resultado.results)
+        }
+        setIsLoading(false)
+      }
+    })()
   }, [session])
 
   return (
@@ -136,42 +115,9 @@ export default function HomePage() {
               width: '100%', // O width segue o tamanho disposto para <main> do layout
             }}
           >
-            {/* Detalhes do assistido */}
-            <Grid
-              item
-              lg={4}
-              md={4}
-              sm={12}
-              xs={12}
-              sx={{
-                paddingBottom: '15px',
-                paddingLeft: '2vw',
-                paddingRight: '2vw',
-              }}
-            >
-              {/* Componente que mostra o resumo dos pedidos */}
-              <ResumoPedidos
-                totalDocumentosPendentes={
-                  atendimentos?.filter(
-                    (item) => item?.atendimento?.situacao === 1,
-                  ).length
-                }
-              />
-              {/* Box da margin de um componente para o outro */}
-              <Box
-                sx={{
-                  marginBottom: '15px',
-                }}
-              ></Box>
-              {/* Componente que trás dados de processos do assistido */}
-            </Grid>
             {/* Apresenta: Detalhes do atendimento / Atendimentos pendentes */}
             <Grid
               item
-              lg={8}
-              md={8}
-              sm={12}
-              xs={12}
               sx={{
                 paddingLeft: '2vw',
                 paddingRight: '2vw',
@@ -198,6 +144,7 @@ export default function HomePage() {
                 sx={{
                   p: 4,
                   borderRadius: '3vh', // Adicione a borda arredondada
+                  padding: '30px',
                 }}
               >
                 <Tabela
@@ -222,7 +169,7 @@ export default function HomePage() {
                   }}
                   conteudo={classificarAtendimentosPorSituacao(
                     atendimentos,
-                    [2, 5],
+                    [2, 6],
                   )}
                 />
                 <Tabela

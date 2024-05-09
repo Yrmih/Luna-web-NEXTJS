@@ -19,9 +19,8 @@ export function ResumoPedidos({
         component={Paper}
         sx={{
           p: 4,
-          width: '25vw',
-          height: '32vh',
-          boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // sombreamento
+          boxShadow:
+            '3px 4px 3px -1px rgba(151, 151, 151, 0.2),1px 1px 2px 1px rgba(130, 130, 130, 0.14),2px 2px 3px 1px rgba(9, 9, 9, 0.12)',
           borderRadius: '3vh',
           paddingTop: '8vh',
           display: 'flex',
@@ -33,7 +32,7 @@ export function ResumoPedidos({
         </Typography>
         <Typography
           sx={{
-            fontSize: '4rem',
+            fontSize: '1rem',
             color: 'red',
             textAlign: 'center',
             fontWeight: 600,
@@ -54,9 +53,8 @@ export function ResumoPedidos({
         component={Paper}
         sx={{
           p: 4,
-          height: '32vh',
-          width: '25vw',
-          boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // sombreamento
+          boxShadow:
+            '3px 4px 3px -1px rgba(151, 151, 151, 0.2),1px 1px 2px 1px rgba(130, 130, 130, 0.14),2px 2px 3px 1px rgba(9, 9, 9, 0.12)', // sombreamento
           borderRadius: '3vh',
           paddingTop: '8vh',
           display: 'flex',
@@ -70,7 +68,7 @@ export function ResumoPedidos({
         </Typography>
         <Typography
           sx={{
-            fontSize: '2.5rem',
+            fontSize: '1rem',
             color: 'darkblue',
             textAlign: 'center',
             fontWeight: 600,
@@ -80,7 +78,7 @@ export function ResumoPedidos({
         </Typography>
         <Typography
           sx={{
-            fontSize: '1.5rem',
+            fontSize: '1rem',
             color: 'darkblue',
             textAlign: 'center',
             fontWeight: 600,

@@ -20,6 +20,7 @@ function Footer() {
         width={'100%'}
         sx={{
           boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
+          display: { xs: 'none', sm: 'flex' },
         }}
       >
         <Grid
