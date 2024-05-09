@@ -28,17 +28,31 @@ function classificarAtendimentosPorSituacao(
   ) {
     return atendimentosFitler
   } else {
+    // Ordena a tabela para agendamentos. Deixa atendimentos ausentes para o final e os futuros para cima
     return atendimentosFitler?.sort(function (objA, objB) {
+      const today = Date.parse(new Date().toISOString())
+
       if (
         objA.atendimento &&
         objB.atendimento &&
         objA.atendimento.proximo_atendimento &&
         objB.atendimento.proximo_atendimento
       ) {
-        return (
-          Date.parse(objA.atendimento.proximo_atendimento) -
-          Date.parse(objB.atendimento.proximo_atendimento)
-        )
+        const dateA = Date.parse(objA.atendimento.proximo_atendimento)
+        const dateB = Date.parse(objB.atendimento.proximo_atendimento)
+
+        // Verificar se uma das datas é menor que hoje
+        const isDateAMenorQueHoje = dateA < today
+        const isDateBMenorQueHoje = dateB < today
+
+        if (isDateAMenorQueHoje && !isDateBMenorQueHoje) {
+          return 1 // Se objA está no passado, coloque-o no final
+        } else if (!isDateAMenorQueHoje && isDateBMenorQueHoje) {
+          return -1 // Se objB está no passado, coloque-o no final
+        } else {
+          // Se ambas ou nenhuma estiverem no passado, ordene normalmente
+          return dateA - dateB
+        }
       }
       return 0
     })

@@ -202,16 +202,54 @@ export function ConteudoTabela({
             }}
             align="center"
           >
-            {situacao === SITUACAO_ATENDIMENTO.pendente
-              ? `${quantidadePendencia} Documentos Pendentes`
-              : [
-                    SITUACAO_ATENDIMENTO.agendamento,
-                    SITUACAO_ATENDIMENTO.ausente,
-                  ].includes(situacao)
-                ? `${dataAgendamento}`
-                : situacao === 4
-                  ? `${dataAtendimento}`
-                  : 'Pedido em análise'}
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 'bold',
+              }}
+            >
+              {situacao === SITUACAO_ATENDIMENTO.pendente
+                ? `${quantidadePendencia} Documentos Pendentes`
+                : [
+                      SITUACAO_ATENDIMENTO.agendamento,
+                      SITUACAO_ATENDIMENTO.ausente,
+                    ].includes(situacao)
+                  ? `${new Date(dataAgendamento || '').toLocaleDateString(
+                      'pt-BR',
+                      {
+                        weekday: 'long',
+                        year: '2-digit',
+                        day: '2-digit',
+                        month: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      },
+                    )}`
+                  : situacao === SITUACAO_ATENDIMENTO.atendido
+                    ? `${new Date(dataAtendimento || '').toLocaleDateString(
+                        'pt-BR',
+                        {
+                          weekday: 'long',
+                          year: '2-digit',
+                          day: '2-digit',
+                          month: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        },
+                      )}`
+                    : 'Pedido em análise'}
+
+              {situacao === SITUACAO_ATENDIMENTO.ausente ? (
+                <Typography
+                  sx={{
+                    color: 'red',
+                    fontSize: '12px',
+                  }}
+                >
+                  (Não compareceu na data marcada)
+                </Typography>
+              ) : null}
+            </Typography>
           </TableCell>
         ) : null}
         {/* Define celula da linha referente a terceira coluna da tabela (Enviar Documento) */}

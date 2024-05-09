@@ -1063,12 +1063,12 @@ export interface AtendimentoContainer {
   numero?: string;
   /**
    * Data agendamento
-   * @minLength 1
+   * @format date-time
    */
   data_agendamento?: string | null;
   /**
    * Data atendimento
-   * @minLength 1
+   * @format date-time
    */
   data_atendimento?: string | null;
   /** Documentos pendentes */
