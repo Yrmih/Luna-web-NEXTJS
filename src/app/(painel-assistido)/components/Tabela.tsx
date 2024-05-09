@@ -197,7 +197,7 @@ export function Tabela({
                     item?.atendimento?.situacao ? item.atendimento?.situacao : 1
                   }
                   numero={item.atendimento?.numero}
-                  dataAgendamento={item.atendimento?.data_agendamento}
+                  dataAgendamento={item.atendimento?.proximo_atendimento}
                   dataAtendimento={item.atendimento?.data_atendimento}
                   quantidadePendencia={item.atendimento?.documentos_pendentes}
                 ></ConteudoTabela>

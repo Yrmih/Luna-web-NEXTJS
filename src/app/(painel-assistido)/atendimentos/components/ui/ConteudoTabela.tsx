@@ -13,6 +13,7 @@ import {
 } from '@mui/material'
 import { useState } from 'react'
 import { ModalPedidoDocumento } from './ModalPedidoDocumento'
+import { SITUACAO_ATENDIMENTO } from '@/constants/atendimento'
 
 // Internal
 
@@ -201,9 +202,9 @@ export function ConteudoTabela({
             }}
             align="center"
           >
-            {situacao === 1
+            {situacao === SITUACAO_ATENDIMENTO.pendente
               ? `${quantidadePendencia} Documentos Pendentes`
-              : situacao === 2
+              : [SITUACAO_ATENDIMENTO.agendamento, SITUACAO_ATENDIMENTO.ausente].includes(situacao)
                 ? `${dataAgendamento}`
                 : situacao === 4
                   ? `${dataAtendimento}`

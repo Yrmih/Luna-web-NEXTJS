@@ -16,11 +16,21 @@ function classificarAtendimentosPorSituacao(
   Atendimentos: AtendimentoPessoaListResponse[] | undefined,
   situacoes: number[],
 ): AtendimentoPessoaListResponse[] | undefined {
-  return Atendimentos?.filter((doc) =>
+  const atendimentosFitler = Atendimentos?.filter((doc) =>
     situacoes.includes(
       doc?.atendimento?.situacao ? doc.atendimento?.situacao : 1,
     ),
   )
+  if (!situacoes.includes(SITUACAO_ATENDIMENTO.agendamento | SITUACAO_ATENDIMENTO.ausente)) {
+    return atendimentosFitler
+  } else {
+    return atendimentosFitler?.sort(function(objA, objB) {
+      if ((objA.atendimento && objB.atendimento) && (objA.atendimento.proximo_atendimento && objB.atendimento.proximo_atendimento)) {
+        return Date.parse(objA.atendimento.proximo_atendimento) - Date.parse(objB.atendimento.proximo_atendimento)
+      }
+      return 0
+    })
+  }
 }
 
 const padraoTabela = [
@@ -43,7 +53,7 @@ export default function HomePage() {
 
   useEffect(() => {
     ;(async function teste() {
-      if (session?.user.pessoa) {
+      if (session?.user.pessoa && isLoading) {
         const { sucesso, resultado } =
           await consultarAtendimentoPessoaAssistida({
             pessoa: parseInt(session.user.pessoa),
