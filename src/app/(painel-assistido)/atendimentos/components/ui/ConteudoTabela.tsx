@@ -204,7 +204,10 @@ export function ConteudoTabela({
           >
             {situacao === SITUACAO_ATENDIMENTO.pendente
               ? `${quantidadePendencia} Documentos Pendentes`
-              : [SITUACAO_ATENDIMENTO.agendamento, SITUACAO_ATENDIMENTO.ausente].includes(situacao)
+              : [
+                    SITUACAO_ATENDIMENTO.agendamento,
+                    SITUACAO_ATENDIMENTO.ausente,
+                  ].includes(situacao)
                 ? `${dataAgendamento}`
                 : situacao === 4
                   ? `${dataAtendimento}`

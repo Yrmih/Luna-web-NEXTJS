@@ -21,12 +21,24 @@ function classificarAtendimentosPorSituacao(
       doc?.atendimento?.situacao ? doc.atendimento?.situacao : 1,
     ),
   )
-  if (!situacoes.includes(SITUACAO_ATENDIMENTO.agendamento | SITUACAO_ATENDIMENTO.ausente)) {
+  if (
+    !situacoes.includes(
+      SITUACAO_ATENDIMENTO.agendamento | SITUACAO_ATENDIMENTO.ausente,
+    )
+  ) {
     return atendimentosFitler
   } else {
-    return atendimentosFitler?.sort(function(objA, objB) {
-      if ((objA.atendimento && objB.atendimento) && (objA.atendimento.proximo_atendimento && objB.atendimento.proximo_atendimento)) {
-        return Date.parse(objA.atendimento.proximo_atendimento) - Date.parse(objB.atendimento.proximo_atendimento)
+    return atendimentosFitler?.sort(function (objA, objB) {
+      if (
+        objA.atendimento &&
+        objB.atendimento &&
+        objA.atendimento.proximo_atendimento &&
+        objB.atendimento.proximo_atendimento
+      ) {
+        return (
+          Date.parse(objA.atendimento.proximo_atendimento) -
+          Date.parse(objB.atendimento.proximo_atendimento)
+        )
       }
       return 0
     })
@@ -72,7 +84,7 @@ export default function HomePage() {
         setIsLoading(false)
       }
     })()
-  }, [session])
+  }, [session, isLoading])
 
   return (
     <>
