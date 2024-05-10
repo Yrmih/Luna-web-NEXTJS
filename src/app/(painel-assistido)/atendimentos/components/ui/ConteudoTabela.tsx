@@ -195,9 +195,9 @@ export function ConteudoTabela({
               color:
                 quantidadePendencia &&
                 quantidadePendencia !== 0 &&
-                situacao === 1
+                situacao === SITUACAO_ATENDIMENTO.pendente
                   ? 'red'
-                  : 'black',
+                  : 'inherit',
               width: '40% !important',
             }}
             align="center"
