@@ -29,6 +29,7 @@ export function BottonMenu() {
 
   return (
     <BottomNavigation
+      showLabels
       sx={{ display: { xs: 'flex', sm: 'none' } }}
       value={value}
       onChange={handleChange}

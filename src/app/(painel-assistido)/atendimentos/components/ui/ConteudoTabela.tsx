@@ -12,36 +12,60 @@ import {
   Box,
 } from '@mui/material'
 import { useState } from 'react'
-import { ModalEnvioDocumento } from './ModalDocumento'
+import { ModalPedidoDocumento } from './ModalPedidoDocumento'
+import { SITUACAO_ATENDIMENTO } from '@/constants/atendimento'
 
 // Internal
 
 // Define tipos das propriedades recebidas por ConteudoTabela
 interface ConteudoTabelaProps {
   nome?: string
-  situacao: string
+  ehDocumento: boolean
+  situacao: number
   obrigatorio?: boolean
   dataEnviado?: string | null
   dataUpload?: string | null
-  dadoRecusa?: string | null
-  numeroColunas: number
   numero?: string | undefined
   dataAgendamento?: string | null
+  dataAtendimento?: string | null
   horarioAgendamento?: string | null
   quantidadePendencia?: number | undefined
 }
 
+const ModalAcoesContainer = styled(Dialog)(() => ({
+  '& .MuiPaper-root': {
+    borderRadius: '15px',
+    minWidth: '90%',
+  },
+  '& .MuiDialogTitle-root': {
+    backgroundColor: 'red',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  '& .MuiDialogContent-root': {
+    paddingTop: '15px !important',
+    borderBottom: '1px solid #c9c9c9',
+  },
+  '& .MuiDialogActions-root': {
+    justifyContent: 'space-around',
+  },
+}))
+
+const sxTextoBotao = {
+  fontWeight: 'bolder',
+  fontSize: '0.7rem',
+  width: 'max-content',
+}
+
 export function ConteudoTabela({
   nome,
+  ehDocumento,
   situacao,
   obrigatorio,
-  dataEnviado,
   dataUpload,
-  dadoRecusa,
-  numeroColunas,
   numero,
   dataAgendamento,
-  horarioAgendamento,
+  dataAtendimento,
   quantidadePendencia,
 }: ConteudoTabelaProps) {
   // Define a cor da alternação das linhas da tabela (impar)
@@ -56,17 +80,16 @@ export function ConteudoTabela({
   }))
 
   // States para controle de abertura de modal
-  const [openNaotenho, setOpenNaotenho] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-  const [openEnvioArquivo, setOpenEnvioArquivo] = useState(false)
+  const [openModalNaoTenho, setOpenModalNaoTenho] = useState(false)
 
   /**
    * Essa função define os estilos dos botões da coluna "Enviar Documentos", também cuidando de mostrar o o status desses documentos quando já enviado.
-   * @param {string} tipo - Define o tipo de botão que será usado
+   * @param {number} tipo - Define o tipo de botão que será usado
    */
-  const estiloBotao = (tipo = situacao) => {
+  const estiloBotao = (tipo: number = situacao) => {
     // Situações:
-    // 1 - pendente
+    // 1 - pendente (enviar)
     // 2 - em análise
     // 3 - reenviar
     // 4 - aprovado
@@ -78,41 +101,36 @@ export function ConteudoTabela({
       cinza: 'rgb(169, 169, 169, 1)',
     }
     let cor = 'rgb(169, 169, 169, 1)'
-    let texto = 'teste'
+    let texto = 'error'
 
-    const tipoDeBotao = numeroColunas === 2 ? tipo : '6'
+    // Verifica se os botões devem seguir o padrão de documentos ou não
+    const tipoDeBotao = ehDocumento ? tipo : 6
 
     switch (tipoDeBotao) {
-      case '1':
+      case 1:
         cor = cores.vermelho
         texto = 'ENVIAR'
         break
-      case '2':
+      case 2:
         cor = cores.azul
         texto = 'EM ANÁLISE'
         break
-      case '3':
+      case 3:
         cor = cores.vermelho
         texto = 'REENVIAR'
         break
-      case '4':
+      case 4:
         cor = cores.verde
         texto = 'APROVADO'
         break
-      case '5':
+      case 5:
         cor = cores.cinza
         texto = 'NÃO TENHO'
         break
-      case '6':
+      case 6:
         cor = cores.azulEscuro
         texto = 'VISUALIZAR'
         break
-    }
-
-    const sxTexto = {
-      fontWeight: 'bolder',
-      fontSize: '0.7rem',
-      width: 'max-content',
     }
 
     const sxBotao = {
@@ -138,67 +156,104 @@ export function ConteudoTabela({
       },
     }
 
-    return { cor, texto, sxBotao, sxTexto }
+    return { cor, texto, sxBotao }
   }
 
   return (
     <>
       {/* Define a linha com estilo próprio para poder alternar entre as cores "const StyledTableRow". Esse é o container da linha */}
       <StyledTableRow>
-        {/* Define celula da linha referente a primeira coluna da tabela (Nome do documento) */}
+        {/* Define celula da linha referente a primeira coluna da tabela (Nome do documento ou do atendimento) */}
         <TableCell
           sx={{
-            width: numeroColunas === 3 ? '30% !important' : '50% !important',
+            width: !ehDocumento ? '30% !important' : '50% !important',
           }}
         >
-          {numeroColunas === 3 ? (
-            <>
-              <Typography
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                }}
-              ></Typography>
-              <Typography
-                sx={{
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                }}
-              >
-                {` NÚMERO: ${numero}`}
-              </Typography>
-            </>
-          ) : (
+          <Typography
+            sx={{
+              fontSize: '12px',
+              fontWeight: 'bold',
+            }}
+          >
+            {nome}
+          </Typography>
+          {!ehDocumento ? (
             <Typography
               sx={{
                 fontSize: '12px',
-                fontWeight: 'bold',
               }}
             >
-              {nome?.toUpperCase()}
+              {` Nº: ${numero}`}
             </Typography>
-          )}
+          ) : null}
         </TableCell>
-        {numeroColunas === 3 ? (
+        {/* Define celula da linha referente a segunda coluna da tabela */}
+        {!ehDocumento ? (
           <TableCell
             sx={{
               fontWeight: 600,
               color:
-                quantidadePendencia && quantidadePendencia !== 0
+                quantidadePendencia &&
+                quantidadePendencia !== 0 &&
+                situacao === 1
                   ? 'red'
                   : 'black',
               width: '40% !important',
             }}
             align="center"
           >
-            {quantidadePendencia !== 0
-              ? `${quantidadePendencia} DOCUMENTOS PENDENTES`
-              : situacao === '1' || situacao === '3'
-                ? 'NENHUM DOCUMENTO PENDENTE'
-                : `${dataAgendamento} as ${horarioAgendamento}`}
+            <Typography
+              sx={{
+                fontSize: '12px',
+                fontWeight: 'bold',
+              }}
+            >
+              {situacao === SITUACAO_ATENDIMENTO.pendente
+                ? `${quantidadePendencia} Documentos Pendentes`
+                : [
+                      SITUACAO_ATENDIMENTO.agendamento,
+                      SITUACAO_ATENDIMENTO.ausente,
+                    ].includes(situacao)
+                  ? `${new Date(dataAgendamento || '').toLocaleDateString(
+                      'pt-BR',
+                      {
+                        weekday: 'long',
+                        year: '2-digit',
+                        day: '2-digit',
+                        month: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      },
+                    )}`
+                  : situacao === SITUACAO_ATENDIMENTO.atendido
+                    ? `${new Date(dataAtendimento || '').toLocaleDateString(
+                        'pt-BR',
+                        {
+                          weekday: 'long',
+                          year: '2-digit',
+                          day: '2-digit',
+                          month: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        },
+                      )}`
+                    : situacao === SITUACAO_ATENDIMENTO.baixado
+                      ? 'Clique em "visualizar" para mais informações'
+                      : 'Pedido em análise'}
+            </Typography>
+            {situacao === SITUACAO_ATENDIMENTO.ausente ? (
+              <Typography
+                sx={{
+                  color: 'red',
+                  fontSize: '12px',
+                }}
+              >
+                (Não compareceu na data marcada)
+              </Typography>
+            ) : null}
           </TableCell>
         ) : null}
-        {/* Define celula da linha referente a segunda coluna da tabela (Enviar Documento) */}
+        {/* Define celula da linha referente a terceira coluna da tabela (Enviar Documento) */}
         <TableCell align="center">
           <Box
             sx={{
@@ -209,31 +264,32 @@ export function ConteudoTabela({
             {/* As ações do botão são: exibe modais para envio de documento (caso documento pendente) */}
             <Button
               onClick={() => {
-                if (['4', '2'].includes(situacao)) {
+                if (ehDocumento) {
                   setOpenModal(!openModal)
-                } else if (numeroColunas === 2) {
-                  setOpenEnvioArquivo(true)
+                  console.log('Antes abria modal de Documento')
                 } else {
                   window.location.href = `atendimentos/${numero}`
                 }
               }}
               sx={estiloBotao().sxBotao}
             >
-              <Typography sx={estiloBotao().sxTexto}>
-                {estiloBotao().texto}
-              </Typography>
+              <Typography sx={sxTextoBotao}>{estiloBotao().texto}</Typography>
             </Button>
 
             {/* Botão condicional que só aparece quando enviar o documento não é obrigatório. Abre a modal "não tenho" */}
-            {!obrigatorio && !dataUpload && numeroColunas === 2 ? (
+            {!obrigatorio &&
+            !dataUpload &&
+            ehDocumento &&
+            [1, 3].includes(situacao) ? (
               <Button
                 onClick={() => {
-                  setOpenNaotenho(true)
+                  setOpenModalNaoTenho(!openModalNaoTenho)
+                  console.log('Antes abria modal de NÃO TENHO Documento')
                 }}
-                sx={estiloBotao('5').sxBotao}
+                sx={estiloBotao(5).sxBotao}
               >
-                <Typography sx={estiloBotao('5').sxTexto}>
-                  {estiloBotao('5').texto}
+                <Typography sx={sxTextoBotao}>
+                  {estiloBotao(5).texto}
                 </Typography>
               </Button>
             ) : null}
@@ -241,62 +297,36 @@ export function ConteudoTabela({
         </TableCell>
       </StyledTableRow>
 
-      {/* Modal quando o botão é destinado ao "envio" ou "reenvio" de documento */}
-      <Dialog
-        open={openEnvioArquivo}
-        onClose={() => {
-          setOpenEnvioArquivo(false)
-        }}
-      >
-        <ModalEnvioDocumento
-          props={{
-            nomeEnvioDocumento: nome,
-            tipoModal: 'envio',
-            handleValue: openEnvioArquivo,
-            handleAction: setOpenEnvioArquivo,
-            situacao,
-            dataEnviado,
-            dadoRecusa: dadoRecusa || null,
+      {/* modal de informações e envio do documento */}
+      {ehDocumento ? (
+        <ModalAcoesContainer
+          open={openModal}
+          onClose={() => {
+            setOpenModal(false)
           }}
-        ></ModalEnvioDocumento>
-      </Dialog>
+        >
+          <ModalPedidoDocumento
+            nome={nome}
+            situacao={situacao}
+          ></ModalPedidoDocumento>
+        </ModalAcoesContainer>
+      ) : null}
 
-      {/* Modal quando o botão é destinado a declarar que "não tem" documento */}
-      <Dialog
-        open={openNaotenho}
-        onClose={() => {
-          setOpenNaotenho(false)
-        }}
-      >
-        <ModalEnvioDocumento
-          props={{
-            nomeEnvioDocumento: nome,
-            tipoModal: 'nao tenho',
-            handleValue: openNaotenho,
-            handleAction: setOpenNaotenho,
-            situacao,
-            dataEnviado,
+      {/* modal para declarar que não tem documento */}
+      {!obrigatorio ? (
+        <ModalAcoesContainer
+          open={openModalNaoTenho}
+          onClose={() => {
+            setOpenModalNaoTenho(false)
           }}
-        ></ModalEnvioDocumento>
-      </Dialog>
-
-      <Dialog
-        open={openModal}
-        onClose={() => {
-          setOpenModal(false)
-        }}
-      >
-        <ModalEnvioDocumento
-          props={{
-            nomeEnvioDocumento: nome,
-            tipoModal: 'info',
-            handleValue: openModal,
-            handleAction: setOpenModal,
-            situacao,
-            dataEnviado,
-          }}
-        ></ModalEnvioDocumento>
-      </Dialog>
+        >
+          <ModalPedidoDocumento
+            nome={nome}
+            situacao={situacao}
+            naoTenho={true}
+          ></ModalPedidoDocumento>
+        </ModalAcoesContainer>
+      ) : null}
     </>
   )
 }

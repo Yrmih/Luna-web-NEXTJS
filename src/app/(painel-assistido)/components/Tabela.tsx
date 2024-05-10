@@ -16,43 +16,46 @@ import {
   Typography,
   rgbToHex,
 } from '@mui/material'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import {
+  ReportProblem,
+  AccessTimeFilled,
+  CheckCircle,
+  CancelRounded,
+} from '@mui/icons-material'
 // Internal
 import { ConteudoTabela } from '../atendimentos/components/ui/ConteudoTabela'
+import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
 
 const cores = {
   vermelho: 'rgb(220, 0, 0, 1)',
   verde: 'rgb(0, 100, 0, 1)',
   azul: 'rgb(39, 122, 149, 1)',
   amarelo: 'rgb(255, 201, 12, 1)',
+  cinza: 'rgb(169, 169, 169, 1)',
 }
 const icones = {
-  atencao: <ReportProblemIcon />,
-  relogio: <AccessTimeFilledIcon />,
-  aprovado: <CheckCircleIcon />,
-}
-
-interface Dados {
-  nome?: string
-  situacao: string
-  obrigatorio?: boolean
-  dataEnviado?: string
-  dadoRecusa?: string
-  numero?: string
-  dataAgendamento?: string
-  horarioAgendamento?: string
-  quantidadePendencia?: number
+  atencao: <ReportProblem />,
+  relogio: <AccessTimeFilled />,
+  aprovado: <CheckCircle />,
+  excluido: <CancelRounded />,
 }
 
 interface Colunas {
   nome: string
 }
 
+interface Documentos {
+  nome: string
+  situacao: number
+  obrigatorio: boolean
+  descricao?: string
+  jusiticativaRecusa?: string
+}
+
 interface TabelaProps {
   id: string
-  conteudo: Dados[]
+  documentos?: Documentos[] | undefined
+  conteudo?: AtendimentoPessoaListResponse[] | undefined
   configuracaoTabela: {
     corTabela: keyof typeof cores
     iconeTabela: keyof typeof icones
@@ -61,16 +64,21 @@ interface TabelaProps {
   }
 }
 
-export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
+export function Tabela({
+  id,
+  configuracaoTabela,
+  conteudo,
+  documentos,
+}: TabelaProps) {
   const totalColunas = configuracaoTabela.colunas.length
+
+  // TODO: Remover console só para evitar erro
 
   const ocultarTabela = () => {
     const elementos = document.querySelectorAll<HTMLElement>(`#${id}`)
 
     elementos.forEach((elemento) => {
       const visibility = elemento.style.visibility
-      elemento.style.transition = '0.2s'
-      elemento.style.opacity = visibility === 'collapse' ? '1' : '0'
       elemento.style.visibility =
         visibility === 'collapse' ? 'visible' : 'collapse'
     })
@@ -79,24 +87,17 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
   return (
     <TableContainer
       sx={{
-        mt: 2,
+        marginTop: 1,
+        marginBottom: 1,
         borderRadius: '15px',
-        marginBottom: '23px',
         boxShadow:
           '3px 4px 3px -1px rgba(151, 151, 151, 0.2),1px 1px 2px 1px rgba(130, 130, 130, 0.14),2px 2px 3px 1px rgba(9, 9, 9, 0.12)',
       }}
       component={Paper}
     >
-      <Table
-        sx={{
-          overflow: 'hidden',
-        }}
-      >
+      <Table>
         {/* Header da categoria da Tabela */}
         <TableHead
-          sx={{
-            paddingBottom: '50px',
-          }}
           onClick={() => {
             ocultarTabela()
           }}
@@ -119,10 +120,15 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
                 <Typography align="center" fontWeight={500}>
                   {configuracaoTabela.nomeTabela}
                 </Typography>
-                <Badge badgeContent={conteudo.length} color="error" showZero>
+                <Badge
+                  badgeContent={
+                    conteudo ? conteudo?.length : documentos?.length
+                  }
+                  color="error"
+                >
                   <Icon
                     sx={{
-                      marginRight: '1px',
+                      marginRight: '2px',
                       color: rgbToHex(
                         cores[configuracaoTabela.corTabela].replace(
                           /..$/g,
@@ -143,7 +149,7 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
         <TableHead
           id={id}
           style={{
-            visibility: id === 'pedidos_pendentes' ? 'visible' : 'collapse',
+            visibility: 'collapse',
           }}
         >
           <TableRow
@@ -166,7 +172,11 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
                         : 'center',
                 }}
               >
-                <Typography fontSize={15} fontWeight={500}>
+                <Typography
+                  fontSize={15}
+                  fontWeight={500}
+                  marginRight={index === totalColunas - 1 ? '10px' : '0px'}
+                >
                   {item.nome}
                 </Typography>
               </TableCell>
@@ -178,25 +188,34 @@ export function Tabela({ id, configuracaoTabela, conteudo }: TabelaProps) {
         <TableBody
           id={id}
           style={{
-            visibility: id === 'pedidos_pendentes' ? 'visible' : 'collapse',
+            visibility: 'collapse',
           }}
         >
           {/* Componente que preenche as linhas da tabela */}
-          {conteudo.map((item) => (
-            <ConteudoTabela
-              key={Math.random()}
-              nome={item.nome}
-              situacao={item.situacao}
-              obrigatorio={item.obrigatorio}
-              dataEnviado={item.dataEnviado ? item.dataEnviado : null}
-              dadoRecusa={item.dadoRecusa ? item.dadoRecusa : null}
-              numeroColunas={totalColunas}
-              numero={item.numero}
-              dataAgendamento={item.dataAgendamento}
-              horarioAgendamento={item.horarioAgendamento}
-              quantidadePendencia={item.quantidadePendencia}
-            ></ConteudoTabela>
-          ))}
+          {conteudo
+            ? conteudo.map((item) => (
+                <ConteudoTabela
+                  key={Math.random()}
+                  nome={item.atendimento?.qualificacao}
+                  ehDocumento={false}
+                  situacao={
+                    item?.atendimento?.situacao ? item.atendimento?.situacao : 1
+                  }
+                  numero={item.atendimento?.numero}
+                  dataAgendamento={item.atendimento?.proximo_atendimento}
+                  dataAtendimento={item.atendimento?.data_atendimento}
+                  quantidadePendencia={item.atendimento?.documentos_pendentes}
+                ></ConteudoTabela>
+              ))
+            : documentos?.map((item) => (
+                <ConteudoTabela
+                  key={Math.random()}
+                  nome={item.nome}
+                  ehDocumento={true}
+                  situacao={item?.situacao ? item.situacao : 1}
+                  obrigatorio={item.obrigatorio}
+                ></ConteudoTabela>
+              ))}
         </TableBody>
       </Table>
     </TableContainer>

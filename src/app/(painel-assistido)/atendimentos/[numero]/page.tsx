@@ -1,8 +1,8 @@
 'use client'
 import { Box, Paper, Typography } from '@mui/material'
-import { DetalhesAtendimento } from '../components/page'
+import { DetalhesDoPedido } from '../components/page'
 
-export default function DetalhesAtendimentoPage({
+export default function DetalhesDoPedidoPage({
   params: { numero },
 }: {
   params: { numero: string }
@@ -45,7 +45,7 @@ export default function DetalhesAtendimentoPage({
           </Box>
         </Paper>
       </Box>
-      <DetalhesAtendimento />
+      <DetalhesDoPedido />
     </>
   )
 }
