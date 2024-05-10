@@ -16,9 +16,12 @@ import {
   Typography,
   rgbToHex,
 } from '@mui/material'
-import ReportProblemIcon from '@mui/icons-material/ReportProblem'
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import {
+  ReportProblem,
+  AccessTimeFilled,
+  CheckCircle,
+  CancelRounded,
+} from '@mui/icons-material'
 // Internal
 import { ConteudoTabela } from '../atendimentos/components/ui/ConteudoTabela'
 import { AtendimentoPessoaListResponse } from '@/lib/solar-client/SolarApi'
@@ -28,11 +31,13 @@ const cores = {
   verde: 'rgb(0, 100, 0, 1)',
   azul: 'rgb(39, 122, 149, 1)',
   amarelo: 'rgb(255, 201, 12, 1)',
+  cinza: 'rgb(169, 169, 169, 1)',
 }
 const icones = {
-  atencao: <ReportProblemIcon />,
-  relogio: <AccessTimeFilledIcon />,
-  aprovado: <CheckCircleIcon />,
+  atencao: <ReportProblem />,
+  relogio: <AccessTimeFilled />,
+  aprovado: <CheckCircle />,
+  excluido: <CancelRounded />,
 }
 
 interface Colunas {
@@ -82,9 +87,9 @@ export function Tabela({
   return (
     <TableContainer
       sx={{
-        mt: 2,
+        marginTop: 1,
+        marginBottom: 1,
         borderRadius: '15px',
-        marginBottom: '23px',
         boxShadow:
           '3px 4px 3px -1px rgba(151, 151, 151, 0.2),1px 1px 2px 1px rgba(130, 130, 130, 0.14),2px 2px 3px 1px rgba(9, 9, 9, 0.12)',
       }}

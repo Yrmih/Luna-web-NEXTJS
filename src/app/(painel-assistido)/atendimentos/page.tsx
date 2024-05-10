@@ -212,6 +212,18 @@ export default function HomePage() {
                     SITUACAO_ATENDIMENTO.atendido,
                   ])}
                 />
+                <Tabela
+                  id={'excluidos'}
+                  configuracaoTabela={{
+                    corTabela: 'cinza',
+                    iconeTabela: 'excluido',
+                    nomeTabela: 'Excluidos',
+                    colunas: padraoTabela,
+                  }}
+                  conteudo={classificarAtendimentosPorSituacao(atendimentos, [
+                    SITUACAO_ATENDIMENTO.baixado,
+                  ])}
+                />
               </Grid>
             </Grid>
           </Grid>

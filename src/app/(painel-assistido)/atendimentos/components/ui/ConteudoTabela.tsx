@@ -237,7 +237,9 @@ export function ConteudoTabela({
                           minute: '2-digit',
                         },
                       )}`
-                    : 'Pedido em análise'}
+                    : situacao === SITUACAO_ATENDIMENTO.baixado
+                      ? 'Clique em "visualizar" para mais informações'
+                      : 'Pedido em análise'}
             </Typography>
             {situacao === SITUACAO_ATENDIMENTO.ausente ? (
               <Typography
