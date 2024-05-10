@@ -238,18 +238,17 @@ export function ConteudoTabela({
                         },
                       )}`
                     : 'Pedido em análise'}
-
-              {situacao === SITUACAO_ATENDIMENTO.ausente ? (
-                <Typography
-                  sx={{
-                    color: 'red',
-                    fontSize: '12px',
-                  }}
-                >
-                  (Não compareceu na data marcada)
-                </Typography>
-              ) : null}
             </Typography>
+            {situacao === SITUACAO_ATENDIMENTO.ausente ? (
+              <Typography
+                sx={{
+                  color: 'red',
+                  fontSize: '12px',
+                }}
+              >
+                (Não compareceu na data marcada)
+              </Typography>
+            ) : null}
           </TableCell>
         ) : null}
         {/* Define celula da linha referente a terceira coluna da tabela (Enviar Documento) */}

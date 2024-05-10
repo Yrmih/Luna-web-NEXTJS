@@ -153,27 +153,14 @@ export default function HomePage() {
                 paddingBottom: '15px',
               }}
             >
-              {/* Box da margin de um componente para o outro */}
-
-              <Grid
-                container
-                component={Paper}
-                elevation={3}
-                sx={{
-                  width: '100%',
-                  boxShadow: '0px 0px 1px hsl(0deg 0.79% 35.3% / 54%)', // Adicione o sombreamento
-                  borderRadius: '3vh', // Adicione a borda arredondada
-                }}
-              ></Grid>
               {/* Componente que trás dados dos Atendimentos do atendimento */}
               <Grid
                 container
                 component={Paper}
-                elevation={3}
                 sx={{
                   p: 4,
                   borderRadius: '3vh', // Adicione a borda arredondada
-                  padding: '30px',
+                  padding: '15px',
                 }}
               >
                 <Tabela
