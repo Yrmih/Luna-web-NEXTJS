@@ -3,7 +3,7 @@
 import { solarApi } from '@/lib'
 import {
   ErrorPessoAtendimentoWithSituacaoResponse,
-  Pessoa,
+  AtendimentoPessoa,
 } from '@/lib/solar-client/SolarApi'
 import { ServiceResponse } from '@/types'
 import { ConstraintErrorPessoaAssistida } from '@/utils/solar'
@@ -11,7 +11,9 @@ import { cookies } from 'next/headers'
 
 export async function consultarPessoaAssistida(
   cpf: string,
-): Promise<ServiceResponse<Pessoa, ErrorPessoAtendimentoWithSituacaoResponse>> {
+): Promise<
+  ServiceResponse<AtendimentoPessoa, ErrorPessoAtendimentoWithSituacaoResponse>
+> {
   try {
     const response =
       await solarApi.atendimentosPartes.atendimentosPartesConsultarPessoa({

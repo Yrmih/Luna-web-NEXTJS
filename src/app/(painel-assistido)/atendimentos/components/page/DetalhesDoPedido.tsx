@@ -5,11 +5,11 @@ import { Box, Grid } from '@mui/material'
 
 // Internal
 import { CardAvatar } from '../ui/CardAvatar'
-import { CardDocumentoEnvio } from '../ui/CardDocumentoEnvio'
+import { CardDocumentosEPerguntas } from '../ui/CardDocumentosEPerguntas'
 import { CardProcesso } from '../ui/CardProcesso'
-import { PreAgendamento } from '../ui/PreAgendamento'
+import { CardDadosPedido } from '../ui/CardDadosPedido'
 
-export function DetalhesAtendimento() {
+export function DetalhesDoPedido() {
   return (
     // Container principal (dispõe dos itens da página)
     <Grid
@@ -39,10 +39,10 @@ export function DetalhesAtendimento() {
           }}
         >
           {/* Componente que trás dados do pré agendamento */}
-          <PreAgendamento props={{ tipoAtendimento: 'Pré-agendamento' }} />
+          <CardDadosPedido props={{ tipoAtendimento: 'Pré-agendamento' }} />
         </Box>
         {/* Componente que trás dados dos documentos do atendimento */}
-        <CardDocumentoEnvio />
+        <CardDocumentosEPerguntas />
       </Grid>
 
       {/* Detalhes do assistido */}
